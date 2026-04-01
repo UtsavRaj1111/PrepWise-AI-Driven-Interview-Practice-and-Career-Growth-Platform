@@ -1,0 +1,7 @@
+flask
+groq
+python-dotenv
+openai
+supabase
+pdfplumber
+python-docx

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cognitive Matrices | PrepWise</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .topic-card {
+            background: var(--bg-surface);
+            border: 2px solid var(--border-glass);
+            border-radius: 24px;
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .topic-card:hover {
+            border-color: rgba(0, 212, 255, 0.4);
+            transform: translateY(-3px);
+        }
+
+        .topic-card.selected {
+            border-color: var(--accent-cyan);
+            background: rgba(0, 212, 255, 0.05);
+        }
+
+        .topic-card input[type="radio"] {
+            display: none;
+        }
+
+        .difficulty-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.7rem 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 2px solid var(--border-glass);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .difficulty-pill:hover {
+            border-color: rgba(0, 212, 255, 0.4);
+        }
+
+        .difficulty-pill input[type="radio"] {
+            display: none;
+        }
+
+        .difficulty-pill.selected {
+            border-color: var(--accent-cyan);
+            color: var(--accent-cyan);
+            background: rgba(0, 212, 255, 0.08);
+        }
+
+        .check-icon {
+            display: none;
+        }
+
+        .topic-card.selected .check-icon {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            <div class="logo"><a href="/" style="text-decoration:none; color:inherit;">Prep <span>Wise</span></a>
+            </div>
+            <nav class="nav-links">
+                <a href="/dashboard">Dashboard</a>
+                <a href="/interview_start">Simulator</a>
+                <a href="/resume">Resume Scan</a>
+                <a href="/aptitude" class="active">Skill Paths</a>
+                <a href="/mentor">Network</a>
+            </nav>
+            <div style="display: flex; gap: 1rem; align-items: center;">
+                <a href="/dashboard" class="btn-ghost" style="padding: 0.6rem 1.4rem; font-size: 0.85rem;">Dashboard</a>
+                <a href="/interview_start" class="btn-cyan">Initialize Simulation</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container" style="padding-top: 12rem; padding-bottom: 8rem;">
+        <div style="margin-bottom: 5rem; text-align: center;" class="animate-up">
+            <span class="tag-cyan" style="justify-content: center; margin-bottom: 1rem;">
+                <div class="indicator-cyan"></div> System Readiness Check
+            </span>
+            <h1 style="font-size: 3.5rem; font-weight: 900; letter-spacing: -2px;">Cognitive <br><span>Skill
+                    Matrices.</span></h1>
+            <p
+                style="color: var(--text-muted); font-size: 1.1rem; margin-top: 1rem; max-width: 550px; margin-inline: auto;">
+                Select your cognitive vector and calibration level to begin performance evaluation.</p>
+        </div>
+
+        <form action="/start_aptitude" method="POST" id="aptitude-form">
+            <!-- Step 1: Category -->
+            <div style="margin-bottom: 4rem;" class="animate-up">
+                <h3
+                    style="font-size: 0.75rem; font-weight: 900; letter-spacing: 2px; color: var(--text-muted); margin-bottom: 2rem; text-transform: uppercase;">
+                    Step 1 — Select Cognitive Vector</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+
+                    <label class="topic-card" id="card-quant" onclick="selectCategory(this, 'Quantitative')">
+                        <input type="radio" name="category" value="Quantitative" required>
+                        <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                            <div style="font-size: 2rem; color: var(--accent-cyan); margin-bottom: 1.5rem;"><i
+                                    class="fa-solid fa-calculator"></i></div>
+                            <i class="fa-solid fa-circle-check check-icon"
+                                style="color: var(--accent-cyan); font-size: 1.2rem;"></i>
+                        </div>
+                        <h3 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 0.8rem;">Quantitative Logic</h3>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">Numerical reasoning, percentages,
+                            ratios, and data interpretation.</p>
+                    </label>
+
+                    <label class="topic-card" id="card-logical" onclick="selectCategory(this, 'Logical')">
+                        <input type="radio" name="category" value="Logical">
+                        <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                            <div style="font-size: 2rem; color: #8b5cf6; margin-bottom: 1.5rem;"><i
+                                    class="fa-solid fa-atom"></i></div>
+                            <i class="fa-solid fa-circle-check check-icon"
+                                style="color: #8b5cf6; font-size: 1.2rem;"></i>
+                        </div>
+                        <h3 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 0.8rem;">Logical Deduction</h3>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">Pattern recognition, syllogisms,
+                            deductive and inductive reasoning.</p>
+                    </label>
+
+                    <label class="topic-card" id="card-verbal" onclick="selectCategory(this, 'Verbal')">
+                        <input type="radio" name="category" value="Verbal">
+                        <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                            <div style="font-size: 2rem; color: #f43f5e; margin-bottom: 1.5rem;"><i
+                                    class="fa-solid fa-language"></i></div>
+                            <i class="fa-solid fa-circle-check check-icon"
+                                style="color: #f43f5e; font-size: 1.2rem;"></i>
+                        </div>
+                        <h3 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 0.8rem;">Verbal Architecture</h3>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">Reading comprehension, synonyms,
+                            antonyms, and sentence completion.</p>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Step 2: Difficulty -->
+            <div style="margin-bottom: 5rem;" class="animate-up">
+                <h3
+                    style="font-size: 0.75rem; font-weight: 900; letter-spacing: 2px; color: var(--text-muted); margin-bottom: 2rem; text-transform: uppercase;">
+                    Step 2 — Calibration Level</h3>
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                    <label class="difficulty-pill" id="pill-easy" onclick="selectDifficulty(this)">
+                        <input type="radio" name="difficulty" value="Easy"> <i class="fa-solid fa-seedling"></i> Junior
+                        Level
+                    </label>
+                    <label class="difficulty-pill selected" id="pill-medium" onclick="selectDifficulty(this)">
+                        <input type="radio" name="difficulty" value="Medium" checked> <i class="fa-solid fa-bolt"></i>
+                        Intermediate Level
+                    </label>
+                    <label class="difficulty-pill" id="pill-hard" onclick="selectDifficulty(this)">
+                        <input type="radio" name="difficulty" value="Hard"> <i class="fa-solid fa-fire"></i> Senior
+                        Level
+                    </label>
+                </div>
+            </div>
+
+            <div style="text-align: center;" class="animate-up">
+                <button type="submit" class="btn-cyan" style="padding: 1.2rem 5rem; font-size: 1.1rem;">
+                    Initialize Skill Check <i class="fa-solid fa-microchip" style="margin-left: 1rem;"></i>
+                </button>
+            </div>
+        </form>
+    </main>
+
+    <script>
+        function selectCategory(card, value) {
+            document.querySelectorAll('.topic-card').forEach(c => c.classList.remove('selected'));
+            card.classList.add('selected');
+            card.querySelector('input[type="radio"]').checked = true;
+        }
+
+        function selectDifficulty(pill) {
+            document.querySelectorAll('.difficulty-pill').forEach(p => p.classList.remove('selected'));
+            pill.classList.add('selected');
+            pill.querySelector('input[type="radio"]').checked = true;
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Intelligence | PrepWise</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <header>
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            <div class="logo"><a href="/">Prep<span>Wise</span></a></div>
+            <nav class="nav-links">
+                <a href="/dashboard" class="active">Dashboard</a>
+                <a href="/interview_start">Simulator</a>
+                <a href="/resume">Resume Scan</a>
+                <a href="/aptitude">Skill Paths</a>
+                <a href="/mentor">Network</a>
+            </nav>
+            <div style="display: flex; gap: 1.5rem; align-items: center;">
+                <a href="/interview_start" class="btn-cyan">Start Interview</a>
+                <div
+                    style="width: 32px; height: 32px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid var(--accent-cyan);">
+                    <i class="fa-solid fa-user" style="font-size: 0.8rem; color: var(--accent-cyan);"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container" style="padding-top: 10rem;">
+        <div style="margin-bottom: 4rem;" class="animate-up">
+            <span class="tag-cyan" style="margin-bottom: 1rem;">
+                <div class="indicator-cyan"></div> System Live
+            </span>
+            <h1 style="font-size: 3rem; font-weight: 900; letter-spacing: -2px;">Network <br><span>Intelligence.</span>
+            </h1>
+            <p style="color: var(--text-muted); font-size: 1.1rem; margin-top: 1rem;">Real-time performance telemetry
+                across architectural domains.</p>
+        </div>
+
+        <!-- Metrics Grid -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-bottom: 4rem;"
+            class="animate-up">
+            <div class="hud-card">
+                <span class="lbl"
+                    style="font-size: 0.7rem; text-transform: uppercase; font-weight: 800; color: var(--text-muted);">Avg
+                    Interview Score</span>
+                <div style="font-size: 2.5rem; font-weight: 900; color: var(--accent-cyan); margin-top: 0.5rem;">{{
+                    stats.avg_interview }}%</div>
+                <div
+                    style="position: absolute; bottom: -10px; right: -10px; font-size: 4rem; opacity: 0.05; color: var(--accent-cyan);">
+                    <i class="fa-solid fa-robot"></i>
+                </div>
+            </div>
+            <div class="hud-card">
+                <span class="lbl"
+                    style="font-size: 0.7rem; text-transform: uppercase; font-weight: 800; color: var(--text-muted);">Aptitude
+                    Accuracy</span>
+                <div style="font-size: 2.5rem; font-weight: 900; color: #8b5cf6; margin-top: 0.5rem;">{{
+                    stats.apt_accuracy }}%</div>
+                <div
+                    style="position: absolute; bottom: -10px; right: -10px; font-size: 4rem; opacity: 0.05; color: #8b5cf6;">
+                    <i class="fa-solid fa-brain"></i>
+                </div>
+            </div>
+            <div class="hud-card">
+                <span class="lbl"
+                    style="font-size: 0.7rem; text-transform: uppercase; font-weight: 800; color: var(--text-muted);">Total
+                    Sessions</span>
+                <div style="font-size: 2.5rem; font-weight: 900; color: #10b981; margin-top: 0.5rem;">{{
+                    stats.total_sessions }}</div>
+                <div
+                    style="position: absolute; bottom: -10px; right: -10px; font-size: 4rem; opacity: 0.05; color: #10b981;">
+                    <i class="fa-solid fa-bolt"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Layout -->
+        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; margin-bottom: 6rem;" class="animate-up">
+            <div class="glass-panel" style="padding: 3rem;">
+                <h3 style="margin-bottom: 2rem; display: flex; align-items: center; gap: 1rem;">
+                    <i class="fa-solid fa-chart-area" style="color: var(--accent-cyan);"></i> Progress Telemetry (Last 7
+                    Days)
+                </h3>
+                <div style="height: 400px;">
+                    <canvas id="telemetryChart"></canvas>
+                </div>
+            </div>
+
+            <div class="glass-panel" style="padding: 2.5rem;">
+                <h3 style="margin-bottom: 2rem;"><i class="fa-solid fa-timeline"></i> Event Logs</h3>
+                <div style="overflow-y: auto; max-height: 400px; padding-right: 1rem;">
+                    {% if logs %}
+                    {% for log in logs %}
+                    <div style="padding: 1.2rem 0; border-bottom: 1px solid var(--border-glass);">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.4rem;">
+                            <span style="font-weight: 700; font-size: 0.9rem;">{{ log.category if log.category else
+                                log.type }}</span>
+                            <span style="color: var(--accent-cyan); font-weight: 800;">{{ log.score }}%</span>
+                        </div>
+                        <div style="font-size: 0.7rem; color: var(--text-muted);">{{ log.created_at[:16]|replace('T', '
+                            ') }}</div>
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                    <p style="color: var(--text-muted); text-align: center; margin-top: 4rem;">No telemetry data
+                        available.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const ctx = document.getElementById('telemetryChart').getContext('2d');
+        const logsData = {{ logs| tojson }};
+
+        // Reverse to show chronological order on chart
+        const sortedLogs = [...logsData].reverse();
+
+        const labels = sortedLogs.map(l => l.created_at.substring(5, 10)); // MM-DD
+        const scores = sortedLogs.map(l => l.score);
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Efficiency',
+                    data: scores,
+                    borderColor: '#00D4FF',
+                    backgroundColor: 'rgba(0, 212, 255, 0.05)',
+                    borderWidth: 3,
+                    pointRadius: 5,
+                    pointBackgroundColor: '#00D4FF',
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: { grid: { display: false }, ticks: { color: '#8E9BAE', font: { family: 'Outfit', weight: 600 } } },
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        grid: { color: 'rgba(255,255,255,0.03)' },
+                        ticks: { color: '#8E9BAE', font: { family: 'Outfit', weight: 600 } }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

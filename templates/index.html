@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PrepWise | Precision Interview Preparation Simulator</title>
+    <meta name="description" content="The elite AI preparation environment for engineers. Master technical interviews, optimize your resume, and sharpen your cognitive skills.">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+        .glow-sphere {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(0,212,255,0.15) 0%, transparent 70%);
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .hero-image { position: relative; }
+        .hero-image img { position: relative; z-index: 1; }
+        .feature-grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        .feature-card-3 {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-glass);
+            border-radius: 24px;
+            padding: 3rem;
+            transition: all 0.4s ease;
+        }
+        .feature-card-3:hover { border-color: rgba(0,212,255,0.4); transform: translateY(-4px); }
+        footer { padding: 5rem 0; border-top: 1px solid var(--border-glass); margin-top: 5rem; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            <div class="logo"><a href="/" style="text-decoration:none; color:inherit;">Prep<span>Wise</span></a></div>
+            <nav class="nav-links">
+                <a href="/interview_start">Simulator</a>
+                <a href="/resume">Resume Scan</a>
+                <a href="/aptitude">Skill Paths</a>
+                <a href="/mentor">Network</a>
+            </nav>
+            <div style="display: flex; gap: 1rem; align-items: center;">
+                <a href="/dashboard" class="btn-ghost" style="padding: 0.6rem 1.4rem; font-size: 0.85rem;">Dashboard</a>
+                <a href="/interview_start" class="btn-cyan">Start Prep</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero container animate-up">
+            <div class="hero-content">
+                <span class="hero-tag">⚡ System Online: v3.4.0</span>
+                <h1>Precision <br><span>Interview Prep.</span></h1>
+                <p>The elite AI preparation environment for high-performance engineers. Ace technical interviews, analyze resumes, and sharpen cognitive skills.</p>
+                <div class="hero-btns">
+                    <a href="/interview_start" class="btn-cyan" style="padding: 1.1rem 2.5rem; font-size: 1rem;">Initialize Simulator</a>
+                    <a href="/resume" class="btn-ghost" style="padding: 1.1rem 2.5rem; font-size: 1rem;">Scan Resume</a>
+                </div>
+            </div>
+            <div class="hero-image animate-up" style="animation-delay: 0.2s;">
+                <div class="glow-sphere"></div>
+                <img src="{{ url_for('static', filename='images/hero_globe_lightbulb_1774895969277.png') }}"
+                     alt="PrepWise Core"
+                     style="width: 100%; filter: drop-shadow(0 0 40px rgba(0, 212, 255, 0.25)); border-radius: 20px;">
+            </div>
+        </section>
+
+        <!-- Stats Ribbon -->
+        <div class="stats-ribbon container">
+            <div class="stat-item">
+                <span class="val">98.4%</span>
+                <span class="lbl">AI Precision Rate</span>
+            </div>
+            <div class="stat-item">
+                <span class="val">&lt; 200ms</span>
+                <span class="lbl">Processing Latency</span>
+            </div>
+            <div class="stat-item">
+                <span class="val">12k+</span>
+                <span class="lbl">Profiles Analyzed</span>
+            </div>
+            <div class="stat-item">
+                <span class="val">Elite</span>
+                <span class="lbl">Placement Grade</span>
+            </div>
+        </div>
+
+        <!-- Features -->
+        <section class="container section-title" id="features">
+            <h2>Core <span style="color: var(--accent-cyan);">Modules.</span></h2>
+            <p style="color: var(--text-muted); max-width: 550px; margin-top: 1.5rem; font-size: 1.05rem;">Three precision-engineered pathways to elite career readiness.</p>
+        </section>
+
+        <section class="container" style="padding-bottom: 10rem;">
+            <div class="feature-grid-3">
+                <div class="feature-card-3">
+                    <div class="f-icon"><i class="fa-solid fa-microchip"></i></div>
+                    <h3>AI Simulator</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 2rem; line-height: 1.7;">Real-time technical interview sessions powered by Llama 3. Questions adapt to your performance level — Junior, Intermediate, or Senior.</p>
+                    <a href="/interview_start" class="btn-cyan" style="display:inline-block;">Initialize →</a>
+                </div>
+
+                <div class="feature-card-3" style="border-color: rgba(139,92,246,0.2);">
+                    <div class="f-icon" style="background: rgba(139,92,246,0.1); color: var(--accent-purple);">
+                        <i class="fa-solid fa-file-magnifying-glass"></i>
+                    </div>
+                    <h3>Signal Processor</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 2rem; line-height: 1.7;">Upload your resume for ATS scoring, job description matching, and tailored feedback. Powered by pdfplumber + Groq AI.</p>
+                    <a href="/resume" class="btn-cyan" style="display:inline-block; background: var(--accent-purple);">Process Signal →</a>
+                </div>
+
+                <div class="feature-card-3" style="border-color: rgba(244,63,94,0.2);">
+                    <div class="f-icon" style="background: rgba(244,63,94,0.1); color: #f43f5e;">
+                        <i class="fa-solid fa-brain"></i>
+                    </div>
+                    <h3>Skill Paths</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 2rem; line-height: 1.7;">Quantitative, Logical, and Verbal aptitude matrices designed for high-end cognitive evaluation. 10 questions per session.</p>
+                    <a href="/aptitude" class="btn-cyan" style="display:inline-block; background: #f43f5e;">Commence →</a>
+                </div>
+            </div>
+
+            <!-- AI Mentor banner -->
+            <div style="background: linear-gradient(135deg, rgba(0,212,255,0.05), rgba(139,92,246,0.05)); border: 1px solid rgba(0,212,255,0.15); border-radius: 24px; padding: 4rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:2rem; margin-top: 2rem;">
+                <div>
+                    <div class="tag-cyan" style="margin-bottom: 1rem;"><div class="indicator-cyan"></div> Network Online</div>
+                    <h3 style="font-size: 2rem; font-weight: 900; letter-spacing: -1px; margin-bottom: 1rem;">AI Career Mentor</h3>
+                    <p style="color: var(--text-muted); max-width: 500px;">Get expert career coaching, technical Q&A, and strategic guidance from your dedicated AI advisor. Available 24/7.</p>
+                </div>
+                <a href="/mentor" class="btn-ghost" style="padding: 1.2rem 3rem; font-size: 1rem; border-color: rgba(0,212,255,0.3); white-space: nowrap;">Open Network →</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container" style="text-align: center;">
+            <div class="logo" style="justify-content: center; display:flex; margin-bottom: 1.5rem;">Prep<span style="color:var(--accent-cyan); margin-left:0.3rem;">Wise</span></div>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">&copy; 2026 PrepWise Intelligence. Designed for elite preparation.</p>
+        </div>
+    </footer>
+</body>
+</html>

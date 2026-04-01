@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resume Analyzer | PrepWise </title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+  <style>
+    /* ── PAGE-WIDE: Full-width Layout ── */
+    .container {
+      max-width: 1600px !important;
+      padding: 0 4rem !important;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #04060a;
+    }
+
+    /* ─── LOADING OVERLAY ────────────────────── */
+    #loading-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(4, 6, 10, 0.97);
+      z-index: 3000;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      backdrop-filter: blur(20px);
+    }
+
+    .arc-wrapper {
+      position: relative;
+      width: 90px;
+      height: 90px;
+    }
+
+    .arc-wrapper svg {
+      animation: spin-svg 2s linear infinite;
+    }
+
+    .arc-wrapper circle.bg {
+      fill: none;
+      stroke: rgba(255, 255, 255, 0.05);
+      stroke-width: 5;
+    }
+
+    .arc-wrapper circle.arc {
+      fill: none;
+      stroke: var(--accent-cyan);
+      stroke-width: 5;
+      stroke-linecap: round;
+      stroke-dasharray: 220;
+      stroke-dashoffset: 170;
+      filter: drop-shadow(0 0 8px var(--accent-cyan));
+      animation: arc-dash 1.6s ease-in-out infinite;
+    }
+
+    @keyframes spin-svg {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes arc-dash {
+      0% {
+        stroke-dashoffset: 220
+      }
+
+      50% {
+        stroke-dashoffset: 50
+      }
+
+      100% {
+        stroke-dashoffset: 220
+      }
+    }
+
+    .loader-label {
+      font-size: 0.82rem;
+      font-family: monospace;
+      color: var(--accent-cyan);
+      letter-spacing: 1px;
+      animation: blink .9s steps(1) infinite;
+    }
+
+    @keyframes blink {
+      50% {
+        opacity: .3
+      }
+    }
+
+    /* ─── HERO STRIP ─────────────────────────── */
+    .hero-strip {
+      padding: 13rem 0 7rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: .7rem;
+      padding: .55rem 1.4rem;
+      background: rgba(0, 212, 255, 0.1);
+      border: 1px solid rgba(0, 212, 255, 0.22);
+      border-radius: 50px;
+      font-size: .72rem;
+      font-weight: 800;
+      color: var(--accent-cyan);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 2rem;
+    }
+
+    .hero-title {
+      font-size: 6rem;
+      font-weight: 900;
+      letter-spacing: -4px;
+      line-height: 1;
+      margin-bottom: 1.4rem;
+    }
+
+    .hero-title span {
+      color: var(--accent-cyan);
+    }
+
+    .hero-sub {
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 1.15rem;
+      max-width: 700px;
+      margin: 0 auto 4rem;
+      line-height: 1.9;
+    }
+
+    /* ─── FORM SECTION ───────────────────────── */
+    .form-section {
+      padding: 2rem 0 8rem;
+    }
+
+    .form-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border-radius: 32px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .form-col {
+      padding: 4.5rem;
+    }
+
+    .form-col-left {
+      border-right: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .col-label {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .col-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+
+    .jd-ta {
+      width: 100%;
+      min-height: 360px;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      color: #fff;
+      padding: 1.8rem;
+      font-family: 'Inter', sans-serif;
+      line-height: 1.8;
+    }
+
+    .dz {
+      border: 2px dashed rgba(0, 212, 255, 0.2);
+      background: rgba(0, 212, 255, 0.01);
+      border-radius: 24px;
+      padding: 5rem 2rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all .3s ease;
+    }
+
+    .dz:hover {
+      border-color: var(--accent-cyan);
+      background: rgba(0, 212, 255, .04);
+    }
+
+    .dz-icon {
+      font-size: 2.2rem;
+      color: var(--accent-cyan);
+      margin-bottom: 1.5rem;
+    }
+
+    .go-btn {
+      width: 100%;
+      padding: 1.4rem;
+      border-radius: 18px;
+      border: none;
+      background: linear-gradient(135deg, var(--accent-cyan), #0099cc);
+      color: #000;
+      font-weight: 900;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 2.5rem;
+      transition: all .3s;
+    }
+
+    .go-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 40px rgba(0, 212, 255, .3);
+    }
+
+    /* ─── SAMPLE OUTPUT PREVIEW (GRID) ───────── */
+    .preview-section {
+      padding: 8rem 0;
+      background: rgba(255, 255, 255, 0.01);
+      border-top: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .preview-label {
+      text-align: center;
+      margin-bottom: 5.5rem;
+    }
+
+    .preview-label h2 {
+      font-size: 3.8rem;
+      font-weight: 900;
+      letter-spacing: -3px;
+      margin-bottom: 1rem;
+      background: linear-gradient(to bottom, #fff, rgba(255, 255, 255, 0.4));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .preview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 2.5rem;
+    }
+
+    .preview-card {
+      padding: 4rem 3rem;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 36px;
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(16px);
+      transition: all 0.4s ease;
+    }
+
+    .preview-card:hover {
+      transform: translateY(-12px);
+      border-color: rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .preview-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      opacity: 0.6;
+    }
+
+    .pcard-cyan::before {
+      background: var(--accent-cyan);
+      box-shadow: 0 0 20px var(--accent-cyan);
+    }
+
+    .pcard-green::before {
+      background: #10b981;
+      box-shadow: 0 0 20px #10b981;
+    }
+
+    .pcard-red::before {
+      background: #ef4444;
+      box-shadow: 0 0 20px #ef4444;
+    }
+
+    .pcard-purple::before {
+      background: #8b5cf6;
+      box-shadow: 0 0 20px #8b5cf6;
+    }
+
+    .gauge-row {
+      display: flex;
+      gap: 1.5rem;
+      margin: 2.5rem 0;
+    }
+
+    .gauge {
+      flex: 1;
+      padding: 2rem;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      text-align: center;
+    }
+
+    .gauge .gnum {
+      font-size: 3.5rem;
+      font-weight: 900;
+    }
+
+    .mbar-row {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .mbar-track {
+      flex: 1;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .mbar-fill {
+      height: 100%;
+      border-radius: 10px;
+    }
+
+    .kw-chip {
+      display: inline-block;
+      padding: .5rem 1rem;
+      border-radius: 12px;
+      font-size: .78rem;
+      font-weight: 700;
+      margin: .3rem;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .kw-green {
+      color: #10b981;
+      border-color: rgba(16, 185, 129, 0.3);
+      background: rgba(16, 185, 129, 0.05);
+    }
+
+    .kw-amber {
+      color: #f59e0b;
+      border-color: rgba(245, 158, 11, 0.3);
+      background: rgba(245, 158, 11, 0.05);
+    }
+
+    .sample-q {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 20px;
+      padding: 1.8rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .sample-q-num {
+      font-size: .7rem;
+      font-weight: 800;
+      color: #a78bfa;
+      text-transform: uppercase;
+      margin-bottom: .5rem;
+      display: block;
+    }
+
+    .sample-q-txt {
+      font-size: .95rem;
+      color: rgba(255, 255, 255, 0.8);
+      line-height: 1.7;
+      font-style: italic;
+    }
+
+    /* ─── HOW IT WORKS (ROADMAP) ───────────────── */
+    .hiw-section {
+      padding: 10rem 0;
+      text-align: center;
+    }
+
+    .hiw-v-grid {
+      max-width: 800px;
+      margin: 5rem auto 0;
+      position: relative;
+    }
+
+    .hiw-v-grid::before {
+      content: '';
+      position: absolute;
+      left: 22px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--accent-cyan), #a78bfa, #10b981);
+      opacity: 0.2;
+    }
+
+    .hiw-v-card {
+      display: flex;
+      gap: 2.5rem;
+      align-items: flex-start;
+      margin-bottom: 5rem;
+      text-align: left;
+      position: relative;
+    }
+
+    .hiw-v-circle {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 1.2rem;
+      background: #111;
+      border: 2px solid currentColor;
+      flex-shrink: 0;
+      z-index: 2;
+    }
+
+    .hiw-v-content h4 {
+      font-size: 1.6rem;
+      font-weight: 800;
+      margin-bottom: .8rem;
+      color: #fff;
+    }
+
+    .hiw-v-content p {
+      color: rgba(255, 255, 255, 0.5);
+      line-height: 1.8;
+      font-size: 1.05rem;
+    }
+
+    nav a {
+      color: rgba(255, 255, 255, .6);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: .92rem;
+      transition: color .2s;
+    }
+
+    nav a:hover {
+      color: #fff;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- LOADING OVERLAY -->
+  <div id="loading-overlay">
+    <div class="arc-wrapper"><svg viewBox="0 0 90 90">
+        <circle class="bg" cx="45" cy="45" r="38" />
+        <circle class="arc" cx="45" cy="45" r="38" />
+      </svg></div>
+    <div style="text-align:center">
+      <h2 style="font-size:1.8rem;font-weight:900;letter-spacing:-1px">PrepWise Analysis</h2>
+      <div class="loader-label" id="loader-step" style="margin-top:.5rem">Extracting PDF content…</div>
+    </div>
+  </div>
+
+  <header>
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+      <div class="logo"><a href="/" style="text-decoration:none; color:inherit;">Prep <span>Wise</span></a></div>
+      <nav class="nav-links" style="display:flex;gap:2.5rem">
+        <a href="/dashboard">Dashboard</a>
+        <a href="/interview_start">Simulator</a>
+        <a href="/resume" class="active">Resume Scan</a>
+        <a href="/aptitude">Skill Paths</a>
+        <a href="/mentor">Network</a>
+      </nav>
+      <div style="display: flex; gap: 1rem; align-items: center;">
+        <a href="/dashboard" class="btn-ghost" style="padding: 0.6rem 1.4rem; font-size: 0.85rem;">Dashboard</a>
+        <a href="/interview_start" class="btn-cyan">Initialize Simulation</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero-strip">
+    <div class="container">
+      <div class="hero-eyebrow">High-Performance · Resume Intelligence · V3.0</div>
+      <h1 class="hero-title">Resume <span>Analyzer</span></h1>
+      <p class="hero-sub">The intelligence layer between your experience and your career goals. Instant ATS scoring, gap
+        analysis, and tailored interview preparation.</p>
+    </div>
+  </section>
+
+  <section class="form-section">
+    <div class="container">
+      <div class="form-wrap">
+        <div class="form-col form-col-left">
+          <div class="col-label">
+            <div class="col-icon" style="background:rgba(0,212,255,.1);color:var(--accent-cyan)"><i
+                class="fa-solid fa-file-lines"></i></div>
+            <h3>Job Description</h3>
+          </div>
+          <div style="position:relative">
+            <textarea id="jd-text" class="jd-ta"
+              placeholder="Paste the job description here to unlock JD-specific match scoring and interview question tailoring..."></textarea>
+            <div id="jd-char"
+              style="position:absolute; bottom:1rem; right:1.5rem; font-size:.65rem; color:rgba(255,255,255,.2)">0 chars
+            </div>
+          </div>
+        </div>
+
+        <div class="form-col">
+          <div class="col-label">
+            <div class="col-icon" style="background:rgba(16,185,129,.1);color:#10b981"><i
+                class="fa-solid fa-cloud-arrow-up"></i></div>
+            <h3>Upload Resume</h3>
+          </div>
+          <div class="dz" id="drop-zone">
+            <input type="file" id="resume-input" accept=".pdf" style="display:none">
+            <div id="dz-default">
+              <div class="dz-icon"><i class="fa-solid fa-file-pdf"></i></div>
+              <h4 style="font-weight:800;margin:0">Drop PDF here</h4>
+              <p style="color:rgba(255,255,255,0.4);font-size:.85rem;margin-top:.5rem">or click to browse local files
+              </p>
+            </div>
+            <div id="dz-chosen" style="display:none">
+              <h4 id="fname" style="color:#10b981;font-weight:800">resume.pdf</h4>
+              <p style="font-size:.85rem;margin-top:.5rem"><span style="color:var(--accent-cyan);cursor:pointer"
+                  onclick="resetFile()">Change file</span></p>
+            </div>
+          </div>
+          <button class="go-btn" id="submit-btn" disabled onclick="triggerUpload()">
+            <i class="fa-solid fa-bolt"></i> Run Full Analysis
+          </button>
+          <div id="error-msg"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="preview-section">
+    <div class="container">
+      <div class="preview-label">
+        <div
+          style="display:inline-flex;align-items:center;padding:.4rem 1.2rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:50px;margin-bottom:1.5rem">
+          <span
+            style="font-size:.7rem;font-weight:800;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:1.5px">Real
+            Mock Insight</span>
+        </div>
+        <h2>Data-Rich Reports</h2>
+        <p>A multi-dimensional view of how top-tier recruiters and ATS engines view your profile.</p>
+      </div>
+
+      <div class="preview-grid">
+        <!-- Card 1 -->
+        <div class="preview-card pcard-cyan">
+          <div class="pcard-header">
+            <div class="pcard-icon" style="background:rgba(0,212,255,.1);color:var(--accent-cyan)"><i
+                class="fa-solid fa-chart-line"></i></div>
+            <div class="pcard-title">ATS & JD Matching</div>
+          </div>
+          <div class="gauge-row">
+            <div class="gauge">
+              <div class="gnum" style="color:#10b981">84%</div>
+              <div class="glbl">ATS Score</div>
+            </div>
+            <div class="gauge">
+              <div class="gnum" style="color:var(--accent-cyan)">72%</div>
+              <div class="glbl">JD Match</div>
+            </div>
+          </div>
+          <div class="mbar-row">
+            <span style="font-size:.8rem;color:rgba(255,255,255,0.4);width:100px">Compliance</span>
+            <div class="mbar-track">
+              <div class="mbar-fill" style="width:84%;background:#10b981"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="preview-card pcard-green">
+          <div class="pcard-header">
+            <div class="pcard-icon" style="background:rgba(16,185,129,.1);color:#10b981"><i
+                class="fa-solid fa-flask"></i></div>
+            <div class="pcard-title">Skills & Gaps</div>
+          </div>
+          <div style="margin-bottom:2rem">
+            <p style="font-size:.7rem;font-weight:800;margin-bottom:1rem;opacity:0.4;text-transform:uppercase">Detected
+            </p>
+            <span class="kw-chip kw-green">React</span><span class="kw-chip kw-green">Node.js</span><span
+              class="kw-chip kw-green">AWS</span>
+          </div>
+          <div>
+            <p style="font-size:.7rem;font-weight:800;margin-bottom:1rem;opacity:0.4;text-transform:uppercase">Missing
+              From JD</p>
+            <span class="kw-chip kw-amber">Kubernetes</span><span class="kw-chip kw-amber">Docker</span>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="preview-card pcard-purple">
+          <div class="pcard-header">
+            <div class="pcard-icon" style="background:rgba(139,92,246,.1);color:#8b5cf6"><i
+                class="fa-solid fa-microphone"></i></div>
+            <div class="pcard-title">Interview Prep</div>
+          </div>
+          <div class="sample-q">
+            <span class="sample-q-num">Experience Q1</span>
+            <p class="sample-q-txt">"Walk me through the scalability challenges you faced while building PrepWise AI..."
+            </p>
+          </div>
+          <div class="sample-q">
+            <span class="sample-q-num">Technical Q2</span>
+            <p class="sample-q-txt">"How did you implement context-window management in your LLM wrapper?"</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hiw-section">
+    <div class="container">
+      <div class="preview-label">
+        <div
+          style="display:inline-flex;align-items:center;padding:.4rem 1.2rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:50px;margin-bottom:1.5rem">
+          <span
+            style="font-size:.7rem;font-weight:800;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:1.5px">The
+            Engine</span>
+        </div>
+        <h2>Grounded Execution</h2>
+        <p>Three specialized AI micro-services working in sync to analyze your career.</p>
+      </div>
+
+      <div class="hiw-v-grid">
+        <div class="hiw-v-card">
+          <div class="hiw-v-circle" style="color:var(--accent-cyan)">1</div>
+          <div class="hiw-v-content">
+            <h4>Fact Extraction</h4>
+            <p>An ultra-low temperature AI call (0.1) parses your PDF into structured data with 100% fidelity,
+              identifying every skill and achievement.</p>
+          </div>
+        </div>
+        <div class="hiw-v-card">
+          <div class="hiw-v-circle" style="color:#a78bfa">2</div>
+          <div class="hiw-v-content">
+            <h4>Rubric Evaluation</h4>
+            <p>Your profile is evaluated against an industry-leading 15-point scoring rubric to find hidden strengths
+              and missing job requirements.</p>
+          </div>
+        </div>
+        <div class="hiw-v-card" style="margin-bottom:0">
+          <div class="hiw-v-circle" style="color:#10b981">3</div>
+          <div class="hiw-v-content">
+            <h4>Simulator Induction</h4>
+            <p>Finally, the AI generates 5 uniquely tailored interview questions, inducing them into our real-time
+              behavioral and technical simulator.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const dropZone = document.getElementById('drop-zone');
+    const input = document.getElementById('resume-input');
+    const jdInput = document.getElementById('jd-text');
+    const loading = document.getElementById('loading-overlay');
+    const errorMsg = document.getElementById('error-msg');
+    const submitBtn = document.getElementById('submit-btn');
+    const dzDefault = document.getElementById('dz-default');
+    const dzChosen = document.getElementById('dz-chosen');
+    const fname = document.getElementById('fname');
+    const jdChar = document.getElementById('jd-char');
+    const loaderStep = document.getElementById('loader-step');
+
+    let selectedFile = null;
+
+    jdInput.addEventListener('input', () => { jdChar.textContent = jdInput.value.length + ' chars'; });
+    dropZone.onclick = () => input.click();
+    input.onchange = (e) => { const f = e.target.files[0]; if (f) setFile(f); };
+    dropZone.ondragover = (e) => { e.preventDefault(); dropZone.classList.add('over'); };
+    dropZone.ondragleave = () => dropZone.classList.remove('over');
+    dropZone.ondrop = (e) => { e.preventDefault(); dropZone.classList.remove('over'); const f = e.dataTransfer.files[0]; if (f) setFile(f); };
+
+    function setFile(file) {
+      if (file.type !== 'application/pdf') { showError('Please upload a PDF file.'); return; }
+      selectedFile = file; fname.textContent = file.name;
+      dzDefault.style.display = 'none'; dzChosen.style.display = 'block';
+      submitBtn.disabled = false; errorMsg.style.display = 'none';
+    }
+    function resetFile() {
+      selectedFile = null; input.value = ''; dzDefault.style.display = 'block'; dzChosen.style.display = 'none';
+      submitBtn.disabled = true;
+    }
+    function triggerUpload() { if (selectedFile) uploadSignal(selectedFile); }
+
+    const steps = ['Extracting raw text…', 'Identifying skills…', 'Comparing with JD…', 'Scoring impact…', 'Generating questions…', 'Finalising report…'];
+    let stepIdx = 0, stepTimer;
+    function startSteps() {
+      stepIdx = 0; loaderStep.textContent = steps[0];
+      stepTimer = setInterval(() => { stepIdx = (stepIdx + 1) % steps.length; loaderStep.textContent = steps[stepIdx]; }, 3500);
+    }
+    async function uploadSignal(file) {
+      const fd = new FormData(); fd.append('resume', file); fd.append('jd', jdInput.value.trim());
+      loading.style.display = 'flex'; submitBtn.disabled = true; startSteps();
+      try {
+        const res = await fetch('/api/upload_resume', { method: 'POST', body: fd });
+        const data = await res.json();
+        if (data.error) showError(data.error); else window.location.href = '/resume_results';
+      } catch (err) { showError('Server connection failed.'); }
+      finally { loading.style.display = 'none'; submitBtn.disabled = false; clearInterval(stepTimer); }
+    }
+    function showError(msg) { errorMsg.textContent = '⚠ ' + msg; errorMsg.style.display = 'block'; }
+  </script>
+</body>
+
+</html>

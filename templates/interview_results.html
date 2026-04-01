@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission Debrief | PrepWise </title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .score-box {
+            padding: 3rem;
+            text-align: center;
+            border-radius: 24px;
+            background: rgba(0, 212, 255, 0.03);
+            border: 1px solid rgba(0, 212, 255, 0.1);
+            width: 250px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .score-val {
+            font-size: 4.5rem;
+            font-weight: 900;
+            line-height: 1;
+            color: var(--accent-cyan);
+            margin-bottom: 0.5rem;
+            filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.3));
+        }
+
+        .score-lbl {
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+        }
+
+        .feedback-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5rem;
+            margin-top: 4rem;
+        }
+
+        .hud-stat {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border-glass);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            <div class="logo"><a href="/">Prep <span>Wise</span></a></div>
+            <nav class="nav-links">
+                <a href="/dashboard">Dashboard</a>
+                <a href="/interview_start">Simulator</a>
+                <a href="/aptitude">Skill Paths</a>
+                <a href="/mentor">Network</a>
+            </nav>
+            <div style="display: flex; gap: 1.5rem; align-items: center;">
+                <a href="/interview_start" class="btn-cyan">Start Interview</a>
+                <div
+                    style="width: 32px; height: 32px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid var(--accent-cyan);">
+                    <i class="fa-solid fa-user" style="font-size: 0.8rem; color: var(--accent-cyan);"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container" style="padding-top: 12rem;">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; margin-bottom: 5rem; gap: 3rem;"
+            class="animate-up">
+            <div>
+                <span class="tag-cyan" style="margin-bottom: 1rem;">
+                    <div class="indicator-cyan"></div> Simulation Terminated
+                </span>
+                <h1 style="font-size: 3.5rem; font-weight: 900; letter-spacing: -2.5px;">Mission <br><span>Final
+                        Debrief.</span></h1>
+                <p style="color: var(--text-muted); font-size: 1.1rem; margin-top: 1rem;">Architectural performance
+                    telemetry and feedback matrix.</p>
+            </div>
+
+            <div class="score-box">
+                <div class="score-val">{{ evaluation.score }}%</div>
+                <div class="score-lbl">Efficiency Score</div>
+            </div>
+        </div>
+
+        <div class="feedback-grid animate-up">
+            <div class="glass-panel" style="padding: 4rem;">
+                <h3
+                    style="margin-bottom: 2rem; color: var(--accent-cyan); font-weight: 900; display: flex; align-items: center; gap: 1rem;">
+                    <i class="fa-solid fa-microchip"></i> Processor Summary
+                </h3>
+                <p style="font-size: 1.2rem; line-height: 1.8; color: var(--text-muted); font-weight: 500;">{{
+                    evaluation.summary }}</p>
+
+                <div style="margin-top: 4rem;">
+                    <h4
+                        style="margin-bottom: 1.5rem; font-weight: 800; color: var(--text-muted); font-size: 0.7rem; letter-spacing: 1.5px;">
+                        SESSION TELEMETRY</h4>
+                    <div class="hud-stat">
+                        <span style="color: var(--text-muted); font-weight: 600;">Response Precision</span>
+                        <span style="color: var(--accent-cyan); font-weight: 900;">Optimized</span>
+                    </div>
+                    <div class="hud-stat">
+                        <span style="color: var(--text-muted); font-weight: 600;">Structural Speed</span>
+                        <span style="color: var(--accent-cyan); font-weight: 900;">High Bandwidth</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 2.5rem;">
+                <div class="glass-panel" style="border-left: 6px solid #10b981; padding: 3rem;">
+                    <h3 style="margin-bottom: 1.5rem; color: #10b981; font-weight: 900;"><i
+                            class="fa-solid fa-shield-check"></i> Primary Strengths</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        {% for s in evaluation.strengths %}
+                        <li
+                            style="margin-bottom: 1.2rem; display: flex; gap: 1rem; color: var(--text-muted); font-weight: 500;">
+                            <i class="fa-solid fa-circle-check" style="margin-top: 0.3rem; opacity: 0.8;"></i>
+                            {{ s }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="glass-panel" style="border-left: 6px solid #f43f5e; padding: 3rem;">
+                    <h3 style="margin-bottom: 1.5rem; color: #f43f5e; font-weight: 900;"><i
+                            class="fa-solid fa-triangle-exclamation"></i> Optimization Gaps</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        {% for w in evaluation.weaknesses %}
+                        <li
+                            style="margin-bottom: 1.2rem; display: flex; gap: 1rem; color: var(--text-muted); font-weight: 500;">
+                            <i class="fa-solid fa-circle-xmark" style="margin-top: 0.3rem; opacity: 0.8;"></i>
+                            {{ w }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <section class="glass-panel animate-up"
+            style="padding: 4rem; margin-top: 3rem; border: 1px solid rgba(0, 212, 255, 0.2);">
+            <h3 style="margin-bottom: 2rem; color: var(--accent-cyan); font-weight: 900;"><i
+                    class="fa-solid fa-forward"></i> Recommended Action Iterations</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                {% for imp in evaluation.improvements %}
+                <div
+                    style="padding: 1.5rem; background: rgba(0, 212, 255, 0.02); border-radius: 12px; border: 1px solid var(--border-glass); color: var(--text-muted); font-size: 0.95rem; line-height: 1.5;">
+                    {{ imp }}
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <div style="text-align: center; margin: 6rem 0 10rem;" class="animate-up">
+            <div style="display: flex; gap: 2.5rem; justify-content: center; flex-wrap: wrap;">
+                <a href="/interview_start" class="btn-cyan" style="padding: 1.5rem 5rem; font-size: 1.2rem;">Relaunch
+                    Simulator</a>
+                <a href="/dashboard" class="btn-ghost" style="padding: 1.5rem 5rem; font-size: 1.2rem;">Telemetry
+                    Center</a>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>

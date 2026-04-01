@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulation Active | PrepWise </title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .simulator-hud {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .question-box {
+            padding: 3.5rem;
+            min-height: 220px;
+            display: flex;
+            align-items: center;
+            background: rgba(0, 212, 255, 0.03);
+            border: 1px solid rgba(0, 212, 255, 0.15);
+            border-radius: 20px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            line-height: 1.6;
+            position: relative;
+        }
+
+        .question-box::before {
+            content: 'DATA INPUT';
+            position: absolute;
+            top: 1rem;
+            left: 1.5rem;
+            font-size: 0.55rem;
+            font-weight: 900;
+            color: var(--accent-cyan);
+            letter-spacing: 2px;
+        }
+
+        .progress-rail {
+            height: 4px;
+            background: var(--border-glass);
+            border-radius: 2px;
+            margin-top: 0.8rem;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent-cyan);
+            box-shadow: 0 0 10px var(--accent-cyan);
+            transition: width 0.5s ease;
+        }
+
+        #loading-indicator {
+            display: none;
+            font-size: 0.85rem;
+            color: var(--accent-cyan);
+            font-family: monospace;
+        }
+
+        .feedback-item {
+            margin-bottom: 1.2rem;
+            display: flex;
+            gap: 0.8rem;
+            font-size: 0.85rem;
+            align-items: flex-start;
+            line-height: 1.5;
+        }
+
+        /* Timer */
+        .timer-ring {
+            position: relative;
+            width: 80px;
+            height: 80px;
+        }
+
+        .timer-ring svg {
+            transform: rotate(-90deg);
+        }
+
+        .timer-track {
+            fill: none;
+            stroke: var(--border-glass);
+            stroke-width: 6;
+        }
+
+        .timer-arc {
+            fill: none;
+            stroke: var(--accent-cyan);
+            stroke-width: 6;
+            stroke-linecap: round;
+            transition: stroke-dashoffset 1s linear, stroke 0.5s ease;
+        }
+
+        .timer-num {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.3rem;
+            font-weight: 900;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .real-badge {
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            color: #ef4444;
+            padding: 0.3rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.65rem;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        .round-badge {
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            color: #8b5cf6;
+            padding: 0.3rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.65rem;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        /* Locked textarea */
+        textarea.locked {
+            opacity: 0.6;
+            cursor: not-allowed;
+            border-color: rgba(255, 255, 255, 0.05) !important;
+            background: rgba(255, 255, 255, 0.01) !important;
+        }
+
+        /* Review Overlay */
+        #review-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 95%;
+            height: 95%;
+            background: rgba(5, 7, 10, 0.98);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 24px;
+            padding: 4rem;
+            text-align: center;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            box-shadow: 0 0 100px rgba(0, 0, 0, 0.9);
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -48%) scale(0.98);
+            }
+
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        .btn-red-urgent {
+            background: rgba(239, 68, 68, 0.8) !important;
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.4) !important;
+            border-color: #ef4444 !important;
+        }
+
+        .btn-red-urgent:hover {
+            background: #ef4444 !important;
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 0 30px rgba(239, 68, 68, 0.6) !important;
+        }
+
+        .matrix-pill {
+            padding: 0.8rem 1.4rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-glass);
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            <div class="logo"><a href="/" style="text-decoration:none; color:inherit;">Prep <span>Wise</span></a>
+            </div>
+            <nav class="nav-links">
+                <a href="/dashboard">Dashboard</a>
+                <a href="/interview_start" class="active">Simulator</a>
+                <a href="/resume">Resume Scan</a>
+                <a href="/aptitude">Skill Paths</a>
+                <a href="/mentor">Network</a>
+            </nav>
+            <div style="display: flex; gap: 1rem; align-items: center;">
+                <a href="/dashboard" class="btn-ghost" style="padding: 0.6rem 1.4rem; font-size: 0.85rem;">Dashboard</a>
+                <a href="/interview_start" class="btn-cyan">Initialize Simulation</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container" style="padding-top: 10rem; padding-bottom: 6rem;">
+        <!-- Top Bar -->
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2rem;"
+            class="animate-up">
+            <div>
+                <div style="display: flex; gap: 0.8rem; align-items: center; margin-bottom: 0.8rem; flex-wrap: wrap;">
+                    <span id="real-badge" class="real-badge" style="display:none;">⚡ REAL SIM</span>
+                    <span id="round-badge" class="round-badge" style="display:none;"></span>
+                    <span class="tag-cyan" id="difficulty-tag"
+                        style="background: rgba(0,212,255,0.1); padding: 0.3rem 0.8rem; border-radius: 4px; font-size: 0.65rem;">CALIBRATING...</span>
+                </div>
+                <h2 style="font-size: 2rem; font-weight: 900; letter-spacing: -1.5px;">{{ role }} <br><span>Technical
+                        Simulation.</span></h2>
+            </div>
+            <div style="display: flex; gap: 2rem; align-items: center;">
+                <!-- Timer (only visible in real mode) -->
+                <div id="timer-wrap" style="display: none; flex-direction: column; align-items: center; gap: 0.3rem;">
+                    <div class="timer-ring">
+                        <svg width="80" height="80" viewBox="0 0 80 80">
+                            <circle class="timer-track" cx="40" cy="40" r="34" />
+                            <circle class="timer-arc" id="timer-arc" cx="40" cy="40" r="34" stroke-dasharray="213.6"
+                                stroke-dashoffset="0" />
+                        </svg>
+                        <div class="timer-num" id="timer-num">2:00</div>
+                    </div>
+                    <span style="font-size:0.6rem; color:var(--text-muted); font-weight:800; letter-spacing:1px;">TIME
+                        LEFT</span>
+                </div>
+                <!-- Progress -->
+                <div style="text-align: right; width: 220px;">
+                    <div
+                        style="display: flex; justify-content: space-between; font-size: 0.7rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem;">
+                        <span>Session Progress</span>
+                        <span id="progress-text">Q1 / 10</span>
+                    </div>
+                    <div class="progress-rail">
+                        <div id="progress-bar" class="progress-fill" style="width: 10%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="simulator-hud animate-up" style="position: relative;">
+            <div class="main-stage" id="challenge-stage">
+                <div class="question-box" id="question-area">Initiating Neural Link...</div>
+
+                <div style="margin-top: 2rem;">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                        <h4
+                            style="font-weight: 800; color: var(--text-muted); font-size: 0.75rem; letter-spacing: 1px;">
+                            STRUCTURAL RESPONSE</h4>
+                        <span id="one-shot-warn"
+                            style="display:none; font-size:0.7rem; color: #ef4444; font-weight: 800;">⚠ ONE CHANCE —
+                            SUBMIT CAREFULLY</span>
+                    </div>
+                    <textarea id="user-answer" class="architect-input"
+                        style="height: 230px; resize: none; border-radius: 16px;"
+                        placeholder="Articulate your technical solution here..."></textarea>
+
+                    <div
+                        style="text-align: right; margin-top: 1.5rem; display: flex; align-items: center; justify-content: flex-end; gap: 1.5rem;">
+                        <span id="loading-indicator">ANALYZING SIGNAL...</span>
+                        <button type="button" id="submit-btn" class="btn-cyan"
+                            style="padding: 1rem 3.5rem; font-size: 1rem;" onclick="submitVector()">
+                            Submit Vector <i class="fa-solid fa-chevron-right" style="margin-left: 0.6rem;"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Review Phase Overlay -->
+                <div id="review-overlay">
+                    <span class="tag-cyan" style="margin-bottom: 1.5rem;">
+                        <div class="indicator-cyan"></div> Node Assessment Complete
+                    </span>
+                    <h2 style="font-size: 2.2rem; font-weight: 900; margin-bottom: 2rem; letter-spacing: -1.5px;">
+                        Session <br><span>Evaluation Profile.</span></h2>
+
+                    <div style="display: flex; gap: 1rem; justify-content: center; margin-bottom: 3rem; flex-wrap: wrap;"
+                        id="matrix-pills">
+                        <!-- Matrix summary will go here -->
+                    </div>
+
+                    <div id="central-advice" style="max-width: 600px; margin-bottom: 4rem;">
+                        <!-- Advice will go here -->
+                    </div>
+
+                    <button class="btn-cyan"
+                        style="padding: 1.2rem 4rem; font-size: 1.1rem; box-shadow: 0 0 30px rgba(0, 212, 255, 0.3);"
+                        onclick="fetchQuestion()">
+                        Proceed to Next Level <i class="fa-solid fa-arrow-right" style="margin-left: 0.8rem;"></i>
+                    </button>
+                </div>
+            </div>
+
+            <aside>
+                <!-- Score Panel -->
+                <div class="glass-panel"
+                    style="padding: 2rem; border-color: rgba(0,212,255,0.1); height: fit-content; margin-bottom: 1.5rem;">
+                    <h4
+                        style="margin-bottom: 1.5rem; font-weight: 800; letter-spacing: 1.5px; font-size: 0.65rem; color: var(--accent-cyan);">
+                        PERFORMANCE MATRIX</h4>
+                    <div id="score-panel">
+                        <div style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.7;">Submit your response
+                            to unlock the full Performance Matrix.</div>
+                    </div>
+                </div>
+
+                <!-- HUD Feedback -->
+                <div class="glass-panel" style="padding: 2rem; border-color: rgba(255,165,0,0.1);">
+                    <h4
+                        style="margin-bottom: 1.5rem; font-weight: 800; letter-spacing: 1.5px; font-size: 0.65rem; color: #fbbf24;">
+                        HUD ASSESSMENT</h4>
+                    <div id="hud-feedback">
+                        <div class="feedback-item" style="color: var(--text-muted);">
+                            <i class="fa-solid fa-info-circle"
+                                style="color: #fbbf24; flex-shrink:0; margin-top:2px;"></i>
+                            <span>Submit your response to receive real-time feedback.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Real Mode Info Box -->
+                <div id="real-info-box"
+                    style="display:none; margin-top: 1.5rem; background: rgba(239,68,68,0.05); border: 1px solid rgba(239,68,68,0.2); border-radius: 16px; padding: 1.5rem;">
+                    <h4
+                        style="font-size:0.65rem; font-weight:900; letter-spacing:1.5px; color:#ef4444; margin-bottom: 1rem;">
+                        SIMULATION RULES</h4>
+                    <div
+                        style="display:flex; flex-direction:column; gap:0.8rem; font-size:0.8rem; color:var(--text-muted);">
+                        <div><i class="fa-solid fa-stopwatch" style="color:#ef4444; margin-right:0.6rem;"></i>2 min per
+                            question</div>
+                        <div><i class="fa-solid fa-lock" style="color:#ef4444; margin-right:0.6rem;"></i>Answers lock on
+                            submit</div>
+                        <div><i class="fa-solid fa-ban" style="color:#ef4444; margin-right:0.6rem;"></i>No editing after
+                            submit</div>
+                        <div><i class="fa-solid fa-layer-group" style="color:#ef4444; margin-right:0.6rem;"></i><span
+                                id="round-info-text">1 round total</span></div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script>
+        // --- DOM Refs ---
+        const questionArea = document.getElementById('question-area');
+        const answerInput = document.getElementById('user-answer');
+        const submitBtn = document.getElementById('submit-btn');
+        const loader = document.getElementById('loading-indicator');
+        const hudFeedback = document.getElementById('hud-feedback');
+        const progressBar = document.getElementById('progress-bar');
+        const progressText = document.getElementById('progress-text');
+        const difficultyTag = document.getElementById('difficulty-tag');
+
+        // Timer refs
+        const timerWrap = document.getElementById('timer-wrap');
+        const timerNum = document.getElementById('timer-num');
+        const timerArc = document.getElementById('timer-arc');
+        const CIRCUMFERENCE = 213.6;
+
+        let isRealMode = false;
+        let totalRounds = 1;
+        let currentRound = 1;
+        let timerInterval = null;
+        let timeLeft = 120; // 2 min
+        const TIMER_DURATION = 120;
+
+        // --- Timer ---
+        function startTimer() {
+            timeLeft = TIMER_DURATION;
+            clearInterval(timerInterval);
+            updateTimerDisplay();
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                updateTimerDisplay();
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    autoSubmit();
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const m = Math.floor(timeLeft / 60);
+            const s = timeLeft % 60;
+            timerNum.innerText = `${m}:${s.toString().padStart(2, '0')}`;
+            const offset = CIRCUMFERENCE * (1 - timeLeft / TIMER_DURATION);
+            timerArc.style.strokeDashoffset = offset;
+            // Color shift: green → yellow → red
+            if (timeLeft > 60) timerArc.style.stroke = 'var(--accent-cyan)';
+            else if (timeLeft > 30) timerArc.style.stroke = '#fbbf24';
+            else timerArc.style.stroke = '#ef4444';
+        }
+
+        function autoSubmit() {
+            if (!submitBtn.disabled) {
+                hudFeedback.innerHTML = `<div class="feedback-item" style="color:#ef4444;"><i class="fa-solid fa-clock"></i> TIME EXPIRED — Auto-submitting your response.</div>`;
+                submitVector(true);
+            }
+        }
+
+        // --- Question Fetch ---
+        async function fetchQuestion() {
+            try {
+                const res = await fetch('/api/next_question');
+                const data = await res.json();
+
+                if (data.complete) { window.location.href = '/results'; return; }
+                if (data.error) { questionArea.innerText = `Error: ${data.error}`; return; }
+
+                // First fetch — detect mode
+                if (data.sim_mode === 'real') {
+                    isRealMode = true;
+                    totalRounds = data.total_rounds;
+                    currentRound = data.round;
+                    timerWrap.style.display = 'flex';
+                    document.getElementById('real-badge').style.display = 'inline-block';
+                    document.getElementById('real-info-box').style.display = 'block';
+                    document.getElementById('one-shot-warn').style.display = 'block';
+                    document.getElementById('round-info-text').innerText = `${totalRounds} round${totalRounds > 1 ? 's' : ''} total`;
+                    submitBtn.classList.add('btn-red-urgent');
+                }
+
+                questionArea.innerText = data.question;
+                progressText.innerText = `Q${data.count} / 10`;
+                progressBar.style.width = `${(data.count / 10) * 100}%`;
+
+                difficultyTag.innerText = `${data.difficulty.toUpperCase()} LEVEL`;
+                difficultyTag.style.color = data.difficulty === 'Senior' ? '#8b5cf6' : (data.difficulty === 'Junior' ? '#f43f5e' : 'var(--accent-cyan)');
+
+                // Multi-round badge
+                if (totalRounds > 1) {
+                    const rb = document.getElementById('round-badge');
+                    rb.style.display = 'inline-block';
+                    rb.innerText = `ROUND ${data.round} / ${data.total_rounds}`;
+                }
+
+                // --- RESET STATE FOR NEW QUESTION ---
+                document.getElementById('review-overlay').style.display = 'none';
+                answerInput.classList.remove('locked');
+                answerInput.readOnly = false;
+                answerInput.value = '';
+                submitBtn.disabled = false;
+                submitBtn.style.opacity = '1';
+                hudFeedback.innerHTML = `<div class="feedback-item" style="color: var(--text-muted);"><i class="fa-solid fa-info-circle" style="color: #fbbf24; flex-shrink:0; margin-top:2px;"></i><span>Submit your response to receive real-time feedback.</span></div>`;
+
+                if (isRealMode) startTimer();
+
+            } catch (err) {
+                questionArea.innerText = `Connection Error: ${err.message}`;
+            }
+        }
+
+        // --- Answer Submit ---
+        async function submitVector(autoTriggered = false) {
+            const answer = answerInput.value.trim();
+            if (!answer && !autoTriggered) return;
+            const finalAnswer = answer || '[No answer submitted — time expired]';
+
+            submitBtn.disabled = true;
+            loader.style.display = 'block';
+
+            // LOCK the textarea instantly on submit (Real Mode)
+            if (isRealMode) {
+                clearInterval(timerInterval);
+                answerInput.classList.add('locked');
+                answerInput.readOnly = true;
+            }
+
+            try {
+                const res = await fetch('/api/evaluate_answer', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ answer: finalAnswer })
+                });
+                const data = await res.json();
+                const ev = data.evaluation;
+
+                // --- 3-Score Performance Matrix ---
+                const techScore = ev.score ?? 5;
+                const confScore = ev.confidence_score ?? 5;
+                const commScore = ev.communication_score ?? 5;
+
+                function scoreColor(s) {
+                    if (s >= 8) return '#10b981';
+                    if (s >= 5) return '#fbbf24';
+                    return '#ef4444';
+                }
+                function scoreBar(label, icon, score, color) {
+                    return `
+                        <div style="margin-bottom:1.4rem;">
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
+                                <span style="font-size:0.72rem; font-weight:800; color:var(--text-muted); letter-spacing:0.5px;">
+                                    <i class="${icon}" style="color:${color}; margin-right:0.4rem;"></i>${label}
+                                </span>
+                                <span style="font-size:1rem; font-weight:900; color:${color};">${score}<span style="font-size:0.65rem; color:var(--text-muted); font-weight:600;">/10</span></span>
+                            </div>
+                            <div style="height:5px; background:rgba(255,255,255,0.06); border-radius:3px; overflow:hidden;">
+                                <div style="height:100%; width:0%; background:${color}; border-radius:3px; box-shadow:0 0 8px ${color};
+                                            transition:width 0.8s cubic-bezier(0.4,0,0.2,1);"
+                                     data-target="${score * 10}%"
+                                     class="score-bar-fill"></div>
+                            </div>
+                        </div>`;
+                }
+
+                const fillerHTML = ev.filler_words && ev.filler_words !== 'None detected'
+                    ? `<div style="margin-top:1rem; padding:0.8rem; background:rgba(239,68,68,0.05); border-radius:8px; border:1px solid rgba(239,68,68,0.15);">
+                          <div style="font-size:0.65rem; font-weight:900; color:#ef4444; letter-spacing:1px; margin-bottom:0.3rem;">⚠ FILLER DETECTED</div>
+                          <div style="font-size:0.78rem; color:var(--text-muted);">${ev.filler_words}</div>
+                       </div>`
+                    : `<div style="margin-top:1rem; padding:0.6rem 0.8rem; background:rgba(16,185,129,0.05); border-radius:8px; border:1px solid rgba(16,185,129,0.15); font-size:0.75rem; color:#10b981;">
+                          ✓ No filler words detected
+                       </div>`;
+
+                document.getElementById('score-panel').innerHTML =
+                    scoreBar('Technical Knowledge', 'fa-solid fa-microchip', techScore, scoreColor(techScore)) +
+                    scoreBar('Confidence Score', 'fa-solid fa-shield-halved', confScore, scoreColor(confScore)) +
+                    scoreBar('Communication', 'fa-solid fa-comments', commScore, scoreColor(commScore)) +
+                    fillerHTML;
+
+                // Animate bars after DOM insertion
+                requestAnimationFrame(() => {
+                    document.querySelectorAll('.score-bar-fill').forEach(bar => {
+                        bar.style.width = bar.dataset.target;
+                    });
+                });
+
+                // --- SHOW CENTRAL REVIEW OVERLAY ---
+                const matrixPills = document.getElementById('matrix-pills');
+                const centralAdvice = document.getElementById('central-advice');
+
+                matrixPills.innerHTML = `
+                    <div class="matrix-pill"><i class="fa-solid fa-microchip" style="color:${scoreColor(techScore)};"></i> Technical: ${techScore}/10</div>
+                    <div class="matrix-pill"><i class="fa-solid fa-shield-halved" style="color:${scoreColor(confScore)};"></i> Confidence: ${confScore}/10</div>
+                    <div class="matrix-pill"><i class="fa-solid fa-comments" style="color:${scoreColor(commScore)};"></i> Communication: ${commScore}/10</div>
+                `;
+
+                centralAdvice.innerHTML = `
+                    <div style="background: rgba(251, 191, 36, 0.08); border: 1px solid rgba(251, 191, 36, 0.2); padding: 2rem; border-radius: 16px; text-align: left;">
+                        <h4 style="color: #fbbf24; font-weight: 900; font-size: 0.7rem; letter-spacing: 2px; margin-bottom: 1rem; text-transform: uppercase;">Mentor Advice</h4>
+                        <p style="font-size: 1.1rem; line-height: 1.7; color: #fff; font-weight: 500;">${ev.suggestion || 'Keep refining your technical articulation.'}</p>
+                        <div style="margin-top: 1.5rem; display: flex; gap: 1rem;">
+                            <div style="font-size: 0.8rem; color: #10b981;"><strong>Strength:</strong> ${ev.strength || 'Valid logic.'}</div>
+                            <div style="font-size: 0.8rem; color: #ef4444;"><strong>Gap:</strong> ${ev.weakness || 'Detail.'}</div>
+                        </div>
+                    </div>
+                `;
+
+                document.getElementById('review-overlay').style.display = 'flex';
+
+                // Sidebar updates still happen but overlay is primary
+                hudFeedback.innerHTML = `
+                    <div class="feedback-item" style="color:#10b981;">
+                        <i class="fa-solid fa-circle-check" style="flex-shrink:0;"></i>
+                        <span><strong>Strength:</strong> ${ev.strength || 'Good response.'}</span>
+                    </div>
+                    <div class="feedback-item" style="color:#ef4444;">
+                        <i class="fa-solid fa-circle-xmark" style="flex-shrink:0;"></i>
+                        <span><strong>Gap:</strong> ${ev.weakness || 'Could be more specific.'}</span>
+                    </div>
+                `;
+
+            } catch (err) {
+                hudFeedback.innerHTML = `<div class="feedback-item" style="color:#ef4444;"><i class="fa-solid fa-triangle-exclamation"></i> Evaluation error: ${err.message}</div>`;
+                submitBtn.disabled = false;
+            } finally {
+                loader.style.display = 'none';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', fetchQuestion);
+    </script>
+</body>
+
+</html>

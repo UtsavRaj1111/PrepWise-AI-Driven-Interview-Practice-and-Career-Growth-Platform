@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post-Simulation Analysis | PrepWise</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .score-circle {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            border: 1px solid var(--accent-cyan);
+            margin: 0 auto 3rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.05) 0%, transparent 70%);
+            box-shadow: 0 0 50px rgba(0, 212, 255, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            <div class="logo"><a href="/">Prep <span>Wise</span></a></div>
+            <nav class="nav-links">
+                <a href="/dashboard">Dashboard</a>
+                <a href="/interview_start">Simulator</a>
+                <a href="/resume">Resume Scan</a>
+                <a href="/aptitude">Skill Paths</a>
+                <a href="/mentor">Network</a>
+            </nav>
+            <div style="display: flex; gap: 1rem; align-items: center;">
+                <a href="/dashboard" class="btn-cyan">Command Center</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container" style="padding-top: 10rem; max-width: 800px;">
+        <div class="result-card animate-up">
+            <div style="text-align: center; margin-bottom: 3rem;">
+                <span class="tag-cyan" style="margin-bottom: 1rem;">
+                    <div class="indicator-cyan"></div> Simulation Complete
+                </span>
+                <h1 style="font-size: 3.5rem; font-weight: 900; letter-spacing: -2px; margin-bottom: 0.5rem;">Mission
+                    <br><span>Success.</span>
+                </h1>
+                <p style="color: var(--text-muted); font-size: 1.1rem;">Performance analysis for <strong>{{ role
+                        }}</strong> module.</p>
+            </div>
+
+            <div class="score-display">
+                <div class="score-circle">
+                    <div style="font-size: 3.5rem; font-weight: 900; color: var(--accent-cyan);">{{ avg_score
+                        }}<span>%</span></div>
+                    <div
+                        style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); font-weight: 800;">
+                        Efficiency</div>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 1.5rem; justify-content: center; margin-bottom: 4rem;">
+                <a href="/dashboard" class="btn-cyan" style="padding: 1.2rem 2.5rem; font-size: 1rem;">Return to Command
+                    Center</a>
+                <a href="/interview_start" class="btn-ghost" style="padding: 1.2rem 2.5rem; font-size: 1rem;">New
+                    Operation</a>
+            </div>
+
+            <div class="analysis-section">
+                <h3 style="margin-bottom: 2rem; display: flex; align-items: center; gap: 1rem;">
+                    <i class="fa-solid fa-microchip" style="color: var(--accent-cyan);"></i> Detailed Telemetry
+                </h3>
+
+                <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                    {% if feedbacks %}
+                    {% for fb in feedbacks %}
+                    <div class="glass-panel"
+                        style="padding: 1.8rem; border-left: 4px solid {{ '#00D4FF' if fb.score >= 7 else '#f43f5e' }};">
+                        <div
+                            style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+                            <h4 style="font-size: 1rem; line-height: 1.4; max-width: 80%;">{{ fb.question }}</h4>
+                            <span
+                                style="font-weight: 900; color: {{ '#00D4FF' if fb.score >= 7 else '#f43f5e' }}; font-size: 1.1rem;">{{
+                                fb.score }}/10</span>
+                        </div>
+                        {% if fb.strength %}
+                        <div style="margin-top: 0.8rem; font-size: 0.85rem; display: flex; gap: 0.8rem;">
+                            <i class="fa-solid fa-circle-check" style="color: #10b981; margin-top: 3px;"></i>
+                            <span><strong style="color: #fff;">Signal:</strong> {{ fb.strength }}</span>
+                        </div>
+                        {% endif %}
+                        {% if fb.weakness %}
+                        <div style="margin-top: 0.6rem; font-size: 0.85rem; display: flex; gap: 0.8rem;">
+                            <i class="fa-solid fa-circle-exclamation" style="color: #f43f5e; margin-top: 3px;"></i>
+                            <span><strong style="color: #fff;">Delta:</strong> {{ fb.weakness }}</span>
+                        </div>
+                        {% endif %}
+                        {% if fb.suggestion %}
+                        <div
+                            style="margin-top: 0.6rem; font-size: 0.85rem; color: var(--text-muted); font-style: italic;">
+                            Recommendations: {{ fb.suggestion }}
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                    <p style="color: var(--text-muted); text-align: center;">No granular telemetry available for this
+                        session.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer style="padding: 5rem 0; border-top: 1px solid var(--border-glass); margin-top: 8rem;">
+        <div class="container" style="text-align: center;">
+            <div class="logo" style="justify-content: center; display:flex; margin-bottom: 1.5rem;">Prep <span
+                    style="color:var(--accent-cyan); margin-left:0.3rem;">Wise</span></div>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">&copy; 2026 PrepWise Intelligence. Session
+                Finalized.</p>
+        </div>
+    </footer>
+</body>
+
+</html>
