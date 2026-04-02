@@ -194,10 +194,58 @@
             font-size: 0.8rem;
             font-weight: 700;
         }
+
+        /* Secure Mode Navbar Hide */
+        header.secure-mode .nav-links,
+        header.secure-mode .btn-ghost,
+        header.secure-mode .btn-cyan {
+            display: none !important;
+        }
+
+        header.secure-mode .logo a {
+            pointer-events: none;
+            cursor: default;
+        }
+
+        header.secure-mode .container {
+            justify-content: center !important;
+        }
     </style>
 </head>
 
 <body>
+    <div id="violation-screen" class="violation-screen">
+        <h1 style="color: #ef4444; font-size: 3rem; font-weight: 900; margin-bottom: 1.5rem;">SESSION STOPPED.</h1>
+        <p style="color: var(--text-muted); font-size: 1.1rem; max-width: 600px; line-height: 1.6; margin-bottom: 3rem;">
+            A critical protocol violation was detected. Multiple tab switches or window unfocus events have occurred. 
+            For security purposes, this simulation has been terminated.
+        </p>
+        <a href="/results" class="btn-cyan">View Session Report</a>
+    </div>
+
+    <!-- Secure Start Overlay -->
+    <div id="secure-start-overlay" class="violation-screen" style="display: flex; background: rgba(5, 7, 10, 0.98);">
+        <span class="tag-cyan" style="margin-bottom: 1.5rem;">PHASE: SECURITY INITIALIZATION</span>
+        <h1 style="font-size: 3.5rem; font-weight: 900; margin-bottom: 1.5rem; letter-spacing: -2px;">Secure <br><span>Environment.</span></h1>
+        <p style="color: var(--text-muted); font-size: 1rem; max-width: 500px; line-height: 1.7; margin-bottom: 3rem;">
+            To ensure interview integrity, this session will run in <strong>Fullscreen Mode</strong>. 
+            Tab switching, window unfocusing, and interaction shortcuts are strictly prohibited.
+        </p>
+        <button class="btn-cyan secure-session-btn" style="padding: 1.2rem 4rem; font-size: 1.1rem;" onclick="initializeSecureSession()">
+            Enter Secure Simulation <i class="fa-solid fa-lock" style="margin-left: 0.8rem;"></i>
+        </button>
+    </div>
+
+    <div id="warning-toast" class="warning-toast">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        <span id="warning-text">ATTENTION: Tab Switch Detected. (1/3)</span>
+    </div>
+
+    <div id="proctor-status" class="proctor-status">
+        <div class="indicator-cyan" style="width: 8px; height: 8px;"></div>
+        SECURE BROADCAST ACTIVE
+    </div>
+
     <header>
         <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
             <div class="logo"><a href="/" style="text-decoration:none; color:inherit;">Prep <span>Wise</span></a>
@@ -225,7 +273,7 @@
                     <span id="real-badge" class="real-badge" style="display:none;">⚡ REAL SIM</span>
                     <span id="round-badge" class="round-badge" style="display:none;"></span>
                     <span class="tag-cyan" id="difficulty-tag"
-                        style="background: rgba(0,212,255,0.1); padding: 0.3rem 0.8rem; border-radius: 4px; font-size: 0.65rem;">CALIBRATING...</span>
+                        style="background: rgba(0,212,255,0.1); padding: 0.3rem 0.8rem; border-radius: 4px; font-size: 0.65rem;">SIMULATION ACTIVE</span>
                 </div>
                 <h2 style="font-size: 2rem; font-weight: 900; letter-spacing: -1.5px;">{{ role }} <br><span>Technical
                         Simulation.</span></h2>
@@ -324,6 +372,7 @@
                     </div>
                 </div>
 
+
                 <!-- HUD Feedback -->
                 <div class="glass-panel" style="padding: 2rem; border-color: rgba(255,165,0,0.1);">
                     <h4
@@ -360,7 +409,137 @@
         </div>
     </main>
 
+
     <script>
+        // --- Security Manager ---
+        class SecurityManager {
+            constructor() {
+                this.violations = 0;
+                this.maxViolations = 3;
+                this.isTerminated = false;
+                this.init();
+            }
+
+            init() {
+                // Visibility change (Tab switch)
+                document.addEventListener('visibilitychange', () => {
+                    if (document.hidden) this.reportViolation('Tab Switch');
+                });
+
+                // Window Blur (Window switch)
+                window.addEventListener('blur', () => {
+                    this.reportViolation('Window Focus Lost');
+                });
+
+                // Interaction blocks
+                document.addEventListener('contextmenu', (e) => {
+                    e.preventDefault();
+                    this.showBriefWarning('Right-click is disabled during simulation.');
+                });
+                
+                document.addEventListener('copy', (e) => {
+                    e.preventDefault();
+                    this.showBriefWarning('Copying text is restricted.');
+                });
+
+                document.addEventListener('paste', (e) => {
+                    e.preventDefault();
+                    this.showBriefWarning('Pasting text is restricted.');
+                });
+
+                // Enforce Fullscreen on interaction
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I')) {
+                        e.preventDefault();
+                        this.reportViolation('DevTools Attempt');
+                    }
+                });
+            }
+
+            async reportViolation(type) {
+                if (this.isTerminated) return;
+                
+                try {
+                    const res = await fetch('/api/report_violation', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ type: type })
+                    });
+                    const data = await res.json();
+                    
+                    this.violations = data.count;
+                    this.updateUI(type);
+
+                    if (data.is_terminated) {
+                        this.terminateSession();
+                    }
+                } catch (err) {
+                    console.error("Proctoring Sync Error:", err);
+                }
+            }
+
+            updateUI(type) {
+                const toast = document.getElementById('warning-toast');
+                const text = document.getElementById('warning-text');
+                const status = document.getElementById('proctor-status');
+
+                status.classList.add('warning');
+                status.innerHTML = `<i class="fa-solid fa-circle-exclamation"></i> PROTOCOL BREACH: ${this.violations}/3`;
+
+                text.innerText = `SECURITY ALERT: ${type} (${this.violations}/3)`;
+                toast.classList.add('visible');
+                
+                setTimeout(() => {
+                    toast.classList.remove('visible');
+                }, 4000);
+            }
+
+            showBriefWarning(msg) {
+                const toast = document.getElementById('warning-toast');
+                const text = document.getElementById('warning-text');
+                text.innerText = msg;
+                toast.classList.add('visible');
+                setTimeout(() => toast.classList.remove('visible'), 2000);
+            }
+
+            terminateSession() {
+                this.isTerminated = true;
+                document.getElementById('violation-screen').style.display = 'flex';
+                // Stop any timers
+                if (window.timerInterval) clearInterval(window.timerInterval);
+                // Disable all inputs
+                document.getElementById('user-answer').disabled = true;
+                document.getElementById('submit-btn').disabled = true;
+                
+                // Exit Fullscreen
+                if (document.fullscreenElement) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+
+        const security = new SecurityManager();
+
+        async function initializeSecureSession() {
+            try {
+                const elem = document.documentElement;
+                if (elem.requestFullscreen) {
+                    await elem.requestFullscreen();
+                } else if (elem.webkitRequestFullscreen) {
+                    await elem.webkitRequestFullscreen();
+                } else if (elem.msRequestFullscreen) {
+                    await elem.msRequestFullscreen();
+                }
+                
+                document.getElementById('secure-start-overlay').style.display = 'none';
+                document.querySelector('header').classList.add('secure-mode');
+                document.body.classList.add('no-select');
+                fetchQuestion(); // Start actual question loading
+            } catch (err) {
+                alert("Fullscreen is required to start the simulation. " + err.message);
+            }
+        }
+
         // --- DOM Refs ---
         const questionArea = document.getElementById('question-area');
         const answerInput = document.getElementById('user-answer');
@@ -438,6 +617,11 @@
                     document.getElementById('one-shot-warn').style.display = 'block';
                     document.getElementById('round-info-text').innerText = `${totalRounds} round${totalRounds > 1 ? 's' : ''} total`;
                     submitBtn.classList.add('btn-red-urgent');
+                }
+
+                if (data.is_terminated) {
+                    security.terminateSession();
+                    return;
                 }
 
                 questionArea.innerText = data.question;
@@ -588,7 +772,9 @@
             }
         }
 
-        document.addEventListener('DOMContentLoaded', fetchQuestion);
+        document.addEventListener('DOMContentLoaded', () => {
+            // fetchQuestion is now called after Secure Session button is clicked
+        });
     </script>
 </body>
 

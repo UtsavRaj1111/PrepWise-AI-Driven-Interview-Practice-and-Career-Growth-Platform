@@ -62,6 +62,24 @@
                         style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); font-weight: 800;">
                         Efficiency</div>
                 </div>
+
+                <!-- Security Summary -->
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem; margin-bottom: 3rem;">
+                    <h4 style="font-size: 0.65rem; font-weight: 900; letter-spacing: 1.5px; color: {{ '#ef4444' if is_terminated else 'var(--accent-cyan)' }}; text-transform: uppercase;">
+                        PROCTORING ASSESSMENT
+                    </h4>
+                    <div style="display: flex; gap: 1rem; align-items: center;">
+                        <span style="font-size: 0.85rem; color: #fff; font-weight: 600;">
+                            Violations Logged: <span style="color: {{ '#ef4444' if violation_count > 0 else '#10b981' }};">{{ violation_count }}</span>
+                        </span>
+                        <div style="width: 1px; height: 12px; background: var(--border-glass);"></div>
+                        <span style="font-size: 0.85rem; color: #fff; font-weight: 600;">
+                            Status: <span style="color: {{ '#ef4444' if is_terminated else '#10b981' }};">
+                                {{ 'TERMINATED (PROTOCOL BREACH)' if is_terminated else 'INTEGRITY VERIFIED' }}
+                            </span>
+                        </span>
+                    </div>
+                </div>
             </div>
 
             <div style="display: flex; gap: 1.5rem; justify-content: center; margin-bottom: 4rem;">

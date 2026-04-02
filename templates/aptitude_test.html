@@ -86,6 +86,22 @@
             box-shadow: 0 0 10px var(--accent-cyan);
             transition: width 0.5s ease;
         }
+
+        /* Secure Mode Navbar Hide */
+        header.secure-mode .nav-links,
+        header.secure-mode .btn-ghost,
+        header.secure-mode .btn-cyan {
+            display: none !important;
+        }
+
+        header.secure-mode .logo a {
+            pointer-events: none;
+            cursor: default;
+        }
+
+        header.secure-mode .container {
+            justify-content: center !important;
+        }
     </style>
 </head>
 
@@ -102,8 +118,11 @@
                 <a href="/mentor">Network</a>
             </nav>
             <div style="display: flex; gap: 1rem; align-items: center;">
+                <div id="proctor-status" class="proctor-status">
+                    <div class="indicator-cyan" id="proctor-indicator"></div>
+                    <span id="proctor-text">SECURE BROADCAST : ACTIVE</span>
+                </div>
                 <a href="/dashboard" class="btn-ghost" style="padding: 0.6rem 1.4rem; font-size: 0.85rem;">Dashboard</a>
-                <a href="/interview_start" class="btn-cyan">Initialize Simulation</a>
             </div>
         </div>
     </header>
@@ -127,6 +146,32 @@
                     <div id="progress-bar" class="progress-fill" style="width: 10%"></div>
                 </div>
             </div>
+        </div>
+
+        <div id="violation-screen" class="violation-screen">
+            <h1 style="color: #ef4444; font-size: 3rem; font-weight: 900; margin-bottom: 1.5rem;">SESSION STOPPED.</h1>
+            <p style="color: var(--text-muted); font-size: 1.1rem; max-width: 600px; line-height: 1.6; margin-bottom: 3rem;">
+                A critical protocol violation was detected. Multiple tab switches or window unfocus events have occurred. 
+                For security purposes, this simulation has been terminated.
+            </p>
+            <a href="/results" class="btn-cyan">View Session Report</a>
+        </div>
+
+        <div id="secure-start-overlay" class="violation-screen" style="display: flex; background: rgba(5, 7, 10, 0.98);">
+            <span class="tag-cyan" style="margin-bottom: 1.5rem;">PHASE: SECURITY INITIALIZATION</span>
+            <h1 style="font-size: 3.5rem; font-weight: 900; margin-bottom: 1.5rem; letter-spacing: -2px;">Secure <br><span>Environment.</span></h1>
+            <p style="color: var(--text-muted); font-size: 1rem; max-width: 500px; line-height: 1.7; margin-bottom: 3rem;">
+                To ensure test integrity, this session will run in <strong>Fullscreen Mode</strong>. 
+                Tab switching, window unfocusing, and interaction shortcuts are strictly prohibited.
+            </p>
+            <button class="btn-cyan secure-session-btn" style="padding: 1.2rem 4rem; font-size: 1.1rem;" onclick="initializeSecureSession()">
+                Enter Secure Simulation <i class="fa-solid fa-lock" style="margin-left: 0.8rem;"></i>
+            </button>
+        </div>
+
+        <div id="warning-toast" class="warning-toast">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <span id="warning-text">ATTENTION: Tab Switch Detected. (1/3)</span>
         </div>
 
         <div id="test-hud" class="test-hud animate-up">
@@ -168,6 +213,137 @@
     </main>
 
     <script>
+        class SecurityManager {
+            constructor() {
+                this.violations = 0;
+                this.isTerminated = false;
+                this.setupListeners();
+            }
+
+            setupListeners() {
+                document.addEventListener('visibilitychange', () => {
+                    if (document.visibilityState === 'hidden' && !this.isTerminated) {
+                        this.reportViolation('Tab Switch / Window Unfocus');
+                    }
+                });
+
+                window.addEventListener('blur', () => {
+                    if (!this.isTerminated) {
+                        this.reportViolation('Window Unfocus');
+                    }
+                });
+
+                document.addEventListener('contextmenu', e => {
+                    e.preventDefault();
+                    this.showToast("Right-click is disabled for security.");
+                });
+
+                document.addEventListener('copy', e => {
+                    e.preventDefault();
+                    this.showToast("Copying is disabled for security.");
+                });
+
+                document.addEventListener('paste', e => {
+                    e.preventDefault();
+                    this.showToast("Pasting is disabled for security.");
+                });
+
+                document.addEventListener('keydown', e => {
+                    if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) || (e.ctrlKey && e.key === 'U')) {
+                        e.preventDefault();
+                        this.showToast("Developer Tools are restricted.");
+                    }
+                });
+
+                document.addEventListener('fullscreenchange', () => {
+                    if (!document.fullscreenElement && !this.isTerminated) {
+                        this.reportViolation('Exited Fullscreen Mode');
+                        // Attempt to re-enter or just count as violation
+                    }
+                });
+            }
+
+            async reportViolation(type) {
+                this.violations++;
+                try {
+                    const res = await fetch('/api/report_violation', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ type: type })
+                    });
+                    const data = await res.json();
+                    
+                    if (data.is_terminated) {
+                        this.terminateSession();
+                    } else {
+                        this.updateUI(data.count);
+                    }
+                } catch (err) {
+                    console.error("Failed to sync violation", err);
+                }
+            }
+
+            updateUI(count) {
+                const toast = document.getElementById('warning-toast');
+                const text = document.getElementById('warning-text');
+                const indicator = document.getElementById('proctor-indicator');
+                const statusText = document.getElementById('proctor-text');
+
+                text.innerText = `SECURITY ALERT: ${count}/3 Infractions Detected.`;
+                toast.classList.add('show');
+                
+                if (count >= 2) {
+                    indicator.className = 'indicator-red';
+                    statusText.innerText = "PROTOCOL BREACH : CRITICAL";
+                }
+
+                setTimeout(() => toast.classList.remove('show'), 5000);
+            }
+
+            showToast(msg) {
+                const toast = document.getElementById('warning-toast');
+                const text = document.getElementById('warning-text');
+                text.innerText = msg;
+                toast.classList.add('show');
+                setTimeout(() => toast.classList.remove('show'), 3000);
+            }
+
+            terminateSession() {
+                this.isTerminated = true;
+                document.getElementById('violation-screen').style.display = 'flex';
+                document.getElementById('test-hud').style.pointerEvents = 'none';
+                document.getElementById('test-hud').style.filter = 'blur(10px)';
+                document.getElementById('proctor-indicator').className = 'indicator-red';
+                document.getElementById('proctor-text').innerText = "SESSION TERMINATED";
+                
+                if (document.fullscreenElement) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+
+        const security = new SecurityManager();
+
+        async function initializeSecureSession() {
+            try {
+                const elem = document.documentElement;
+                if (elem.requestFullscreen) {
+                    await elem.requestFullscreen();
+                } else if (elem.webkitRequestFullscreen) {
+                    await elem.webkitRequestFullscreen();
+                } else if (elem.msRequestFullscreen) {
+                    await elem.msRequestFullscreen();
+                }
+                
+                document.getElementById('secure-start-overlay').style.display = 'none';
+                document.querySelector('header').classList.add('secure-mode');
+                document.body.classList.add('no-select');
+                fetchAptitude(); 
+            } catch (err) {
+                alert("Fullscreen is required for the Secure Test Environment. " + err.message);
+            }
+        }
+
         const questionText = document.getElementById('question-text');
         const optionsGrid = document.getElementById('options-grid');
         const submitBtn = document.getElementById('submit-btn');

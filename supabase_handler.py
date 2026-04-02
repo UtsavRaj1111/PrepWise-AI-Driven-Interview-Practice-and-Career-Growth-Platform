@@ -40,11 +40,19 @@ class SupabaseHandler:
 
     def sign_up(self, email, password):
         if not self.client: return None
-        return self.client.auth.sign_up({"email": email, "password": password})
+        try:
+            return self.client.auth.sign_up({"email": email, "password": password})
+        except Exception as e:
+            print(f"AUTH ERROR: {e}")
+            return None
 
     def sign_in(self, email, password):
         if not self.client: return None
-        return self.client.auth.sign_in_with_password({"email": email, "password": password})
+        try:
+            return self.client.auth.sign_in_with_password({"email": email, "password": password})
+        except Exception as e:
+            print(f"AUTH ERROR: {e}")
+            return None
 
     def sign_out(self):
         if not self.client: return
@@ -56,6 +64,18 @@ class SupabaseHandler:
         try:
             return self.client.auth.get_user()
         except:
+            return None
+
+    def _safe_execute(self, query):
+        """
+        Helper to execute Supabase queries and catch connection/network errors.
+        """
+        if not self.client: return None
+        try:
+            return query.execute()
+        except Exception as e:
+            # Catch httpx.ConnectError, DNS lookup failures, etc.
+            print(f"SUPABASE CONNECTION ERROR: {e}")
             return None
 
     def save_session_result(self, user_id, session_data, feedbacks):
@@ -73,8 +93,8 @@ class SupabaseHandler:
             "score": session_data.get('score'),
         }
         
-        res = self.client.table("sessions").insert(session_row).execute()
-        if res.data:
+        res = self._safe_execute(self.client.table("sessions").insert(session_row))
+        if res and res.data:
             session_id = res.data[0]['id']
             # 2. Insert feedback items
             feedback_rows = []
@@ -89,28 +109,34 @@ class SupabaseHandler:
                 })
             
             if feedback_rows:
-                self.client.table("session_feedback").insert(feedback_rows).execute()
+                self._safe_execute(self.client.table("session_feedback").insert(feedback_rows))
 
     def get_dashboard_data(self, user_id):
         """
         Fetches session history and aggregates stats for the dashboard.
         """
-        if not self.client: return {}
+        if not self.client: return {"sessions": [], "feedbacks": []}
 
-        # Get last 20 sessions
-        sessions = self.client.table("sessions")\
-            .select("*")\
-            .eq("user_id", user_id)\
-            .order("created_at", desc=True)\
-            .limit(20)\
-            .execute()
+        try:
+            # Get last 20 sessions
+            sessions = self._safe_execute(
+                self.client.table("sessions")
+                .select("*")
+                .eq("user_id", user_id)
+                .order("created_at", desc=True)
+                .limit(20)
+            )
 
-        # Get feedback to analyze weak areas
-        feedbacks = self.client.table("session_feedback")\
-            .select("weakness, score")\
-            .execute() # In a real app, join with user's sessions
+            # Get feedback to analyze weak areas
+            feedbacks = self._safe_execute(
+                self.client.table("session_feedback")
+                .select("weakness, score")
+            )
 
-        return {
-            "sessions": sessions.data,
-            "feedbacks": feedbacks.data
-        }
+            return {
+                "sessions": sessions.data if sessions else [],
+                "feedbacks": feedbacks.data if feedbacks else []
+            }
+        except Exception as e:
+            print(f"Supabase Dashboard Data Error: {e}")
+            return {"sessions": [], "feedbacks": []}

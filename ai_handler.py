@@ -7,14 +7,13 @@ load_dotenv()
 class AIHandler:
     def __init__(self):
         self.api_key = os.environ.get("GROQ_API_KEY")
+        self.model = os.environ.get("AI_MODEL", "llama-3.3-70b-versatile")
+        
         if not self.api_key:
-            # Fallback for demonstration if no API key is provided
             print("Warning: GROQ_API_KEY not found. AI features will use placeholders.")
             self.client = None
         else:
             self.client = Groq(api_key=self.api_key)
-        
-        self.model = "llama-3.3-70b-versatile"
 
     def generate_question(self, role, history, difficulty="Intermediate", seed=0):
         """
@@ -57,8 +56,6 @@ class AIHandler:
     def evaluate_answer(self, question, answer, role):
         """
         Full-spectrum evaluation: Technical, Confidence, and Communication scores.
-        Returns: score, confidence_score, communication_score, strength, weakness,
-                 suggestion, filler_words, clarity_note, sample_answer.
         """
         if not self.client:
             return {
