@@ -1,6 +1,7 @@
 import os
 import json
 import uuid
+import random
 from flask import Blueprint, render_template, request, jsonify, session, redirect, url_for
 from extensions import supabase
 from ai_handler import ai
@@ -25,18 +26,40 @@ def get_apti_pool(session_id):
             return json.load(f)
     return None
 
+def resolve_answer_letter(question):
+    """
+    Translates 'answer' field into a single letter (A, B, C, D).
+    Handles both letter-based and text-based correct answers.
+    """
+    ans = question.get('answer') or question.get('correct')
+    if not ans:
+        return 'A'
+        
+    ans_str = str(ans).strip()
+    
+    # CASE 1: Already a letter
+    if len(ans_str) == 1 and ans_str.upper() in ['A', 'B', 'C', 'D']:
+        return ans_str.upper()
+        
+    # CASE 2: Full text (e.g. "$112")
+    options = question.get('options', [])
+    for idx, opt in enumerate(options):
+        if str(opt).strip() == ans_str:
+            return chr(65 + idx)
+            
+    # CASE 3: Prefix matching
+    for idx, opt in enumerate(options):
+        if ans_str.startswith(f"{chr(65 + idx)}."):
+            return chr(65 + idx)
+            
+    return 'A' 
+
 @aptitude_bp.route('/aptitude')
 def aptitude_select():
-    """
-    Aptitude category and difficulty selection.
-    """
     return render_template('aptitude.html')
 
 @aptitude_bp.route('/start_aptitude', methods=['POST'])
 def start_aptitude():
-    """
-    Initialize aptitude session.
-    """
     category = request.form.get('category')
     difficulty = request.form.get('difficulty', 'Medium')
     
@@ -47,39 +70,26 @@ def start_aptitude():
     session['difficulty'] = difficulty
     session['last_question_answered'] = True
     
-    # Generate unique session ID for this attempt
     user_id = get_current_user_id() or DEFAULT_USER_ID
     apti_session_id = f"{user_id}_{uuid.uuid4().hex[:8]}"
     session['apti_session_id'] = apti_session_id
 
-    # Map UI values to DB types
-    type_map = {
-        "Quantitative": "aptitude",
-        "Logical": "lr",
-        "Verbal": "va"
-    }
+    type_map = {"Quantitative": "aptitude", "Logical": "lr", "Verbal": "va"}
     db_type = type_map.get(category, "aptitude")
     
-    # BATCH FETCH 10 questions in ONE query
-    print(f"STRICT DB LOG: Batch fetching {category} (DB: {db_type}) at {difficulty} tier.")
     questions_pool = supabase.get_random_questions(db_type, difficulty, limit=10)
     
     if questions_pool and len(questions_pool) > 0:
-        # Store in local file cache to bypass 4KB cookie limit
         save_apti_pool(apti_session_id, questions_pool)
         session['use_db'] = True
     else:
         session['use_db'] = False
-        print(f"CRITICAL: No questions found in database for Type={db_type}, Difficulty={difficulty}")
     
     session.modified = True
     return redirect(url_for('aptitude.aptitude_test'))
 
 @aptitude_bp.route('/aptitude_test')
 def aptitude_test():
-    """
-    The aptitude test page.
-    """
     if 'aptitude_category' not in session:
         return redirect(url_for('aptitude.aptitude_select'))
     return render_template('aptitude_test.html', 
@@ -88,9 +98,6 @@ def aptitude_test():
 
 @aptitude_bp.route('/api/next_aptitude', methods=['GET'])
 def get_next_aptitude():
-    """
-    Fetches the next aptitude question from the cached pool.
-    """
     if 'aptitude_category' not in session:
         return jsonify({"error": "No session active"}), 400
     
@@ -98,21 +105,41 @@ def get_next_aptitude():
     if idx >= 10:
         return jsonify({"complete": True})
 
-    # Read from persistent cache instead of hitting database again
     session_id = session.get('apti_session_id')
     pool = get_apti_pool(session_id) if session_id else None
     
     if not pool or idx >= len(pool):
-        # Fallback to AI if cache missed or DB failed
-        print("CACHE MISS: Falling back to AI for aptitude.")
         question = ai.generate_aptitude_question(
             session['aptitude_category'], 
             session.get('difficulty', 'Medium'),
             session.get('session_seed', 0)
         )
     else:
-        # SUCCESS: We have the pre-fetched record
         question = pool[idx]
+
+    # Resolve Correct Answer Letter (BEFORE shuffling or modifying)
+    correct_letter = resolve_answer_letter(question)
+    correct_text = ""
+    
+    options = list(question.get('options', []))
+    if len(options) >= 4:
+        # Determine the text of the correct answer
+        letter_idx = ord(correct_letter) - 65
+        if 0 <= letter_idx < len(options):
+            correct_text = options[letter_idx]
+
+        # SHUFFLE LOGIC
+        # We store the text of the correct answer, shuffle the options, 
+        # then find the NEW index of that text to update the correct letter.
+        random.shuffle(options)
+        
+        # Update resolved_correct to point to the new index
+        for i, opt in enumerate(options):
+            if opt == correct_text:
+                question['resolved_correct'] = chr(65 + i)
+                break
+    else:
+        question['resolved_correct'] = correct_letter
 
     session['current_aptitude'] = question
     session['question_count'] = idx + 1
@@ -120,22 +147,19 @@ def get_next_aptitude():
     
     return jsonify({
         "question": question.get('question'),
-        "options": question.get('options', []),
+        "options": options,
         "count": session['question_count'],
         "complete": False
     })
 
 @aptitude_bp.route('/api/check_aptitude', methods=['POST'])
 def check_aptitude():
-    """
-    API to check aptitude answer against the database question result.
-    """
     data = request.json
     user_answer = data.get('answer', '')
     correct_data = session.get('current_aptitude', {})
     
-    correct_answer = correct_data.get('correct', 'A')
-    is_correct = user_answer == correct_answer
+    correct_answer = correct_data.get('resolved_correct', 'A')
+    is_correct = (user_answer == correct_answer)
     
     session_feedbacks = session.get('feedbacks', [])
     session_feedbacks.append({

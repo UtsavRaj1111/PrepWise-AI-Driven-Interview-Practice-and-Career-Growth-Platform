@@ -1,5 +1,9 @@
 import os
 import json as _json
+import base64
+import io
+import re
+import docx
 from groq import Groq
 from dotenv import load_dotenv
 
@@ -9,6 +13,7 @@ class AIHandler:
     def __init__(self):
         self.api_key = os.environ.get("GROQ_API_KEY")
         self.model = os.environ.get("AI_MODEL", "llama-3.1-8b-instant")
+        self.vision_model = "llama-3.2-11b-vision-preview"
         
         if not self.api_key:
             print("Warning: GROQ_API_KEY not found. AI features will use placeholders.")
@@ -16,20 +21,22 @@ class AIHandler:
         else:
             self.client = Groq(api_key=self.api_key)
 
-    def _call_ai(self, messages, temperature=0.7, json_mode=False, retries=2):
+    def _call_ai(self, messages, temperature=0.7, json_mode=False, retries=2, model=None):
         """
-        Helper to call Groq with exponential backoff for RateLimitErrors.
+        Helper to call Groq with exponential backoff and multi-model support.
         """
         if not self.client:
             return None
 
         import time
         import groq
+        
+        target_model = model if model else self.model
 
         for i in range(retries + 1):
             try:
                 options = {
-                    "model": self.model,
+                    "model": target_model,
                     "messages": messages,
                     "temperature": temperature
                 }
@@ -179,7 +186,8 @@ class AIHandler:
                 temperature=1.2,
             )
             content = chat_completion.choices[0].message.content
-            return self._parse_evaluation(content, ["question", "a", "b", "c", "d", "correct", "explanation"])
+            # Accept both 'correct' and 'answer' as valid keys
+            return self._parse_evaluation(content, ["question", "a", "b", "c", "d", "correct", "answer", "explanation"])
         except Exception as e:
             return {"error": str(e)}
 
@@ -200,7 +208,7 @@ class AIHandler:
                     current_key = key
                     continue
             
-            if current_key:
+            if current_key and line.strip():
                 result[current_key] += " " + line.strip()
         
         # Post-processing — cast all score fields to int
@@ -208,13 +216,21 @@ class AIHandler:
             if score_key in result:
                 try:
                     result[score_key] = int(''.join(filter(str.isdigit, str(result[score_key]))))
-                    # Clamp to 0-10
                     result[score_key] = max(0, min(10, result[score_key]))
                 except:
                     result[score_key] = 5
         
-        if 'correct' in result:
-            result['correct'] = result['correct'][0].upper() if result['correct'] else 'A'
+        # Normalize the correct answer key
+        raw_correct = result.get('correct') or result.get('answer', '')
+        if raw_correct:
+            # Look for A, B, C, or D in the first few characters
+            clean_ans = str(raw_correct).strip().upper()
+            if clean_ans and clean_ans[0] in ['A', 'B', 'C', 'D']:
+                result['correct'] = clean_ans[0]
+            else:
+                result['correct'] = 'A' # Universal fallback
+        else:
+            result['correct'] = 'A'
 
         # Bundle options for MCQ
         if 'a' in result and 'b' in result:
@@ -524,6 +540,50 @@ Return ONLY a JSON object with this exact structure:
             
         summary += "---\nUse this data to explain WHY they are weak in certain areas and what EXACT steps (topics to study) they should take next.\n"
         return summary
+
+    def _process_vision_context(self, image_bytes):
+        """
+        Uses Groq Vision model to describe the contents of an image.
+        """
+        if not self.client: return "[Vision System Offline]"
+        
+        try:
+            base64_image = base64.b64encode(image_bytes).decode('utf-8')
+            messages = [
+                {
+                    "role": "user",
+                    "content": [
+                        {"type": "text", "text": "Describe this image in detail. If it contains a technical question, extraction the text of the question. If it is a diagram, explain the flow."},
+                        {
+                            "type": "image_url",
+                            "image_url": {
+                                "url": f"data:image/jpeg;base64,{base64_image}",
+                            },
+                        },
+                    ],
+                }
+            ]
+            
+            response = self._call_ai(messages, model=self.vision_model)
+            return f"[VISUAL ANALYSIS]: {response}"
+        except Exception as e:
+            print(f"Vision Error: {e}")
+            return f"[Vision Error]: {str(e)}"
+
+    def extract_text_from_docx(self, file_stream):
+        """
+        Extracts text from a .docx file.
+        """
+        try:
+            file_stream.seek(0)
+            doc = docx.Document(file_stream)
+            full_text = []
+            for para in doc.paragraphs:
+                full_text.append(para.text)
+            return "\n".join(full_text)
+        except Exception as e:
+            print(f"DOCX Extraction Error: {e}")
+            return ""
 
     def _format_resume_context(self, data):
         """Converts raw resume analysis into a concise AI context block."""

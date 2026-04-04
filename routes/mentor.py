@@ -69,11 +69,17 @@ def mentor_chat():
         file_context = ""
         if uploaded_file:
             filename = uploaded_file.filename.lower()
+            file_bytes = uploaded_file.read()
+            uploaded_file.seek(0) # Reset just in case
+            
             if filename.endswith('.pdf'):
-                file_stream = io.BytesIO(uploaded_file.read())
+                file_stream = io.BytesIO(file_bytes)
                 file_context = extract_text_from_pdf(file_stream)
+            elif filename.endswith('.docx'):
+                file_stream = io.BytesIO(file_bytes)
+                file_context = ai.extract_text_from_docx(file_stream)
             elif any(filename.endswith(ext) for ext in ['.jpg', '.jpeg', '.png', '.webp']):
-                file_context = f"[Vision Context: The user uploaded an image named {uploaded_file.filename}. Note: Image vision is currently in sandbox mode.]"
+                file_context = ai._process_vision_context(file_bytes)
         
         if not user_message and not file_context:
             return jsonify({"error": "Empty message"}), 400
