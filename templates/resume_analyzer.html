@@ -139,96 +139,122 @@
       line-height: 1.9;
     }
 
-    /* ─── FORM SECTION ───────────────────────── */
-    .form-section {
-      padding: 2rem 0 8rem;
-    }
-
-    .form-wrap {
+    /* ─── BENTO GRID LAYOUT ──────────────────── */
+    .bento-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0;
-      border-radius: 32px;
-      overflow: hidden;
+      grid-template-columns: 1.1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .bento-card {
       background: rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-    }
-
-    .form-col {
-      padding: 4.5rem;
-    }
-
-    .form-col-left {
-      border-right: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .col-label {
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 28px;
+      padding: 3rem;
+      backdrop-filter: blur(25px);
+      position: relative;
+      overflow: hidden;
       display: flex;
-      align-items: center;
-      gap: 1.2rem;
-      margin-bottom: 2.5rem;
+      flex-direction: column;
     }
 
-    .col-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.1rem;
+    .bento-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top right, rgba(0, 212, 255, 0.03), transparent 70%);
+      pointer-events: none;
+    }
+
+    .bento-jd {
+      grid-row: span 2;
     }
 
     .jd-ta {
       width: 100%;
-      min-height: 360px;
-      background: rgba(0, 0, 0, 0.3);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 20px;
+      min-height: 480px;
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 18px;
       color: #fff;
-      padding: 1.8rem;
-      font-family: 'Inter', sans-serif;
-      line-height: 1.8;
+      padding: 1.5rem;
+      font-family: inherit;
+      line-height: 1.7;
+      font-size: 0.95rem;
+      resize: vertical;
     }
 
     .dz {
-      border: 2px dashed rgba(0, 212, 255, 0.2);
-      background: rgba(0, 212, 255, 0.01);
-      border-radius: 24px;
-      padding: 5rem 2rem;
+      border: 2px dashed rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.01);
+      border-radius: 20px;
+      padding: 4rem 2rem;
       text-align: center;
       cursor: pointer;
-      transition: all .3s ease;
+      transition: all .3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    .dz:hover {
+    .dz:hover,
+    .dz.over {
       border-color: var(--accent-cyan);
-      background: rgba(0, 212, 255, .04);
+      background: rgba(0, 212, 255, .03);
+      box-shadow: inset 0 0 30px rgba(0, 212, 255, 0.05);
     }
 
     .dz-icon {
-      font-size: 2.2rem;
+      font-size: 2rem;
       color: var(--accent-cyan);
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.2rem;
+      opacity: 0.8;
     }
 
     .go-btn {
       width: 100%;
-      padding: 1.4rem;
-      border-radius: 18px;
+      padding: 1.2rem;
+      border-radius: 15px;
       border: none;
       background: linear-gradient(135deg, var(--accent-cyan), #0099cc);
       color: #000;
       font-weight: 900;
-      font-size: 1rem;
+      font-size: 0.95rem;
       cursor: pointer;
-      margin-top: 2.5rem;
-      transition: all .3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+      transition: all .3s ease;
+      margin-top: 1.5rem;
     }
 
-    .go-btn:hover {
+    .go-btn:hover:not(:disabled) {
       transform: translateY(-2px);
-      box-shadow: 0 15px 40px rgba(0, 212, 255, .3);
+      box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+      filter: brightness(1.1);
+    }
+
+    .go-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      filter: grayscale(1);
+    }
+
+    .card-label {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .card-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
     }
 
     /* ─── SAMPLE OUTPUT PREVIEW (GRID) ───────── */
@@ -482,26 +508,10 @@
     </div>
   </div>
 
-  <header>
-    <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-      <div class="logo"><a href="/" style="text-decoration:none; color:inherit;">Prep <span>Wise</span></a></div>
-      <nav class="nav-links" style="display:flex;gap:2.5rem">
-        <a href="/dashboard">Dashboard</a>
-        <a href="/interview_start">Simulator</a>
-        <a href="/resume" class="active">Resume Scan</a>
-        <a href="/aptitude">Skill Paths</a>
-        <a href="/mentor">Network</a>
-      </nav>
-      <div style="display: flex; gap: 1rem; align-items: center;">
-        <a href="/dashboard" class="btn-ghost" style="padding: 0.6rem 1.4rem; font-size: 0.85rem;">Dashboard</a>
-        <a href="/interview_start" class="btn-cyan">Initialize Simulation</a>
-      </div>
-    </div>
-  </header>
+  {% include 'base/header.html' %}
 
   <section class="hero-strip">
     <div class="container">
-      <div class="hero-eyebrow">High-Performance · Resume Intelligence · V3.0</div>
       <h1 class="hero-title">Resume <span>Analyzer</span></h1>
       <p class="hero-sub">The intelligence layer between your experience and your career goals. Instant ATS scoring, gap
         analysis, and tailored interview preparation.</p>
@@ -510,27 +520,32 @@
 
   <section class="form-section">
     <div class="container">
-      <div class="form-wrap">
-        <div class="form-col form-col-left">
-          <div class="col-label">
-            <div class="col-icon" style="background:rgba(0,212,255,.1);color:var(--accent-cyan)"><i
-                class="fa-solid fa-file-lines"></i></div>
-            <h3>Job Description</h3>
+      <div class="bento-grid">
+        <!-- ── Card: JD ── -->
+        <div class="bento-card bento-jd">
+          <div class="card-label">
+            <div class="card-icon" style="background:rgba(0,212,255,.1);color:var(--accent-cyan)">
+              <i class="fa-solid fa-file-lines"></i>
+            </div>
+            <h3 style="font-weight:800;letter-spacing:-0.5px">Job Description</h3>
           </div>
-          <div style="position:relative">
+          <div style="position:relative; flex: 1; display: flex; flex-direction: column;">
             <textarea id="jd-text" class="jd-ta"
-              placeholder="Paste the job description here to unlock JD-specific match scoring and interview question tailoring..."></textarea>
+              placeholder="Paste context here to unlock higher precision scoring..."></textarea>
             <div id="jd-char"
-              style="position:absolute; bottom:1rem; right:1.5rem; font-size:.65rem; color:rgba(255,255,255,.2)">0 chars
+              style="position:absolute; bottom:1rem; right:1.5rem; font-size:.65rem; color:rgba(255,255,255,.2); font-family:monospace">
+              0 chars
             </div>
           </div>
         </div>
 
-        <div class="form-col">
-          <div class="col-label">
-            <div class="col-icon" style="background:rgba(16,185,129,.1);color:#10b981"><i
-                class="fa-solid fa-cloud-arrow-up"></i></div>
-            <h3>Upload Resume</h3>
+        <!-- ── Card: Upload ── -->
+        <div class="bento-card">
+          <div class="card-label">
+            <div class="card-icon" style="background:rgba(16,185,129,.1);color:#10b981">
+              <i class="fa-solid fa-cloud-arrow-up"></i>
+            </div>
+            <h3 style="font-weight:800;letter-spacing:-0.5px">Neural Upload</h3>
           </div>
           <div class="dz" id="drop-zone">
             <input type="file" id="resume-input" accept=".pdf" style="display:none">
@@ -542,14 +557,24 @@
             </div>
             <div id="dz-chosen" style="display:none">
               <h4 id="fname" style="color:#10b981;font-weight:800">resume.pdf</h4>
-              <p style="font-size:.85rem;margin-top:.5rem"><span style="color:var(--accent-cyan);cursor:pointer"
-                  onclick="resetFile()">Change file</span></p>
+              <p style="font-size:.85rem;margin-top:.5rem">
+                <span style="color:var(--accent-cyan);cursor:pointer;font-weight:700"
+                  onclick="resetFile()">Change</span>
+              </p>
             </div>
           </div>
-          <button class="go-btn" id="submit-btn" disabled onclick="triggerUpload()">
-            <i class="fa-solid fa-bolt"></i> Run Full Analysis
-          </button>
-          <div id="error-msg"></div>
+        </div>
+
+        <!-- ── Card: Action ── -->
+        <div class="bento-card" style="justify-content: center; padding: 2rem 3rem;">
+          <div style="text-align: center;">
+            <p style="color:rgba(255,255,255,0.4);font-size:.8rem;margin-bottom:1rem;font-weight:600">READY FOR SYNC</p>
+            <button class="go-btn" id="submit-btn" disabled onclick="triggerUpload()">
+              <i class="fa-solid fa-bolt"></i> Run Full Analysis
+            </button>
+            <div id="error-msg" style="margin-top:1rem;font-size:0.8rem;color:#ef4444;font-weight:700;display:none">
+            </div>
+          </div>
         </div>
       </div>
     </div>

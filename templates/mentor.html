@@ -11,12 +11,13 @@
     <style>
         :root {
             --accent-cyan: #00d4ff;
-            --bg-deep: #05070a;
-            --bg-chat: #05070a;
-            --bg-bubble: rgba(19, 20, 24, 0.8);
-            --glass-border: rgba(255, 255, 255, 0.08);
+            --bg-deep: #020408;
+            --bg-chat: rgba(10, 12, 16, 0.4);
+            --bg-bubble: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-shine: rgba(255, 255, 255, 0.05);
             --text-main: #FFFFFF;
-            --text-muted: #8E9BAE;
+            --text-muted: #94a3b8;
         }
 
         body {
@@ -39,9 +40,12 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at 50% 50%, rgba(0, 212, 255, 0.03) 0%, transparent 70%);
+            background:
+                radial-gradient(circle at 20% 30%, rgba(0, 212, 255, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.06) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(0, 212, 255, 0.02) 0%, transparent 70%);
             z-index: -1;
-            animation: nebulaPulse 10s infinite alternate ease-in-out;
+            animation: nebulaPulse 15s infinite alternate ease-in-out;
         }
 
         @keyframes nebulaPulse {
@@ -56,43 +60,88 @@
             }
         }
 
-        /* GLOBAL HEADER CLEARANCE */
         header {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             z-index: 2000;
+            background: rgba(2, 4, 8, 0.2) !important;
+            backdrop-filter: blur(15px) !important;
+            border-bottom: 1px solid var(--glass-border) !important;
         }
 
         .chat-wrapper {
             flex-grow: 1;
-            margin-top: 5rem;
+            margin-top: 6rem;
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            grid-template-rows: auto 1fr auto;
+            grid-template-areas:
+                "info chat"
+                "history chat"
+                "actions chat";
+            gap: 1.5rem;
+            width: 95%;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+            height: calc(100vh - 8rem);
+            padding-bottom: 2rem;
+        }
+
+        .bento-card {
+            background: rgba(255, 255, 255, 0.015);
+            backdrop-filter: blur(25px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            width: 100%;
-            height: calc(100vh - 5rem);
-            position: relative;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .bento-card:hover {
+            border-color: rgba(0, 212, 255, 0.2);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        .info-card {
+            grid-area: info;
+            padding: 1.5rem 2rem;
+            min-height: 100px;
+        }
+
+        .history-card {
+            grid-area: history;
+        }
+
+        .chat-card {
+            grid-area: chat;
+        }
+
+        .actions-card {
+            grid-area: actions;
+            padding: 1.5rem;
         }
 
         .chat-container {
-            max-width: 900px;
-            width: 95%;
-            flex-grow: 1;
             display: flex;
             flex-direction: column;
-            position: relative;
-            background: rgba(255, 255, 255, 0.01);
-            border-left: 1px solid var(--glass-border);
-            border-right: 1px solid var(--glass-border);
-            backdrop-filter: blur(2px);
+            height: 100%;
+            background: transparent;
+            border: none;
+            backdrop-filter: none;
+            box-shadow: none;
+            width: 100%;
+            max-width: 100%;
         }
 
         .chat-scroller {
             flex-grow: 1;
             overflow-y: auto;
-            padding: 2rem 3rem 4rem;
+            padding: 2rem 2.5rem 4rem;
             display: flex;
             flex-direction: column;
             gap: 2.5rem;
@@ -101,9 +150,9 @@
 
         /* MENTOR TOP INFO */
         .mentor-sub-bar {
-            padding: 1.2rem 3rem;
-            background: rgba(5, 7, 10, 0.8);
-            backdrop-filter: blur(10px);
+            padding: 1.2rem 2.5rem;
+            background: rgba(255, 255, 255, 0.01);
+            backdrop-filter: blur(15px);
             border-bottom: 1px solid var(--glass-border);
             display: flex;
             justify-content: space-between;
@@ -200,16 +249,24 @@
         }
 
         .mentor-bubble {
-            background: var(--bg-bubble);
+            background: rgba(255, 255, 255, 0.03);
             padding: 1.5rem 2rem;
             border-radius: 4px 18px 18px 18px;
             max-width: 85%;
-            color: #d1d1d1;
+            color: #e2e8f0;
             line-height: 1.7;
             font-size: 1rem;
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2), inset 0 0 20px rgba(0, 212, 255, 0.01);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .mentor-bubble:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(0, 212, 255, 0.05);
         }
 
         .user-row {
@@ -219,15 +276,23 @@
         }
 
         .user-bubble {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
             padding: 1.5rem 2rem;
             border-radius: 18px 18px 4px 18px;
             max-width: 85%;
             color: #fff;
             line-height: 1.7;
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .user-bubble:hover {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.04) 100%);
+            border-color: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
         }
 
         .user-photo {
@@ -241,27 +306,29 @@
 
         /* INPUT AREA GLOW */
         .chat-footer {
-            padding: 1.5rem 3rem 2rem;
-            background: rgba(5, 7, 10, 0.9);
-            backdrop-filter: blur(15px);
+            padding: 1.5rem 2.5rem 2rem;
+            background: rgba(2, 4, 8, 0.3);
+            backdrop-filter: blur(20px);
             border-top: 1px solid var(--glass-border);
         }
 
         .input-box {
-            background: #131418;
-            border-radius: 14px;
-            border: 1px solid #2a2a2a;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
             padding: 1rem 1.4rem;
             display: flex;
             align-items: center;
             gap: 1.2rem;
             position: relative;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
         }
 
         .input-box:focus-within {
-            border-color: #00d2ff88;
-            box-shadow: 0 0 25px rgba(0, 212, 255, 0.08);
+            border-color: rgba(0, 212, 255, 0.4);
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.1);
             transform: translateY(-2px);
         }
 
@@ -359,22 +426,7 @@
 
         /* SESSION HISTORY DRAWER */
         .history-trigger {
-            position: fixed;
-            left: 2.5rem;
-            bottom: 2.5rem;
-            width: 58px;
-            height: 58px;
-            border-radius: 50%;
-            background: #1e1f24;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #00d2ff;
-            cursor: pointer;
-            z-index: 1000;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: none;
         }
 
         .history-trigger:hover {
@@ -383,22 +435,25 @@
             box-shadow: 0 15px 50px rgba(0, 212, 255, 0.2);
         }
 
-        .history-drawer {
-            position: fixed;
-            left: -340px;
-            top: 0;
-            width: 340px;
-            height: 100vh;
-            background: #0d0e12;
-            border-right: 1px solid var(--glass-border);
-            z-index: 3000;
-            padding: 6.5rem 1.8rem 2.5rem;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 20px 0 60px rgba(0, 0, 0, 0.5);
-        }
+        /* BENTO RESPONSIVENESS */
+        @media (max-width: 1100px) {
+            .chat-wrapper {
+                grid-template-columns: 1fr;
+                grid-template-areas:
+                    "info"
+                    "chat"
+                    "history";
+                height: auto;
+                overflow-y: auto;
+            }
 
-        .history-drawer.open {
-            left: 0;
+            .history-card {
+                min-height: 400px;
+            }
+
+            .actions-card {
+                display: none;
+            }
         }
 
         .history-overlay {
@@ -420,14 +475,15 @@
             position: absolute;
             top: 2.5rem;
             right: 1.8rem;
-            color: #444;
+            color: rgba(255, 255, 255, 0.3);
             cursor: pointer;
-            font-size: 1.3rem;
-            transition: color 0.2s;
+            font-size: 1.5rem;
+            transition: all 0.3s;
         }
 
         .drawer-close:hover {
             color: #fff;
+            transform: rotate(90deg);
         }
 
         .history-item {
@@ -446,10 +502,11 @@
 
         .history-item:hover,
         .history-item.active {
-            background: rgba(0, 212, 255, 0.04);
+            background: rgba(255, 255, 255, 0.05);
             color: #fff;
-            border-color: rgba(0, 212, 255, 0.1);
-            transform: translateX(5px);
+            border-color: rgba(0, 212, 255, 0.3);
+            transform: translateX(8px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
         }
 
         .history-item i {
@@ -519,25 +576,46 @@
         }
 
         .new-chat-floating {
-            background: linear-gradient(135deg, #00d2ff 0%, #00a8cc 100%);
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.8) 0%, rgba(0, 168, 204, 0.8) 100%);
+            backdrop-filter: blur(10px);
             color: #000;
-            border: none;
+            border: 1px solid rgba(255, 255, 255, 0.2);
             width: 100%;
-            padding: 1rem;
+            padding: 1.1rem;
             border-radius: 12px;
             font-weight: 800;
             margin-bottom: 3rem;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             box-shadow: 0 4px 15px rgba(0, 212, 255, 0.2);
             text-transform: uppercase;
             letter-spacing: 1px;
             font-size: 0.85rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .new-chat-floating::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transform: rotate(45deg);
+            transition: 0.6s;
+            pointer-events: none;
+        }
+
+        .new-chat-floating:hover::after {
+            left: 100%;
         }
 
         .new-chat-floating:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.4);
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 12px 30px rgba(0, 212, 255, 0.4);
+            border-color: rgba(255, 255, 255, 0.4);
         }
 
         /* TYPING INDICATOR - ANIMATED DOTS */
@@ -660,131 +738,138 @@
 </head>
 
 <body>
-    <header>
-        <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-            <div class="logo"><a href="/" style="text-decoration:none; color:inherit;">Prep <span>Wise</span></a>
-            </div>
-            <nav class="nav-links">
-                <a href="/dashboard">Dashboard</a>
-                <a href="/interview_start">Simulator</a>
-                <a href="/resume">Resume Scan</a>
-                <a href="/aptitude">Skill Paths</a>
-                <a href="/mentor" class="active">Network</a>
-            </nav>
-            <div style="display: flex; gap: 1rem; align-items: center;">
-                <button onclick="startNewChat()" class="btn-ghost"
-                    style="padding: 0.6rem 1.4rem; font-size: 0.85rem;">New Session</button>
-                <a href="/dashboard" class="btn-cyan">Command Center</a>
-            </div>
-        </div>
-    </header>
+    {% include 'base/header.html' %}
 
     <div class="chat-wrapper">
-        <div class="chat-container">
-            <div class="mentor-sub-bar">
-                <div class="mentor-identity">
-                    <div style="display: flex; align-items: center;">
-                        <h2>AI Career Strategist</h2>
-                        <span class="active-badge">
-                            <div class="pulse-dot"></div> Active Node
-                        </span>
+        <!-- BENTO CARD: PROFILE/STATUS -->
+        <div class="bento-card info-card">
+            <div class="mentor-identity">
+                <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+                    <div>
+                        <h2 style="font-size: 1.2rem; color: #fff;">AI Career Strategist</h2>
+                        <p style="font-size: 0.7rem; color: var(--text-muted); margin-top: 0.2rem;">Expert Neural Node
+                            v5.0</p>
                     </div>
-                </div>
-                <div style="color: #444; font-size: 0.75rem; font-weight: 800; letter-spacing: 2px;">
-                    <i class="fa-solid fa-terminal" style="margin-right: 0.8rem; color: #00d2ff22;"></i> SECURE TERMINAL
+                    <span class="active-badge">
+                        <div class="pulse-dot"></div> Live
+                    </span>
                 </div>
             </div>
+        </div>
 
-            <div class="chat-scroller" id="chat-scroller">
-                <div id="messages-anchor">
-                    {% for msg in chat_history %}
-                    {% if msg.role == 'assistant' %}
-                    <div class="message-row mentor-row">
-                        <div class="msg-side-icon"><i class="fa-solid fa-microchip"></i></div>
-                        <div class="mentor-bubble msg-content">{{ msg.content|safe }}</div>
-                    </div>
-                    {% else %}
-                    <div class="message-row user-row">
-                        <div class="user-bubble">{{ msg.content }}</div>
-                        <img src="https://ui-avatars.com/api/?name=User&background=2f3036&color=fff" class="user-photo">
-                    </div>
-                    {% endif %}
-                    {% endfor %}
-                </div>
-                <div class="typing" id="typing">
-                    Neural processing <span class="typing-dots"><span></span><span></span><span></span></span>
+        <!-- BENTO CARD: HISTORY -->
+        <div class="bento-card history-card">
+            <div style="padding: 1.5rem 2rem; border-bottom: 1px solid var(--glass-border);">
+                <div
+                    style="font-size: 0.7rem; color: #444; font-weight: 800; text-transform: uppercase; letter-spacing: 2px;">
+                    Transmission Logs
                 </div>
             </div>
-
-            <div id="scroll-bottom" onclick="scrollToBottom()">
-                <i class="fa-solid fa-arrow-down"></i>
-            </div>
-
-            <div class="chat-footer">
-                <div id="file-preview" class="file-chip">
-                    <i class="fa-solid fa-file-pdf"></i>
-                    <span id="file-name">filename.pdf</span>
-                    <i class="fa-solid fa-xmark" onclick="clearFileSelection()"></i>
-                </div>
-                <form id="chat-form">
-                    <div class="input-box">
-                        <button type="button" class="btn-plus"
-                            onclick="document.getElementById('chat-file-input').click()"><i
-                                class="fa-solid fa-link"></i></button>
-                        <input type="file" id="chat-file-input" style="display: none;"
-                            onchange="handleFileSelect(this)">
-                        <input type="text" id="chat-input" placeholder="Initiate architectural consultation..."
-                            autocomplete="off">
-                        <div class="input-actions">
-                            <i class="fa-solid fa-microphone-lines" id="mic-btn" style="cursor: pointer;"
-                                onclick="toggleVoice()"></i>
-                            <button type="submit" class="btn-send"><i class="fa-solid fa-paper-plane"></i></button>
+            <div style="flex-grow: 1; overflow-y: auto; padding: 1.5rem;">
+                {% for thread in threads %}
+                <div style="position: relative;">
+                    <a href="/mentor?thread_id={{ thread.id }}"
+                        class="history-item {{ 'active' if thread.id == active_thread_id }}"
+                        id="thread-{{ thread.id }}">
+                        <i class="fa-solid fa-message"></i>
+                        <span id="label-{{ thread.id }}"
+                            style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex-grow: 1;">{{
+                            thread.title }}</span>
+                        <div class="thread-menu-btn" onclick="toggleThreadMenu(event, '{{ thread.id }}')">
+                            <i class="fa-solid fa-ellipsis"></i>
+                        </div>
+                    </a>
+                    <div class="thread-context-menu" id="menu-{{ thread.id }}">
+                        <div class="menu-opt" onclick="showRenamePrompt('{{ thread.id }}')">
+                            <i class="fa-solid fa-pen-to-square"></i> Rename
+                        </div>
+                        <div class="menu-opt del" onclick="deleteThread(event, '{{ thread.id }}')">
+                            <i class="fa-solid fa-trash-can"></i> Terminate
                         </div>
                     </div>
-                </form>
-                <div class="meta-footer">
-                    <div>ENCRYPTION ACTIVE</div>
-                    <div style="color: #222;">PREPWISE AI v5.0</div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- BENTO CARD: QUICK ACTIONS -->
+        <div class="bento-card actions-card">
+            <button class="new-chat-floating" onclick="startNewChat()" style="margin-bottom: 0;">+ New Session</button>
+        </div>
+
+        <!-- BENTO CARD: PRIMARY CHAT -->
+        <div class="bento-card chat-card">
+            <div class="chat-container">
+                <div class="mentor-sub-bar">
+                    <div
+                        style="color: #444; font-size: 0.7rem; font-weight: 800; letter-spacing: 2px; width: 100%; display: flex; justify-content: space-between;">
+                        <span><i class="fa-solid fa-terminal" style="margin-right: 0.8rem; color: #00d2ff22;"></i>
+                            SECURE TERMINAL</span>
+                        <span style="color: var(--accent-cyan);">ACTIVE_NODE: 7392-X</span>
+                    </div>
+                </div>
+
+                <div class="chat-scroller" id="chat-scroller">
+                    <div id="messages-anchor">
+                        {% for msg in chat_history %}
+                        {% if msg.role == 'assistant' %}
+                        <div class="message-row mentor-row">
+                            <div class="msg-side-icon"><i class="fa-solid fa-microchip"></i></div>
+                            <div class="mentor-bubble msg-content">{{ msg.content|safe }}</div>
+                        </div>
+                        {% else %}
+                        <div class="message-row user-row">
+                            <div class="user-bubble">{{ msg.content }}</div>
+                            <img src="https://ui-avatars.com/api/?name=User&background=2f3036&color=fff"
+                                class="user-photo">
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="typing" id="typing">
+                        Neural processing <span class="typing-dots"><span></span><span></span><span></span></span>
+                    </div>
+                </div>
+
+                <div id="scroll-bottom" onclick="scrollToBottom()">
+                    <i class="fa-solid fa-arrow-down"></i>
+                </div>
+
+                <div class="chat-footer">
+                    <div id="file-preview" class="file-chip">
+                        <i class="fa-solid fa-file-pdf"></i>
+                        <span id="file-name">filename.pdf</span>
+                        <i class="fa-solid fa-xmark" onclick="clearFileSelection()"></i>
+                    </div>
+                    <form id="chat-form">
+                        <div class="input-box">
+                            <button type="button" class="btn-plus"
+                                onclick="document.getElementById('chat-file-input').click()"><i
+                                    class="fa-solid fa-link"></i></button>
+                            <input type="file" id="chat-file-input" style="display: none;"
+                                onchange="handleFileSelect(this)">
+                            <input type="text" id="chat-input" placeholder="Initiate architectural consultation..."
+                                autocomplete="off">
+                            <div class="input-actions">
+                                <i class="fa-solid fa-microphone-lines" id="mic-btn" style="cursor: pointer;"
+                                    onclick="toggleVoice()"></i>
+                                <button type="submit" class="btn-send"><i class="fa-solid fa-paper-plane"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="meta-footer">
+                        <div>ENCRYPTION ACTIVE</div>
+                        <div style="color: #222;">PREPWISE AI v5.0</div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- History Interaction Layer -->
-    <div class="history-trigger" onclick="toggleDrawer()" title="View Session Logs">
-        <i class="fa-solid fa-bars-staggered"></i>
-    </div>
-    <div class="history-overlay" id="drawer-overlay" onclick="toggleDrawer()"></div>
-    <div class="history-drawer" id="history-drawer">
-        <i class="fa-solid fa-x-circle drawer-close" onclick="toggleDrawer()"></i>
-        <button class="new-chat-floating" onclick="startNewChat()">+ New Session</button>
-
-        <div
-            style="font-size: 0.7rem; color: #444; font-weight: 800; text-transform: uppercase; margin-bottom: 1.8rem; letter-spacing: 2px; padding-left: 0.5rem;">
-            Transmission Logs</div>
-        {% for thread in threads %}
-        <div style="position: relative;">
-            <a href="/mentor?thread_id={{ thread.id }}"
-                class="history-item {{ 'active' if thread.id == active_thread_id }}" id="thread-{{ thread.id }}">
-                <i class="fa-solid fa-message"></i>
-                <span id="label-{{ thread.id }}"
-                    style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex-grow: 1;">{{
-                    thread.title }}</span>
-                <div class="thread-menu-btn" onclick="toggleThreadMenu(event, '{{ thread.id }}')">
-                    <i class="fa-solid fa-ellipsis"></i>
-                </div>
-            </a>
-
-            <div class="thread-context-menu" id="menu-{{ thread.id }}">
-                <div class="menu-opt" onclick="showRenamePrompt('{{ thread.id }}')">
-                    <i class="fa-solid fa-pen-to-square"></i> Rename Session
-                </div>
-                <div class="menu-opt del" onclick="deleteThread(event, '{{ thread.id }}')">
-                    <i class="fa-solid fa-trash-can"></i> Terminate Node
-                </div>
-            </div>
-        </div>
-        {% endfor %}
+    <!-- CLEANUP OLD DRAWER ELEMENTS -->
+    <div style="display: none;">
+        <div class="history-overlay" id="drawer-overlay"></div>
+        <div class="history-drawer" id="history-drawer"></div>
     </div>
 
     <script>

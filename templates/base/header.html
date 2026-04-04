@@ -1,0 +1,86 @@
+<header>
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+        <div class="logo">
+            <a href="/" style="text-decoration:none; color:inherit;">Prep<span>Wise</span></a>
+        </div>
+
+        <nav class="nav-links" style="display: flex; gap: 2.5rem; align-items: center;">
+            <a href="/dashboard">Dashboard</a>
+            <a href="/interview_start">Simulator</a>
+            <a href="/resume">Resume Scan</a>
+            <a href="/aptitude">Skill Paths</a>
+            <a href="/mentor">Network</a>
+        </nav>
+
+        <div class="header-actions" style="display: flex; gap: 1.2rem; align-items: center;">
+            {% if session.get('user_id') %}
+            <!-- Profile Dropdown -->
+            <div class="profile-container" style="position: relative;">
+                <div class="profile-trigger" onclick="toggleProfileDropdown()"
+                    style="cursor: pointer; display: flex; align-items: center; gap: 0.8rem; padding: 0.4rem 0.8rem; border-radius: 50px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); transition: all 0.3s ease;">
+                    <div class="profile-avatar"
+                        style="width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, var(--accent-cyan), #0099cc); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.8rem; color: #000; overflow: hidden;">
+                        {% if session.get('avatar_url') %}
+                        <img src="{{ session.get('avatar_url') }}"
+                            style="width: 100%; height: 100%; object-fit: cover;">
+                        {% else %}
+                        {{ (session.get('full_name') or session.get('email', 'U'))[0].upper() }}
+                        {% endif %}
+                    </div>
+                    <i class="fa-solid fa-chevron-down" style="font-size: 0.6rem; color: var(--text-muted);"></i>
+                </div>
+
+                <div id="profile-dropdown" class="profile-dropdown"
+                    style="display: none; position: absolute; top: calc(100% + 1rem); right: 0; width: 240px; background: rgba(13, 17, 23, 0.95); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; backdrop-filter: blur(20px); box-shadow: 0 20px 40px rgba(0,0,0,0.4); z-index: 1000; padding: 1rem; overflow: hidden;">
+                    <div
+                        style="margin-bottom: 1rem; padding-bottom: 0.8rem; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                        <p
+                            style="font-size: 0.7rem; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.2rem;">
+                            Identified Signal</p>
+                        <p
+                            style="font-size: 0.85rem; font-weight: 600; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                            {{ session.get('user_name') or session.get('email', 'User Profile') }}</p>
+                    </div>
+
+                    <a href="/dashboard" class="dropdown-item"
+                        style="display: flex; align-items: center; gap: 0.8rem; padding: 0.7rem; border-radius: 8px; color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.85rem; transition: all 0.2s ease;">
+                        <i class="fa-solid fa-gauge-high"></i> My Dashboard
+                    </a>
+
+                    <a href="/profile" class="dropdown-item"
+                        style="display: flex; align-items: center; gap: 0.8rem; padding: 0.7rem; border-radius: 8px; color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.85rem; transition: all 0.2s ease;">
+                        <i class="fa-solid fa-user-gear"></i> Profile Settings
+                    </a>
+
+                    <div style="height: 1px; background: rgba(255,255,255,0.05); margin: 0.5rem 0;"></div>
+
+                    <a href="/logout" class="dropdown-item"
+                        style="display: flex; align-items: center; gap: 0.8rem; padding: 0.7rem; border-radius: 8px; color: #f43f5e; text-decoration: none; font-size: 0.85rem; transition: all 0.2s ease;">
+                        <i class="fa-solid fa-power-off"></i> Secure Logout
+                    </a>
+                </div>
+            </div>
+            {% else %}
+            <!-- Auth Buttons -->
+            <a href="/login" class="btn-ghost" style="padding: 0.6rem 1.4rem; font-size: 0.85rem;">Login</a>
+            <a href="/signup" class="btn-cyan" style="padding: 0.6rem 1.4rem; font-size: 0.85rem;">Initialize →</a>
+            {% endif %}
+        </div>
+    </div>
+</header>
+
+<script>
+    function toggleProfileDropdown() {
+        const dropdown = document.getElementById('profile-dropdown');
+        dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
+    }
+
+    // Close when clicking outside
+    window.addEventListener('click', function (e) {
+        const dropdown = document.getElementById('profile-dropdown');
+        const trigger = document.querySelector('.profile-trigger');
+        if (!trigger.contains(e.target) && !dropdown.contains(e.target)) {
+            dropdown.style.display = 'none';
+        }
+    });
+</script>

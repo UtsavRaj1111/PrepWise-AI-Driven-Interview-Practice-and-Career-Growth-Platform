@@ -1,6 +1,6 @@
 import random
 from flask import Blueprint, render_template, request, jsonify, session, redirect, url_for
-from extensions import ai
+from ai_handler import ai
 from utils import init_practice_session
 
 interview_bp = Blueprint('interview', __name__)

@@ -11,25 +11,7 @@
 </head>
 
 <body>
-    <header>
-        <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-            <div class="logo"><a href="/">Prep<span>Wise</span></a></div>
-            <nav class="nav-links">
-                <a href="/dashboard" class="active">Dashboard</a>
-                <a href="/interview_start">Simulator</a>
-                <a href="/resume">Resume Scan</a>
-                <a href="/aptitude">Skill Paths</a>
-                <a href="/mentor">Network</a>
-            </nav>
-            <div style="display: flex; gap: 1.5rem; align-items: center;">
-                <a href="/interview_start" class="btn-cyan">Start Interview</a>
-                <div
-                    style="width: 32px; height: 32px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid var(--accent-cyan);">
-                    <i class="fa-solid fa-user" style="font-size: 0.8rem; color: var(--accent-cyan);"></i>
-                </div>
-            </div>
-        </div>
-    </header>
+    {% include 'base/header.html' %}
 
     <main class="container" style="padding-top: 10rem;">
         <div style="margin-bottom: 4rem;" class="animate-up">
@@ -115,10 +97,11 @@
             </div>
         </div>
     </main>
+    <div id="logs-data" data-logs='{{ (logs or []) | tojson | safe }}' style="display: none;"></div>
 
     <script>
         const ctx = document.getElementById('telemetryChart').getContext('2d');
-        const logsData = {{ logs| tojson }};
+        const logsData = JSON.parse(document.getElementById('logs-data').getAttribute('data-logs'));
 
         // Reverse to show chronological order on chart
         const sortedLogs = [...logsData].reverse();

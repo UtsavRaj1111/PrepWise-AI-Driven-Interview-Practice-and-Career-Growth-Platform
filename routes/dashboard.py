@@ -1,16 +1,19 @@
 from datetime import datetime, timedelta
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, session, redirect, url_for
+from auth import get_current_user_id
 from extensions import supabase
-from utils import DEFAULT_USER_ID
 
 dashboard_bp = Blueprint('dashboard', __name__)
 
 @dashboard_bp.route('/dashboard')
 def dashboard():
     """
-    User dashboard with analytics.
+    User dashboard with analytics fetching from the authenticated session.
     """
-    user_id = DEFAULT_USER_ID
+    user_id = get_current_user_id()
+    if not user_id:
+        return redirect(url_for('auth.login'))
+        
     data = supabase.get_dashboard_data(user_id)
     raw_sessions = data.get('sessions', [])
     

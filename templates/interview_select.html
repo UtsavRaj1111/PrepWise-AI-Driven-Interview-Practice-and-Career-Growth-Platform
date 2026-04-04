@@ -118,23 +118,7 @@
 </head>
 
 <body>
-    <header>
-        <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-            <div class="logo"><a href="/" style="text-decoration:none; color:inherit;">Prep <span>Wise</span></a>
-            </div>
-            <nav class="nav-links">
-                <a href="/dashboard">Dashboard</a>
-                <a href="/interview_start" class="active">Simulator</a>
-                <a href="/resume">Resume Scan</a>
-                <a href="/aptitude">Skill Paths</a>
-                <a href="/mentor">Network</a>
-            </nav>
-            <div style="display: flex; gap: 1rem; align-items: center;">
-                <a href="/dashboard" class="btn-ghost" style="padding: 0.6rem 1.4rem; font-size: 0.85rem;">Dashboard</a>
-                <a href="/interview_start" class="btn-cyan">Initialize Simulation</a>
-            </div>
-        </div>
-    </header>
+    {% include 'base/header.html' %}
 
     <main class="container" style="padding-top: 12rem; padding-bottom: 8rem;">
         <div style="margin-bottom: 4rem; text-align: center;" class="animate-up">
@@ -142,7 +126,8 @@
                 <div class="indicator-cyan"></div> Configuration Mode
             </span>
             <h1 style="font-size: 3.5rem; font-weight: 900; letter-spacing: -2.5px; margin-bottom: 1rem;">Simulator
-                <br><span>Configuration.</span></h1>
+                <br><span>Configuration.</span>
+            </h1>
             <p
                 style="color: var(--text-muted); font-size: 1.1rem; max-width: 550px; margin-inline: auto; margin-bottom: 2.5rem;">
                 Select your role and session mode to initialize the simulation.</p>
