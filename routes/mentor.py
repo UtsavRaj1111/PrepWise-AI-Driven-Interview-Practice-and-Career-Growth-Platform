@@ -2,8 +2,10 @@ import uuid
 import io
 from datetime import datetime
 from flask import Blueprint, render_template, request, jsonify, session
-from extensions import ai
+from extensions import supabase
+from ai_handler import ai
 from utils import extract_text_from_pdf
+from routes.resume import load_analysis
 
 mentor_bp = Blueprint('mentor', __name__)
 
@@ -67,11 +69,17 @@ def mentor_chat():
         file_context = ""
         if uploaded_file:
             filename = uploaded_file.filename.lower()
+            file_bytes = uploaded_file.read()
+            uploaded_file.seek(0) # Reset just in case
+            
             if filename.endswith('.pdf'):
-                file_stream = io.BytesIO(uploaded_file.read())
+                file_stream = io.BytesIO(file_bytes)
                 file_context = extract_text_from_pdf(file_stream)
+            elif filename.endswith('.docx'):
+                file_stream = io.BytesIO(file_bytes)
+                file_context = ai.extract_text_from_docx(file_stream)
             elif any(filename.endswith(ext) for ext in ['.jpg', '.jpeg', '.png', '.webp']):
-                file_context = f"[Vision Context: The user uploaded an image named {uploaded_file.filename}. Note: Image vision is currently in sandbox mode.]"
+                file_context = ai._process_vision_context(file_bytes)
         
         if not user_message and not file_context:
             return jsonify({"error": "Empty message"}), 400
@@ -85,7 +93,29 @@ def mentor_chat():
         
         thread['history'].append({"role": "user", "content": display_message})
         
-        ai_response = ai.get_mentor_response(user_message, thread['history'], file_context)
+        # Data-Aware Context Injection: Fetch latest performance and resume analysis
+        performance_data = None
+        resume_data = None
+        user_id = session.get('user_id')
+        
+        if user_id:
+            try:
+                performance_data = supabase.get_dashboard_data(user_id)
+            except Exception as pe:
+                print(f"Performance Link Warning: {pe}")
+            
+            try:
+                resume_data = load_analysis(user_id) 
+            except Exception as re:
+                print(f"Resume Link Warning: {re}")
+            
+        ai_response = ai.get_mentor_response(
+            user_message=user_message, 
+            chat_history=thread['history'], 
+            file_context=file_context, 
+            performance_data=performance_data, 
+            resume_data=resume_data
+        )
         
         thread['history'].append({"role": "assistant", "content": ai_response})
         session['chat_threads'][thread_id] = thread

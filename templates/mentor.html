@@ -9,6 +9,20 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
+<<<<<<< HEAD
+=======
+        :root {
+            --accent-cyan: #00d4ff;
+            --bg-deep: #020408;
+            --bg-chat: rgba(10, 12, 16, 0.4);
+            --bg-bubble: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-shine: rgba(255, 255, 255, 0.05);
+            --text-main: #FFFFFF;
+            --text-muted: #94a3b8;
+        }
+
+>>>>>>> 81e3f23924040780dcbdefb7e4f2179bfe76c3bc
         body {
             background: var(--bg-primary);
             color: var(--text-main);
@@ -21,16 +35,51 @@
             position: relative;
         }
 
+<<<<<<< HEAD
+=======
+        /* PREMIUM NEBULA BACKGROUND */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 20% 30%, rgba(0, 212, 255, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.06) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(0, 212, 255, 0.02) 0%, transparent 70%);
+            z-index: -1;
+            animation: nebulaPulse 15s infinite alternate ease-in-out;
+        }
+
+        @keyframes nebulaPulse {
+            0% {
+                opacity: 0.3;
+                transform: scale(1);
+            }
+
+            100% {
+                opacity: 0.6;
+                transform: scale(1.1);
+            }
+        }
+
+>>>>>>> 81e3f23924040780dcbdefb7e4f2179bfe76c3bc
         header {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             z-index: 2000;
+            background: rgba(2, 4, 8, 0.2) !important;
+            backdrop-filter: blur(15px) !important;
+            border-bottom: 1px solid var(--glass-border) !important;
         }
 
         .chat-wrapper {
             flex-grow: 1;
+<<<<<<< HEAD
             margin-top: 4.5rem;
             display: flex;
             flex-direction: column;
@@ -50,12 +99,81 @@
             background: var(--bg-surface);
             border-left: 1px solid var(--border-line);
             border-right: 1px solid var(--border-line);
+=======
+            margin-top: 6rem;
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            grid-template-rows: auto 1fr auto;
+            grid-template-areas:
+                "info chat"
+                "history chat"
+                "actions chat";
+            gap: 1.5rem;
+            width: 95%;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+            height: calc(100vh - 8rem);
+            padding-bottom: 2rem;
+        }
+
+        .bento-card {
+            background: rgba(255, 255, 255, 0.015);
+            backdrop-filter: blur(25px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .bento-card:hover {
+            border-color: rgba(0, 212, 255, 0.2);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        .info-card {
+            grid-area: info;
+            padding: 1.5rem 2rem;
+            min-height: 100px;
+        }
+
+        .history-card {
+            grid-area: history;
+        }
+
+        .chat-card {
+            grid-area: chat;
+        }
+
+        .actions-card {
+            grid-area: actions;
+            padding: 1.5rem;
+        }
+
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            background: transparent;
+            border: none;
+            backdrop-filter: none;
+            box-shadow: none;
+            width: 100%;
+            max-width: 100%;
+>>>>>>> 81e3f23924040780dcbdefb7e4f2179bfe76c3bc
         }
 
         .chat-scroller {
             flex-grow: 1;
             overflow-y: auto;
+<<<<<<< HEAD
             padding: 1.5rem 2.5rem 3rem;
+=======
+            padding: 2rem 2.5rem 4rem;
+>>>>>>> 81e3f23924040780dcbdefb7e4f2179bfe76c3bc
             display: flex;
             flex-direction: column;
             gap: 2rem;
@@ -64,9 +182,16 @@
 
         /* Mentor Sub Bar */
         .mentor-sub-bar {
+<<<<<<< HEAD
             padding: 1rem 2.5rem;
             background: var(--bg-surface);
             border-bottom: 1px solid var(--border-subtle);
+=======
+            padding: 1.2rem 2.5rem;
+            background: rgba(255, 255, 255, 0.01);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--glass-border);
+>>>>>>> 81e3f23924040780dcbdefb7e4f2179bfe76c3bc
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -144,6 +269,7 @@
         }
 
         .mentor-bubble {
+<<<<<<< HEAD
             background: var(--bg-secondary);
             padding: 1.25rem 1.5rem;
             border-radius: 4px 14px 14px 14px;
@@ -152,6 +278,26 @@
             line-height: 1.7;
             font-size: 0.95rem;
             border: 1px solid var(--border-subtle);
+=======
+            background: rgba(255, 255, 255, 0.03);
+            padding: 1.5rem 2rem;
+            border-radius: 4px 18px 18px 18px;
+            max-width: 85%;
+            color: #e2e8f0;
+            line-height: 1.7;
+            font-size: 1rem;
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .mentor-bubble:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(0, 212, 255, 0.05);
+>>>>>>> 81e3f23924040780dcbdefb7e4f2179bfe76c3bc
         }
 
         .user-row {
@@ -161,13 +307,33 @@
         }
 
         .user-bubble {
+<<<<<<< HEAD
             background: var(--accent-soft);
             padding: 1.25rem 1.5rem;
             border-radius: 14px 14px 4px 14px;
+=======
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+            padding: 1.5rem 2rem;
+            border-radius: 18px 18px 4px 18px;
+>>>>>>> 81e3f23924040780dcbdefb7e4f2179bfe76c3bc
             max-width: 85%;
             color: var(--text-main);
             line-height: 1.7;
+<<<<<<< HEAD
             border: 1px solid rgba(217, 119, 6, 0.12);
+=======
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .user-bubble:hover {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.04) 100%);
+            border-color: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+>>>>>>> 81e3f23924040780dcbdefb7e4f2179bfe76c3bc
         }
 
         .user-photo {
@@ -181,6 +347,7 @@
 
         /* Input Area */
         .chat-footer {
+<<<<<<< HEAD
             padding: 1.25rem 2.5rem 1.5rem;
             background: var(--bg-surface);
             border-top: 1px solid var(--border-subtle);
@@ -191,16 +358,41 @@
             border-radius: var(--radius-sm);
             border: 1px solid var(--border-line);
             padding: 0.75rem 1.2rem;
+=======
+            padding: 1.5rem 2.5rem 2rem;
+            background: rgba(2, 4, 8, 0.3);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .input-box {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+            padding: 1rem 1.4rem;
+>>>>>>> 81e3f23924040780dcbdefb7e4f2179bfe76c3bc
             display: flex;
             align-items: center;
             gap: 1rem;
             position: relative;
+<<<<<<< HEAD
             transition: all var(--transition-base);
         }
 
         .input-box:focus-within {
             border-color: var(--accent-primary);
             box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.08);
+=======
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+        }
+
+        .input-box:focus-within {
+            border-color: rgba(0, 212, 255, 0.4);
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.1);
+            transform: translateY(-2px);
+>>>>>>> 81e3f23924040780dcbdefb7e4f2179bfe76c3bc
         }
 
         .btn-plus {
@@ -297,6 +489,7 @@
 
         /* History Drawer */
         .history-trigger {
+<<<<<<< HEAD
             position: fixed;
             left: 2rem;
             bottom: 2rem;
@@ -313,6 +506,9 @@
             z-index: 1000;
             box-shadow: var(--shadow-card);
             transition: all var(--transition-smooth);
+=======
+            display: none;
+>>>>>>> 81e3f23924040780dcbdefb7e4f2179bfe76c3bc
         }
 
         .history-trigger:hover {
@@ -322,6 +518,7 @@
             color: var(--accent-primary);
         }
 
+<<<<<<< HEAD
         .history-drawer {
             position: fixed;
             left: -320px;
@@ -335,9 +532,27 @@
             transition: transform var(--duration-base) var(--ease-settle);
             box-shadow: var(--shadow-elevated);
         }
+=======
+        /* BENTO RESPONSIVENESS */
+        @media (max-width: 1100px) {
+            .chat-wrapper {
+                grid-template-columns: 1fr;
+                grid-template-areas:
+                    "info"
+                    "chat"
+                    "history";
+                height: auto;
+                overflow-y: auto;
+            }
+>>>>>>> 81e3f23924040780dcbdefb7e4f2179bfe76c3bc
 
-        .history-drawer.open {
-            left: 0;
+            .history-card {
+                min-height: 400px;
+            }
+
+            .actions-card {
+                display: none;
+            }
         }
 
         .history-overlay {
@@ -357,6 +572,7 @@
 
         .drawer-close {
             position: absolute;
+<<<<<<< HEAD
             top: 2rem;
             right: 1.5rem;
             color: var(--text-caption);
@@ -367,6 +583,19 @@
 
         .drawer-close:hover {
             color: var(--text-main);
+=======
+            top: 2.5rem;
+            right: 1.8rem;
+            color: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .drawer-close:hover {
+            color: #fff;
+            transform: rotate(90deg);
+>>>>>>> 81e3f23924040780dcbdefb7e4f2179bfe76c3bc
         }
 
         .history-item {
@@ -385,9 +614,17 @@
 
         .history-item:hover,
         .history-item.active {
+<<<<<<< HEAD
             background: var(--accent-soft);
             color: var(--text-main);
             border-color: rgba(217, 119, 6, 0.08);
+=======
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            border-color: rgba(0, 212, 255, 0.3);
+            transform: translateX(8px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+>>>>>>> 81e3f23924040780dcbdefb7e4f2179bfe76c3bc
         }
 
         .history-item i {
@@ -456,6 +693,7 @@
         }
 
         .new-chat-floating {
+<<<<<<< HEAD
             background: var(--accent-primary);
             color: #FFFFFF;
             border: none;
@@ -474,6 +712,48 @@
             transform: translateY(-2px);
             background: var(--accent-secondary);
             box-shadow: var(--shadow-hover);
+=======
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.8) 0%, rgba(0, 168, 204, 0.8) 100%);
+            backdrop-filter: blur(10px);
+            color: #000;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 100%;
+            padding: 1.1rem;
+            border-radius: 12px;
+            font-weight: 800;
+            margin-bottom: 3rem;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.2);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.85rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .new-chat-floating::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transform: rotate(45deg);
+            transition: 0.6s;
+            pointer-events: none;
+        }
+
+        .new-chat-floating:hover::after {
+            left: 100%;
+        }
+
+        .new-chat-floating:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 12px 30px rgba(0, 212, 255, 0.4);
+            border-color: rgba(255, 255, 255, 0.4);
+>>>>>>> 81e3f23924040780dcbdefb7e4f2179bfe76c3bc
         }
 
         /* Typing Indicator */
@@ -559,6 +839,7 @@
 </head>
 
 <body>
+<<<<<<< HEAD
     <header>
         <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
             <div class="logo"><a href="/" style="text-decoration:none; color:inherit;">Prep <span>Wise</span></a>
@@ -598,9 +879,28 @@
                 </div>
                 <div style="color: var(--text-caption); font-size: 0.72rem; font-weight: 500;">
                     <i class="fa-regular fa-comment-dots" style="margin-right: 0.5rem;"></i> AI Mentor
+=======
+    {% include 'base/header.html' %}
+
+    <div class="chat-wrapper">
+        <!-- BENTO CARD: PROFILE/STATUS -->
+        <div class="bento-card info-card">
+            <div class="mentor-identity">
+                <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+                    <div>
+                        <h2 style="font-size: 1.2rem; color: #fff;">AI Career Strategist</h2>
+                        <p style="font-size: 0.7rem; color: var(--text-muted); margin-top: 0.2rem;">Expert Neural Node
+                            v5.0</p>
+                    </div>
+                    <span class="active-badge">
+                        <div class="pulse-dot"></div> Live
+                    </span>
+>>>>>>> 81e3f23924040780dcbdefb7e4f2179bfe76c3bc
                 </div>
             </div>
+        </div>
 
+<<<<<<< HEAD
             <div class="chat-scroller" id="chat-scroller">
                 <div id="messages-anchor">
                     {% for msg in chat_history %}
@@ -651,11 +951,118 @@
                 <div class="meta-footer">
                     <div>PrepWise AI Mentor</div>
                     <div>v5.0</div>
+=======
+        <!-- BENTO CARD: HISTORY -->
+        <div class="bento-card history-card">
+            <div style="padding: 1.5rem 2rem; border-bottom: 1px solid var(--glass-border);">
+                <div
+                    style="font-size: 0.7rem; color: #444; font-weight: 800; text-transform: uppercase; letter-spacing: 2px;">
+                    Transmission Logs
+                </div>
+            </div>
+            <div style="flex-grow: 1; overflow-y: auto; padding: 1.5rem;">
+                {% for thread in threads %}
+                <div style="position: relative;">
+                    <a href="/mentor?thread_id={{ thread.id }}"
+                        class="history-item {{ 'active' if thread.id == active_thread_id }}"
+                        id="thread-{{ thread.id }}">
+                        <i class="fa-solid fa-message"></i>
+                        <span id="label-{{ thread.id }}"
+                            style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex-grow: 1;">{{
+                            thread.title }}</span>
+                        <div class="thread-menu-btn" onclick="toggleThreadMenu(event, '{{ thread.id }}')">
+                            <i class="fa-solid fa-ellipsis"></i>
+                        </div>
+                    </a>
+                    <div class="thread-context-menu" id="menu-{{ thread.id }}">
+                        <div class="menu-opt" onclick="showRenamePrompt('{{ thread.id }}')">
+                            <i class="fa-solid fa-pen-to-square"></i> Rename
+                        </div>
+                        <div class="menu-opt del" onclick="deleteThread(event, '{{ thread.id }}')">
+                            <i class="fa-solid fa-trash-can"></i> Terminate
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- BENTO CARD: QUICK ACTIONS -->
+        <div class="bento-card actions-card">
+            <button class="new-chat-floating" onclick="startNewChat()" style="margin-bottom: 0;">+ New Session</button>
+        </div>
+
+        <!-- BENTO CARD: PRIMARY CHAT -->
+        <div class="bento-card chat-card">
+            <div class="chat-container">
+                <div class="mentor-sub-bar">
+                    <div
+                        style="color: #444; font-size: 0.7rem; font-weight: 800; letter-spacing: 2px; width: 100%; display: flex; justify-content: space-between;">
+                        <span><i class="fa-solid fa-terminal" style="margin-right: 0.8rem; color: #00d2ff22;"></i>
+                            SECURE TERMINAL</span>
+                        <span style="color: var(--accent-cyan);">ACTIVE_NODE: 7392-X</span>
+                    </div>
+                </div>
+
+                <div class="chat-scroller" id="chat-scroller">
+                    <div id="messages-anchor">
+                        {% for msg in chat_history %}
+                        {% if msg.role == 'assistant' %}
+                        <div class="message-row mentor-row">
+                            <div class="msg-side-icon"><i class="fa-solid fa-microchip"></i></div>
+                            <div class="mentor-bubble msg-content">{{ msg.content|safe }}</div>
+                        </div>
+                        {% else %}
+                        <div class="message-row user-row">
+                            <div class="user-bubble">{{ msg.content }}</div>
+                            <img src="https://ui-avatars.com/api/?name=User&background=2f3036&color=fff"
+                                class="user-photo">
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="typing" id="typing">
+                        Neural processing <span class="typing-dots"><span></span><span></span><span></span></span>
+                    </div>
+                </div>
+
+                <div id="scroll-bottom" onclick="scrollToBottom()">
+                    <i class="fa-solid fa-arrow-down"></i>
+                </div>
+
+                <div class="chat-footer">
+                    <div id="file-preview" class="file-chip">
+                        <i class="fa-solid fa-file-pdf"></i>
+                        <span id="file-name">filename.pdf</span>
+                        <i class="fa-solid fa-xmark" onclick="clearFileSelection()"></i>
+                    </div>
+                    <form id="chat-form">
+                        <div class="input-box">
+                            <button type="button" class="btn-plus"
+                                onclick="document.getElementById('chat-file-input').click()"><i
+                                    class="fa-solid fa-link"></i></button>
+                            <input type="file" id="chat-file-input" style="display: none;"
+                                onchange="handleFileSelect(this)">
+                            <input type="text" id="chat-input" placeholder="Initiate architectural consultation..."
+                                autocomplete="off">
+                            <div class="input-actions">
+                                <i class="fa-solid fa-microphone-lines" id="mic-btn" style="cursor: pointer;"
+                                    onclick="toggleVoice()"></i>
+                                <button type="submit" class="btn-send"><i class="fa-solid fa-paper-plane"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="meta-footer">
+                        <div>ENCRYPTION ACTIVE</div>
+                        <div style="color: #222;">PREPWISE AI v5.0</div>
+                    </div>
+>>>>>>> 81e3f23924040780dcbdefb7e4f2179bfe76c3bc
                 </div>
             </div>
         </div>
     </div>
 
+<<<<<<< HEAD
     <!-- History Interaction Layer -->
     <div class="history-trigger" onclick="toggleDrawer()" title="Session history">
         <i class="fa-solid fa-bars-staggered"></i>
@@ -691,6 +1098,12 @@
             </div>
         </div>
         {% endfor %}
+=======
+    <!-- CLEANUP OLD DRAWER ELEMENTS -->
+    <div style="display: none;">
+        <div class="history-overlay" id="drawer-overlay"></div>
+        <div class="history-drawer" id="history-drawer"></div>
+>>>>>>> 81e3f23924040780dcbdefb7e4f2179bfe76c3bc
     </div>
 
     <script>

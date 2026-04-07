@@ -1,5 +1,19 @@
 from flask import Flask
-from extensions import ai, supabase
+from flask_cors import CORS
+import os
+
+# 🔥 DEBUG IMPORTS (IMPORTANT)
+try:
+    from extensions import supabase
+    print("✅ Supabase loaded")
+except Exception as e:
+    print("❌ Supabase ERROR:", e)
+
+try:
+    from ai_handler import ai
+    print("✅ AI loaded")
+except Exception as e:
+    print("❌ AI ERROR:", e)
 
 # Blueprint Imports
 from routes.main import main_bp
@@ -8,9 +22,12 @@ from routes.aptitude import aptitude_bp
 from routes.resume import resume_bp
 from routes.mentor import mentor_bp
 from routes.dashboard import dashboard_bp
+from routes.auth import auth_bp
 
 app = Flask(__name__)
-app.secret_key = 'architect-ai-prepwise-secret-2026-xk9'
+CORS(app)
+
+app.secret_key = os.getenv("SECRET_KEY", "fallback-secret")
 
 # Register Blueprints
 app.register_blueprint(main_bp)
@@ -19,8 +36,8 @@ app.register_blueprint(aptitude_bp)
 app.register_blueprint(resume_bp)
 app.register_blueprint(mentor_bp)
 app.register_blueprint(dashboard_bp)
+app.register_blueprint(auth_bp)
 
 if __name__ == '__main__':
-    # Initialize Handlers (already done in extensions.py via import)
-    print("🚀 PrepWise Logic Engine: INITIALIZED")
-    app.run(debug=True)
+    print("PrepWise Logic Core: INITIALIZED")
+    app.run(host='0.0.0.0', port=5000)

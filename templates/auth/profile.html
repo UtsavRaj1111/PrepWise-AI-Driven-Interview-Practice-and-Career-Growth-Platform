@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Settings | PrepWise</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .profile-card {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-glass);
+            border-radius: 24px;
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .avatar-upload-container {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 2rem;
+        }
+
+        .avatar-preview {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--accent-cyan);
+            background: var(--bg-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--accent-cyan);
+            transition: all 0.3s ease;
+        }
+
+        .upload-overlay {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            background: var(--accent-cyan);
+            color: var(--bg-primary);
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 212, 255, 0.4);
+            transition: transform 0.2s ease;
+        }
+
+        .upload-overlay:hover {
+            transform: scale(1.1);
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.8rem;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-control {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-glass);
+            color: white;
+            padding: 1.2rem;
+            border-radius: 12px;
+            outline: none;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--accent-cyan);
+            background: rgba(0, 212, 255, 0.05);
+        }
+
+        .form-control:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+
+<body>
+    {% include 'base/header.html' %}
+
+    <main class="container" style="padding-top: 12rem; padding-bottom: 8rem;">
+        <div class="animate-up">
+            <div class="profile-card">
+                <div class="profile-header">
+                    <form id="avatarForm" action="/profile/upload" method="POST" enctype="multipart/form-data">
+                        <div class="avatar-upload-container">
+                            <div class="avatar-preview" id="avatarPreview">
+                                {% if session.get('avatar_url') %}
+                                <img src="{{ session.get('avatar_url') }}"
+                                    style="width:100%; height:100%; border-radius:50%; object-fit:cover;">
+                                {% else %}
+                                {{ (user_name or session.get('email', 'U'))[0].upper() }}
+                                {% endif %}
+                            </div>
+                            <label for="avatarInput" class="upload-overlay">
+                                <i class="fa-solid fa-camera"></i>
+                            </label>
+                            <input type="file" id="avatarInput" name="avatar" style="display: none;"
+                                onchange="handleImagePreview(event)">
+                        </div>
+                    </form>
+                    <h2 style="font-size: 2.5rem; margin-bottom: 0.5rem;">User <span
+                            style="color: var(--accent-cyan);">Profile.</span></h2>
+                    <p style="color: var(--text-muted);">Customize your digital identity on the PrepWise network.</p>
+                </div>
+
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                {% for category, message in messages %}
+                <div
+                    style="background: rgba(0, 212, 255, 0.1); border-left: 4px solid var(--accent-cyan); padding: 1rem; margin-bottom: 2rem; border-radius: 8px; color: #fff; font-size: 0.9rem;">
+                    {{ message }}
+                </div>
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+
+                <form method="POST">
+                    <div class="form-group">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" name="full_name" class="form-control" placeholder="Enter your full name"
+                            value="{{ user_name or '' }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Network ID (Email)</label>
+                        <input type="email" class="form-control" value="{{ session.get('email') }}" disabled>
+                    </div>
+
+                    <button type="submit" class="btn-cyan"
+                        style="width: 100%; padding: 1.2rem; font-size: 1rem; margin-top: 1rem;">
+                        Synchronize Profile
+                    </button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function handleImagePreview(event) {
+            const reader = new FileReader();
+            reader.onload = function () {
+                const preview = document.getElementById('avatarPreview');
+                preview.innerHTML = `<img src="${reader.result}" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">`;
+
+                // Automatically submit the form for upload
+                document.getElementById('avatarForm').submit();
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
+</body>
+
+</html>
