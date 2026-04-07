@@ -4,28 +4,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cognitive Matrices | PrepWise</title>
+    <title>Skill Assessment | PrepWise</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         .topic-card {
             background: var(--bg-surface);
-            border: 2px solid var(--border-glass);
-            border-radius: 24px;
-            padding: 2.5rem;
-            transition: all 0.3s ease;
+            border: 1px solid var(--border-line);
+            border-radius: var(--radius-card);
+            padding: 2rem;
+            transition: all var(--transition-smooth);
             cursor: pointer;
             position: relative;
         }
 
         .topic-card:hover {
-            border-color: rgba(0, 212, 255, 0.4);
-            transform: translateY(-3px);
+            border-color: #D5D0C6;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
         }
 
         .topic-card.selected {
-            border-color: var(--accent-cyan);
-            background: rgba(0, 212, 255, 0.05);
+            border-color: var(--accent-primary);
+            background: rgba(217, 119, 6, 0.03);
         }
 
         .topic-card input[type="radio"] {
@@ -35,19 +36,21 @@
         .difficulty-pill {
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-            padding: 0.7rem 1.5rem;
-            background: rgba(255, 255, 255, 0.03);
-            border: 2px solid var(--border-glass);
-            border-radius: 50px;
+            gap: 0.4rem;
+            padding: 0.6rem 1.25rem;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-line);
+            border-radius: var(--radius-full);
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all var(--transition-base);
             font-size: 0.85rem;
-            font-weight: 700;
+            font-weight: 500;
+            color: var(--text-muted);
+            font-family: 'Inter', sans-serif;
         }
 
         .difficulty-pill:hover {
-            border-color: rgba(0, 212, 255, 0.4);
+            border-color: #D5D0C6;
         }
 
         .difficulty-pill input[type="radio"] {
@@ -55,9 +58,9 @@
         }
 
         .difficulty-pill.selected {
-            border-color: var(--accent-cyan);
-            color: var(--accent-cyan);
-            background: rgba(0, 212, 255, 0.08);
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+            background: var(--accent-soft);
         }
 
         .check-icon {
@@ -68,6 +71,12 @@
             display: block;
         }
     </style>
+    <script>
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+    </script>
 </head>
 
 <body>
@@ -80,100 +89,103 @@
                 <a href="/interview_start">Simulator</a>
                 <a href="/resume">Resume Scan</a>
                 <a href="/aptitude" class="active">Skill Paths</a>
-                <a href="/mentor">Network</a>
+                <a href="/mentor">Mentor</a>
             </nav>
-            <div style="display: flex; gap: 1rem; align-items: center;">
-                <a href="/dashboard" class="btn-ghost" style="padding: 0.6rem 1.4rem; font-size: 0.85rem;">Dashboard</a>
-                <a href="/interview_start" class="btn-cyan">Initialize Simulation</a>
+                        <div style="display: flex; gap: 0.75rem; align-items: center;">
+                <div class="theme-toggle-wrap">
+                    <div class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle environment">
+                        <i class="fa-solid fa-moon" style="margin-left: 5px;"></i>
+                        <i class="fa-solid fa-sun" style="margin-right: 4px;"></i>
+                        <div class="orbit"></div>
+                    </div>
+                </div>
+                <a href="/dashboard" class="btn-ghost" style="padding: 0.5rem 1.2rem; font-size: 0.85rem;">Dashboard</a>
+                <a href="/interview_start" class="btn-cyan">Start Interview</a>
             </div>
         </div>
     </header>
 
-    <main class="container" style="padding-top: 12rem; padding-bottom: 8rem;">
-        <div style="margin-bottom: 5rem; text-align: center;" class="animate-up">
-            <span class="tag-cyan" style="justify-content: center; margin-bottom: 1rem;">
-                <div class="indicator-cyan"></div> System Readiness Check
+    <main class="container" style="padding-top: 10rem; padding-bottom: 6rem;">
+        <div style="margin-bottom: 4rem; text-align: center;" class="reveal">
+            <span class="tag-cyan" style="justify-content: center; margin-bottom: 0.75rem;">
+                <div class="indicator-cyan"></div> Assessment
             </span>
-            <h1 style="font-size: 3.5rem; font-weight: 900; letter-spacing: -2px;">Cognitive <br><span>Skill
-                    Matrices.</span></h1>
+            <h1 style="font-size: 2.5rem; font-weight: 700; letter-spacing: -1.5px; color: var(--text-main);">Skill <br><span style="color: var(--accent-primary);">assessment.</span></h1>
             <p
-                style="color: var(--text-muted); font-size: 1.1rem; margin-top: 1rem; max-width: 550px; margin-inline: auto;">
-                Select your cognitive vector and calibration level to begin performance evaluation.</p>
+                style="color: var(--text-muted); font-size: 1rem; margin-top: 0.75rem; max-width: 480px; margin-inline: auto;">
+                Choose a topic and difficulty level to begin.</p>
         </div>
 
         <form action="/start_aptitude" method="POST" id="aptitude-form">
             <!-- Step 1: Category -->
-            <div style="margin-bottom: 4rem;" class="animate-up">
+            <div style="margin-bottom: 3rem;" class="reveal reveal-d1">
                 <h3
-                    style="font-size: 0.75rem; font-weight: 900; letter-spacing: 2px; color: var(--text-muted); margin-bottom: 2rem; text-transform: uppercase;">
-                    Step 1 — Select Cognitive Vector</h3>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+                    style="font-size: 0.75rem; font-weight: 600; letter-spacing: 0.5px; color: var(--text-muted); margin-bottom: 1.5rem;">
+                    Step 1 — Choose a topic</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem;">
 
-                    <label class="topic-card" id="card-quant" onclick="selectCategory(this, 'Quantitative')">
+                    <div class="topic-card reveal reveal-d1" onclick="selectCategory(this, 'Quantitative')">
                         <input type="radio" name="category" value="Quantitative" required>
                         <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-                            <div style="font-size: 2rem; color: var(--accent-cyan); margin-bottom: 1.5rem;"><i
-                                    class="fa-solid fa-calculator"></i></div>
+                            <div style="font-size: 1.5rem; color: var(--accent-primary); margin-bottom: 1.25rem;"><i
+                                    class="fa-regular fa-calculator"></i></div>
                             <i class="fa-solid fa-circle-check check-icon"
-                                style="color: var(--accent-cyan); font-size: 1.2rem;"></i>
+                                style="color: var(--accent-primary); font-size: 1rem;"></i>
                         </div>
-                        <h3 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 0.8rem;">Quantitative Logic</h3>
-                        <p style="color: var(--text-muted); font-size: 0.9rem;">Numerical reasoning, percentages,
+                        <h3 style="font-size: 1.15rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--text-main);">Quantitative</h3>
+                        <p style="color: var(--text-muted); font-size: 0.88rem;">Numerical reasoning, percentages,
                             ratios, and data interpretation.</p>
-                    </label>
+                    </div>
 
-                    <label class="topic-card" id="card-logical" onclick="selectCategory(this, 'Logical')">
+                    <div class="topic-card reveal reveal-d2" onclick="selectCategory(this, 'Logical')">
                         <input type="radio" name="category" value="Logical">
                         <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-                            <div style="font-size: 2rem; color: #8b5cf6; margin-bottom: 1.5rem;"><i
-                                    class="fa-solid fa-atom"></i></div>
+                            <div style="font-size: 1.5rem; color: var(--accent-purple); margin-bottom: 1.25rem;"><i
+                                    class="fa-regular fa-compass"></i></div>
                             <i class="fa-solid fa-circle-check check-icon"
-                                style="color: #8b5cf6; font-size: 1.2rem;"></i>
+                                style="color: var(--accent-purple); font-size: 1rem;"></i>
                         </div>
-                        <h3 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 0.8rem;">Logical Deduction</h3>
-                        <p style="color: var(--text-muted); font-size: 0.9rem;">Pattern recognition, syllogisms,
+                        <h3 style="font-size: 1.15rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--text-main);">Logical</h3>
+                        <p style="color: var(--text-muted); font-size: 0.88rem;">Pattern recognition, syllogisms,
                             deductive and inductive reasoning.</p>
-                    </label>
+                    </div>
 
-                    <label class="topic-card" id="card-verbal" onclick="selectCategory(this, 'Verbal')">
+                    <div class="topic-card reveal reveal-d3" onclick="selectCategory(this, 'Verbal')">
                         <input type="radio" name="category" value="Verbal">
                         <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-                            <div style="font-size: 2rem; color: #f43f5e; margin-bottom: 1.5rem;"><i
-                                    class="fa-solid fa-language"></i></div>
+                            <div style="font-size: 1.5rem; color: var(--accent-green); margin-bottom: 1.25rem;"><i
+                                    class="fa-regular fa-message"></i></div>
                             <i class="fa-solid fa-circle-check check-icon"
-                                style="color: #f43f5e; font-size: 1.2rem;"></i>
+                                style="color: var(--accent-green); font-size: 1rem;"></i>
                         </div>
-                        <h3 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 0.8rem;">Verbal Architecture</h3>
-                        <p style="color: var(--text-muted); font-size: 0.9rem;">Reading comprehension, synonyms,
+                        <h3 style="font-size: 1.15rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--text-main);">Verbal</h3>
+                        <p style="color: var(--text-muted); font-size: 0.88rem;">Reading comprehension, synonyms,
                             antonyms, and sentence completion.</p>
-                    </label>
+                    </div>
                 </div>
             </div>
 
             <!-- Step 2: Difficulty -->
-            <div style="margin-bottom: 5rem;" class="animate-up">
+            <div style="margin-bottom: 4rem;" class="reveal reveal-d4">
                 <h3
-                    style="font-size: 0.75rem; font-weight: 900; letter-spacing: 2px; color: var(--text-muted); margin-bottom: 2rem; text-transform: uppercase;">
-                    Step 2 — Calibration Level</h3>
-                <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-                    <label class="difficulty-pill" id="pill-easy" onclick="selectDifficulty(this)">
-                        <input type="radio" name="difficulty" value="Easy"> <i class="fa-solid fa-seedling"></i> Junior
-                        Level
+                    style="font-size: 0.75rem; font-weight: 600; letter-spacing: 0.5px; color: var(--text-muted); margin-bottom: 1.5rem;">
+                    Step 2 — Difficulty</h3>
+                <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                    <label class="difficulty-pill" id="pill-easy" onclick="selectDifficulty(this, 'Easy')">
+                        <input type="radio" name="difficulty" value="Easy"> Junior
                     </label>
-                    <label class="difficulty-pill selected" id="pill-medium" onclick="selectDifficulty(this)">
-                        <input type="radio" name="difficulty" value="Medium" checked> <i class="fa-solid fa-bolt"></i>
-                        Intermediate Level
+                    <label class="difficulty-pill selected" id="pill-medium" onclick="selectDifficulty(this, 'Medium')">
+                        <input type="radio" name="difficulty" value="Medium" checked> Intermediate
                     </label>
-                    <label class="difficulty-pill" id="pill-hard" onclick="selectDifficulty(this)">
-                        <input type="radio" name="difficulty" value="Hard"> <i class="fa-solid fa-fire"></i> Senior
-                        Level
+                    <label class="difficulty-pill" id="pill-hard" onclick="selectDifficulty(this, 'Hard')">
+                        <input type="radio" name="difficulty" value="Hard"> Senior
                     </label>
                 </div>
             </div>
 
-            <div style="text-align: center;" class="animate-up">
-                <button type="submit" class="btn-cyan" style="padding: 1.2rem 5rem; font-size: 1.1rem;">
-                    Initialize Skill Check <i class="fa-solid fa-microchip" style="margin-left: 1rem;"></i>
+            <div style="text-align: center;" class="reveal reveal-d5">
+                <button type="submit" class="btn-cyan" style="padding: 0.85rem 3.5rem; font-size: 1rem;">
+                    Start assessment <i class="fa-solid fa-arrow-right" style="margin-left: 0.5rem;"></i>
                 </button>
             </div>
         </form>
@@ -186,10 +198,32 @@
             card.querySelector('input[type="radio"]').checked = true;
         }
 
-        function selectDifficulty(pill) {
-            document.querySelectorAll('.difficulty-pill').forEach(p => p.classList.remove('selected'));
-            pill.classList.add('selected');
-            pill.querySelector('input[type="radio"]').checked = true;
+        function selectDifficulty(element, difficulty) {
+            const input = element.querySelector('input[type="radio"]');
+            input.checked = true;
+            document.querySelectorAll('.difficulty-pill').forEach(c => c.classList.remove('selected'));
+            element.classList.add('selected');
+        }
+
+        // Reveal observer
+        (function() {
+            var els = document.querySelectorAll('.reveal, .reveal-scale');
+            if (!els.length) return;
+            var obs = new IntersectionObserver(function(entries) {
+                entries.forEach(function(e) {
+                    if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+                });
+            }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
+            els.forEach(function(el) { obs.observe(el); });
+        })();
+    </script>
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            const target = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', target);
+            localStorage.setItem('theme', target);
+            window.dispatchEvent(new CustomEvent('themeChanged', { detail: target }));
         }
     </script>
 </body>

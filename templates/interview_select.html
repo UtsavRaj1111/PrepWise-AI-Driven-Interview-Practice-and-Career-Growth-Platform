@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulator Configuration | PrepWise </title>
+    <title>Interview Setup | PrepWise</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -13,7 +13,7 @@
             text-align: left;
             position: relative;
             background: var(--bg-surface);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all var(--transition-smooth);
         }
 
         .role-option input[type="radio"] {
@@ -21,20 +21,19 @@
         }
 
         .role-option.selected {
-            border: 2px solid var(--accent-cyan);
-            background: rgba(0, 212, 255, 0.05);
-            transform: translateY(-6px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            border: 2px solid var(--accent-primary);
+            background: rgba(217, 119, 6, 0.03);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
         }
 
         .role-option .check-icon {
             position: absolute;
-            top: 1.5rem;
-            right: 1.5rem;
-            font-size: 1.5rem;
-            color: var(--accent-cyan);
+            top: 1.25rem;
+            right: 1.25rem;
+            font-size: 1.2rem;
+            color: var(--accent-primary);
             display: none;
-            filter: drop-shadow(0 0 5px var(--accent-cyan));
         }
 
         .role-option.selected .check-icon {
@@ -42,79 +41,97 @@
         }
 
         .role-option.selected .icon-box-hud {
-            background: rgba(0, 212, 255, 0.1);
-            border-color: var(--accent-cyan);
-            color: var(--accent-cyan);
+            background: var(--accent-soft);
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
         }
 
         /* Mode Toggle */
         .mode-toggle {
             display: flex;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--border-glass);
-            border-radius: 16px;
-            padding: 0.4rem;
-            gap: 0.4rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-line);
+            border-radius: var(--radius-card);
+            padding: 0.3rem;
+            gap: 0.3rem;
             width: fit-content;
             margin: 0 auto;
         }
 
         .mode-btn {
-            padding: 0.9rem 2.5rem;
-            border-radius: 12px;
+            padding: 0.7rem 2rem;
+            border-radius: var(--radius-btn);
             border: none;
             background: transparent;
             color: var(--text-muted);
-            font-weight: 700;
-            font-size: 0.9rem;
+            font-weight: 600;
+            font-size: 0.88rem;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all var(--transition-base);
             display: flex;
             align-items: center;
-            gap: 0.6rem;
+            gap: 0.5rem;
+            font-family: 'Inter', sans-serif;
         }
 
         .mode-btn.active {
-            background: var(--accent-cyan);
-            color: var(--bg-primary);
+            background: var(--accent-primary);
+            color: #FFFFFF;
         }
 
         .mode-btn.active.danger {
-            background: #ef4444;
+            background: var(--accent-red);
         }
 
-        /* Real Mode Panel */
+        /* Real Mode Panel — animated height for controlled revelation */
         .real-mode-panel {
-            display: none;
-            background: linear-gradient(135deg, rgba(239, 68, 68, 0.05), rgba(239, 68, 68, 0.02));
-            border: 1px solid rgba(239, 68, 68, 0.2);
-            border-radius: 20px;
-            padding: 2.5rem;
-            margin-bottom: 3rem;
+            background: rgba(220, 38, 38, 0.03);
+            border: 1px solid rgba(220, 38, 38, 0.15);
+            border-radius: var(--radius-card);
+            padding: 0 2rem;
+            margin-bottom: 0;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition:
+                max-height 300ms var(--ease-settle),
+                opacity 300ms var(--ease-settle),
+                padding 300ms var(--ease-settle),
+                margin-bottom 300ms var(--ease-settle);
         }
 
         .real-mode-panel.visible {
-            display: block;
+            max-height: 300px;
+            opacity: 1;
+            padding: 2rem;
+            margin-bottom: 2.5rem;
         }
 
         .round-pill {
-            padding: 0.7rem 2rem;
-            border: 2px solid var(--border-glass);
-            border-radius: 50px;
+            padding: 0.6rem 1.5rem;
+            border: 1px solid var(--border-line);
+            border-radius: var(--radius-full);
             cursor: pointer;
-            font-weight: 800;
-            font-size: 0.9rem;
-            transition: all 0.2s ease;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all var(--transition-base);
             background: transparent;
             color: var(--text-muted);
+            font-family: 'Inter', sans-serif;
         }
 
         .round-pill.selected {
-            border-color: #ef4444;
-            color: #ef4444;
-            background: rgba(239, 68, 68, 0.08);
+            border-color: var(--accent-red);
+            color: var(--accent-red);
+            background: rgba(220, 38, 38, 0.04);
         }
     </style>
+    <script>
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+    </script>
 </head>
 
 <body>
@@ -127,57 +144,63 @@
                 <a href="/interview_start" class="active">Simulator</a>
                 <a href="/resume">Resume Scan</a>
                 <a href="/aptitude">Skill Paths</a>
-                <a href="/mentor">Network</a>
+                <a href="/mentor">Mentor</a>
             </nav>
-            <div style="display: flex; gap: 1rem; align-items: center;">
-                <a href="/dashboard" class="btn-ghost" style="padding: 0.6rem 1.4rem; font-size: 0.85rem;">Dashboard</a>
-                <a href="/interview_start" class="btn-cyan">Initialize Simulation</a>
+                        <div style="display: flex; gap: 0.75rem; align-items: center;">
+                <div class="theme-toggle-wrap">
+                    <div class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle environment">
+                        <i class="fa-solid fa-moon" style="margin-left: 5px;"></i>
+                        <i class="fa-solid fa-sun" style="margin-right: 4px;"></i>
+                        <div class="orbit"></div>
+                    </div>
+                </div>
+                <a href="/dashboard" class="btn-ghost" style="padding: 0.5rem 1.2rem; font-size: 0.85rem;">Dashboard</a>
+                <a href="/interview_start" class="btn-cyan">Start Interview</a>
             </div>
         </div>
     </header>
 
-    <main class="container" style="padding-top: 12rem; padding-bottom: 8rem;">
-        <div style="margin-bottom: 4rem; text-align: center;" class="animate-up">
-            <span class="tag-cyan" style="justify-content: center; margin-bottom: 1rem;">
-                <div class="indicator-cyan"></div> Configuration Mode
+    <main class="container" style="padding-top: 10rem; padding-bottom: 6rem;">
+        <div style="margin-bottom: 3rem; text-align: center;" class="reveal">
+            <span class="tag-cyan" style="justify-content: center; margin-bottom: 0.75rem;">
+                <div class="indicator-cyan"></div> Setup
             </span>
-            <h1 style="font-size: 3.5rem; font-weight: 900; letter-spacing: -2.5px; margin-bottom: 1rem;">Simulator
-                <br><span>Configuration.</span></h1>
+            <h1 style="font-size: 2.5rem; font-weight: 700; letter-spacing: -1.5px; margin-bottom: 0.75rem; color: var(--text-main);">Set up your
+                <br><span style="color: var(--accent-primary);">interview.</span></h1>
             <p
-                style="color: var(--text-muted); font-size: 1.1rem; max-width: 550px; margin-inline: auto; margin-bottom: 2.5rem;">
-                Select your role and session mode to initialize the simulation.</p>
+                style="color: var(--text-muted); font-size: 1rem; max-width: 480px; margin-inline: auto; margin-bottom: 2rem;">
+                Choose your role, session mode, and begin when you're ready.</p>
 
             <!-- Mode Toggle -->
             <div class="mode-toggle">
                 <button type="button" class="mode-btn active" id="btn-practice" onclick="setMode('practice')">
-                    <i class="fa-solid fa-dumbbell"></i> Practice Mode
+                    <i class="fa-regular fa-pen-to-square"></i> Practice Mode
                 </button>
                 <button type="button" class="mode-btn danger" id="btn-real" onclick="setMode('real')">
-                    <i class="fa-solid fa-circle-dot" style="color: #ef4444;"></i> Real Simulation
+                    <i class="fa-regular fa-circle-dot" style="color: var(--accent-red);"></i> Real Simulation
                 </button>
             </div>
         </div>
 
-        <form action="/start_interview" method="POST" id="role-form" class="animate-up">
+        <form action="/start_interview" method="POST" id="role-form" class="reveal reveal-d1">
             <input type="hidden" name="sim_mode" id="sim_mode" value="practice">
             <input type="hidden" name="rounds" id="rounds_input" value="1">
 
             <!-- Real Mode Settings Panel -->
             <div class="real-mode-panel" id="real-panel">
-                <div style="display: flex; align-items: flex-start; gap: 1.5rem; margin-bottom: 2rem;">
-                    <div style="font-size: 2rem; color: #ef4444;"><i class="fa-solid fa-shield-halved"></i></div>
+                <div style="display: flex; align-items: flex-start; gap: 1.25rem; margin-bottom: 1.5rem;">
+                    <div style="font-size: 1.5rem; color: var(--accent-red);"><i class="fa-regular fa-circle-exclamation"></i></div>
                     <div>
-                        <h3 style="font-size: 1.3rem; font-weight: 900; color: #ef4444; margin-bottom: 0.4rem;">⚠ Real
-                            Interview Conditions Active</h3>
-                        <p style="color: var(--text-muted); font-size: 0.9rem;">2-minute timer per question. Answers
+                        <h3 style="font-size: 1.1rem; font-weight: 600; color: var(--accent-red); margin-bottom: 0.3rem;">Real interview conditions</h3>
+                        <p style="color: var(--text-muted); font-size: 0.88rem;">2-minute timer per question. Answers
                             lock on submit. No editing. Performance tracked under pressure.</p>
                     </div>
                 </div>
                 <div>
                     <h4
-                        style="font-size: 0.75rem; font-weight: 900; letter-spacing: 2px; color: var(--text-muted); margin-bottom: 1rem; text-transform: uppercase;">
-                        Select Rounds</h4>
-                    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                        style="font-size: 0.75rem; font-weight: 600; letter-spacing: 0.5px; color: var(--text-muted); margin-bottom: 0.75rem;">
+                        Number of rounds</h4>
+                    <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
                         <button type="button" class="round-pill selected" id="r1" onclick="selectRound(1)">1 Round <span
                                 style="font-size:0.75rem; opacity:0.7;">(10 Q)</span></button>
                         <button type="button" class="round-pill" id="r2" onclick="selectRound(2)">2 Rounds <span
@@ -190,52 +213,52 @@
 
             <!-- Role Selection -->
             <h3
-                style="font-size: 0.75rem; font-weight: 900; letter-spacing: 2px; color: var(--text-muted); margin-bottom: 2rem; text-transform: uppercase;">
-                Select Your Role</h3>
+                style="font-size: 0.75rem; font-weight: 600; letter-spacing: 0.5px; color: var(--text-muted); margin-bottom: 1.5rem;">
+                Choose your role</h3>
             <div
-                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2rem; margin-bottom: 4rem;">
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-bottom: 3rem;">
 
-                <label class="role-option hud-card">
+                <label class="role-option hud-card reveal">
                     <input type="radio" name="role" value="Software Engineer" required onclick="updateSelected(this)">
-                    <div class="icon-box-hud"><i class="fa-solid fa-code"></i></div>
-                    <h3 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 0.8rem;">Software Engineer</h3>
+                    <div class="icon-box-hud"><i class="fa-regular fa-window-restore"></i></div>
+                    <h3 style="font-size: 1.15rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--text-main);">Software Engineer</h3>
                     <p style="color: var(--text-muted); font-size: 0.85rem;">Core engineering, algorithms, and system
                         design fundamentals.</p>
                     <i class="fa-solid fa-circle-check check-icon"></i>
                 </label>
 
-                <label class="role-option hud-card">
+                <label class="role-option hud-card reveal reveal-d1">
                     <input type="radio" name="role" value="Fullstack Developer" onclick="updateSelected(this)">
-                    <div class="icon-box-hud"><i class="fa-solid fa-layer-group"></i></div>
-                    <h3 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 0.8rem;">Fullstack Developer</h3>
+                    <div class="icon-box-hud"><i class="fa-regular fa-object-group"></i></div>
+                    <h3 style="font-size: 1.15rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--text-main);">Fullstack Developer</h3>
                     <p style="color: var(--text-muted); font-size: 0.85rem;">End-to-end architecture, APIs, and UI
                         engineering.</p>
                     <i class="fa-solid fa-circle-check check-icon"></i>
                 </label>
 
-                <label class="role-option hud-card">
+                <label class="role-option hud-card reveal reveal-d2">
                     <input type="radio" name="role" value="Data Scientist" onclick="updateSelected(this)">
-                    <div class="icon-box-hud"><i class="fa-solid fa-chart-line"></i></div>
-                    <h3 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 0.8rem;">Data Engineer</h3>
+                    <div class="icon-box-hud"><i class="fa-regular fa-chart-bar"></i></div>
+                    <h3 style="font-size: 1.15rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--text-main);">Data Engineer</h3>
                     <p style="color: var(--text-muted); font-size: 0.85rem;">Statistics, ML pipelines, and data
                         orchestration at scale.</p>
                     <i class="fa-solid fa-circle-check check-icon"></i>
                 </label>
 
-                <label class="role-option hud-card">
+                <label class="role-option hud-card reveal reveal-d3">
                     <input type="radio" name="role" value="DevOps Engineer" onclick="updateSelected(this)">
-                    <div class="icon-box-hud"><i class="fa-solid fa-cloud"></i></div>
-                    <h3 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 0.8rem;">DevOps / Cloud</h3>
+                    <div class="icon-box-hud"><i class="fa-regular fa-hard-drive"></i></div>
+                    <h3 style="font-size: 1.15rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--text-main);">DevOps / Cloud</h3>
                     <p style="color: var(--text-muted); font-size: 0.85rem;">CI/CD, Infrastructure, and Site Reliability
                         Engineering.</p>
                     <i class="fa-solid fa-circle-check check-icon"></i>
                 </label>
             </div>
 
-            <div style="text-align: center;">
+            <div style="text-align: center;" class="reveal reveal-d4">
                 <button type="submit" id="submit-btn" class="btn-cyan"
-                    style="padding: 1.3rem 5rem; font-size: 1.15rem;">
-                    <i class="fa-solid fa-circle-play" style="margin-right: 0.8rem;"></i> Initialize Simulation
+                    style="padding: 1rem 4rem; font-size: 1rem;">
+                    Begin interview <i class="fa-solid fa-arrow-right" style="margin-left: 0.5rem;"></i>
                 </button>
             </div>
         </form>
@@ -258,14 +281,14 @@
                 btnPractice.classList.remove('active');
                 btnReal.classList.add('active');
                 realPanel.classList.add('visible');
-                submitBtn.style.background = '#ef4444';
-                submitBtn.innerHTML = '<i class="fa-solid fa-shield-halved" style="margin-right:0.8rem;"></i> Initialize Real Simulation';
+                submitBtn.style.background = 'var(--accent-red)';
+                submitBtn.innerHTML = '<i class="fa-regular fa-circle-exclamation" style="margin-right:0.5rem;"></i> Begin real simulation';
             } else {
                 btnPractice.classList.add('active');
                 btnReal.classList.remove('active');
                 realPanel.classList.remove('visible');
-                submitBtn.style.background = 'var(--accent-cyan)';
-                submitBtn.innerHTML = '<i class="fa-solid fa-circle-play" style="margin-right:0.8rem;"></i> Initialize Simulation';
+                submitBtn.style.background = 'var(--accent-primary)';
+                submitBtn.innerHTML = 'Begin interview <i class="fa-solid fa-arrow-right" style="margin-left:0.5rem;"></i>';
             }
         }
 
@@ -279,6 +302,27 @@
         function updateSelected(input) {
             document.querySelectorAll('.role-option').forEach(c => c.classList.remove('selected'));
             input.parentElement.classList.add('selected');
+        }
+
+        // Reveal observer
+        (function() {
+            var els = document.querySelectorAll('.reveal, .reveal-scale');
+            if (!els.length) return;
+            var obs = new IntersectionObserver(function(entries) {
+                entries.forEach(function(e) {
+                    if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+                });
+            }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
+            els.forEach(function(el) { obs.observe(el); });
+        })();
+    </script>
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            const target = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', target);
+            localStorage.setItem('theme', target);
+            window.dispatchEvent(new CustomEvent('themeChanged', { detail: target }));
         }
     </script>
 </body>

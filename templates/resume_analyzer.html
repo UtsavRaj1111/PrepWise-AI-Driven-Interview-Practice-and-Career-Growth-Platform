@@ -4,41 +4,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Resume Analyzer | PrepWise </title>
+  <title>Resume Analyzer | PrepWise</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
-    rel="stylesheet">
   <style>
-    /* ── PAGE-WIDE: Full-width Layout ── */
     .container {
-      max-width: 1600px !important;
-      padding: 0 4rem !important;
+      max-width: 1200px !important;
+      padding: 0 2.5rem !important;
     }
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background: #04060a;
-    }
-
-    /* ─── LOADING OVERLAY ────────────────────── */
+    /* Loading Overlay */
     #loading-overlay {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(4, 6, 10, 0.97);
+      background: rgba(250, 249, 245, 0.97);
       z-index: 3000;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 1.5rem;
-      backdrop-filter: blur(20px);
+      gap: 1.25rem;
+      backdrop-filter: blur(8px);
     }
 
     .arc-wrapper {
       position: relative;
-      width: 90px;
-      height: 90px;
+      width: 72px;
+      height: 72px;
     }
 
     .arc-wrapper svg {
@@ -47,234 +39,234 @@
 
     .arc-wrapper circle.bg {
       fill: none;
-      stroke: rgba(255, 255, 255, 0.05);
-      stroke-width: 5;
+      stroke: var(--border-subtle);
+      stroke-width: 4;
     }
 
     .arc-wrapper circle.arc {
       fill: none;
-      stroke: var(--accent-cyan);
-      stroke-width: 5;
+      stroke: var(--accent-primary);
+      stroke-width: 4;
       stroke-linecap: round;
       stroke-dasharray: 220;
       stroke-dashoffset: 170;
-      filter: drop-shadow(0 0 8px var(--accent-cyan));
       animation: arc-dash 1.6s ease-in-out infinite;
     }
 
-    @keyframes spin-svg {
-      to {
-        transform: rotate(360deg);
-      }
-    }
+    @keyframes spin-svg { to { transform: rotate(360deg); } }
 
     @keyframes arc-dash {
-      0% {
-        stroke-dashoffset: 220
-      }
-
-      50% {
-        stroke-dashoffset: 50
-      }
-
-      100% {
-        stroke-dashoffset: 220
-      }
+      0% { stroke-dashoffset: 220 }
+      50% { stroke-dashoffset: 50 }
+      100% { stroke-dashoffset: 220 }
     }
 
     .loader-label {
       font-size: 0.82rem;
-      font-family: monospace;
-      color: var(--accent-cyan);
-      letter-spacing: 1px;
+      color: var(--accent-primary);
+      font-weight: 500;
       animation: blink .9s steps(1) infinite;
     }
 
-    @keyframes blink {
-      50% {
-        opacity: .3
-      }
-    }
+    @keyframes blink { 50% { opacity: .3 } }
 
-    /* ─── HERO STRIP ─────────────────────────── */
+    /* Hero */
     .hero-strip {
-      padding: 13rem 0 7rem;
+      padding: 10rem 0 5rem;
       text-align: center;
-      position: relative;
     }
 
     .hero-eyebrow {
       display: inline-flex;
       align-items: center;
-      gap: .7rem;
-      padding: .55rem 1.4rem;
-      background: rgba(0, 212, 255, 0.1);
-      border: 1px solid rgba(0, 212, 255, 0.22);
-      border-radius: 50px;
+      gap: .5rem;
+      padding: .4rem 1.1rem;
+      background: var(--accent-soft);
+      border: 1px solid rgba(217, 119, 6, 0.15);
+      border-radius: var(--radius-full);
       font-size: .72rem;
-      font-weight: 800;
-      color: var(--accent-cyan);
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      margin-bottom: 2rem;
+      font-weight: 600;
+      color: var(--accent-primary);
+      margin-bottom: 1.5rem;
     }
 
     .hero-title {
-      font-size: 6rem;
-      font-weight: 900;
-      letter-spacing: -4px;
-      line-height: 1;
-      margin-bottom: 1.4rem;
+      font-size: 3.5rem;
+      font-weight: 700;
+      letter-spacing: -2px;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+      color: var(--text-main);
     }
 
     .hero-title span {
-      color: var(--accent-cyan);
+      color: var(--accent-primary);
     }
 
     .hero-sub {
-      color: rgba(255, 255, 255, 0.5);
-      font-size: 1.15rem;
-      max-width: 700px;
-      margin: 0 auto 4rem;
-      line-height: 1.9;
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      max-width: 600px;
+      margin: 0 auto 3rem;
+      line-height: 1.8;
     }
 
-    /* ─── FORM SECTION ───────────────────────── */
+    /* Form */
     .form-section {
-      padding: 2rem 0 8rem;
+      padding: 2rem 0 6rem;
     }
 
     .form-wrap {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 0;
-      border-radius: 32px;
+      border-radius: var(--radius-card);
       overflow: hidden;
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(255, 255, 255, 0.06);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-line);
     }
 
     .form-col {
-      padding: 4.5rem;
+      padding: 3.5rem;
     }
 
     .form-col-left {
-      border-right: 1px solid rgba(255, 255, 255, 0.05);
+      border-right: 1px solid var(--border-subtle);
     }
 
     .col-label {
       display: flex;
       align-items: center;
-      gap: 1.2rem;
-      margin-bottom: 2.5rem;
+      gap: 1rem;
+      margin-bottom: 2rem;
     }
 
     .col-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 14px;
+      width: 42px;
+      height: 42px;
+      border-radius: var(--radius-sm);
       display: flex;
       align-items: center;
       justify-content: center;
+      font-size: 1rem;
+    }
+
+    .col-label h3 {
+      font-weight: 600;
       font-size: 1.1rem;
+      color: var(--text-main);
     }
 
     .jd-ta {
       width: 100%;
-      min-height: 360px;
-      background: rgba(0, 0, 0, 0.3);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 20px;
-      color: #fff;
-      padding: 1.8rem;
+      min-height: 320px;
+      background: var(--bg-primary);
+      border: 1px solid var(--border-line);
+      border-radius: var(--radius-sm);
+      color: var(--text-main);
+      padding: 1.5rem;
       font-family: 'Inter', sans-serif;
       line-height: 1.8;
+      font-size: 0.92rem;
+      resize: vertical;
+      outline: none;
+      transition: border-color var(--transition-base);
+    }
+
+    .jd-ta:focus {
+      border-color: var(--accent-primary);
     }
 
     .dz {
-      border: 2px dashed rgba(0, 212, 255, 0.2);
-      background: rgba(0, 212, 255, 0.01);
-      border-radius: 24px;
-      padding: 5rem 2rem;
+      border: 2px dashed var(--border-line);
+      background: var(--bg-primary);
+      border-radius: var(--radius-card);
+      padding: 4rem 2rem;
       text-align: center;
       cursor: pointer;
-      transition: all .3s ease;
+      transition: all var(--transition-base);
     }
 
     .dz:hover {
-      border-color: var(--accent-cyan);
-      background: rgba(0, 212, 255, .04);
+      border-color: var(--accent-primary);
+      background: var(--accent-soft);
     }
 
     .dz-icon {
-      font-size: 2.2rem;
-      color: var(--accent-cyan);
-      margin-bottom: 1.5rem;
+      font-size: 1.8rem;
+      color: var(--accent-primary);
+      margin-bottom: 1.25rem;
     }
 
     .go-btn {
       width: 100%;
-      padding: 1.4rem;
-      border-radius: 18px;
+      padding: 1.1rem;
+      border-radius: var(--radius-btn);
       border: none;
-      background: linear-gradient(135deg, var(--accent-cyan), #0099cc);
-      color: #000;
-      font-weight: 900;
-      font-size: 1rem;
+      background: var(--accent-primary);
+      color: #FFFFFF;
+      font-weight: 600;
+      font-size: 0.95rem;
       cursor: pointer;
-      margin-top: 2.5rem;
-      transition: all .3s;
+      margin-top: 2rem;
+      transition: all var(--transition-base);
+      font-family: 'Inter', sans-serif;
     }
 
     .go-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 15px 40px rgba(0, 212, 255, .3);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-hover);
+      background: var(--accent-secondary);
     }
 
-    /* ─── SAMPLE OUTPUT PREVIEW (GRID) ───────── */
+    .go-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Preview */
     .preview-section {
-      padding: 8rem 0;
-      background: rgba(255, 255, 255, 0.01);
-      border-top: 1px solid rgba(255, 255, 255, 0.03);
+      padding: 6rem 0;
+      border-top: 1px solid var(--border-subtle);
     }
 
     .preview-label {
       text-align: center;
-      margin-bottom: 5.5rem;
+      margin-bottom: 4rem;
     }
 
     .preview-label h2 {
-      font-size: 3.8rem;
-      font-weight: 900;
-      letter-spacing: -3px;
-      margin-bottom: 1rem;
-      background: linear-gradient(to bottom, #fff, rgba(255, 255, 255, 0.4));
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
+      font-size: 2.5rem;
+      font-weight: 700;
+      letter-spacing: -1.5px;
+      margin-bottom: 0.75rem;
+      color: var(--text-main);
+    }
+
+    .preview-label p {
+      color: var(--text-muted);
+      font-size: 1rem;
     }
 
     .preview-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-      gap: 2.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
     }
 
     .preview-card {
-      padding: 4rem 3rem;
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 36px;
+      padding: 3rem 2.5rem;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-line);
+      border-radius: var(--radius-card);
       position: relative;
       overflow: hidden;
-      backdrop-filter: blur(16px);
-      transition: all 0.4s ease;
+      transition: all var(--transition-smooth);
     }
 
     .preview-card:hover {
-      transform: translateY(-12px);
-      border-color: rgba(255, 255, 255, 0.12);
-      background: rgba(255, 255, 255, 0.03);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
     }
 
     .preview-card::before {
@@ -283,271 +275,297 @@
       top: 0;
       left: 0;
       right: 0;
-      height: 4px;
-      opacity: 0.6;
+      height: 3px;
+      opacity: 0.7;
     }
 
-    .pcard-cyan::before {
-      background: var(--accent-cyan);
-      box-shadow: 0 0 20px var(--accent-cyan);
+    .pcard-cyan::before { background: var(--accent-primary); }
+    .pcard-green::before { background: var(--accent-green); }
+    .pcard-red::before { background: var(--accent-red); }
+    .pcard-purple::before { background: var(--accent-purple); }
+
+    .pcard-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
     }
 
-    .pcard-green::before {
-      background: #10b981;
-      box-shadow: 0 0 20px #10b981;
+    .pcard-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
     }
 
-    .pcard-red::before {
-      background: #ef4444;
-      box-shadow: 0 0 20px #ef4444;
-    }
-
-    .pcard-purple::before {
-      background: #8b5cf6;
-      box-shadow: 0 0 20px #8b5cf6;
+    .pcard-title {
+      font-weight: 600;
+      font-size: 1.05rem;
+      color: var(--text-main);
     }
 
     .gauge-row {
       display: flex;
-      gap: 1.5rem;
-      margin: 2.5rem 0;
+      gap: 1.25rem;
+      margin: 2rem 0;
     }
 
     .gauge {
       flex: 1;
-      padding: 2rem;
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: 24px;
-      border: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 1.5rem;
+      background: var(--bg-primary);
+      border-radius: var(--radius-card);
+      border: 1px solid var(--border-subtle);
       text-align: center;
     }
 
     .gauge .gnum {
-      font-size: 3.5rem;
-      font-weight: 900;
+      font-size: 2.5rem;
+      font-weight: 700;
+    }
+
+    .gauge .glbl {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      font-weight: 500;
+      margin-top: 0.25rem;
     }
 
     .mbar-row {
       display: flex;
       align-items: center;
-      gap: 1.2rem;
-      margin-bottom: 1.5rem;
+      gap: 1rem;
+      margin-bottom: 1rem;
     }
 
     .mbar-track {
       flex: 1;
-      height: 8px;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 10px;
+      height: 6px;
+      background: var(--border-subtle);
+      border-radius: 6px;
       overflow: hidden;
     }
 
     .mbar-fill {
       height: 100%;
-      border-radius: 10px;
+      border-radius: 6px;
     }
 
     .kw-chip {
       display: inline-block;
-      padding: .5rem 1rem;
-      border-radius: 12px;
+      padding: .4rem .85rem;
+      border-radius: var(--radius-sm);
       font-size: .78rem;
-      font-weight: 700;
-      margin: .3rem;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      font-weight: 600;
+      margin: .2rem;
+      background: var(--bg-primary);
+      border: 1px solid var(--border-line);
     }
 
     .kw-green {
-      color: #10b981;
-      border-color: rgba(16, 185, 129, 0.3);
-      background: rgba(16, 185, 129, 0.05);
+      color: var(--accent-green);
+      border-color: rgba(5, 150, 105, 0.2);
+      background: rgba(5, 150, 105, 0.04);
     }
 
     .kw-amber {
-      color: #f59e0b;
-      border-color: rgba(245, 158, 11, 0.3);
-      background: rgba(245, 158, 11, 0.05);
+      color: var(--accent-primary);
+      border-color: rgba(217, 119, 6, 0.2);
+      background: var(--accent-soft);
     }
 
     .sample-q {
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 20px;
-      padding: 1.8rem;
-      margin-bottom: 1.5rem;
+      background: var(--bg-primary);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 1.5rem;
+      margin-bottom: 1rem;
     }
 
     .sample-q-num {
-      font-size: .7rem;
-      font-weight: 800;
-      color: #a78bfa;
-      text-transform: uppercase;
-      margin-bottom: .5rem;
+      font-size: .68rem;
+      font-weight: 600;
+      color: var(--accent-purple);
+      margin-bottom: .4rem;
       display: block;
     }
 
     .sample-q-txt {
-      font-size: .95rem;
-      color: rgba(255, 255, 255, 0.8);
+      font-size: .92rem;
+      color: var(--text-secondary);
       line-height: 1.7;
       font-style: italic;
     }
 
-    /* ─── HOW IT WORKS (ROADMAP) ───────────────── */
+    /* How it Works */
     .hiw-section {
-      padding: 10rem 0;
+      padding: 8rem 0;
       text-align: center;
     }
 
     .hiw-v-grid {
-      max-width: 800px;
-      margin: 5rem auto 0;
+      max-width: 700px;
+      margin: 4rem auto 0;
       position: relative;
     }
 
     .hiw-v-grid::before {
       content: '';
       position: absolute;
-      left: 22px;
+      left: 20px;
       top: 0;
       bottom: 0;
       width: 2px;
-      background: linear-gradient(to bottom, var(--accent-cyan), #a78bfa, #10b981);
-      opacity: 0.2;
+      background: var(--border-line);
     }
 
     .hiw-v-card {
       display: flex;
-      gap: 2.5rem;
+      gap: 2rem;
       align-items: flex-start;
-      margin-bottom: 5rem;
+      margin-bottom: 4rem;
       text-align: left;
       position: relative;
     }
 
     .hiw-v-circle {
-      width: 46px;
-      height: 46px;
+      width: 42px;
+      height: 42px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: 900;
-      font-size: 1.2rem;
-      background: #111;
+      font-weight: 700;
+      font-size: 1.1rem;
+      background: var(--bg-surface);
       border: 2px solid currentColor;
       flex-shrink: 0;
       z-index: 2;
     }
 
     .hiw-v-content h4 {
-      font-size: 1.6rem;
-      font-weight: 800;
-      margin-bottom: .8rem;
-      color: #fff;
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: .6rem;
+      color: var(--text-main);
     }
 
     .hiw-v-content p {
-      color: rgba(255, 255, 255, 0.5);
+      color: var(--text-muted);
       line-height: 1.8;
-      font-size: 1.05rem;
+      font-size: 0.95rem;
     }
 
-    nav a {
-      color: rgba(255, 255, 255, .6);
-      text-decoration: none;
-      font-weight: 600;
-      font-size: .92rem;
-      transition: color .2s;
-    }
-
-    nav a:hover {
-      color: #fff;
+    #error-msg {
+      display: none;
+      margin-top: 1rem;
+      padding: 0.75rem 1rem;
+      background: rgba(220, 38, 38, 0.04);
+      border: 1px solid rgba(220, 38, 38, 0.12);
+      border-radius: var(--radius-sm);
+      color: var(--accent-red);
+      font-size: 0.85rem;
+      font-weight: 500;
     }
   </style>
+    <script>
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+    </script>
 </head>
 
 <body>
 
-  <!-- LOADING OVERLAY -->
+  <!-- Loading Overlay -->
   <div id="loading-overlay">
     <div class="arc-wrapper"><svg viewBox="0 0 90 90">
         <circle class="bg" cx="45" cy="45" r="38" />
         <circle class="arc" cx="45" cy="45" r="38" />
       </svg></div>
     <div style="text-align:center">
-      <h2 style="font-size:1.8rem;font-weight:900;letter-spacing:-1px">PrepWise Analysis</h2>
-      <div class="loader-label" id="loader-step" style="margin-top:.5rem">Extracting PDF content…</div>
+      <h2 style="font-size:1.4rem;font-weight:600;color:var(--text-main);">Analyzing resume</h2>
+      <div class="loader-label" id="loader-step" style="margin-top:.4rem">Extracting PDF content…</div>
     </div>
   </div>
 
   <header>
     <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
       <div class="logo"><a href="/" style="text-decoration:none; color:inherit;">Prep <span>Wise</span></a></div>
-      <nav class="nav-links" style="display:flex;gap:2.5rem">
+      <nav class="nav-links" style="display:flex;gap:2rem">
         <a href="/dashboard">Dashboard</a>
         <a href="/interview_start">Simulator</a>
         <a href="/resume" class="active">Resume Scan</a>
         <a href="/aptitude">Skill Paths</a>
-        <a href="/mentor">Network</a>
+        <a href="/mentor">Mentor</a>
       </nav>
-      <div style="display: flex; gap: 1rem; align-items: center;">
-        <a href="/dashboard" class="btn-ghost" style="padding: 0.6rem 1.4rem; font-size: 0.85rem;">Dashboard</a>
-        <a href="/interview_start" class="btn-cyan">Initialize Simulation</a>
+                  <div style="display: flex; gap: 0.75rem; align-items: center;">
+                <div class="theme-toggle-wrap">
+                    <div class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle environment">
+                        <i class="fa-solid fa-moon" style="margin-left: 5px;"></i>
+                        <i class="fa-solid fa-sun" style="margin-right: 4px;"></i>
+                        <div class="orbit"></div>
+                    </div>
+                </div>
+        <a href="/dashboard" class="btn-ghost" style="padding: 0.5rem 1.2rem; font-size: 0.85rem;">Dashboard</a>
+        <a href="/interview_start" class="btn-cyan">Start Interview</a>
       </div>
     </div>
   </header>
 
   <section class="hero-strip">
     <div class="container">
-      <div class="hero-eyebrow">High-Performance · Resume Intelligence · V3.0</div>
+      <div class="hero-eyebrow">Resume Intelligence</div>
       <h1 class="hero-title">Resume <span>Analyzer</span></h1>
       <p class="hero-sub">The intelligence layer between your experience and your career goals. Instant ATS scoring, gap
         analysis, and tailored interview preparation.</p>
     </div>
   </section>
 
-  <section class="form-section">
+  <section class="form-section reveal reveal-d1">
     <div class="container">
       <div class="form-wrap">
         <div class="form-col form-col-left">
           <div class="col-label">
-            <div class="col-icon" style="background:rgba(0,212,255,.1);color:var(--accent-cyan)"><i
-                class="fa-solid fa-file-lines"></i></div>
+            <div class="col-icon" style="background: var(--accent-soft); color: var(--accent-primary);"><i
+                class="fa-regular fa-file-lines"></i></div>
             <h3>Job Description</h3>
           </div>
           <div style="position:relative">
             <textarea id="jd-text" class="jd-ta"
               placeholder="Paste the job description here to unlock JD-specific match scoring and interview question tailoring..."></textarea>
             <div id="jd-char"
-              style="position:absolute; bottom:1rem; right:1.5rem; font-size:.65rem; color:rgba(255,255,255,.2)">0 chars
+              style="position:absolute; bottom:0.75rem; right:1.25rem; font-size:.62rem; color:var(--text-caption)">0 chars
             </div>
           </div>
         </div>
 
         <div class="form-col">
           <div class="col-label">
-            <div class="col-icon" style="background:rgba(16,185,129,.1);color:#10b981"><i
-                class="fa-solid fa-cloud-arrow-up"></i></div>
+            <div class="col-icon" style="background: rgba(5, 150, 105, 0.08); color: var(--accent-green);"><i
+                class="fa-regular fa-circle-up"></i></div>
             <h3>Upload Resume</h3>
           </div>
           <div class="dz" id="drop-zone">
             <input type="file" id="resume-input" accept=".pdf" style="display:none">
             <div id="dz-default">
-              <div class="dz-icon"><i class="fa-solid fa-file-pdf"></i></div>
-              <h4 style="font-weight:800;margin:0">Drop PDF here</h4>
-              <p style="color:rgba(255,255,255,0.4);font-size:.85rem;margin-top:.5rem">or click to browse local files
+              <div class="dz-icon"><i class="fa-regular fa-file-pdf"></i></div>
+              <h4 style="font-weight:600;margin:0;color:var(--text-main);">Drop PDF here</h4>
+              <p style="color:var(--text-caption);font-size:.85rem;margin-top:.4rem">or click to browse
               </p>
             </div>
             <div id="dz-chosen" style="display:none">
-              <h4 id="fname" style="color:#10b981;font-weight:800">resume.pdf</h4>
-              <p style="font-size:.85rem;margin-top:.5rem"><span style="color:var(--accent-cyan);cursor:pointer"
+              <h4 id="fname" style="color:var(--accent-green);font-weight:600">resume.pdf</h4>
+              <p style="font-size:.85rem;margin-top:.4rem"><span style="color:var(--accent-primary);cursor:pointer"
                   onclick="resetFile()">Change file</span></p>
             </div>
           </div>
           <button class="go-btn" id="submit-btn" disabled onclick="triggerUpload()">
-            <i class="fa-solid fa-bolt"></i> Run Full Analysis
+            <i class="fa-solid fa-arrow-right"></i> Run analysis
           </button>
           <div id="error-msg"></div>
         </div>
@@ -558,38 +576,33 @@
   <section class="preview-section">
     <div class="container">
       <div class="preview-label">
-        <div
-          style="display:inline-flex;align-items:center;padding:.4rem 1.2rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:50px;margin-bottom:1.5rem">
-          <span
-            style="font-size:.7rem;font-weight:800;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:1.5px">Real
-            Mock Insight</span>
-        </div>
-        <h2>Data-Rich Reports</h2>
-        <p>A multi-dimensional view of how top-tier recruiters and ATS engines view your profile.</p>
+        <p style="font-size:.72rem;font-weight:500;color:var(--text-caption);margin-bottom:0.75rem;">Sample output</p>
+        <h2>Comprehensive reports</h2>
+        <p>See how recruiters and ATS engines view your profile.</p>
       </div>
 
       <div class="preview-grid">
         <!-- Card 1 -->
         <div class="preview-card pcard-cyan">
           <div class="pcard-header">
-            <div class="pcard-icon" style="background:rgba(0,212,255,.1);color:var(--accent-cyan)"><i
-                class="fa-solid fa-chart-line"></i></div>
+            <div class="pcard-icon" style="background: var(--accent-soft); color: var(--accent-primary);"><i
+                class="fa-regular fa-chart-bar"></i></div>
             <div class="pcard-title">ATS & JD Matching</div>
           </div>
           <div class="gauge-row">
             <div class="gauge">
-              <div class="gnum" style="color:#10b981">84%</div>
+              <div class="gnum" style="color: var(--accent-green);">84%</div>
               <div class="glbl">ATS Score</div>
             </div>
             <div class="gauge">
-              <div class="gnum" style="color:var(--accent-cyan)">72%</div>
+              <div class="gnum" style="color: var(--accent-primary);">72%</div>
               <div class="glbl">JD Match</div>
             </div>
           </div>
           <div class="mbar-row">
-            <span style="font-size:.8rem;color:rgba(255,255,255,0.4);width:100px">Compliance</span>
+            <span style="font-size:.8rem;color:var(--text-caption);width:90px">Compliance</span>
             <div class="mbar-track">
-              <div class="mbar-fill" style="width:84%;background:#10b981"></div>
+              <div class="mbar-fill" style="width:84%;background:var(--accent-green)"></div>
             </div>
           </div>
         </div>
@@ -597,19 +610,17 @@
         <!-- Card 2 -->
         <div class="preview-card pcard-green">
           <div class="pcard-header">
-            <div class="pcard-icon" style="background:rgba(16,185,129,.1);color:#10b981"><i
-                class="fa-solid fa-flask"></i></div>
+            <div class="pcard-icon" style="background: rgba(5,150,105,.08); color: var(--accent-green);"><i
+                class="fa-regular fa-lightbulb"></i></div>
             <div class="pcard-title">Skills & Gaps</div>
           </div>
-          <div style="margin-bottom:2rem">
-            <p style="font-size:.7rem;font-weight:800;margin-bottom:1rem;opacity:0.4;text-transform:uppercase">Detected
-            </p>
+          <div style="margin-bottom:1.5rem">
+            <p style="font-size:.7rem;font-weight:500;margin-bottom:.75rem;color:var(--text-caption);">Detected</p>
             <span class="kw-chip kw-green">React</span><span class="kw-chip kw-green">Node.js</span><span
               class="kw-chip kw-green">AWS</span>
           </div>
           <div>
-            <p style="font-size:.7rem;font-weight:800;margin-bottom:1rem;opacity:0.4;text-transform:uppercase">Missing
-              From JD</p>
+            <p style="font-size:.7rem;font-weight:500;margin-bottom:.75rem;color:var(--text-caption);">Missing from JD</p>
             <span class="kw-chip kw-amber">Kubernetes</span><span class="kw-chip kw-amber">Docker</span>
           </div>
         </div>
@@ -617,8 +628,8 @@
         <!-- Card 3 -->
         <div class="preview-card pcard-purple">
           <div class="pcard-header">
-            <div class="pcard-icon" style="background:rgba(139,92,246,.1);color:#8b5cf6"><i
-                class="fa-solid fa-microphone"></i></div>
+            <div class="pcard-icon" style="background: rgba(124,58,237,.08); color: var(--accent-purple);"><i
+                class="fa-regular fa-comment-dots"></i></div>
             <div class="pcard-title">Interview Prep</div>
           </div>
           <div class="sample-q">
@@ -637,40 +648,32 @@
 
   <section class="hiw-section">
     <div class="container">
-      <div class="preview-label">
-        <div
-          style="display:inline-flex;align-items:center;padding:.4rem 1.2rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:50px;margin-bottom:1.5rem">
-          <span
-            style="font-size:.7rem;font-weight:800;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:1.5px">The
-            Engine</span>
-        </div>
-        <h2>Grounded Execution</h2>
-        <p>Three specialized AI micro-services working in sync to analyze your career.</p>
+      <div class="preview-label reveal">
+        <p style="font-size:.72rem;font-weight:500;color:var(--text-caption);margin-bottom:0.75rem;">How it works</p>
+        <h2>Three-step analysis</h2>
+        <p>Three specialized AI services working in sync to analyze your career profile.</p>
       </div>
 
       <div class="hiw-v-grid">
-        <div class="hiw-v-card">
-          <div class="hiw-v-circle" style="color:var(--accent-cyan)">1</div>
+        <div class="hiw-v-card reveal reveal-d1">
+          <div class="hiw-v-circle" style="color:var(--accent-primary)">1</div>
           <div class="hiw-v-content">
             <h4>Fact Extraction</h4>
-            <p>An ultra-low temperature AI call (0.1) parses your PDF into structured data with 100% fidelity,
-              identifying every skill and achievement.</p>
+            <p>AI parses your PDF into structured data, identifying every skill and achievement with high accuracy.</p>
           </div>
         </div>
-        <div class="hiw-v-card">
-          <div class="hiw-v-circle" style="color:#a78bfa">2</div>
+        <div class="hiw-v-card reveal reveal-d2">
+          <div class="hiw-v-circle" style="color:var(--accent-purple)">2</div>
           <div class="hiw-v-content">
             <h4>Rubric Evaluation</h4>
-            <p>Your profile is evaluated against an industry-leading 15-point scoring rubric to find hidden strengths
-              and missing job requirements.</p>
+            <p>Your profile is evaluated against an industry scoring rubric to find strengths and missing requirements.</p>
           </div>
         </div>
-        <div class="hiw-v-card" style="margin-bottom:0">
-          <div class="hiw-v-circle" style="color:#10b981">3</div>
+        <div class="hiw-v-card reveal reveal-d3" style="margin-bottom:0">
+          <div class="hiw-v-circle" style="color:var(--accent-green)">3</div>
           <div class="hiw-v-content">
-            <h4>Simulator Induction</h4>
-            <p>Finally, the AI generates 5 uniquely tailored interview questions, inducing them into our real-time
-              behavioral and technical simulator.</p>
+            <h4>Interview Questions</h4>
+            <p>AI generates tailored interview questions based on your unique resume content and target role.</p>
           </div>
         </div>
       </div>
@@ -728,7 +731,28 @@
       finally { loading.style.display = 'none'; submitBtn.disabled = false; clearInterval(stepTimer); }
     }
     function showError(msg) { errorMsg.textContent = '⚠ ' + msg; errorMsg.style.display = 'block'; }
+
+    // Reveal observer
+    (function() {
+        var els = document.querySelectorAll('.reveal, .reveal-scale');
+        if (!els.length) return;
+        var obs = new IntersectionObserver(function(entries) {
+            entries.forEach(function(e) {
+                if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+            });
+        }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
+        els.forEach(function(el) { obs.observe(el); });
+    })();
   </script>
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            const target = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', target);
+            localStorage.setItem('theme', target);
+            window.dispatchEvent(new CustomEvent('themeChanged', { detail: target }));
+        }
+    </script>
 </body>
 
 </html>

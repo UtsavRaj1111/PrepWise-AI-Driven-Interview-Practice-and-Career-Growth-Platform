@@ -9,35 +9,34 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         .score-gauge {
-            padding: 2.2rem;
+            padding: 2rem;
             text-align: center;
-            border-radius: 20px;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--border-glass);
-            min-width: 160px;
+            border-radius: var(--radius-card);
+            background: var(--bg-surface);
+            border: 1px solid var(--border-line);
+            min-width: 150px;
             position: relative;
+            box-shadow: var(--shadow-card);
         }
 
         .score-gauge .val {
-            font-size: 3rem;
-            font-weight: 900;
+            font-size: 2.5rem;
+            font-weight: 700;
             line-height: 1;
-            margin-bottom: 0.4rem;
+            margin-bottom: 0.3rem;
         }
 
         .score-gauge .lbl {
             font-size: 0.65rem;
-            font-weight: 800;
-            text-transform: uppercase;
+            font-weight: 500;
             color: var(--text-muted);
-            letter-spacing: 1.5px;
         }
 
         .score-bar-wrap {
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
-            margin-bottom: 1.2rem;
+            margin-bottom: 1rem;
         }
 
         .score-bar-row {
@@ -45,12 +44,12 @@
             justify-content: space-between;
             align-items: center;
             font-size: 0.75rem;
-            font-weight: 700;
+            font-weight: 600;
         }
 
         .score-bar-rail {
-            height: 5px;
-            background: rgba(255, 255, 255, 0.06);
+            height: 4px;
+            background: var(--border-subtle);
             border-radius: 3px;
             overflow: hidden;
             flex: 1;
@@ -65,39 +64,45 @@
         }
 
         .skill-chip {
-            padding: 0.45rem 1rem;
-            background: rgba(0, 212, 255, 0.06);
-            border: 1px solid rgba(0, 212, 255, 0.2);
-            color: var(--accent-cyan);
-            border-radius: 50px;
+            padding: 0.4rem 0.85rem;
+            background: var(--accent-soft);
+            border: 1px solid rgba(217, 119, 6, 0.15);
+            color: var(--accent-primary);
+            border-radius: var(--radius-full);
             font-size: 0.78rem;
-            font-weight: 700;
+            font-weight: 600;
             font-family: monospace;
         }
 
         .gap-chip {
-            padding: 0.5rem 1.1rem;
-            background: rgba(253, 230, 138, 0.05);
-            border: 1px solid rgba(253, 230, 138, 0.2);
-            color: #FBBF24;
-            border-radius: 4px;
+            padding: 0.45rem 1rem;
+            background: rgba(217, 119, 6, 0.05);
+            border: 1px solid rgba(217, 119, 6, 0.2);
+            color: var(--accent-primary);
+            border-radius: var(--radius-sm);
             font-size: 0.8rem;
-            font-weight: 700;
+            font-weight: 600;
             font-family: monospace;
         }
 
         .section-icon {
-            width: 42px;
-            height: 42px;
-            border-radius: 10px;
+            width: 38px;
+            height: 38px;
+            border-radius: var(--radius-sm);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1rem;
+            font-size: 0.9rem;
             flex-shrink: 0;
             margin-top: 2px;
         }
     </style>
+    <script>
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+    </script>
 </head>
 
 <body>
@@ -110,102 +115,108 @@
                 <a href="/interview_start">Simulator</a>
                 <a href="/resume" class="active">Resume Scan</a>
                 <a href="/aptitude">Skill Paths</a>
-                <a href="/mentor">Network</a>
+                <a href="/mentor">Mentor</a>
             </nav>
-            <div style="display: flex; gap: 1rem; align-items: center;">
-                <a href="/dashboard" class="btn-ghost" style="padding: 0.6rem 1.4rem; font-size: 0.85rem;">Dashboard</a>
-                <a href="/interview_start" class="btn-cyan">Initialize Simulation</a>
+                        <div style="display: flex; gap: 0.75rem; align-items: center;">
+                <div class="theme-toggle-wrap">
+                    <div class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle environment">
+                        <i class="fa-solid fa-moon" style="margin-left: 5px;"></i>
+                        <i class="fa-solid fa-sun" style="margin-right: 4px;"></i>
+                        <div class="orbit"></div>
+                    </div>
+                </div>
+                <a href="/dashboard" class="btn-ghost" style="padding: 0.5rem 1.2rem; font-size: 0.85rem;">Dashboard</a>
+                <a href="/interview_start" class="btn-cyan">Start Interview</a>
             </div>
         </div>
     </header>
 
-    <main class="container" style="padding-top: 11rem; padding-bottom: 8rem;">
+    <main class="container" style="padding-top: 8rem; padding-bottom: 6rem;">
 
-        <!-- ── Header + Score Gauges ── -->
-        {% set ats_color = '#10b981' if analysis.ats_score >= 70 else ('#fbbf24' if analysis.ats_score >= 50 else
-        '#ef4444') %}
-        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; margin-bottom: 4rem; gap: 2rem;"
-            class="animate-up">
+        <!-- Header + Score Gauges -->
+        {% set ats_color = '#059669' if analysis.ats_score >= 70 else ('#D97706' if analysis.ats_score >= 50 else
+        '#DC2626') %}
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem; gap: 2rem;"
+            class="reveal">
             <div>
-                <span class="tag-cyan" style="margin-bottom: 1rem;">
+                <span class="tag-cyan" style="margin-bottom: 0.75rem;">
                     <div class="indicator-cyan"></div> Scan Complete
                 </span>
-                <h1 style="font-size: 3rem; font-weight: 900; letter-spacing: -2px; margin-bottom: 0.5rem;">Resume
-                    <br><span>Analysis Report.</span>
+                <h1 style="font-size: 2.5rem; font-weight: 700; letter-spacing: -1.5px; margin-bottom: 0.4rem; color: var(--text-main);">Resume
+                    <br><span style="color: var(--accent-primary);">Analysis Report.</span>
                 </h1>
-                <p style="color: var(--text-muted); font-size: 1rem;">Section-by-section AI breakdown of your resume.
-                </p>
+                <p style="color: var(--text-muted); font-size: 1rem;">AI-powered breakdown of your resume.</p>
             </div>
-            <div style="display: flex; gap: 1.5rem; flex-wrap: wrap;">
-                <div class="score-gauge" style="border-top: 4px solid {{ ats_color }};">
-                    <div class="val" style="color: {{ ats_color }};">{{ analysis.ats_score }}<span
-                            style="font-size:1.2rem;">%</span></div>
+            <div style="display: flex; gap: 1.25rem; flex-wrap: wrap;">
+                <div class="score-gauge" style="border-top: 3px solid {{ ats_color }};">
+                    <div class="val score-counter" data-target="{{ analysis.ats_score }}" style="color: {{ ats_color }};">0<span
+                            style="font-size:1rem;">%</span></div>
                     <div class="lbl">ATS Score</div>
                 </div>
                 {% if analysis.match_percent > 0 %}
-                <div class="score-gauge" style="border-top: 4px solid var(--accent-cyan);">
-                    <div class="val" style="color: var(--accent-cyan);">{{ analysis.match_percent }}<span
-                            style="font-size:1.2rem;">%</span></div>
+                <div class="score-gauge" style="border-top: 3px solid var(--accent-primary);">
+                    <div class="val score-counter" data-target="{{ analysis.match_percent }}" style="color: var(--accent-primary);">0<span
+                            style="font-size:1rem;">%</span></div>
                     <div class="lbl">JD Match</div>
                 </div>
                 {% endif %}
             </div>
         </div>
 
-        <!-- ── Score Bars ── -->
-        <section class="glass-panel animate-up" style="padding: 3rem; margin-bottom: 3rem;">
+        <!-- Score Bars -->
+        <section class="glass-panel reveal" style="padding: 2.5rem; margin-bottom: 2rem;">
             <h3
-                style="margin-bottom: 2rem; font-weight: 900; font-size: 0.75rem; letter-spacing: 2px; color: var(--text-muted); text-transform: uppercase;">
+                style="margin-bottom: 1.5rem; font-weight: 600; font-size: 0.72rem; color: var(--text-muted);">
                 Score Breakdown</h3>
             <div class="score-bar-wrap">
                 <div class="score-bar-row">
-                    <span style="color: var(--text-muted); width: 130px;">ATS Compliance</span>
+                    <span style="color: var(--text-muted); width: 120px;">ATS Compliance</span>
                     <div class="score-bar-rail">
-                        <div class="score-bar-fill" style="background:#10b981;" data-target="{{ analysis.ats_score }}">
+                        <div class="score-bar-fill" style="background: var(--accent-green);" data-target="{{ analysis.ats_score }}">
                         </div>
                     </div>
-                    <span style="font-weight: 900; color: #10b981; width: 40px; text-align:right;">{{ analysis.ats_score
+                    <span style="font-weight: 700; color: var(--accent-green); width: 40px; text-align:right;">{{ analysis.ats_score
                         }}%</span>
                 </div>
                 {% if analysis.match_percent > 0 %}
                 <div class="score-bar-row">
-                    <span style="color: var(--text-muted); width: 130px;">JD Alignment</span>
+                    <span style="color: var(--text-muted); width: 120px;">JD Alignment</span>
                     <div class="score-bar-rail">
-                        <div class="score-bar-fill" style="background: var(--accent-cyan);"
+                        <div class="score-bar-fill" style="background: var(--accent-primary);"
                             data-target="{{ analysis.match_percent }}"></div>
                     </div>
-                    <span style="font-weight: 900; color: var(--accent-cyan); width: 40px; text-align:right;">{{
+                    <span style="font-weight: 700; color: var(--accent-primary); width: 40px; text-align:right;">{{
                         analysis.match_percent }}%</span>
                 </div>
                 {% endif %}
             </div>
         </section>
 
-        <!-- ── Summary ── -->
-        <section class="glass-panel animate-up"
-            style="padding: 3.5rem; margin-bottom: 2.5rem; border-left: 6px solid var(--accent-cyan);">
-            <h3 style="margin-bottom: 1.5rem; font-weight: 900; display: flex; align-items: center; gap: 1rem;">
-                <i class="fa-solid fa-microchip" style="color: var(--accent-cyan);"></i> Profile Summary
+        <!-- Summary -->
+        <section class="glass-panel reveal"
+            style="padding: 2.5rem; margin-bottom: 2rem; border-left: 4px solid var(--accent-primary);">
+            <h3 style="margin-bottom: 1.25rem; font-weight: 600; display: flex; align-items: center; gap: 0.75rem;">
+                <i class="fa-regular fa-file-lines" style="color: var(--accent-primary);"></i> Profile Summary
             </h3>
-            <p style="font-size: 1.1rem; line-height: 1.8; color: var(--text-muted); font-weight: 500;">{{
+            <p style="font-size: 1.05rem; line-height: 1.8; color: var(--text-muted); font-weight: 400;">{{
                 analysis.summary }}</p>
             {% if analysis.education_note %}
             <div
-                style="margin-top: 1.5rem; padding: 1rem 1.5rem; background: rgba(139,92,246,0.05); border: 1px solid rgba(139,92,246,0.15); border-radius: 10px; display: flex; gap: 1rem; align-items: flex-start;">
-                <i class="fa-solid fa-graduation-cap" style="color: #8b5cf6; margin-top:3px;"></i>
+                style="margin-top: 1.25rem; padding: 0.85rem 1.25rem; background: rgba(124,58,237,0.04); border: 1px solid rgba(124,58,237,0.12); border-radius: var(--radius-sm); display: flex; gap: 0.75rem; align-items: flex-start;">
+                <i class="fa-regular fa-bookmark" style="color: var(--accent-purple); margin-top:3px;"></i>
                 <span style="color: var(--text-muted); font-size: 0.9rem;">{{ analysis.education_note }}</span>
             </div>
             {% endif %}
         </section>
 
-        <!-- ── Skills Found ── -->
+        <!-- Skills Found -->
         {% if analysis.skills_found %}
-        <section class="glass-panel animate-up"
-            style="padding: 3rem; margin-bottom: 2.5rem; border: 1px solid rgba(0,212,255,0.1);">
-            <h3 style="margin-bottom: 1.5rem; font-weight: 900; display: flex; align-items: center; gap: 1rem;">
-                <i class="fa-solid fa-code" style="color: var(--accent-cyan);"></i> Skills Detected in Resume
+        <section class="glass-panel reveal"
+            style="padding: 2.5rem; margin-bottom: 2rem; border: 1px solid rgba(217,119,6,0.1);">
+            <h3 style="margin-bottom: 1.25rem; font-weight: 600; display: flex; align-items: center; gap: 0.75rem;">
+                <i class="fa-regular fa-lightbulb" style="color: var(--accent-primary);"></i> Skills Detected
             </h3>
-            <div style="display: flex; flex-wrap: wrap; gap: 0.8rem;">
+            <div style="display: flex; flex-wrap: wrap; gap: 0.6rem;">
                 {% for skill in analysis.skills_found %}
                 <span class="skill-chip">{{ skill }}</span>
                 {% endfor %}
@@ -213,28 +224,28 @@
         </section>
         {% endif %}
 
-        <!-- ── Projects ── -->
+        <!-- Projects -->
         {% if analysis.projects_found %}
-        <section class="glass-panel animate-up"
-            style="padding: 3rem; margin-bottom: 2.5rem; border: 1px solid rgba(99,102,241,0.2);">
+        <section class="glass-panel reveal"
+            style="padding: 2.5rem; margin-bottom: 2rem; border: 1px solid rgba(124,58,237,0.12);">
             <h3
-                style="margin-bottom: 1.5rem; color: #6366f1; font-weight: 900; display: flex; align-items: center; gap: 1rem;">
-                <i class="fa-solid fa-diagram-project"></i> Projects Detected
+                style="margin-bottom: 1.25rem; color: var(--accent-purple); font-weight: 600; display: flex; align-items: center; gap: 0.75rem;">
+                <i class="fa-regular fa-folder-open"></i> Projects Detected
             </h3>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.25rem;">
                 {% for project in analysis.projects_found %}
                 <div
-                    style="padding: 1.8rem; background: rgba(99,102,241,0.04); border: 1px solid rgba(99,102,241,0.12); border-radius: 14px;">
-                    <div style="display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.8rem;">
-                        <div style="width: 8px; height: 8px; background: #6366f1; border-radius: 50%; flex-shrink:0;">
+                    style="padding: 1.5rem; background: rgba(124,58,237,0.02); border: 1px solid rgba(124,58,237,0.1); border-radius: var(--radius-sm);">
+                    <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.6rem;">
+                        <div style="width: 6px; height: 6px; background: var(--accent-purple); border-radius: 50%; flex-shrink:0;">
                         </div>
-                        <strong style="color: var(--text-primary); font-size: 0.95rem;">{{ project.name }}</strong>
+                        <strong style="color: var(--text-main); font-size: 0.92rem;">{{ project.name }}</strong>
                     </div>
                     {% if project.tech %}
-                    <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.8rem;">
+                    <div style="display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.6rem;">
                         {% for t in project.tech.split(',') %}
                         <span
-                            style="font-size: 0.7rem; font-weight: 700; font-family: monospace; padding: 0.25rem 0.6rem; background: rgba(99,102,241,0.08); border: 1px solid rgba(99,102,241,0.2); border-radius: 4px; color: #818cf8;">{{
+                            style="font-size: 0.68rem; font-weight: 600; font-family: monospace; padding: 0.2rem 0.5rem; background: rgba(124,58,237,0.06); border: 1px solid rgba(124,58,237,0.15); border-radius: 4px; color: var(--accent-purple);">{{
                             t.strip() }}</span>
                         {% endfor %}
                     </div>
@@ -249,23 +260,23 @@
         </section>
         {% endif %}
 
-        <!-- ── Strengths ── -->
+        <!-- Strengths -->
         {% if analysis.strengths %}
-        <section class="glass-panel animate-up"
-            style="padding: 3rem; margin-bottom: 2.5rem; border: 1px solid rgba(16,185,129,0.2);">
+        <section class="glass-panel reveal"
+            style="padding: 2.5rem; margin-bottom: 2rem; border: 1px solid rgba(5,150,105,0.12);">
             <h3
-                style="margin-bottom: 1.5rem; color: #10b981; font-weight: 900; display: flex; align-items: center; gap: 1rem;">
-                <i class="fa-solid fa-circle-check"></i> Profile Strengths
+                style="margin-bottom: 1.25rem; color: var(--accent-green); font-weight: 600; display: flex; align-items: center; gap: 0.75rem;">
+                <i class="fa-regular fa-circle-check"></i> Profile Strengths
             </h3>
-            <div style="display: flex; flex-direction: column; gap: 1rem;">
+            <div style="display: flex; flex-direction: column; gap: 0.85rem;">
                 {% for s in analysis.strengths %}
-                <div style="display: flex; gap: 1rem; align-items: flex-start;">
+                <div style="display: flex; gap: 0.85rem; align-items: flex-start;">
                     <div class="section-icon"
-                        style="background: rgba(16,185,129,0.08); color: #10b981; border: 1px solid rgba(16,185,129,0.15);">
+                        style="background: rgba(5,150,105,0.06); color: var(--accent-green); border: 1px solid rgba(5,150,105,0.1);">
                         <i class="fa-solid fa-check"></i>
                     </div>
                     <p
-                        style="color: var(--text-muted); font-weight: 500; line-height: 1.6; margin: 0; padding-top: 8px;">
+                        style="color: var(--text-muted); font-weight: 400; line-height: 1.6; margin: 0; padding-top: 6px;">
                         {{ s }}</p>
                 </div>
                 {% endfor %}
@@ -273,24 +284,24 @@
         </section>
         {% endif %}
 
-        <!-- ── Weaknesses + Missing Keywords ── -->
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 2rem; margin-bottom: 2.5rem;"
-            class="animate-up">
+        <!-- Weaknesses + Improvements -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;"
+            class="reveal">
             {% if analysis.weaknesses %}
-            <div class="glass-panel">
+            <div class="glass-panel" style="padding: 2.5rem;">
                 <h3
-                    style="margin-bottom: 1.5rem; color: #ef4444; font-weight: 900; display: flex; align-items: center; gap: 1rem;">
-                    <i class="fa-solid fa-triangle-exclamation"></i> Weaknesses Found
+                    style="margin-bottom: 1.25rem; color: var(--accent-red); font-weight: 600; display: flex; align-items: center; gap: 0.75rem;">
+                    <i class="fa-regular fa-circle-xmark"></i> Weaknesses
                 </h3>
-                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                <div style="display: flex; flex-direction: column; gap: 0.85rem;">
                     {% for w in analysis.weaknesses %}
-                    <div style="display: flex; gap: 1rem; align-items: flex-start;">
+                    <div style="display: flex; gap: 0.85rem; align-items: flex-start;">
                         <div class="section-icon"
-                            style="background: rgba(239,68,68,0.08); color: #ef4444; border: 1px solid rgba(239,68,68,0.15);">
+                            style="background: rgba(220,38,38,0.04); color: var(--accent-red); border: 1px solid rgba(220,38,38,0.1);">
                             <i class="fa-solid fa-xmark"></i>
                         </div>
                         <p
-                            style="color: var(--text-muted); font-weight: 500; line-height: 1.6; margin: 0; padding-top: 8px;">
+                            style="color: var(--text-muted); font-weight: 400; line-height: 1.6; margin: 0; padding-top: 6px;">
                             {{ w }}</p>
                     </div>
                     {% endfor %}
@@ -299,20 +310,20 @@
             {% endif %}
 
             {% if analysis.improvements %}
-            <div class="glass-panel">
+            <div class="glass-panel" style="padding: 2.5rem;">
                 <h3
-                    style="margin-bottom: 1.5rem; color: var(--accent-cyan); font-weight: 900; display: flex; align-items: center; gap: 1rem;">
-                    <i class="fa-solid fa-wand-magic-sparkles"></i> Improvements
+                    style="margin-bottom: 1.25rem; color: var(--accent-primary); font-weight: 600; display: flex; align-items: center; gap: 0.75rem;">
+                    <i class="fa-regular fa-lightbulb"></i> Improvements
                 </h3>
-                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                <div style="display: flex; flex-direction: column; gap: 0.85rem;">
                     {% for imp in analysis.improvements %}
-                    <div style="display: flex; gap: 1rem; align-items: flex-start;">
+                    <div style="display: flex; gap: 0.85rem; align-items: flex-start;">
                         <div class="section-icon"
-                            style="background: rgba(0,212,255,0.06); color: var(--accent-cyan); border: 1px solid rgba(0,212,255,0.15);">
-                            <i class="fa-solid fa-forward-step"></i>
+                            style="background: var(--accent-soft); color: var(--accent-primary); border: 1px solid rgba(217,119,6,0.1);">
+                            <i class="fa-solid fa-arrow-right"></i>
                         </div>
                         <p
-                            style="color: var(--text-muted); font-weight: 500; line-height: 1.6; margin: 0; padding-top: 8px;">
+                            style="color: var(--text-muted); font-weight: 400; line-height: 1.6; margin: 0; padding-top: 6px;">
                             {{ imp }}</p>
                     </div>
                     {% endfor %}
@@ -321,75 +332,128 @@
             {% endif %}
         </div>
 
-        <!-- ── Missing Keywords (JD Gap) ── -->
+        <!-- Missing Keywords -->
         {% if analysis.missing_keywords %}
-        <section class="glass-panel animate-up"
-            style="padding: 3rem; margin-bottom: 2.5rem; border: 1px solid rgba(251,191,36,0.2);">
+        <section class="glass-panel reveal"
+            style="padding: 2.5rem; margin-bottom: 2rem; border: 1px solid rgba(217,119,6,0.15);">
             <h3
-                style="margin-bottom: 1.5rem; color: #FBBF24; font-weight: 900; display: flex; align-items: center; gap: 1rem;">
-                <i class="fa-solid fa-tower-broadcast"></i> Missing Keywords from JD
+                style="margin-bottom: 1.25rem; color: var(--accent-primary); font-weight: 600; display: flex; align-items: center; gap: 0.75rem;">
+                <i class="fa-regular fa-flag"></i> Missing Keywords from JD
             </h3>
-            <div style="display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;">
+            <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1.25rem;">
                 {% for kw in analysis.missing_keywords %}
                 <span class="gap-chip">{{ kw }}</span>
                 {% endfor %}
             </div>
-            <p style="font-size: 0.85rem; color: var(--text-muted); font-weight: 500; font-style: italic;">
-                ⚡ Tip: Naturally weave these keywords into your bullet points. Both the abbreviation and full form are
-                valid.
+            <p style="font-size: 0.85rem; color: var(--text-caption); font-weight: 400; font-style: italic;">
+                Tip: Naturally weave these keywords into your bullet points.
             </p>
         </section>
         {% endif %}
 
-        <!-- ── Tailored Practice Questions ── -->
+        <!-- Tailored Questions -->
         {% if analysis.questions %}
-        <section class="glass-panel animate-up"
-            style="padding: 3.5rem; margin-bottom: 3rem; border: 1px solid rgba(139,92,246,0.2);">
+        <section class="glass-panel reveal"
+            style="padding: 2.5rem; margin-bottom: 2rem; border: 1px solid rgba(124,58,237,0.12);">
             <h3
-                style="margin-bottom: 0.5rem; color: #8b5cf6; font-weight: 900; display: flex; align-items: center; gap: 1rem;">
-                <i class="fa-solid fa-comments"></i> Tailored Interview Questions
+                style="margin-bottom: 0.4rem; color: var(--accent-purple); font-weight: 600; display: flex; align-items: center; gap: 0.75rem;">
+                <i class="fa-regular fa-comment-dots"></i> Tailored Interview Questions
             </h3>
-            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 2rem;">Generated from YOUR resume
-                content — practice these before your interview.</p>
-            <div style="display: flex; flex-direction: column; gap: 1.2rem;">
+            <p style="color: var(--text-caption); font-size: 0.85rem; margin-bottom: 1.5rem;">Generated from your resume — practice these before your interview.</p>
+            <div style="display: flex; flex-direction: column; gap: 1rem;">
                 {% for q in analysis.questions %}
                 <div
-                    style="display: flex; gap: 1.5rem; align-items: flex-start; padding: 1.5rem; background: rgba(139,92,246,0.04); border: 1px solid rgba(139,92,246,0.12); border-radius: 12px;">
+                    style="display: flex; gap: 1.25rem; align-items: flex-start; padding: 1.25rem; background: rgba(124,58,237,0.02); border: 1px solid rgba(124,58,237,0.08); border-radius: var(--radius-sm);">
                     <span
-                        style="font-size: 0.8rem; font-weight: 900; color: #8b5cf6; font-family: monospace; min-width: 28px; margin-top: 3px;">Q{{
+                        style="font-size: 0.75rem; font-weight: 700; color: var(--accent-purple); font-family: monospace; min-width: 26px; margin-top: 2px;">Q{{
                         loop.index }}</span>
-                    <span style="color: var(--text-primary); font-weight: 500; line-height: 1.7;">{{ q }}</span>
+                    <span style="color: var(--text-secondary); font-weight: 400; line-height: 1.7;">{{ q }}</span>
                 </div>
                 {% endfor %}
             </div>
         </section>
         {% endif %}
 
-        <!-- ── CTA ── -->
-        <section class="glass-panel animate-up" style="padding: 4rem; text-align: center;">
-            <h2 style="font-size: 2.5rem; font-weight: 900; margin-bottom: 1rem; letter-spacing: -1.5px;">Ready to
-                Practice?</h2>
-            <p style="color: var(--text-muted); margin-bottom: 3rem; font-size: 1rem;">Launch the AI simulator — your
-                tailored questions above are a preview of what real interviewers will ask.</p>
-            <div style="display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;">
-                <a href="/interview_start" class="btn-cyan" style="padding: 1.1rem 3.5rem; font-size: 1rem;">Launch
-                    Simulator</a>
-                <a href="/resume" class="btn-ghost" style="padding: 1.1rem 3.5rem; font-size: 1rem;">Scan Another
-                    Resume</a>
+        <!-- CTA -->
+        <section class="glass-panel reveal" style="padding: 3rem; text-align: center;">
+            <h2 style="font-size: 2rem; font-weight: 700; margin-bottom: 0.75rem; letter-spacing: -1px; color: var(--text-main);">Ready to practice?</h2>
+            <p style="color: var(--text-muted); margin-bottom: 2.5rem; font-size: 1rem;">Use these tailored questions as a preview of what real interviewers will ask.</p>
+            <div style="display: flex; gap: 1.25rem; justify-content: center; flex-wrap: wrap;">
+                <a href="/interview_start" class="btn-cyan" style="padding: 0.85rem 2.5rem; font-size: 0.95rem;">Start practicing</a>
+                <a href="/resume" class="btn-ghost" style="padding: 0.85rem 2.5rem; font-size: 0.95rem;">Scan another
+                    resume</a>
             </div>
         </section>
     </main>
 
     <script>
-        // Animate score bars on load
-        document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('.score-bar-fill').forEach(bar => {
-                const target = bar.dataset.target;
-                requestAnimationFrame(() => {
-                    bar.style.width = target + '%';
-                });
+        // P0: Score counter utility
+        function countUp(el) {
+            var target = parseInt(el.dataset.target, 10) || 0;
+            var duration = 1200;
+            var start = performance.now();
+            function step(now) {
+                var progress = Math.min((now - start) / duration, 1);
+                var eased = 1 - Math.pow(1 - progress, 3);
+                var current = Math.round(eased * target);
+                el.innerHTML = current + '<span style="font-size:1rem;">%</span>';
+                if (progress < 1) requestAnimationFrame(step);
+            }
+            requestAnimationFrame(step);
+        }
+
+        // P2: Score bars animate on scroll (measurement metaphor)
+        (function() {
+            var bars = document.querySelectorAll('.score-bar-fill');
+            if (bars.length) {
+                var barObs = new IntersectionObserver(function(entries) {
+                    entries.forEach(function(e) {
+                        if (e.isIntersecting) {
+                            var bar = e.target;
+                            var target = bar.dataset.target;
+                            // Sequential delay: 200ms × index
+                            var idx = Array.from(bars).indexOf(bar);
+                            setTimeout(function() {
+                                bar.style.width = target + '%';
+                            }, idx * 200);
+                            barObs.unobserve(bar);
+                        }
+                    });
+                }, { threshold: 0.3 });
+                bars.forEach(function(b) { barObs.observe(b); });
+            }
+
+            // Reveal observer
+            var els = document.querySelectorAll('.reveal, .reveal-scale');
+            if (els.length) {
+                var obs = new IntersectionObserver(function(entries) {
+                    entries.forEach(function(e) {
+                        if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+                    });
+                }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
+                els.forEach(function(el) { obs.observe(el); });
+            }
+
+            // Score counters
+            var counters = document.querySelectorAll('.score-counter');
+            counters.forEach(function(c) {
+                var cObs = new IntersectionObserver(function(entries) {
+                    entries.forEach(function(e) {
+                        if (e.isIntersecting) { countUp(e.target); cObs.unobserve(e.target); }
+                    });
+                }, { threshold: 0.3 });
+                cObs.observe(c);
             });
-        });
+        })();
+    </script>
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            const target = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', target);
+            localStorage.setItem('theme', target);
+            window.dispatchEvent(new CustomEvent('themeChanged', { detail: target }));
+        }
     </script>
 </body>
 

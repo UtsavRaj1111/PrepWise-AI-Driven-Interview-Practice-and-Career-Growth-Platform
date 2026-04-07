@@ -4,10 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Network Intelligence | PrepWise</title>
+    <title>Dashboard | PrepWise</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+    </script>
 </head>
 
 <body>
@@ -19,97 +25,87 @@
                 <a href="/interview_start">Simulator</a>
                 <a href="/resume">Resume Scan</a>
                 <a href="/aptitude">Skill Paths</a>
-                <a href="/mentor">Network</a>
+                <a href="/mentor">Mentor</a>
             </nav>
-            <div style="display: flex; gap: 1.5rem; align-items: center;">
-                <a href="/interview_start" class="btn-cyan">Start Interview</a>
-                <div
-                    style="width: 32px; height: 32px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid var(--accent-cyan);">
-                    <i class="fa-solid fa-user" style="font-size: 0.8rem; color: var(--accent-cyan);"></i>
+            <div style="display: flex; gap: 0.75rem; align-items: center;">
+                <div class="theme-toggle-wrap">
+                    <div class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle environment">
+                        <i class="fa-solid fa-moon" style="margin-left: 5px;"></i>
+                        <i class="fa-solid fa-sun" style="margin-right: 4px;"></i>
+                        <div class="orbit"></div>
+                    </div>
                 </div>
+                <a href="/interview_start" class="btn-cyan">Start Interview</a>
             </div>
         </div>
     </header>
 
-    <main class="container" style="padding-top: 10rem;">
-        <div style="margin-bottom: 4rem;" class="animate-up">
-            <span class="tag-cyan" style="margin-bottom: 1rem;">
-                <div class="indicator-cyan"></div> System Live
+    <main class="container" style="padding-top: 8rem;">
+        <div style="margin-bottom: 3rem;" class="reveal">
+            <span class="tag-cyan" style="margin-bottom: 0.75rem;">
+                <div class="indicator-cyan"></div> Overview
             </span>
-            <h1 style="font-size: 3rem; font-weight: 900; letter-spacing: -2px;">Network <br><span>Intelligence.</span>
+            <h1 style="font-size: 2.25rem; font-weight: 700; letter-spacing: -1px;">Your <br><span style="color: var(--accent-primary);">dashboard.</span>
             </h1>
-            <p style="color: var(--text-muted); font-size: 1.1rem; margin-top: 1rem;">Real-time performance telemetry
-                across architectural domains.</p>
+            <p style="color: var(--text-muted); font-size: 1rem; margin-top: 0.75rem;">Track your progress and review past
+                sessions.</p>
         </div>
 
         <!-- Metrics Grid -->
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-bottom: 4rem;"
-            class="animate-up">
-            <div class="hud-card">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; margin-bottom: 3rem;"
+            class="">
+            <div class="hud-card reveal">
                 <span class="lbl"
-                    style="font-size: 0.7rem; text-transform: uppercase; font-weight: 800; color: var(--text-muted);">Avg
+                    style="font-size: 0.72rem; font-weight: 500; color: var(--text-muted);">Avg
                     Interview Score</span>
-                <div style="font-size: 2.5rem; font-weight: 900; color: var(--accent-cyan); margin-top: 0.5rem;">{{
+                <div style="font-size: 2rem; font-weight: 700; color: var(--accent-primary); margin-top: 0.4rem;">{{
                     stats.avg_interview }}%</div>
-                <div
-                    style="position: absolute; bottom: -10px; right: -10px; font-size: 4rem; opacity: 0.05; color: var(--accent-cyan);">
-                    <i class="fa-solid fa-robot"></i>
-                </div>
             </div>
-            <div class="hud-card">
+            <div class="hud-card reveal reveal-d1">
                 <span class="lbl"
-                    style="font-size: 0.7rem; text-transform: uppercase; font-weight: 800; color: var(--text-muted);">Aptitude
+                    style="font-size: 0.72rem; font-weight: 500; color: var(--text-muted);">Aptitude
                     Accuracy</span>
-                <div style="font-size: 2.5rem; font-weight: 900; color: #8b5cf6; margin-top: 0.5rem;">{{
+                <div style="font-size: 2rem; font-weight: 700; color: var(--accent-purple); margin-top: 0.4rem;">{{
                     stats.apt_accuracy }}%</div>
-                <div
-                    style="position: absolute; bottom: -10px; right: -10px; font-size: 4rem; opacity: 0.05; color: #8b5cf6;">
-                    <i class="fa-solid fa-brain"></i>
-                </div>
             </div>
-            <div class="hud-card">
+            <div class="hud-card reveal reveal-d2">
                 <span class="lbl"
-                    style="font-size: 0.7rem; text-transform: uppercase; font-weight: 800; color: var(--text-muted);">Total
+                    style="font-size: 0.72rem; font-weight: 500; color: var(--text-muted);">Total
                     Sessions</span>
-                <div style="font-size: 2.5rem; font-weight: 900; color: #10b981; margin-top: 0.5rem;">{{
+                <div style="font-size: 2rem; font-weight: 700; color: var(--accent-green); margin-top: 0.4rem;">{{
                     stats.total_sessions }}</div>
-                <div
-                    style="position: absolute; bottom: -10px; right: -10px; font-size: 4rem; opacity: 0.05; color: #10b981;">
-                    <i class="fa-solid fa-bolt"></i>
-                </div>
             </div>
         </div>
 
         <!-- Charts Layout -->
-        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; margin-bottom: 6rem;" class="animate-up">
-            <div class="glass-panel" style="padding: 3rem;">
-                <h3 style="margin-bottom: 2rem; display: flex; align-items: center; gap: 1rem;">
-                    <i class="fa-solid fa-chart-area" style="color: var(--accent-cyan);"></i> Progress Telemetry (Last 7
+        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem; margin-bottom: 5rem;" class="reveal reveal-d3">
+            <div class="glass-panel" style="padding: 2.5rem;">
+                <h3 style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem; font-size: 1rem; font-weight: 600;">
+                    <i class="fa-regular fa-chart-bar" style="color: var(--accent-primary);"></i> Progress (Last 7
                     Days)
                 </h3>
-                <div style="height: 400px;">
+                <div style="height: 360px;">
                     <canvas id="telemetryChart"></canvas>
                 </div>
             </div>
 
-            <div class="glass-panel" style="padding: 2.5rem;">
-                <h3 style="margin-bottom: 2rem;"><i class="fa-solid fa-timeline"></i> Event Logs</h3>
-                <div style="overflow-y: auto; max-height: 400px; padding-right: 1rem;">
+            <div class="glass-panel" style="padding: 2rem;">
+                <h3 style="margin-bottom: 1.5rem; font-size: 1rem; font-weight: 600;"><i class="fa-regular fa-clock" style="margin-right: 0.5rem; color: var(--text-caption);"></i> Recent Activity</h3>
+                <div style="overflow-y: auto; max-height: 360px; padding-right: 0.5rem;">
                     {% if logs %}
                     {% for log in logs %}
-                    <div style="padding: 1.2rem 0; border-bottom: 1px solid var(--border-glass);">
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.4rem;">
-                            <span style="font-weight: 700; font-size: 0.9rem;">{{ log.category if log.category else
+                    <div style="padding: 1rem 0; border-bottom: 1px solid var(--border-subtle);">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.3rem;">
+                            <span style="font-weight: 500; font-size: 0.88rem; color: var(--text-secondary);">{{ log.category if log.category else
                                 log.type }}</span>
-                            <span style="color: var(--accent-cyan); font-weight: 800;">{{ log.score }}%</span>
+                            <span style="color: var(--accent-primary); font-weight: 600;">{{ log.score }}%</span>
                         </div>
-                        <div style="font-size: 0.7rem; color: var(--text-muted);">{{ log.created_at[:16]|replace('T', '
+                        <div style="font-size: 0.72rem; color: var(--text-caption);">{{ log.created_at[:16]|replace('T', '
                             ') }}</div>
                     </div>
                     {% endfor %}
                     {% else %}
-                    <p style="color: var(--text-muted); text-align: center; margin-top: 4rem;">No telemetry data
-                        available.</p>
+                    <p style="color: var(--text-caption); text-align: center; margin-top: 3rem;">No activity yet. Start a session to see your progress here.</p>
                     {% endif %}
                 </div>
             </div>
@@ -126,18 +122,30 @@
         const labels = sortedLogs.map(l => l.created_at.substring(5, 10)); // MM-DD
         const scores = sortedLogs.map(l => l.score);
 
-        new Chart(ctx, {
+        // Extract dynamic colors linked to CSS
+        function getChartColors() {
+            const style = getComputedStyle(document.documentElement);
+            return {
+                accent: style.getPropertyValue('--accent-primary').trim() || '#D97706',
+                grid: style.getPropertyValue('--border-line').trim() || '#E8E4DC',
+                text: style.getPropertyValue('--text-muted').trim() || '#9CA3AF'
+            };
+        }
+
+        let currentColors = getChartColors();
+
+        const chart = new Chart(ctx, {
             type: 'line',
             data: {
                 labels: labels,
                 datasets: [{
-                    label: 'Efficiency',
+                    label: 'Score',
                     data: scores,
-                    borderColor: '#00D4FF',
-                    backgroundColor: 'rgba(0, 212, 255, 0.05)',
-                    borderWidth: 3,
-                    pointRadius: 5,
-                    pointBackgroundColor: '#00D4FF',
+                    borderColor: currentColors.accent,
+                    backgroundColor: currentColors.accent.replace(')', ', 0.05)').replace('rgb', 'rgba'), // weak approximation, better to use fixed soft or just accent
+                    borderWidth: 2,
+                    pointRadius: 4,
+                    pointBackgroundColor: currentColors.accent,
                     tension: 0.4,
                     fill: true
                 }]
@@ -147,16 +155,48 @@
                 maintainAspectRatio: false,
                 plugins: { legend: { display: false } },
                 scales: {
-                    x: { grid: { display: false }, ticks: { color: '#8E9BAE', font: { family: 'Outfit', weight: 600 } } },
+                    x: { grid: { display: false }, ticks: { color: currentColors.text, font: { family: 'Inter', weight: 500 } } },
                     y: {
                         beginAtZero: true,
                         max: 100,
-                        grid: { color: 'rgba(255,255,255,0.03)' },
-                        ticks: { color: '#8E9BAE', font: { family: 'Outfit', weight: 600 } }
+                        grid: { color: currentColors.grid },
+                        ticks: { color: currentColors.text, font: { family: 'Inter', weight: 500 } }
                     }
                 }
             }
         });
+
+        // Listen for theme toggle to update chart smoothly
+        window.addEventListener('themeChanged', function() {
+            const newColors = getChartColors();
+            chart.data.datasets[0].borderColor = newColors.accent;
+            chart.data.datasets[0].pointBackgroundColor = newColors.accent;
+            chart.options.scales.x.ticks.color = newColors.text;
+            chart.options.scales.y.ticks.color = newColors.text;
+            chart.options.scales.y.grid.color = newColors.grid;
+            chart.update();
+        });
+
+        // Reveal observer
+        (function() {
+            var els = document.querySelectorAll('.reveal, .reveal-scale');
+            if (!els.length) return;
+            var obs = new IntersectionObserver(function(entries) {
+                entries.forEach(function(e) {
+                    if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+                });
+            }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
+            els.forEach(function(el) { obs.observe(el); });
+        })();
+    </script>
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            const target = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', target);
+            localStorage.setItem('theme', target);
+            window.dispatchEvent(new CustomEvent('themeChanged', { detail: target }));
+        }
     </script>
 </body>
 
