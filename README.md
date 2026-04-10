@@ -1,112 +1,188 @@
-# 🚀 PrepWise
+# 🚀 PrepWise – AI-Driven Interview Practice & Career Growth Platform
 
-**PrepWise** is an **AI-powered Interview Simulator and Career Planner** designed to help users prepare smarter, perform better, and grow their careers with confidence.
-
----
-
-## ✨ Features
-
-### 🎤 AI Interview Simulator
-- Real-time mock interviews
-- AI-generated questions
-- Instant feedback and evaluation
-
-### 📊 Career Planning Tools
-- Structured career guidance
-- Skill-based recommendations
-- Progress tracking
-
-### 📄 Resume Analyzer
-- Upload and analyze resumes
-- AI-driven suggestions for improvement
-- Match resume with job roles
-
-### 🧠 Aptitude Practice
-- Interactive aptitude tests
-- Performance insights
-
-### 👨‍🏫 AI Mentor
-- Personalized career advice
-- Smart recommendations
+<p align="center">
+  <b>Your intelligent companion for mastering interviews and accelerating career growth</b>
+</p>
 
 ---
 
-## 🛠️ Tech Stack
+<p align="center">
+  <img src="https://img.shields.io/badge/version-1.0.0-blue.svg" />
+  <img src="https://img.shields.io/badge/license-MIT-green.svg" />
+  <img src="https://img.shields.io/badge/AI-Interview%20Prep-orange.svg" />
+  <img src="https://img.shields.io/badge/status-active-success.svg" />
+</p>
 
-**Backend**
-- Python
-- Flask
+---
 
-**Frontend**
-- HTML, CSS, JavaScript
+## 🧠 Overview
 
-**AI Integration**
-- Custom AI handlers (`ai_handler.py`)
+**PrepWise** is an AI-powered platform designed to help users:
 
-**Database**
-- Supabase (`supabase_handler.py`)
+* Practice technical & behavioral interviews
+* Get intelligent feedback
+* Improve communication and problem-solving skills
+* Track progress and career growth
+
+It combines **AI, NLP, and smart evaluation systems** to simulate real interview environments.
+
+---
+
+## ✨ Key Features
+
+* 🤖 AI-based interview simulation
+* 🗣️ Real-time feedback on answers
+* 📊 Performance tracking & analytics
+* 💡 Personalized improvement suggestions
+* 🧠 NLP-powered answer evaluation
+* 🎯 Focus on both technical & HR interviews
+
+---
+
+## 🛠️ System Workflow
+
+```mermaid id="j4v2p1"
+graph LR
+A[User Input Answer] --> B[Preprocessing]
+B --> C[NLP Evaluation Engine]
+C --> D[AI Feedback Generation]
+D --> E[Score + Suggestions]
+E --> F[User Dashboard]
+```
 
 ---
 
 ## 📂 Project Structure
-PrepWise/
-│── app.py # Main Flask app
-│── ai_handler.py # AI logic
-│── supabase_handler.py # Database integration
-│── requirements.txt # Dependencies
-│
-├── templates/ # HTML pages
-├── static/
-│ ├── css/
-│ ├── js/
-│ └── images/
 
+```id="x81j2a"
+├── backend/
+├── frontend/
+├── models/
+├── utils/
+├── app.py / server.js
+├── requirements.txt / package.json
+└── README.md
+```
 
 ---
 
-## ⚙️ Installation & Setup
+## ⚙️ Installation
 
-### 1️⃣ Clone the Repository
-```bash
+```bash id="9k1d2m"
 git clone https://github.com/UtsavRaj1111/PrepWise-AI-Driven-Interview-Practice-and-Career-Growth-Platform.git
 cd PrepWise-AI-Driven-Interview-Practice-and-Career-Growth-Platform
+```
 
-2️⃣ Create Virtual Environment
-python -m venv venv
-venv\Scripts\activate   # Windows
-3️⃣ Install Dependencies
+### Backend
+
+```bash id="z8k2la"
 pip install -r requirements.txt
-4️⃣ Run the App
 python app.py
-🌐 Usage
-Open your browser
-Go to: http://127.0.0.1:5000
-Start practicing interviews 🚀
-🔐 Environment Variables
+```
 
-Create a .env file and add:
+### Frontend (if applicable)
 
-# Add your API keys here
-SUPABASE_URL=your_url
-SUPABASE_KEY=your_key
-AI_API_KEY=your_key
-🎯 Future Improvements
-Voice-based AI interviews 🎙️
-Advanced analytics dashboard 📈
-Job recommendation system 💼
-Deployment (Vercel / AWS) ☁️
-🤝 Contributing
+```bash id="d72kqp"
+npm install
+npm run dev
+```
+
+---
+
+## ▶️ Usage
+
+1. Start backend server
+2. Open frontend / UI
+3. Choose interview type
+4. Answer questions
+5. Get AI-powered feedback
+
+---
+
+## 📊 Example Output
+
+**User Answer:**
+
+```txt id="w82kqa"
+I solved the problem using a brute-force approach...
+```
+
+**AI Feedback:**
+
+```txt id="m9q1zp"
+- Approach is correct but not optimal  
+- Time complexity can be improved  
+- Consider using hash maps  
+- Communication clarity: Good  
+```
+
+---
+
+## 🧠 Tech Stack
+
+* 🐍 Python / Node.js
+* ⚛️ React (Frontend)
+* 🤖 NLP (spaCy / Transformers)
+* 📊 Machine Learning Models
+* 🌐 REST APIs
+
+---
+
+## 🔐 Privacy & Security
+
+* No sensitive user data stored externally
+* AI processing is controlled and secure
+* No third-party data sharing
+
+---
+
+## 🚧 Future Enhancements
+
+* 🎙️ Voice-based interview practice
+* 📹 Video interview simulation
+* 📊 Advanced analytics dashboard
+* 🧠 LLM integration (GPT / HuggingFace)
+* 🌍 Multi-language support
+
+---
+
+## 🎯 Use Cases
+
+* Students preparing for placements
+* Developers preparing for coding interviews
+* Professionals switching careers
+* Anyone improving communication & interview skills
+
+---
+
+## 🤝 Contributing
 
 Contributions are welcome!
-Feel free to fork this repo and submit a pull request.
 
-📜 License
+```bash id="p0kq92"
+git fork
+git clone
+git commit -m "feature added"
+git push
+```
 
-This project is licensed under the MIT License.
+---
 
-💡 Author
+## ⭐ Support
 
-Utsav Raj
+If you like this project:
 
-Passionate about AI & Full Stack Development
-Building smart tools for career growth
+👉 Star the repository
+👉 Share with others
+
+---
+
+## 📄 License
+
+MIT License © 2026
+
+---
+
+<p align="center">
+  Made with ❤️ by UtsavRaj1111
+</p>
