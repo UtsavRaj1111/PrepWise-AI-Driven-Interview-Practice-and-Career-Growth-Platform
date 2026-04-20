@@ -4,35 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Skill Assessment | PrepWise</title>
+    <title>Cognitive Simulation | PrepWise</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         .test-wrapper {
             margin-top: 6rem;
             display: grid;
-<<<<<<< HEAD
-            grid-template-columns: 2.5fr 1fr;
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .question-box {
-            padding: 3rem;
-            min-height: 240px;
-            background: var(--bg-surface);
-            border: 1px solid var(--border-line);
-            border-radius: var(--radius-card);
-            position: relative;
-            color: var(--text-main);
-        }
-
-        .option-card {
-            padding: 1.25rem 1.5rem;
-            background: var(--bg-surface);
-            border: 1px solid var(--border-line);
-            border-radius: var(--radius-sm);
-=======
             grid-template-columns: 350px 1fr;
             grid-template-rows: auto 1fr;
             grid-template-areas: 
@@ -92,55 +70,45 @@
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid var(--border-glass);
             border-radius: 12px;
->>>>>>> 81e3f23924040780dcbdefb7e4f2179bfe76c3bc
             cursor: pointer;
-            transition: all var(--transition-base);
+            transition: all 0.3s ease;
             display: flex;
             align-items: center;
             gap: 1rem;
-<<<<<<< HEAD
-            margin-bottom: 0.75rem;
-            font-weight: 500;
-            color: var(--text-secondary);
-=======
             font-weight: 600;
->>>>>>> 81e3f23924040780dcbdefb7e4f2179bfe76c3bc
         }
 
         .option-card:hover {
-            background: var(--bg-secondary);
-            border-color: #D5D0C6;
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--accent-cyan);
         }
 
         .option-card.selected {
-            background: var(--accent-soft);
-            border-color: var(--accent-primary);
-            color: var(--accent-secondary);
+            background: rgba(0, 212, 255, 0.08);
+            border-color: var(--accent-cyan);
+            color: var(--accent-cyan);
         }
 
         .category-badge {
-            background: var(--accent-soft);
-            color: var(--accent-primary);
-            padding: 0.3rem 0.65rem;
-            border-radius: var(--radius-sm);
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--accent-cyan);
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
             font-size: 0.7rem;
-            font-weight: 600;
+            font-weight: 800;
+            text-transform: uppercase;
         }
 
         .progress-rail {
-            height: 3px;
-            background: var(--border-subtle);
+            height: 4px;
+            background: var(--border-glass);
             border-radius: 2px;
-            margin-top: 0.75rem;
+            margin-top: 1rem;
             overflow: hidden;
         }
 
         .progress-fill {
             height: 100%;
-<<<<<<< HEAD
-            background: var(--accent-primary);
-            transition: width 0.5s ease;
-=======
             background: var(--accent-cyan);
             box-shadow: 0 0 15px rgba(0, 212, 255, 0.4);
             transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
@@ -167,7 +135,6 @@
         .option-label-text {
             font-size: 0.95rem;
             line-height: 1.4;
->>>>>>> 81e3f23924040780dcbdefb7e4f2179bfe76c3bc
         }
 
         /* Secure Mode Navbar Hide */
@@ -186,12 +153,6 @@
             justify-content: center !important;
         }
     </style>
-    <script>
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.setAttribute('data-theme', 'dark');
-        }
-    </script>
 </head>
 
 <body>
@@ -204,52 +165,18 @@
                 <a href="/interview_start">Simulator</a>
                 <a href="/resume">Resume Scan</a>
                 <a href="/aptitude" class="active">Skill Paths</a>
-                <a href="/mentor">Mentor</a>
+                <a href="/mentor">Network</a>
             </nav>
-                        <div style="display: flex; gap: 0.75rem; align-items: center;">
-                <div class="theme-toggle-wrap">
-                    <div class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle environment">
-                        <i class="fa-solid fa-moon" style="margin-left: 5px;"></i>
-                        <i class="fa-solid fa-sun" style="margin-right: 4px;"></i>
-                        <div class="orbit"></div>
-                    </div>
-                </div>
+            <div style="display: flex; gap: 1rem; align-items: center;">
                 <div id="proctor-status" class="proctor-status">
                     <div class="indicator-cyan" id="proctor-indicator"></div>
-                    <span id="proctor-text">Session monitored</span>
+                    <span id="proctor-text">SECURE BROADCAST : ACTIVE</span>
                 </div>
-                <a href="/dashboard" class="btn-ghost" style="padding: 0.5rem 1.2rem; font-size: 0.85rem;">Dashboard</a>
+                <a href="/dashboard" class="btn-ghost" style="padding: 0.6rem 1.4rem; font-size: 0.85rem;">Dashboard</a>
             </div>
         </div>
     </header>
 
-<<<<<<< HEAD
-    <main class="container" style="padding-top: 8rem;">
-        <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 1.5rem;"
-            class="reveal">
-            <div>
-                <span class="category-badge" style="margin-bottom: 0.75rem; display: inline-block;">{{ category }}
-                    Assessment</span>
-                <h2 style="font-size: 1.75rem; font-weight: 700; letter-spacing: -0.5px; color: var(--text-main);">Skill <br><span style="color: var(--accent-primary);">assessment.</span></h2>
-            </div>
-            <div style="text-align: right; width: 220px;">
-                <div
-                    style="display: flex; justify-content: space-between; font-size: 0.72rem; font-weight: 500; color: var(--text-muted);">
-                    <span>Progress</span>
-                    <span id="progress-text">Q1 / 10</span>
-                </div>
-                <div class="progress-rail">
-                    <div id="progress-bar" class="progress-fill" style="width: 10%"></div>
-                </div>
-            </div>
-        </div>
-
-        <div id="violation-screen" class="violation-screen">
-            <h1 style="color: var(--accent-red); font-size: 2.25rem; font-weight: 700; margin-bottom: 1.25rem;">Session ended</h1>
-            <p style="color: var(--text-muted); font-size: 1rem; max-width: 520px; line-height: 1.7; margin-bottom: 2.5rem;">
-                A protocol violation was detected. Multiple tab switches or window unfocus events occurred.
-                This session has been ended for security.
-=======
     <main class="container">
         <div id="violation-screen" class="violation-screen">
             <h1 style="color: #ef4444; font-size: 3rem; font-weight: 900; margin-bottom: 1.5rem;">SESSION STOPPED.</h1>
@@ -258,22 +185,10 @@
                 A critical protocol violation was detected. Multiple tab switches or window unfocus events have
                 occurred.
                 For security purposes, this simulation has been terminated.
->>>>>>> 81e3f23924040780dcbdefb7e4f2179bfe76c3bc
             </p>
-            <a href="/results" class="btn-cyan">View results</a>
+            <a href="/results" class="btn-cyan">View Session Report</a>
         </div>
 
-<<<<<<< HEAD
-        <div id="secure-start-overlay" class="violation-screen" style="display: flex; background: rgba(250, 249, 245, 0.98);">
-            <span class="tag-cyan" style="margin-bottom: 1.25rem;">Secure environment</span>
-            <h1 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 1.25rem; letter-spacing: -1.5px; color: var(--text-main);">Ready to <br><span style="color: var(--accent-primary);">begin.</span></h1>
-            <p style="color: var(--text-muted); font-size: 0.95rem; max-width: 460px; line-height: 1.7; margin-bottom: 2.5rem;">
-                This assessment will run in <strong>fullscreen mode</strong> to ensure integrity.
-                Tab switching and window unfocusing are monitored.
-            </p>
-            <button class="btn-cyan secure-session-btn" style="padding: 0.9rem 3rem; font-size: 1rem;" onclick="initializeSecureSession()">
-                Enter session <i class="fa-solid fa-arrow-right" style="margin-left: 0.5rem;"></i>
-=======
         <div id="secure-start-overlay" class="violation-screen"
             style="display: flex; background: rgba(5, 7, 10, 0.98);">
             <span class="tag-cyan" style="margin-bottom: 1.5rem;">PHASE: SECURITY INITIALIZATION</span>
@@ -287,7 +202,6 @@
             <button class="btn-cyan secure-session-btn" style="padding: 1.2rem 4rem; font-size: 1.1rem;"
                 onclick="initializeSecureSession()">
                 Enter Secure Simulation <i class="fa-solid fa-lock" style="margin-left: 0.8rem;"></i>
->>>>>>> 81e3f23924040780dcbdefb7e4f2179bfe76c3bc
             </button>
         </div>
 
@@ -296,28 +210,6 @@
             <span id="warning-text">ATTENTION: Tab Switch Detected. (1/3)</span>
         </div>
 
-<<<<<<< HEAD
-        <div id="test-hud" class="test-hud reveal reveal-d1">
-            <div class="main-stage">
-                <div class="question-box" id="question-text">
-                    Loading question...
-                </div>
-
-                <div style="margin-top: 2rem;">
-                    <h4
-                        style="margin-bottom: 1rem; font-weight: 600; color: var(--text-muted); font-size: 0.75rem;">
-                        Choose your answer</h4>
-                    <div id="options-grid" style="display: grid; gap: 0.75rem;">
-                        <!-- Options injected via JS -->
-                    </div>
-
-                    <div style="text-align: right; margin-top: 2rem;">
-                        <button type="button" id="submit-btn" class="btn-cyan"
-                            style="padding: 0.85rem 3.5rem; font-size: 1rem; opacity: 0.5; pointer-events: none;"
-                            onclick="submitAptitude()">
-                            Submit answer <i class="fa-solid fa-arrow-right" style="margin-left: 0.5rem;"></i>
-                        </button>
-=======
         <div class="test-wrapper animate-up" id="test-hud">
             <!-- CARD: INFO & STATUS -->
             <div class="bento-card info-card">
@@ -339,26 +231,15 @@
                     </div>
                     <div class="progress-rail">
                         <div id="progress-bar" class="progress-fill" style="width: 10%"></div>
->>>>>>> 81e3f23924040780dcbdefb7e4f2179bfe76c3bc
                     </div>
                 </div>
             </div>
 
-<<<<<<< HEAD
-            <aside>
-                <div class="glass-panel" style="padding: 2rem;">
-                    <h4
-                        style="margin-bottom: 1rem; font-weight: 600; font-size: 0.72rem; color: var(--text-muted);">
-                        Feedback</h4>
-                    <div id="feedback-panel">
-                        <p style="font-size: 0.85rem; line-height: 1.7; color: var(--text-caption);">Submit an answer to see feedback.</p>
-=======
             <!-- CARD: COGNITIVE INTEL (FEEDBACK) -->
             <div class="bento-card intel-card">
                 <div style="padding: 1.2rem 2rem; border-bottom: 1px solid var(--glass-border);">
                     <div style="font-size: 0.7rem; color: #444; font-weight: 800; text-transform: uppercase; letter-spacing: 2px;">
                         Cognitive Intel
->>>>>>> 81e3f23924040780dcbdefb7e4f2179bfe76c3bc
                     </div>
                 </div>
                 <div id="feedback-panel" style="padding: 1.2rem 2rem; flex-grow: 1; overflow-y: auto;">
@@ -469,12 +350,12 @@
                 const indicator = document.getElementById('proctor-indicator');
                 const statusText = document.getElementById('proctor-text');
 
-                text.innerText = `Alert: ${count}/3 violations detected.`;
+                text.innerText = `SECURITY ALERT: ${count}/3 Infractions Detected.`;
                 toast.classList.add('show');
 
                 if (count >= 2) {
                     indicator.className = 'indicator-red';
-                    statusText.innerText = "Critical warning";
+                    statusText.innerText = "PROTOCOL BREACH : CRITICAL";
                 }
 
                 setTimeout(() => toast.classList.remove('show'), 5000);
@@ -492,15 +373,10 @@
                 this.isTerminated = true;
                 document.getElementById('violation-screen').style.display = 'flex';
                 document.getElementById('test-hud').style.pointerEvents = 'none';
-                document.getElementById('test-hud').style.filter = 'blur(6px)';
+                document.getElementById('test-hud').style.filter = 'blur(10px)';
                 document.getElementById('proctor-indicator').className = 'indicator-red';
-<<<<<<< HEAD
-                document.getElementById('proctor-text').innerText = "Session ended";
-                
-=======
                 document.getElementById('proctor-text').innerText = "SESSION TERMINATED";
 
->>>>>>> 81e3f23924040780dcbdefb7e4f2179bfe76c3bc
                 if (document.fullscreenElement) {
                     document.exitFullscreen();
                 }
@@ -639,50 +515,8 @@
                 if (!data.complete && !data.error) {
                     nextQuestionBuffer = data;
                 }
-<<<<<<< HEAD
-                if (data.complete) {
-                    window.location.href = '/results';
-                    return;
-                }
-
-                // P1: Fade-only question reveal (lowest cognitive cost)
-                questionText.style.opacity = '0';
-                questionText.innerHTML = `<div style="font-size: 1.2rem; font-weight: 500; line-height: 1.7; color: var(--text-main);">${data.question}</div>`;
-                requestAnimationFrame(function() {
-                    questionText.style.transition = 'opacity 300ms var(--ease-reveal)';
-                    questionText.style.opacity = '1';
-                });
-
-                progressText.innerText = `Q${data.count} / 10`;
-                progressBar.style.width = `${(data.count / 10) * 100}%`;
-
-                // Render Options
-                optionsGrid.innerHTML = '';
-                const letters = ['A', 'B', 'C', 'D'];
-                data.options.forEach((opt, i) => {
-                    const letter = letters[i];
-                    const label = document.createElement('label');
-                    label.className = 'option-card';
-                    label.dataset.letter = letter;
-                    label.onclick = () => selectOption(label, letter);
-                    label.innerHTML = `
-                        <div style="width: 26px; height: 26px; border: 1px solid var(--border-line); border-radius: 50%; display:flex; align-items:center; justify-content:center; font-size:0.72rem; font-weight:600; flex-shrink:0; color: var(--text-muted);">${letter}</div>
-                        <span>${opt}</span>
-                    `;
-                    optionsGrid.appendChild(label);
-                });
-
-                submitBtn.style.opacity = '0.5';
-                submitBtn.style.pointerEvents = 'none';
-                selectedAnswer = null;
-
-            } catch (err) {
-                questionText.innerText = `Connection Error: ${err.message}. Please refresh the page.`;
-                console.error('Fetch aptitude error:', err);
-=======
             } catch (e) {
                 console.warn("Pre-fetch deferred", e);
->>>>>>> 81e3f23924040780dcbdefb7e4f2179bfe76c3bc
             }
         }
 
@@ -700,13 +534,7 @@
 
             clearInterval(timerInterval);
             submitBtn.disabled = true;
-<<<<<<< HEAD
-            // P1: Tactile press feedback
-            submitBtn.classList.add('btn-press');
-            submitBtn.addEventListener('animationend', function() { submitBtn.classList.remove('btn-press'); }, { once: true });
-=======
             
->>>>>>> 81e3f23924040780dcbdefb7e4f2179bfe76c3bc
             try {
                 const answerToSubmit = selectedAnswer || 'TIME_OUT';
                 const res = await fetch('/api/check_aptitude', {
@@ -717,19 +545,12 @@
                 const data = await res.json();
 
                 feedbackPanel.innerHTML = `
-<<<<<<< HEAD
-                    <div class="reveal" style="font-size: 0.88rem; color: ${data.is_correct ? 'var(--accent-green)' : 'var(--accent-red)'}; font-weight: 600; margin-bottom: 0.75rem;">
-                        ${data.is_correct ? '✓ Correct' : '✗ Incorrect'}
-=======
                     <div style="font-size: 0.9rem; color: ${data.is_correct ? '#10b981' : '#f43f5e'}; font-weight: 900; margin-bottom: 1rem;">
                         ${isAuto && !selectedAnswer ? '✗ TIME EXPIRED' : (data.is_correct ? '✓ SIGNAL ACCURATE' : '✗ SIGNAL DRIFT DETECTED')}
->>>>>>> 81e3f23924040780dcbdefb7e4f2179bfe76c3bc
                     </div>
-                    <div class="reveal reveal-d1" style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.6rem;">Answer: <strong style="color: var(--accent-primary);">${data.correct_answer}</strong></div>
-                    <p class="reveal reveal-d2" style="font-size: 0.85rem; line-height: 1.6; color: var(--text-muted);">${data.explanation || ''}</p>
+                    <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.8rem;">Correct: <strong style="color: var(--accent-cyan);">${data.correct_answer}</strong></div>
+                    <p style="font-size: 0.85rem; line-height: 1.6; color: var(--text-muted);">${data.explanation || ''}</p>
                 `;
-                // trigger fade
-                setTimeout(() => { feedbackPanel.querySelectorAll('.reveal').forEach(el => el.classList.add('visible')); }, 10);
 
                 setTimeout(fetchAptitude, 4000); 
             } catch (err) {
@@ -739,34 +560,9 @@
             }
         }
 
-<<<<<<< HEAD
-        document.addEventListener('DOMContentLoaded', fetchAptitude);
-
-        // Reveal observer
-        (function() {
-            var els = document.querySelectorAll('.reveal, .reveal-scale');
-            if (!els.length) return;
-            var obs = new IntersectionObserver(function(entries) {
-                entries.forEach(function(e) {
-                    if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
-                });
-            }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
-            els.forEach(function(el) { obs.observe(el); });
-        })();
-    </script>
-    <script>
-        function toggleTheme() {
-            const html = document.documentElement;
-            const target = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-            html.setAttribute('data-theme', target);
-            localStorage.setItem('theme', target);
-            window.dispatchEvent(new CustomEvent('themeChanged', { detail: target }));
-        }
-=======
         document.addEventListener('DOMContentLoaded', () => {
             // Initial call will be made after overlay is clicked to join secure session
         });
->>>>>>> 81e3f23924040780dcbdefb7e4f2179bfe76c3bc
     </script>
 </body>
 

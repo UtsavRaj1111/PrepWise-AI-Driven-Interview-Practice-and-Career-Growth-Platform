@@ -4,55 +4,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Session Review | PrepWise</title>
+    <title>Mission Debrief | PrepWise </title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         .score-box {
-            padding: 2.5rem;
+            padding: 3rem;
             text-align: center;
-            border-radius: var(--radius-card);
-            background: var(--bg-surface);
-            border: 1px solid var(--border-line);
-            width: 220px;
-            box-shadow: var(--shadow-card);
+            border-radius: 24px;
+            background: rgba(0, 212, 255, 0.03);
+            border: 1px solid rgba(0, 212, 255, 0.1);
+            width: 250px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
         }
 
         .score-val {
-            font-size: 3.5rem;
-            font-weight: 700;
+            font-size: 4.5rem;
+            font-weight: 900;
             line-height: 1;
-            color: var(--accent-primary);
-            margin-bottom: 0.4rem;
+            color: var(--accent-cyan);
+            margin-bottom: 0.5rem;
+            filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.3));
         }
 
         .score-lbl {
-            font-size: 0.72rem;
-            font-weight: 500;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
             color: var(--text-muted);
+            letter-spacing: 2px;
         }
 
         .feedback-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            margin-top: 3rem;
+            gap: 2.5rem;
+            margin-top: 4rem;
         }
 
         .hud-stat {
-            padding: 1.25rem;
-            border-bottom: 1px solid var(--border-subtle);
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border-glass);
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
     </style>
-    <script>
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.setAttribute('data-theme', 'dark');
-        }
-    </script>
 </head>
 
 <body>
@@ -63,85 +60,84 @@
                 <a href="/dashboard">Dashboard</a>
                 <a href="/interview_start">Simulator</a>
                 <a href="/aptitude">Skill Paths</a>
-                <a href="/mentor">Mentor</a>
+                <a href="/mentor">Network</a>
             </nav>
-                        <div style="display: flex; gap: 0.75rem; align-items: center;">
-                <div class="theme-toggle-wrap">
-                    <div class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle environment">
-                        <i class="fa-solid fa-moon" style="margin-left: 5px;"></i>
-                        <i class="fa-solid fa-sun" style="margin-right: 4px;"></i>
-                        <div class="orbit"></div>
-                    </div>
+            <div style="display: flex; gap: 1.5rem; align-items: center;">
+                <a href="/interview_start" class="btn-cyan">Start Interview</a>
+                <div
+                    style="width: 32px; height: 32px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid var(--accent-cyan);">
+                    <i class="fa-solid fa-user" style="font-size: 0.8rem; color: var(--accent-cyan);"></i>
                 </div>
-                <a href="/interview_start" class="btn-cyan">New Interview</a>
             </div>
         </div>
     </header>
 
-    <main class="container" style="padding-top: 10rem;">
-        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; margin-bottom: 4rem; gap: 2.5rem;"
-            class="reveal">
+    <main class="container" style="padding-top: 12rem;">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; margin-bottom: 5rem; gap: 3rem;"
+            class="animate-up">
             <div>
-                <span class="tag-cyan" style="margin-bottom: 0.75rem;">
-                    <div class="indicator-cyan"></div> Session complete
+                <span class="tag-cyan" style="margin-bottom: 1rem;">
+                    <div class="indicator-cyan"></div> Simulation Terminated
                 </span>
-                <h1 style="font-size: 2.5rem; font-weight: 700; letter-spacing: -1.5px; color: var(--text-main);">Session <br><span style="color: var(--accent-primary);">review.</span></h1>
-                <p style="color: var(--text-muted); font-size: 1rem; margin-top: 0.75rem;">Performance breakdown and personalized feedback.</p>
+                <h1 style="font-size: 3.5rem; font-weight: 900; letter-spacing: -2.5px;">Mission <br><span>Final
+                        Debrief.</span></h1>
+                <p style="color: var(--text-muted); font-size: 1.1rem; margin-top: 1rem;">Architectural performance
+                    telemetry and feedback matrix.</p>
             </div>
 
             <div class="score-box">
-                <div class="score-val score-counter" data-target="{{ evaluation.score }}">0%</div>
-                <div class="score-lbl">Overall Score</div>
+                <div class="score-val">{{ evaluation.score }}%</div>
+                <div class="score-lbl">Efficiency Score</div>
             </div>
         </div>
 
-        <div class="feedback-grid">
-            <div class="glass-panel reveal reveal-d1" style="padding: 3rem;">
+        <div class="feedback-grid animate-up">
+            <div class="glass-panel" style="padding: 4rem;">
                 <h3
-                    style="margin-bottom: 1.5rem; color: var(--accent-primary); font-weight: 600; display: flex; align-items: center; gap: 0.75rem;">
-                    <i class="fa-regular fa-file-lines"></i> Summary
+                    style="margin-bottom: 2rem; color: var(--accent-cyan); font-weight: 900; display: flex; align-items: center; gap: 1rem;">
+                    <i class="fa-solid fa-microchip"></i> Processor Summary
                 </h3>
-                <p style="font-size: 1.05rem; line-height: 1.8; color: var(--text-muted); font-weight: 400;">{{
+                <p style="font-size: 1.2rem; line-height: 1.8; color: var(--text-muted); font-weight: 500;">{{
                     evaluation.summary }}</p>
 
-                <div style="margin-top: 3rem;">
+                <div style="margin-top: 4rem;">
                     <h4
-                        style="margin-bottom: 1.25rem; font-weight: 500; color: var(--text-muted); font-size: 0.72rem;">
-                        Session details</h4>
+                        style="margin-bottom: 1.5rem; font-weight: 800; color: var(--text-muted); font-size: 0.7rem; letter-spacing: 1.5px;">
+                        SESSION TELEMETRY</h4>
                     <div class="hud-stat">
-                        <span style="color: var(--text-muted); font-weight: 500;">Response Quality</span>
-                        <span style="color: var(--accent-primary); font-weight: 600;">Good</span>
+                        <span style="color: var(--text-muted); font-weight: 600;">Response Precision</span>
+                        <span style="color: var(--accent-cyan); font-weight: 900;">Optimized</span>
                     </div>
                     <div class="hud-stat">
-                        <span style="color: var(--text-muted); font-weight: 500;">Pacing</span>
-                        <span style="color: var(--accent-primary); font-weight: 600;">Consistent</span>
+                        <span style="color: var(--text-muted); font-weight: 600;">Structural Speed</span>
+                        <span style="color: var(--accent-cyan); font-weight: 900;">High Bandwidth</span>
                     </div>
                 </div>
             </div>
 
-            <div style="display: flex; flex-direction: column; gap: 2rem;">
-                <div class="glass-panel reveal reveal-d2" style="border-left: 4px solid var(--accent-green); padding: 2.5rem;">
-                    <h3 style="margin-bottom: 1.25rem; color: var(--accent-green); font-weight: 600;"><i
-                            class="fa-regular fa-circle-check"></i> Strengths</h3>
+            <div style="display: flex; flex-direction: column; gap: 2.5rem;">
+                <div class="glass-panel" style="border-left: 6px solid #10b981; padding: 3rem;">
+                    <h3 style="margin-bottom: 1.5rem; color: #10b981; font-weight: 900;"><i
+                            class="fa-solid fa-shield-check"></i> Primary Strengths</h3>
                     <ul style="list-style: none; padding: 0;">
                         {% for s in evaluation.strengths %}
                         <li
-                            style="margin-bottom: 1rem; display: flex; gap: 0.75rem; color: var(--text-muted); font-weight: 400;">
-                            <i class="fa-solid fa-check" style="margin-top: 0.25rem; opacity: 0.6; color: var(--accent-green);"></i>
+                            style="margin-bottom: 1.2rem; display: flex; gap: 1rem; color: var(--text-muted); font-weight: 500;">
+                            <i class="fa-solid fa-circle-check" style="margin-top: 0.3rem; opacity: 0.8;"></i>
                             {{ s }}
                         </li>
                         {% endfor %}
                     </ul>
                 </div>
 
-                <div class="glass-panel reveal reveal-d5" style="border-left: 4px solid var(--accent-red); padding: 2.5rem;">
-                    <h3 style="margin-bottom: 1.25rem; color: var(--accent-red); font-weight: 600;"><i
-                            class="fa-regular fa-circle-xmark"></i> Areas for growth</h3>
+                <div class="glass-panel" style="border-left: 6px solid #f43f5e; padding: 3rem;">
+                    <h3 style="margin-bottom: 1.5rem; color: #f43f5e; font-weight: 900;"><i
+                            class="fa-solid fa-triangle-exclamation"></i> Optimization Gaps</h3>
                     <ul style="list-style: none; padding: 0;">
                         {% for w in evaluation.weaknesses %}
                         <li
-                            style="margin-bottom: 1rem; display: flex; gap: 0.75rem; color: var(--text-muted); font-weight: 400;">
-                            <i class="fa-regular fa-circle-xmark" style="margin-top: 0.25rem; opacity: 0.6; color: var(--accent-red);"></i>
+                            style="margin-bottom: 1.2rem; display: flex; gap: 1rem; color: var(--text-muted); font-weight: 500;">
+                            <i class="fa-solid fa-circle-xmark" style="margin-top: 0.3rem; opacity: 0.8;"></i>
                             {{ w }}
                         </li>
                         {% endfor %}
@@ -150,80 +146,29 @@
             </div>
         </div>
 
-        <section class="glass-panel reveal reveal-d6"
-            style="padding: 3rem; margin-top: 2.5rem; border: 1px solid var(--border-line);">
-            <h3 style="margin-bottom: 1.5rem; color: var(--accent-primary); font-weight: 600;"><i
-                    class="fa-regular fa-lightbulb"></i> Next steps</h3>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+        <section class="glass-panel animate-up"
+            style="padding: 4rem; margin-top: 3rem; border: 1px solid rgba(0, 212, 255, 0.2);">
+            <h3 style="margin-bottom: 2rem; color: var(--accent-cyan); font-weight: 900;"><i
+                    class="fa-solid fa-forward"></i> Recommended Action Iterations</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
                 {% for imp in evaluation.improvements %}
                 <div
-                    style="padding: 1.25rem; background: var(--bg-secondary); border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); color: var(--text-muted); font-size: 0.92rem; line-height: 1.6;">
+                    style="padding: 1.5rem; background: rgba(0, 212, 255, 0.02); border-radius: 12px; border: 1px solid var(--border-glass); color: var(--text-muted); font-size: 0.95rem; line-height: 1.5;">
                     {{ imp }}
                 </div>
                 {% endfor %}
             </div>
         </section>
 
-        <div style="text-align: center; margin: 5rem 0 8rem;" class="reveal reveal-d7">
-            <div style="display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;">
-                <a href="/interview_start" class="btn-cyan" style="padding: 1rem 3.5rem; font-size: 1rem;">Practice again</a>
-                <a href="/dashboard" class="btn-ghost" style="padding: 1rem 3.5rem; font-size: 1rem;">Dashboard</a>
+        <div style="text-align: center; margin: 6rem 0 10rem;" class="animate-up">
+            <div style="display: flex; gap: 2.5rem; justify-content: center; flex-wrap: wrap;">
+                <a href="/interview_start" class="btn-cyan" style="padding: 1.5rem 5rem; font-size: 1.2rem;">Relaunch
+                    Simulator</a>
+                <a href="/dashboard" class="btn-ghost" style="padding: 1.5rem 5rem; font-size: 1.2rem;">Telemetry
+                    Center</a>
             </div>
         </div>
     </main>
-
-    <script>
-        // P0: Score counter — counting up reframes judgment as achievement
-        function countUp(el) {
-            var target = parseInt(el.dataset.target, 10) || 0;
-            var duration = 1200;
-            var start = performance.now();
-            function step(now) {
-                var progress = Math.min((now - start) / duration, 1);
-                // ease-out curve for satisfying deceleration
-                var eased = 1 - Math.pow(1 - progress, 3);
-                var current = Math.round(eased * target);
-                el.textContent = current + '%';
-                if (progress < 1) requestAnimationFrame(step);
-            }
-            requestAnimationFrame(step);
-        }
-
-        // Reveal observer with score counter hook
-        (function() {
-            var els = document.querySelectorAll('.reveal, .reveal-scale');
-            if (!els.length) return;
-            var obs = new IntersectionObserver(function(entries) {
-                entries.forEach(function(e) {
-                    if (e.isIntersecting) {
-                        e.target.classList.add('visible');
-                        obs.unobserve(e.target);
-                    }
-                });
-            }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
-            els.forEach(function(el) { obs.observe(el); });
-
-            // Score counter — triggered on page load (above fold)
-            var counters = document.querySelectorAll('.score-counter');
-            counters.forEach(function(c) {
-                var cObs = new IntersectionObserver(function(entries) {
-                    entries.forEach(function(e) {
-                        if (e.isIntersecting) { countUp(e.target); cObs.unobserve(e.target); }
-                    });
-                }, { threshold: 0.3 });
-                cObs.observe(c);
-            });
-        })();
-    </script>
-    <script>
-        function toggleTheme() {
-            const html = document.documentElement;
-            const target = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-            html.setAttribute('data-theme', target);
-            localStorage.setItem('theme', target);
-            window.dispatchEvent(new CustomEvent('themeChanged', { detail: target }));
-        }
-    </script>
 </body>
 
 </html>

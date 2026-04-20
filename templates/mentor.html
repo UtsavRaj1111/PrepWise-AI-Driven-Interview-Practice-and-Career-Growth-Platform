@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Mentor | PrepWise</title>
+    <title>AI Mentor | PrepWise </title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
-        <<<<<<< HEAD======= :root {
+        :root {
             --accent-cyan: #00d4ff;
             --bg-deep: #020408;
             --bg-chat: rgba(10, 12, 16, 0.4);
@@ -20,8 +20,8 @@
             --text-muted: #94a3b8;
         }
 
-        >>>>>>>81e3f23924040780dcbdefb7e4f2179bfe76c3bc body {
-            background: var(--bg-primary);
+        body {
+            background: var(--bg-deep);
             color: var(--text-main);
             margin: 0;
             padding: 0;
@@ -31,8 +31,6 @@
             flex-direction: column;
             position: relative;
         }
-
-        <<<<<<< HEAD=======
 
         /* PREMIUM NEBULA BACKGROUND */
         body::before {
@@ -62,7 +60,7 @@
             }
         }
 
-        >>>>>>>81e3f23924040780dcbdefb7e4f2179bfe76c3bc header {
+        header {
             position: fixed;
             top: 0;
             left: 0;
@@ -75,26 +73,7 @@
 
         .chat-wrapper {
             flex-grow: 1;
-            <<<<<<< HEAD margin-top: 4.5rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-            height: calc(100vh - 4.5rem);
-            position: relative;
-        }
-
-        .chat-container {
-            max-width: 820px;
-            width: 95%;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            background: var(--bg-surface);
-            border-left: 1px solid var(--border-line);
-            border-right: 1px solid var(--border-line);
-            =======margin-top: 6rem;
+            margin-top: 6rem;
             display: grid;
             grid-template-columns: 350px 1fr;
             grid-template-rows: auto 1fr auto;
@@ -157,61 +136,57 @@
             box-shadow: none;
             width: 100%;
             max-width: 100%;
-            >>>>>>>81e3f23924040780dcbdefb7e4f2179bfe76c3bc
         }
 
         .chat-scroller {
             flex-grow: 1;
             overflow-y: auto;
-            <<<<<<< HEAD padding: 1.5rem 2.5rem 3rem;
-            =======padding: 2rem 2.5rem 4rem;
-            >>>>>>>81e3f23924040780dcbdefb7e4f2179bfe76c3bc display: flex;
+            padding: 2rem 2.5rem 4rem;
+            display: flex;
             flex-direction: column;
-            gap: 2rem;
+            gap: 2.5rem;
             scroll-behavior: smooth;
         }
 
-        /* Mentor Sub Bar */
+        /* MENTOR TOP INFO */
         .mentor-sub-bar {
-            <<<<<<< HEAD padding: 1rem 2.5rem;
-            background: var(--bg-surface);
-            border-bottom: 1px solid var(--border-subtle);
-            =======padding: 1.2rem 2.5rem;
+            padding: 1.2rem 2.5rem;
             background: rgba(255, 255, 255, 0.01);
             backdrop-filter: blur(15px);
             border-bottom: 1px solid var(--glass-border);
-            >>>>>>>81e3f23924040780dcbdefb7e4f2179bfe76c3bc display: flex;
+            display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 10;
         }
 
         .mentor-identity h2 {
-            font-size: 1rem;
+            font-size: 1.1rem;
             margin: 0;
-            letter-spacing: -0.3px;
-            font-weight: 600;
-            color: var(--text-main);
+            letter-spacing: -0.5px;
+            font-weight: 700;
         }
 
         .active-badge {
-            background: var(--accent-soft);
-            color: var(--accent-primary);
+            background: rgba(0, 212, 255, 0.1);
+            color: #00d2ff;
             padding: 2px 8px;
-            border-radius: var(--radius-sm);
+            border-radius: 4px;
             font-size: 0.6rem;
-            font-weight: 600;
-            margin-left: 0.6rem;
-            border: 1px solid rgba(217, 119, 6, 0.15);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-left: 0.8rem;
+            border: 1px solid rgba(0, 212, 255, 0.2);
             display: inline-flex;
             align-items: center;
-            gap: 0.3rem;
+            gap: 0.4rem;
         }
 
         .pulse-dot {
-            width: 5px;
-            height: 5px;
-            background: var(--accent-primary);
+            width: 6px;
+            height: 6px;
+            background: #00d2ff;
             border-radius: 50%;
             animation: pulse-ring 1.5s infinite;
         }
@@ -220,27 +195,29 @@
             0% {
                 transform: scale(0.8);
                 opacity: 1;
+                box-shadow: 0 0 0 0 rgba(0, 212, 255, 0.4);
             }
 
             100% {
                 transform: scale(1.2);
                 opacity: 0;
+                box-shadow: 0 0 0 10px rgba(0, 212, 255, 0);
             }
         }
 
-        /* Message Bubbles */
+        /* MESSAGE BUBBLES - FLOAT UP ENTRY */
         .message-row {
             display: flex;
             width: 100%;
             position: relative;
-            animation: floatUp 0.3s ease forwards;
+            animation: floatUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
             opacity: 0;
         }
 
         @keyframes floatUp {
             from {
                 opacity: 0;
-                transform: translateY(6px);
+                transform: translateY(15px);
             }
 
             to {
@@ -250,36 +227,29 @@
         }
 
         .msg-side-icon {
-            width: 32px;
-            height: 32px;
+            width: 36px;
+            height: 36px;
             flex-shrink: 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: var(--bg-secondary);
-            color: var(--accent-primary);
-            border-radius: var(--radius-sm);
-            font-size: 0.8rem;
+            background: linear-gradient(135deg, #1e1f24 0%, #131418 100%);
+            color: #00d2ff;
+            border-radius: 8px;
+            font-size: 0.9rem;
             position: relative;
-            top: -3px;
-            border: 1px solid var(--border-line);
+            top: -5px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--glass-border);
         }
 
         .mentor-row {
             align-self: flex-start;
-            gap: 1rem;
+            gap: 1.2rem;
         }
 
         .mentor-bubble {
-            <<<<<<< HEAD background: var(--bg-secondary);
-            padding: 1.25rem 1.5rem;
-            border-radius: 4px 14px 14px 14px;
-            max-width: 85%;
-            color: var(--text-secondary);
-            line-height: 1.7;
-            font-size: 0.95rem;
-            border: 1px solid var(--border-subtle);
-            =======background: rgba(255, 255, 255, 0.03);
+            background: rgba(255, 255, 255, 0.03);
             padding: 1.5rem 2rem;
             border-radius: 4px 18px 18px 18px;
             max-width: 85%;
@@ -297,27 +267,22 @@
             border-color: rgba(255, 255, 255, 0.15);
             transform: translateY(-2px);
             box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(0, 212, 255, 0.05);
-            >>>>>>>81e3f23924040780dcbdefb7e4f2179bfe76c3bc
         }
 
         .user-row {
             align-self: flex-end;
             justify-content: flex-end;
-            gap: 1rem;
+            gap: 1.2rem;
         }
 
         .user-bubble {
-            <<<<<<< HEAD background: var(--accent-soft);
-            padding: 1.25rem 1.5rem;
-            border-radius: 14px 14px 4px 14px;
-            =======background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
             padding: 1.5rem 2rem;
             border-radius: 18px 18px 4px 18px;
-            >>>>>>>81e3f23924040780dcbdefb7e4f2179bfe76c3bc max-width: 85%;
-            color: var(--text-main);
+            max-width: 85%;
+            color: #fff;
             line-height: 1.7;
-            <<<<<<< HEAD border: 1px solid rgba(217, 119, 6, 0.12);
-            =======backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.15);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             transition: all 0.3s ease;
@@ -328,31 +293,20 @@
             border-color: rgba(255, 255, 255, 0.25);
             transform: translateY(-2px);
             box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
-            >>>>>>>81e3f23924040780dcbdefb7e4f2179bfe76c3bc
         }
 
         .user-photo {
-            width: 36px;
-            height: 36px;
-            border-radius: var(--radius-sm);
+            width: 42px;
+            height: 42px;
+            border-radius: 8px;
             object-fit: cover;
             align-self: flex-start;
-            border: 1px solid var(--border-line);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* Input Area */
+        /* INPUT AREA GLOW */
         .chat-footer {
-            <<<<<<< HEAD padding: 1.25rem 2.5rem 1.5rem;
-            background: var(--bg-surface);
-            border-top: 1px solid var(--border-subtle);
-        }
-
-        .input-box {
-            background: var(--bg-primary);
-            border-radius: var(--radius-sm);
-            border: 1px solid var(--border-line);
-            padding: 0.75rem 1.2rem;
-            =======padding: 1.5rem 2.5rem 2rem;
+            padding: 1.5rem 2.5rem 2rem;
             background: rgba(2, 4, 8, 0.3);
             backdrop-filter: blur(20px);
             border-top: 1px solid var(--glass-border);
@@ -363,17 +317,11 @@
             border-radius: 16px;
             border: 1px solid var(--glass-border);
             padding: 1rem 1.4rem;
-            >>>>>>>81e3f23924040780dcbdefb7e4f2179bfe76c3bc display: flex;
+            display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 1.2rem;
             position: relative;
-            <<<<<<< HEAD transition: all var(--transition-base);
-        }
-
-        .input-box:focus-within {
-            border-color: var(--accent-primary);
-            box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.08);
-            =======transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             backdrop-filter: blur(10px);
         }
 
@@ -382,145 +330,111 @@
             background: rgba(255, 255, 255, 0.05);
             box-shadow: 0 0 30px rgba(0, 212, 255, 0.1);
             transform: translateY(-2px);
-            >>>>>>>81e3f23924040780dcbdefb7e4f2179bfe76c3bc
         }
 
         .btn-plus {
-            width: 26px;
-            height: 26px;
+            width: 28px;
+            height: 28px;
             border-radius: 50%;
-            background: var(--bg-secondary);
-            color: var(--text-caption);
-            border: 1px solid var(--border-line);
+            background: #222;
+            color: #888;
+            border: none;
             cursor: pointer;
-            font-size: 0.8rem;
-            transition: all var(--transition-base);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            font-size: 0.9rem;
+            transition: all 0.2s;
         }
 
         .btn-plus:hover {
-            background: var(--bg-tertiary);
-            color: var(--accent-primary);
+            background: #333;
+            color: #00d2ff;
         }
 
         #chat-input {
             flex-grow: 1;
             background: transparent;
             border: none;
-            color: var(--text-main);
+            color: #fff;
             outline: none;
-            font-size: 0.95rem;
-            padding: 0.4rem 0;
+            font-size: 1rem;
+            padding: 0.5rem 0;
             font-weight: 400;
-            font-family: 'Inter', sans-serif;
         }
 
         #chat-input::placeholder {
-            color: var(--text-caption);
+            color: #555;
         }
 
         .input-actions {
             display: flex;
             align-items: center;
-            gap: 1.2rem;
-            color: var(--text-caption);
+            gap: 1.4rem;
+            color: #555;
         }
 
         .btn-send {
             background: transparent;
             border: none;
-            color: var(--accent-primary);
+            color: #00d2ff;
             cursor: pointer;
-            font-size: 1.1rem;
+            font-size: 1.3rem;
             opacity: 0.6;
-            transition: all var(--transition-base);
+            transition: all 0.3s;
         }
 
         .btn-send:hover {
             opacity: 1;
-            transform: scale(1.1);
+            transform: scale(1.15) rotate(-5deg);
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
         }
 
         .meta-footer {
             display: flex;
             justify-content: space-between;
-            margin-top: 0.8rem;
-            font-size: 0.62rem;
-            color: var(--text-caption);
-            font-weight: 500;
+            margin-top: 1.2rem;
+            font-size: 0.65rem;
+            color: #333;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
         }
 
-        /* Scroll Button */
+        /* SCROLL TO BOTTOM BUTTON */
         #scroll-bottom {
             position: absolute;
-            bottom: 8rem;
-            right: 3rem;
-            width: 36px;
-            height: 36px;
+            bottom: 10rem;
+            right: 4rem;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
-            background: var(--bg-surface);
-            border: 1px solid var(--border-line);
-            color: var(--accent-primary);
+            background: rgba(30, 31, 36, 0.8);
+            border: 1px solid var(--glass-border);
+            color: #00d2ff;
             display: none;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             z-index: 100;
-            transition: all var(--transition-base);
-            box-shadow: var(--shadow-card);
+            backdrop-filter: blur(5px);
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         }
 
         #scroll-bottom:hover {
-            transform: translateY(2px);
-            background: var(--bg-secondary);
+            transform: translateY(3px);
+            background: #25262c;
         }
 
-        /* History Drawer */
+        /* SESSION HISTORY DRAWER */
         .history-trigger {
-            <<<<<<< HEAD position: fixed;
-            left: 2rem;
-            bottom: 2rem;
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background: var(--bg-surface);
-            border: 1px solid var(--border-line);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-muted);
-            cursor: pointer;
-            z-index: 1000;
-            box-shadow: var(--shadow-card);
-            transition: all var(--transition-smooth);
-            =======display: none;
-            >>>>>>>81e3f23924040780dcbdefb7e4f2179bfe76c3bc
+            display: none;
         }
 
         .history-trigger:hover {
-            transform: translateY(-4px);
-            background: var(--bg-secondary);
-            box-shadow: var(--shadow-hover);
-            color: var(--accent-primary);
+            transform: translateY(-8px) scale(1.05) rotate(15deg);
+            background: #25262c;
+            box-shadow: 0 15px 50px rgba(0, 212, 255, 0.2);
         }
 
-        <<<<<<< HEAD .history-drawer {
-            position: fixed;
-            left: -320px;
-            top: 0;
-            width: 320px;
-            height: 100vh;
-            background: var(--bg-surface);
-            border-right: 1px solid var(--border-line);
-            z-index: 3000;
-            padding: 5.5rem 1.5rem 2rem;
-            transition: transform var(--duration-base) var(--ease-settle);
-            box-shadow: var(--shadow-elevated);
-        }
-
-        =======
         /* BENTO RESPONSIVENESS */
         @media (max-width: 1100px) {
             .chat-wrapper {
@@ -533,7 +447,7 @@
                 overflow-y: auto;
             }
 
-            >>>>>>>81e3f23924040780dcbdefb7e4f2179bfe76c3bc .history-card {
+            .history-card {
                 min-height: 400px;
             }
 
@@ -545,11 +459,11 @@
         .history-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.2);
+            background: rgba(0, 0, 0, 0.7);
             display: none;
             z-index: 2500;
-            backdrop-filter: blur(2px);
-            transition: opacity var(--duration-base) var(--ease-settle);
+            backdrop-filter: blur(6px);
+            transition: opacity 0.3s;
         }
 
         .history-overlay.active {
@@ -559,17 +473,7 @@
 
         .drawer-close {
             position: absolute;
-            <<<<<<< HEAD top: 2rem;
-            right: 1.5rem;
-            color: var(--text-caption);
-            cursor: pointer;
-            font-size: 1.1rem;
-            transition: color var(--transition-base);
-        }
-
-        .drawer-close:hover {
-            color: var(--text-main);
-            =======top: 2.5rem;
+            top: 2.5rem;
             right: 1.8rem;
             color: rgba(255, 255, 255, 0.3);
             cursor: pointer;
@@ -580,74 +484,70 @@
         .drawer-close:hover {
             color: #fff;
             transform: rotate(90deg);
-            >>>>>>>81e3f23924040780dcbdefb7e4f2179bfe76c3bc
         }
 
         .history-item {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
-            padding: 0.75rem;
-            border-radius: var(--radius-sm);
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 12px;
             color: var(--text-muted);
             text-decoration: none;
-            font-size: 0.88rem;
-            margin-bottom: 0.5rem;
-            transition: all var(--transition-base);
+            font-size: 0.92rem;
+            margin-bottom: 0.8rem;
+            transition: all 0.3s;
             border: 1px solid transparent;
         }
 
         .history-item:hover,
         .history-item.active {
-            <<<<<<< HEAD background: var(--accent-soft);
-            color: var(--text-main);
-            border-color: rgba(217, 119, 6, 0.08);
-            =======background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.05);
             color: #fff;
             border-color: rgba(0, 212, 255, 0.3);
             transform: translateX(8px);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-            >>>>>>>81e3f23924040780dcbdefb7e4f2179bfe76c3bc
         }
 
         .history-item i {
             opacity: 0.4;
-            transition: opacity var(--transition-base);
+            transition: opacity 0.3s;
         }
 
         .history-item:hover i {
             opacity: 1;
-            color: var(--accent-primary);
+            color: #00d2ff;
         }
 
-        /* Thread Menu */
+        /* DOTS MENU */
         .thread-menu-btn {
-            padding: 6px;
-            border-radius: 4px;
-            color: var(--text-caption);
-            transition: all var(--transition-base);
+            padding: 8px;
+            border-radius: 6px;
+            color: #444;
+            transition: all 0.2s;
             position: relative;
             z-index: 10;
         }
 
         .thread-menu-btn:hover {
-            color: var(--accent-primary);
-            background: var(--accent-soft);
+            color: #00d2ff;
+            background: rgba(0, 212, 255, 0.1);
         }
 
         .thread-context-menu {
             position: absolute;
             right: 10px;
-            top: 40px;
+            top: 45px;
             width: 150px;
-            background: var(--bg-surface);
-            border: 1px solid var(--border-line);
-            border-radius: var(--radius-sm);
-            box-shadow: var(--shadow-elevated);
+            background: #131418;
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
             display: none;
             flex-direction: column;
             z-index: 100;
             overflow: hidden;
+            backdrop-filter: blur(10px);
         }
 
         .thread-context-menu.show {
@@ -655,46 +555,28 @@
         }
 
         .menu-opt {
-            padding: 0.65rem 0.85rem;
-            color: var(--text-muted);
+            padding: 0.8rem 1rem;
+            color: #8e9bae;
             font-size: 0.8rem;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 0.6rem;
-            transition: all var(--transition-base);
+            gap: 0.8rem;
+            transition: all 0.2s;
         }
 
         .menu-opt:hover {
-            background: var(--bg-secondary);
-            color: var(--text-main);
+            background: rgba(0, 212, 255, 0.05);
+            color: #fff;
         }
 
         .menu-opt.del:hover {
-            background: rgba(220, 38, 38, 0.04);
-            color: var(--accent-red);
+            background: rgba(255, 77, 77, 0.05);
+            color: #ff4d4d;
         }
 
         .new-chat-floating {
-            <<<<<<< HEAD background: var(--accent-primary);
-            color: #FFFFFF;
-            border: none;
-            width: 100%;
-            padding: 0.85rem;
-            border-radius: var(--radius-btn);
-            font-weight: 600;
-            margin-bottom: 2rem;
-            cursor: pointer;
-            transition: all var(--transition-base);
-            font-size: 0.88rem;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .new-chat-floating:hover {
-            transform: translateY(-2px);
-            background: var(--accent-secondary);
-            box-shadow: var(--shadow-hover);
-            =======background: linear-gradient(135deg, rgba(0, 212, 255, 0.8) 0%, rgba(0, 168, 204, 0.8) 100%);
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.8) 0%, rgba(0, 168, 204, 0.8) 100%);
             backdrop-filter: blur(10px);
             color: #000;
             border: 1px solid rgba(255, 255, 255, 0.2);
@@ -734,24 +616,25 @@
             transform: translateY(-5px) scale(1.02);
             box-shadow: 0 12px 30px rgba(0, 212, 255, 0.4);
             border-color: rgba(255, 255, 255, 0.4);
-            >>>>>>>81e3f23924040780dcbdefb7e4f2179bfe76c3bc
         }
 
-        /* Typing Indicator */
+        /* TYPING INDICATOR - ANIMATED DOTS */
         .typing {
-            font-weight: 500;
-            color: var(--accent-primary);
+            font-weight: 600;
+            color: #00d2ff;
             font-size: 0.75rem;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
             display: none;
-            padding-left: 3.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding-left: 5rem;
         }
 
         .typing-dots span {
             display: inline-block;
             width: 4px;
             height: 4px;
-            background: var(--accent-primary);
+            background: #00d2ff;
             border-radius: 50%;
             margin: 0 2px;
             animation: jump 1s infinite alternate;
@@ -772,23 +655,23 @@
             }
 
             100% {
-                transform: translateY(-5px);
+                transform: translateY(-6px);
                 opacity: 1;
             }
         }
 
-        /* File Chip */
+        /* FILE CHIP */
         .file-chip {
             display: none;
             align-items: center;
-            gap: 0.5rem;
-            background: var(--accent-soft);
-            border: 1px solid rgba(217, 119, 6, 0.15);
-            padding: 0.4rem 0.85rem;
-            border-radius: var(--radius-sm);
-            font-size: 0.72rem;
-            color: var(--accent-primary);
-            margin-bottom: 0.6rem;
+            gap: 0.6rem;
+            background: rgba(0, 212, 255, 0.08);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            color: #00d2ff;
+            margin-bottom: 0.8rem;
             width: fit-content;
             animation: slideIn 0.3s ease;
         }
@@ -796,7 +679,7 @@
         @keyframes slideIn {
             from {
                 opacity: 0;
-                transform: translateY(6px);
+                transform: translateY(10px);
             }
 
             to {
@@ -808,17 +691,18 @@
         .file-chip i.fa-xmark {
             cursor: pointer;
             opacity: 0.6;
-            transition: opacity var(--transition-base);
+            transition: opacity 0.2s;
         }
 
         .file-chip i.fa-xmark:hover {
             opacity: 1;
         }
 
-        /* Voice Pulse */
+        /* VOICE PULSE */
         .recording {
-            color: var(--accent-red) !important;
+            color: #ff4d4d !important;
             animation: pulse-red 1.5s infinite alternate ease-in-out;
+            text-shadow: 0 0 12px rgba(255, 77, 77, 0.6);
         }
 
         @keyframes pulse-red {
@@ -829,11 +713,11 @@
 
             100% {
                 opacity: 1;
-                transform: scale(1.15);
+                transform: scale(1.2);
             }
         }
 
-        /* Scrollbar */
+        /* CUSTOM SCROLLBAR OVERRIDE FOR PREMIUM FEEL */
         ::-webkit-scrollbar {
             width: 4px;
         }
@@ -843,509 +727,340 @@
         }
 
         ::-webkit-scrollbar-thumb {
-            background: var(--border-line);
+            background: #1a1b1f;
             border-radius: 10px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: #D5D0C6;
+            background: #333;
         }
     </style>
-    <script>
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.setAttribute('data-theme', 'dark');
-        }
-    </script>
 </head>
 
 <body>
-    <<<<<<< HEAD <header>
-        <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-            <div class="logo"><a href="/" style="text-decoration:none; color:inherit;">Prep <span>Wise</span></a>
-            </div>
-            <nav class="nav-links">
-                <a href="/dashboard">Dashboard</a>
-                <a href="/interview_start">Simulator</a>
-                <a href="/resume">Resume Scan</a>
-                <a href="/aptitude">Skill Paths</a>
-                <a href="/mentor" class="active">Mentor</a>
-            </nav>
-            <div style="display: flex; gap: 0.75rem; align-items: center;">
-                <div class="theme-toggle-wrap">
-                    <div class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle environment">
-                        <i class="fa-solid fa-moon" style="margin-left: 5px;"></i>
-                        <i class="fa-solid fa-sun" style="margin-right: 4px;"></i>
-                        <div class="orbit"></div>
+    {% include 'base/header.html' %}
+
+    <div class="chat-wrapper">
+        <!-- BENTO CARD: PROFILE/STATUS -->
+        <div class="bento-card info-card">
+            <div class="mentor-identity">
+                <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+                    <div>
+                        <h2 style="font-size: 1.2rem; color: #fff;">Wise-AI Career Strategist</h2>
+
+
                     </div>
+                    <span class="active-badge">
+                        <div class="pulse-dot"></div> Live
+                    </span>
                 </div>
-                <button onclick="startNewChat()" class="btn-ghost"
-                    style="padding: 0.5rem 1.2rem; font-size: 0.85rem;">New Session</button>
-                <a href="/dashboard" class="btn-cyan">Dashboard</a>
             </div>
         </div>
-        </header>
 
-        <div class="chat-wrapper">
-            <div class="chat-container reveal">
-                <div class="mentor-sub-bar">
-                    <div class="mentor-identity">
-                        <div style="display: flex; align-items: center;">
-                            <h2>AI Career Mentor</h2>
-                            <span class="active-badge">
-                                <div class="pulse-dot"></div> Online
-                            </span>
+        <!-- BENTO CARD: HISTORY -->
+        <div class="bento-card history-card">
+            <div style="padding: 1.5rem 2rem; border-bottom: 1px solid var(--glass-border);">
+                <div
+                    style="font-size: 0.7rem; color: #444; font-weight: 800; text-transform: uppercase; letter-spacing: 2px;">
+                    Transmission Logs
+                </div>
+            </div>
+            <div style="flex-grow: 1; overflow-y: auto; padding: 1.5rem;">
+                {% for thread in threads %}
+                <div style="position: relative;">
+                    <a href="/mentor?thread_id={{ thread.id }}"
+                        class="history-item {{ 'active' if thread.id == active_thread_id }}"
+                        id="thread-{{ thread.id }}">
+                        <i class="fa-solid fa-message"></i>
+                        <span id="label-{{ thread.id }}"
+                            style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex-grow: 1;">{{
+                            thread.title }}</span>
+                        <div class="thread-menu-btn" onclick="toggleThreadMenu(event, '{{ thread.id }}')">
+                            <i class="fa-solid fa-ellipsis"></i>
+                        </div>
+                    </a>
+                    <div class="thread-context-menu" id="menu-{{ thread.id }}">
+                        <div class="menu-opt" onclick="showRenamePrompt('{{ thread.id }}')">
+                            <i class="fa-solid fa-pen-to-square"></i> Rename
+                        </div>
+                        <div class="menu-opt del" onclick="deleteThread(event, '{{ thread.id }}')">
+                            <i class="fa-solid fa-trash-can"></i> Terminate
                         </div>
                     </div>
-                    <div style="color: var(--text-caption); font-size: 0.72rem; font-weight: 500;">
-                        <i class="fa-regular fa-comment-dots" style="margin-right: 0.5rem;"></i> AI Mentor
-                        =======
-                        {% include 'base/header.html' %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
 
-                        <div class="chat-wrapper">
-                            <!-- BENTO CARD: PROFILE/STATUS -->
-                            <div class="bento-card info-card">
-                                <div class="mentor-identity">
-                                    <div
-                                        style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
-                                        <div>
-                                            <h2 style="font-size: 1.2rem; color: #fff;">Wise-AI Career Strategist</h2>
+        <!-- BENTO CARD: QUICK ACTIONS -->
+        <div class="bento-card actions-card">
+            <button class="new-chat-floating" onclick="startNewChat()" style="margin-bottom: 0;">+ New Session</button>
+        </div>
 
+        <!-- BENTO CARD: PRIMARY CHAT -->
+        <div class="bento-card chat-card">
+            <div class="chat-container">
+                <div class="mentor-sub-bar">
+                    <div
+                        style="color: #444; font-size: 0.7rem; font-weight: 800; letter-spacing: 2px; width: 100%; display: flex; justify-content: space-between;">
 
-                                        </div>
-                                        <span class="active-badge">
-                                            <div class="pulse-dot"></div> Live
-                                        </span>
-                                        >>>>>>> 81e3f23924040780dcbdefb7e4f2179bfe76c3bc
-                                    </div>
-                                </div>
-                            </div>
+                    </div>
+                </div>
 
-                            <<<<<<< HEAD <div class="chat-scroller" id="chat-scroller">
-                                <div id="messages-anchor">
-                                    {% for msg in chat_history %}
-                                    {% if msg.role == 'assistant' %}
-                                    <div class="message-row mentor-row">
-                                        <div class="msg-side-icon"><i class="fa-regular fa-lightbulb"></i></div>
-                                        <div class="mentor-bubble msg-content">{{ msg.content|safe }}</div>
-                                    </div>
-                                    {% else %}
-                                    <div class="message-row user-row">
-                                        <div class="user-bubble">{{ msg.content }}</div>
-                                        <img src="https://ui-avatars.com/api/?name=User&background=F5F4ED&color=6B7280"
-                                            class="user-photo">
-                                    </div>
-                                    {% endif %}
-                                    {% endfor %}
-                                </div>
-                                <div class="typing" id="typing">
-                                    Thinking <span class="typing-dots"><span></span><span></span><span></span></span>
-                                </div>
+                <div class="chat-scroller" id="chat-scroller">
+                    <div id="messages-anchor">
+                        {% for msg in chat_history %}
+                        {% if msg.role == 'assistant' %}
+                        <div class="message-row mentor-row">
+                            <div class="msg-side-icon"><i class="fa-solid fa-microchip"></i></div>
+                            <div class="mentor-bubble msg-content">{{ msg.content|safe }}</div>
                         </div>
-
-                        <div id="scroll-bottom" onclick="scrollToBottom()">
-                            <i class="fa-solid fa-arrow-down"></i>
+                        {% else %}
+                        <div class="message-row user-row">
+                            <div class="user-bubble">{{ msg.content }}</div>
+                            <img src="https://ui-avatars.com/api/?name=User&background=2f3036&color=fff"
+                                class="user-photo">
                         </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="typing" id="typing">
+                        Neural processing <span class="typing-dots"><span></span><span></span><span></span></span>
+                    </div>
+                </div>
 
-                        <div class="chat-footer">
-                            <div id="file-preview" class="file-chip">
-                                <i class="fa-solid fa-file-pdf"></i>
-                                <span id="file-name">filename.pdf</span>
-                                <i class="fa-solid fa-xmark" onclick="clearFileSelection()"></i>
+                <div id="scroll-bottom" onclick="scrollToBottom()">
+                    <i class="fa-solid fa-arrow-down"></i>
+                </div>
+
+                <div class="chat-footer">
+                    <div id="file-preview" class="file-chip">
+                        <i class="fa-solid fa-file-pdf"></i>
+                        <span id="file-name">filename.pdf</span>
+                        <i class="fa-solid fa-xmark" onclick="clearFileSelection()"></i>
+                    </div>
+                    <form id="chat-form">
+                        <div class="input-box">
+                            <button type="button" class="btn-plus"
+                                onclick="document.getElementById('chat-file-input').click()"><i
+                                    class="fa-solid fa-link"></i></button>
+                            <input type="file" id="chat-file-input" style="display: none;"
+                                onchange="handleFileSelect(this)">
+                            <input type="text" id="chat-input" placeholder="Initiate architectural consultation..."
+                                autocomplete="off">
+                            <div class="input-actions">
+                                <i class="fa-solid fa-microphone-lines" id="mic-btn" style="cursor: pointer;"
+                                    onclick="toggleVoice()"></i>
+                                <button type="submit" class="btn-send"><i class="fa-solid fa-paper-plane"></i></button>
                             </div>
-                            <form id="chat-form">
-                                <div class="input-box">
-                                    <button type="button" class="btn-plus"
-                                        onclick="document.getElementById('chat-file-input').click()"><i
-                                            class="fa-solid fa-link"></i></button>
-                                    <input type="file" id="chat-file-input" style="display: none;"
-                                        onchange="handleFileSelect(this)">
-                                    <input type="text" id="chat-input" placeholder="Ask anything about your career..."
-                                        autocomplete="off">
-                                    <div class="input-actions">
-                                        <i class="fa-solid fa-microphone-lines" id="mic-btn" style="cursor: pointer;"
-                                            onclick="toggleVoice()"></i>
-                                        <button type="submit" class="btn-send"><i
-                                                class="fa-solid fa-paper-plane"></i></button>
-                                    </div>
-                                </div>
-                            </form>
-                            <div class="meta-footer">
-                                <div>PrepWise AI Mentor</div>
-                                <div>v5.0</div>
-                                =======
-                                <!-- BENTO CARD: HISTORY -->
-                                <div class="bento-card history-card">
-                                    <div style="padding: 1.5rem 2rem; border-bottom: 1px solid var(--glass-border);">
-                                        <div
-                                            style="font-size: 0.7rem; color: #444; font-weight: 800; text-transform: uppercase; letter-spacing: 2px;">
-                                            Transmission Logs
-                                        </div>
-                                    </div>
-                                    <div style="flex-grow: 1; overflow-y: auto; padding: 1.5rem;">
-                                        {% for thread in threads %}
-                                        <div style="position: relative;">
-                                            <a href="/mentor?thread_id={{ thread.id }}"
-                                                class="history-item {{ 'active' if thread.id == active_thread_id }}"
-                                                id="thread-{{ thread.id }}">
-                                                <i class="fa-solid fa-message"></i>
-                                                <span id="label-{{ thread.id }}"
-                                                    style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex-grow: 1;">{{
-                                                    thread.title }}</span>
-                                                <div class="thread-menu-btn"
-                                                    onclick="toggleThreadMenu(event, '{{ thread.id }}')">
-                                                    <i class="fa-solid fa-ellipsis"></i>
-                                                </div>
-                                            </a>
-                                            <div class="thread-context-menu" id="menu-{{ thread.id }}">
-                                                <div class="menu-opt" onclick="showRenamePrompt('{{ thread.id }}')">
-                                                    <i class="fa-solid fa-pen-to-square"></i> Rename
-                                                </div>
-                                                <div class="menu-opt del"
-                                                    onclick="deleteThread(event, '{{ thread.id }}')">
-                                                    <i class="fa-solid fa-trash-can"></i> Terminate
-                                                </div>
-                                            </div>
-                                        </div>
-                                        {% endfor %}
-                                    </div>
-                                </div>
+                        </div>
+                    </form>
+                    <div class="meta-footer">
 
-                                <!-- BENTO CARD: QUICK ACTIONS -->
-                                <div class="bento-card actions-card">
-                                    <button class="new-chat-floating" onclick="startNewChat()"
-                                        style="margin-bottom: 0;">+ New Session</button>
-                                </div>
+                        <div style="color: #222;">PREPWISE AI</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-                                <!-- BENTO CARD: PRIMARY CHAT -->
-                                <div class="bento-card chat-card">
-                                    <div class="chat-container">
-                                        <div class="mentor-sub-bar">
-                                            <div
-                                                style="color: #444; font-size: 0.7rem; font-weight: 800; letter-spacing: 2px; width: 100%; display: flex; justify-content: space-between;">
+    <!-- CLEANUP OLD DRAWER ELEMENTS -->
+    <div style="display: none;">
+        <div class="history-overlay" id="drawer-overlay"></div>
+        <div class="history-drawer" id="history-drawer"></div>
+    </div>
 
-                                            </div>
-                                        </div>
+    <script>
+        const chatScroller = document.getElementById('chat-scroller');
+        const messagesAnchor = document.getElementById('messages-anchor');
+        const chatForm = document.getElementById('chat-form');
+        const chatInput = document.getElementById('chat-input');
+        const fileInput = document.getElementById('chat-file-input');
+        const typing = document.getElementById('typing');
+        const historyDrawer = document.getElementById('history-drawer');
+        const drawerOverlay = document.getElementById('drawer-overlay');
+        const scrollBtn = document.getElementById('scroll-bottom');
+        const micBtn = document.getElementById('mic-btn');
+        const filePreview = document.getElementById('file-preview');
+        const fileNameSpan = document.getElementById('file-name');
 
-                                        <div class="chat-scroller" id="chat-scroller">
-                                            <div id="messages-anchor">
-                                                {% for msg in chat_history %}
-                                                {% if msg.role == 'assistant' %}
-                                                <div class="message-row mentor-row">
-                                                    <div class="msg-side-icon"><i class="fa-solid fa-microchip"></i>
-                                                    </div>
-                                                    <div class="mentor-bubble msg-content">{{ msg.content|safe }}</div>
-                                                </div>
-                                                {% else %}
-                                                <div class="message-row user-row">
-                                                    <div class="user-bubble">{{ msg.content }}</div>
-                                                    <img src="https://ui-avatars.com/api/?name=User&background=2f3036&color=fff"
-                                                        class="user-photo">
-                                                </div>
-                                                {% endif %}
-                                                {% endfor %}
-                                            </div>
-                                            <div class="typing" id="typing">
-                                                Neural processing <span
-                                                    class="typing-dots"><span></span><span></span><span></span></span>
-                                            </div>
-                                        </div>
+        let activeThreadId = '{{ active_thread_id }}';
+        chatScroller.scrollTop = chatScroller.scrollHeight;
 
-                                        <div id="scroll-bottom" onclick="scrollToBottom()">
-                                            <i class="fa-solid fa-arrow-down"></i>
-                                        </div>
+        // FILE HANDLING
+        function handleFileSelect(input) {
+            const file = input.files[0];
+            if (file) {
+                fileNameSpan.innerText = file.name;
+                filePreview.style.display = 'flex';
+            }
+        }
 
-                                        <div class="chat-footer">
-                                            <div id="file-preview" class="file-chip">
-                                                <i class="fa-solid fa-file-pdf"></i>
-                                                <span id="file-name">filename.pdf</span>
-                                                <i class="fa-solid fa-xmark" onclick="clearFileSelection()"></i>
-                                            </div>
-                                            <form id="chat-form">
-                                                <div class="input-box">
-                                                    <button type="button" class="btn-plus"
-                                                        onclick="document.getElementById('chat-file-input').click()"><i
-                                                            class="fa-solid fa-link"></i></button>
-                                                    <input type="file" id="chat-file-input" style="display: none;"
-                                                        onchange="handleFileSelect(this)">
-                                                    <input type="text" id="chat-input"
-                                                        placeholder="Initiate architectural consultation..."
-                                                        autocomplete="off">
-                                                    <div class="input-actions">
-                                                        <i class="fa-solid fa-microphone-lines" id="mic-btn"
-                                                            style="cursor: pointer;" onclick="toggleVoice()"></i>
-                                                        <button type="submit" class="btn-send"><i
-                                                                class="fa-solid fa-paper-plane"></i></button>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                            <div class="meta-footer">
+        function clearFileSelection() {
+            fileInput.value = '';
+            filePreview.style.display = 'none';
+        }
 
-                                                <div style="color: #222;">PREPWISE AI</div>
-                                            </div>
-                                            >>>>>>> 81e3f23924040780dcbdefb7e4f2179bfe76c3bc
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+        // VOICE HANDLING (WEB SPEECH API)
+        let recognition;
+        if ('webkitSpeechRecognition' in window) {
+            recognition = new webkitSpeechRecognition();
+            recognition.continuous = false;
+            recognition.interimResults = false;
+            recognition.lang = 'en-US';
 
-                            <<<<<<< HEAD <!-- History Interaction Layer -->
-                                <div class="history-trigger" onclick="toggleDrawer()" title="Session history">
-                                    <i class="fa-solid fa-bars-staggered"></i>
-                                </div>
-                                <div class="history-overlay" id="drawer-overlay" onclick="toggleDrawer()"></div>
-                                <div class="history-drawer" id="history-drawer">
-                                    <i class="fa-solid fa-x-circle drawer-close" onclick="toggleDrawer()"></i>
-                                    <button class="new-chat-floating" onclick="startNewChat()">+ New Session</button>
+            recognition.onstart = () => micBtn.classList.add('recording');
+            recognition.onend = () => micBtn.classList.remove('recording');
+            recognition.onerror = () => micBtn.classList.remove('recording');
 
-                                    <div
-                                        style="font-size: 0.7rem; color: var(--text-caption); font-weight: 500; margin-bottom: 1.5rem; padding-left: 0.4rem;">
-                                        Recent sessions</div>
-                                    {% for thread in threads %}
-                                    <div style="position: relative;">
-                                        <a href="/mentor?thread_id={{ thread.id }}"
-                                            class="history-item {{ 'active' if thread.id == active_thread_id }}"
-                                            id="thread-{{ thread.id }}">
-                                            <i class="fa-regular fa-message"></i>
-                                            <span id="label-{{ thread.id }}"
-                                                style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex-grow: 1;">{{
-                                                thread.title }}</span>
-                                            <div class="thread-menu-btn"
-                                                onclick="toggleThreadMenu(event, '{{ thread.id }}')">
-                                                <i class="fa-solid fa-ellipsis"></i>
-                                            </div>
-                                        </a>
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                chatInput.value = (chatInput.value + ' ' + transcript).trim();
+                micBtn.classList.remove('recording');
+            };
+        }
 
-                                        <div class="thread-context-menu" id="menu-{{ thread.id }}">
-                                            <div class="menu-opt" onclick="showRenamePrompt('{{ thread.id }}')">
-                                                <i class="fa-regular fa-pen-to-square"></i> Rename
-                                            </div>
-                                            <div class="menu-opt del" onclick="deleteThread(event, '{{ thread.id }}')">
-                                                <i class="fa-regular fa-trash-can"></i> Delete
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {% endfor %}
-                                    =======
-                                    <!-- CLEANUP OLD DRAWER ELEMENTS -->
-                                    <div style="display: none;">
-                                        <div class="history-overlay" id="drawer-overlay"></div>
-                                        <div class="history-drawer" id="history-drawer"></div>
-                                        >>>>>>> 81e3f23924040780dcbdefb7e4f2179bfe76c3bc
-                                    </div>
+        function toggleVoice() {
+            if (!recognition) {
+                alert("Voice recognition is not supported in this browser.");
+                return;
+            }
+            if (micBtn.classList.contains('recording')) {
+                recognition.stop();
+            } else {
+                recognition.start();
+            }
+        }
 
-                                    <script>
-                                        const chatScroller = document.getElementById('chat-scroller');
-                                        const messagesAnchor = document.getElementById('messages-anchor');
-                                        const chatForm = document.getElementById('chat-form');
-                                        const chatInput = document.getElementById('chat-input');
-                                        const fileInput = document.getElementById('chat-file-input');
-                                        const typing = document.getElementById('typing');
-                                        const historyDrawer = document.getElementById('history-drawer');
-                                        const drawerOverlay = document.getElementById('drawer-overlay');
-                                        const scrollBtn = document.getElementById('scroll-bottom');
-                                        const micBtn = document.getElementById('mic-btn');
-                                        const filePreview = document.getElementById('file-preview');
-                                        const fileNameSpan = document.getElementById('file-name');
+        // SCROLL HANDLING
+        chatScroller.onscroll = () => {
+            const isAtBottom = chatScroller.scrollHeight - chatScroller.scrollTop <= chatScroller.clientHeight + 100;
+            scrollBtn.style.display = isAtBottom ? 'none' : 'flex';
+        };
 
-                                        let activeThreadId = '{{ active_thread_id }}';
-                                        chatScroller.scrollTop = chatScroller.scrollHeight;
+        function scrollToBottom() {
+            chatScroller.scrollTo({ top: chatScroller.scrollHeight, behavior: 'smooth' });
+        }
 
-                                        // FILE HANDLING
-                                        function handleFileSelect(input) {
-                                            const file = input.files[0];
-                                            if (file) {
-                                                fileNameSpan.innerText = file.name;
-                                                filePreview.style.display = 'flex';
-                                            }
-                                        }
+        function toggleDrawer() {
+            historyDrawer.classList.toggle('open');
+            drawerOverlay.classList.toggle('active');
+        }
 
-                                        function clearFileSelection() {
-                                            fileInput.value = '';
-                                            filePreview.style.display = 'none';
-                                        }
+        // THREAD MENU LOGIC
+        function toggleThreadMenu(e, id) {
+            e.preventDefault(); e.stopPropagation();
+            const menus = document.querySelectorAll('.thread-context-menu');
+            const targetMenu = document.getElementById(`menu-${id}`);
+            const isShowing = targetMenu.classList.contains('show');
 
-                                        // VOICE HANDLING (WEB SPEECH API)
-                                        let recognition;
-                                        if ('webkitSpeechRecognition' in window) {
-                                            recognition = new webkitSpeechRecognition();
-                                            recognition.continuous = false;
-                                            recognition.interimResults = false;
-                                            recognition.lang = 'en-US';
+            menus.forEach(m => m.classList.remove('show'));
+            if (!isShowing) targetMenu.classList.add('show');
+        }
 
-                                            recognition.onstart = () => micBtn.classList.add('recording');
-                                            recognition.onend = () => micBtn.classList.remove('recording');
-                                            recognition.onerror = () => micBtn.classList.remove('recording');
+        document.addEventListener('click', () => {
+            document.querySelectorAll('.thread-context-menu').forEach(m => m.classList.remove('show'));
+        });
 
-                                            recognition.onresult = (event) => {
-                                                const transcript = event.results[0][0].transcript;
-                                                chatInput.value = (chatInput.value + ' ' + transcript).trim();
-                                                micBtn.classList.remove('recording');
-                                            };
-                                        }
+        async function showRenamePrompt(id) {
+            const currentTitle = document.getElementById(`label-${id}`).innerText;
+            const newTitle = prompt("Rename this session transmission node:", currentTitle);
+            if (!newTitle || newTitle.trim() === currentTitle) return;
 
-                                        function toggleVoice() {
-                                            if (!recognition) {
-                                                alert("Voice recognition is not supported in this browser.");
-                                                return;
-                                            }
-                                            if (micBtn.classList.contains('recording')) {
-                                                recognition.stop();
-                                            } else {
-                                                recognition.start();
-                                            }
-                                        }
+            const res = await fetch('/api/chat/rename', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ thread_id: id, new_title: new_title.trim() })
+            });
 
-                                        // SCROLL HANDLING
-                                        chatScroller.onscroll = () => {
-                                            const isAtBottom = chatScroller.scrollHeight - chatScroller.scrollTop <= chatScroller.clientHeight + 100;
-                                            scrollBtn.style.display = isAtBottom ? 'none' : 'flex';
-                                        };
+            if (res.ok) {
+                const data = await res.json();
+                if (data.success) {
+                    document.getElementById(`label-${id}`).innerText = new_title;
+                } else {
+                    alert("Rename failed: " + data.error);
+                }
+            } else {
+                const errData = await res.json();
+                alert("Communication error: " + (errData.error || "Unknown error"));
+            }
+        }
 
-                                        function scrollToBottom() {
-                                            chatScroller.scrollTo({ top: chatScroller.scrollHeight, behavior: 'smooth' });
-                                        }
+        function renderMD() {
+            document.querySelectorAll('.msg-content').forEach(el => {
+                if (!el.dataset.rendered) {
+                    el.innerHTML = marked.parse(el.innerText);
+                    el.dataset.rendered = "true";
+                }
+            });
+        }
+        renderMD();
 
-                                        function toggleDrawer() {
-                                            historyDrawer.classList.toggle('open');
-                                            drawerOverlay.classList.toggle('active');
-                                        }
+        async function startNewChat() {
+            const res = await fetch('/api/chat/new', { method: 'POST' });
+            const data = await res.json();
+            window.location.href = `/mentor?thread_id=${data.thread_id}`;
+        }
 
-                                        // THREAD MENU LOGIC
-                                        function toggleThreadMenu(e, id) {
-                                            e.preventDefault(); e.stopPropagation();
-                                            const menus = document.querySelectorAll('.thread-context-menu');
-                                            const targetMenu = document.getElementById(`menu-${id}`);
-                                            const isShowing = targetMenu.classList.contains('show');
+        async function deleteThread(e, id) {
+            e.preventDefault(); e.stopPropagation();
+            if (!confirm("Terminate this session node?")) return;
+            const res = await fetch('/api/chat/delete', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ thread_id: id })
+            });
+            if (id === activeThreadId) window.location.href = '/mentor';
+            else document.getElementById(`thread-${id}`).remove();
+        }
 
-                                            menus.forEach(m => m.classList.remove('show'));
-                                            if (!isShowing) targetMenu.classList.add('show');
-                                        }
+        chatForm.onsubmit = async (e) => {
+            e.preventDefault();
+            const message = chatInput.value.trim();
+            const file = fileInput.files[0];
+            if (!message && !file) return;
 
-                                        document.addEventListener('click', () => {
-                                            document.querySelectorAll('.thread-context-menu').forEach(m => m.classList.remove('show'));
-                                        });
+            // USER MESSAGE ENTRY
+            const userRow = document.createElement('div');
+            userRow.className = 'message-row user-row';
+            let userContent = message;
+            if (file) userContent = `📎 [${file.name}] ${message}`;
+            userRow.innerHTML = `<div class="user-bubble">${userContent}</div><img src="https://ui-avatars.com/api/?name=User&background=2f3036&color=fff" class="user-photo">`;
+            messagesAnchor.appendChild(userRow);
 
-                                        async function showRenamePrompt(id) {
-                                            const currentTitle = document.getElementById(`label-${id}`).innerText;
-                                            const newTitle = prompt("Rename this session:", currentTitle);
-                                            if (!newTitle || newTitle.trim() === currentTitle) return;
+            chatInput.value = '';
+            clearFileSelection(); // Clear UI File Chip
 
-                                            const res = await fetch('/api/chat/rename', {
-                                                method: 'POST',
-                                                headers: { 'Content-Type': 'application/json' },
-                                                body: JSON.stringify({ thread_id: id, new_title: new_title.trim() })
-                                            });
+            typing.style.display = 'block';
+            chatScroller.scrollTop = chatScroller.scrollHeight;
 
-                                            if (res.ok) {
-                                                const data = await res.json();
-                                                if (data.success) {
-                                                    document.getElementById(`label-${id}`).innerText = new_title;
-                                                } else {
-                                                    alert("Rename failed: " + data.error);
-                                                }
-                                            } else {
-                                                const errData = await res.json();
-                                                alert("Error: " + (errData.error || "Unknown error"));
-                                            }
-                                        }
+            const formData = new FormData();
+            formData.append('message', message);
+            formData.append('thread_id', activeThreadId);
+            if (file) formData.append('file', file);
 
-                                        function renderMD() {
-                                            document.querySelectorAll('.msg-content').forEach(el => {
-                                                if (!el.dataset.rendered) {
-                                                    el.innerHTML = marked.parse(el.innerText);
-                                                    el.dataset.rendered = "true";
-                                                }
-                                            });
-                                        }
-                                        renderMD();
+            try {
+                const res = await fetch('/api/chat', { method: 'POST', body: formData });
+                const data = await res.json();
 
-                                        async function startNewChat() {
-                                            const res = await fetch('/api/chat/new', { method: 'POST' });
-                                            const data = await res.json();
-                                            window.location.href = `/mentor?thread_id=${data.thread_id}`;
-                                        }
+                // BOT MESSAGE ENTRY
+                const botRow = document.createElement('div');
+                botRow.className = 'message-row mentor-row';
+                botRow.innerHTML = `<div class="msg-side-icon"><i class="fa-solid fa-microchip"></i></div><div class="mentor-bubble msg-content">${marked.parse(data.response)}</div>`;
+                messagesAnchor.appendChild(botRow);
 
-                                        async function deleteThread(e, id) {
-                                            e.preventDefault(); e.stopPropagation();
-                                            if (!confirm("Delete this session?")) return;
-                                            const res = await fetch('/api/chat/delete', {
-                                                method: 'POST',
-                                                headers: { 'Content-Type': 'application/json' },
-                                                body: JSON.stringify({ thread_id: id })
-                                            });
-                                            if (id === activeThreadId) window.location.href = '/mentor';
-                                            else document.getElementById(`thread-${id}`).remove();
-                                        }
-
-                                        chatForm.onsubmit = async (e) => {
-                                            e.preventDefault();
-                                            const message = chatInput.value.trim();
-                                            const file = fileInput.files[0];
-                                            if (!message && !file) return;
-
-                                            // USER MESSAGE ENTRY
-                                            const userRow = document.createElement('div');
-                                            userRow.className = 'message-row user-row';
-                                            let userContent = message;
-                                            if (file) userContent = `📎 [${file.name}] ${message}`;
-                                            userRow.innerHTML = `<div class="user-bubble">${userContent}</div><img src="https://ui-avatars.com/api/?name=User&background=transparent&color=9CA3AF" class="user-photo" style="background-color: var(--bg-secondary);">`;
-                                            messagesAnchor.appendChild(userRow);
-
-                                            chatInput.value = '';
-                                            clearFileSelection(); // Clear UI File Chip
-
-                                            typing.style.display = 'block';
-                                            chatScroller.scrollTop = chatScroller.scrollHeight;
-
-                                            const formData = new FormData();
-                                            formData.append('message', message);
-                                            formData.append('thread_id', activeThreadId);
-                                            if (file) formData.append('file', file);
-
-                                            try {
-                                                const res = await fetch('/api/chat', { method: 'POST', body: formData });
-                                                const data = await res.json();
-
-                                                // BOT MESSAGE ENTRY
-                                                const botRow = document.createElement('div');
-                                                botRow.className = 'message-row mentor-row';
-                                                botRow.innerHTML = `<div class="msg-side-icon"><i class="fa-regular fa-lightbulb"></i></div><div class="mentor-bubble msg-content">${marked.parse(data.response)}</div>`;
-                                                messagesAnchor.appendChild(botRow);
-
-                                                if (data.title) {
-                                                    const tEl = document.querySelector(`#thread-${activeThreadId} span`);
-                                                    if (tEl) tEl.innerText = data.title;
-                                                }
-                                            } catch (err) {
-                                                console.error(err);
-                                            } finally {
-                                                typing.style.display = 'none';
-                                                scrollToBottom();
-                                            }
-                                        };
-
-                                        // Reveal observer
-                                        (function () {
-                                            var els = document.querySelectorAll('.reveal, .reveal-scale');
-                                            if (!els.length) return;
-                                            var obs = new IntersectionObserver(function (entries) {
-                                                entries.forEach(function (e) {
-                                                    if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
-                                                });
-                                            }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
-                                            els.forEach(function (el) { obs.observe(el); });
-                                        })();
-                                    </script>
-                                    <script>
-                                        function toggleTheme() {
-                                            const html = document.documentElement;
-                                            const target = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-                                            html.setAttribute('data-theme', target);
-                                            localStorage.setItem('theme', target);
-                                            window.dispatchEvent(new CustomEvent('themeChanged', { detail: target }));
-                                        }
-                                    </script>
+                if (data.title) {
+                    const tEl = document.querySelector(`#thread-${activeThreadId} span`);
+                    if (tEl) tEl.innerText = data.title;
+                }
+            } catch (err) {
+                console.error(err);
+            } finally {
+                typing.style.display = 'none';
+                scrollToBottom();
+            }
+        };
+    </script>
 </body>
 
 </html>

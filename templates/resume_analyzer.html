@@ -4,33 +4,41 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Resume Analyzer | PrepWise</title>
+  <title>Resume Analyzer | PrepWise </title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
   <style>
+    /* ── PAGE-WIDE: Full-width Layout ── */
     .container {
-      max-width: 1200px !important;
-      padding: 0 2.5rem !important;
+      max-width: 1600px !important;
+      padding: 0 4rem !important;
     }
 
-    /* Loading Overlay */
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #04060a;
+    }
+
+    /* ─── LOADING OVERLAY ────────────────────── */
     #loading-overlay {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(250, 249, 245, 0.97);
+      background: rgba(4, 6, 10, 0.97);
       z-index: 3000;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 1.25rem;
-      backdrop-filter: blur(8px);
+      gap: 1.5rem;
+      backdrop-filter: blur(20px);
     }
 
     .arc-wrapper {
       position: relative;
-      width: 72px;
-      height: 72px;
+      width: 90px;
+      height: 90px;
     }
 
     .arc-wrapper svg {
@@ -39,21 +47,26 @@
 
     .arc-wrapper circle.bg {
       fill: none;
-      stroke: var(--border-subtle);
-      stroke-width: 4;
+      stroke: rgba(255, 255, 255, 0.05);
+      stroke-width: 5;
     }
 
     .arc-wrapper circle.arc {
       fill: none;
-      stroke: var(--accent-primary);
-      stroke-width: 4;
+      stroke: var(--accent-cyan);
+      stroke-width: 5;
       stroke-linecap: round;
       stroke-dasharray: 220;
       stroke-dashoffset: 170;
+      filter: drop-shadow(0 0 8px var(--accent-cyan));
       animation: arc-dash 1.6s ease-in-out infinite;
     }
 
-    @keyframes spin-svg { to { transform: rotate(360deg); } }
+    @keyframes spin-svg {
+      to {
+        transform: rotate(360deg);
+      }
+    }
 
     @keyframes arc-dash {
       0% { stroke-dashoffset: 220 }
@@ -63,27 +76,20 @@
 
     .loader-label {
       font-size: 0.82rem;
-      color: var(--accent-primary);
-      font-weight: 500;
+      font-family: monospace;
+      color: var(--accent-cyan);
+      letter-spacing: 1px;
       animation: blink .9s steps(1) infinite;
     }
 
-<<<<<<< HEAD
-    @keyframes blink { 50% { opacity: .3 } }
-
-    /* Hero */
-=======
     @keyframes blink {
       50% { opacity: .3 }
     }
 
     /* ─── ANIMATED BACKGROUND ───────────────── */
->>>>>>> 3317d3e (resume builder and ui/ux fix)
     .hero-strip {
-      padding: 10rem 0 5rem;
+      padding: 13rem 0 7rem;
       text-align: center;
-<<<<<<< HEAD
-=======
       position: relative;
       overflow: hidden;
     }
@@ -154,44 +160,11 @@
     @keyframes orb-float-3 {
       0% { transform: translate(0, 0) scale(1); }
       100% { transform: translate(30px, -50px) scale(0.9); }
->>>>>>> 3317d3e (resume builder and ui/ux fix)
     }
 
     .hero-eyebrow {
       display: inline-flex;
       align-items: center;
-<<<<<<< HEAD
-      gap: .5rem;
-      padding: .4rem 1.1rem;
-      background: var(--accent-soft);
-      border: 1px solid rgba(217, 119, 6, 0.15);
-      border-radius: var(--radius-full);
-      font-size: .72rem;
-      font-weight: 600;
-      color: var(--accent-primary);
-      margin-bottom: 1.5rem;
-    }
-
-    .hero-title {
-      font-size: 3.5rem;
-      font-weight: 700;
-      letter-spacing: -2px;
-      line-height: 1.1;
-      margin-bottom: 1rem;
-      color: var(--text-main);
-    }
-
-    .hero-title span {
-      color: var(--accent-primary);
-    }
-
-    .hero-sub {
-      color: var(--text-muted);
-      font-size: 1.05rem;
-      max-width: 600px;
-      margin: 0 auto 3rem;
-      line-height: 1.8;
-=======
       gap: .7rem;
       padding: .55rem 1.4rem;
       background: rgba(0, 212, 255, 0.08);
@@ -279,55 +252,8 @@
     .animate-on-scroll.visible {
       opacity: 1;
       transform: translateY(0);
->>>>>>> 3317d3e (resume builder and ui/ux fix)
     }
 
-<<<<<<< HEAD
-    /* Form */
-    .form-section {
-      padding: 2rem 0 6rem;
-    }
-
-    .form-wrap {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0;
-      border-radius: var(--radius-card);
-      overflow: hidden;
-      background: var(--bg-surface);
-      border: 1px solid var(--border-line);
-    }
-
-    .form-col {
-      padding: 3.5rem;
-    }
-
-    .form-col-left {
-      border-right: 1px solid var(--border-subtle);
-    }
-
-    .col-label {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 2rem;
-    }
-
-    .col-icon {
-      width: 42px;
-      height: 42px;
-      border-radius: var(--radius-sm);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1rem;
-    }
-
-    .col-label h3 {
-      font-weight: 600;
-      font-size: 1.1rem;
-      color: var(--text-main);
-=======
     /* ─── BENTO GRID LAYOUT ──────────────────── */
     .bento-grid {
       display: grid;
@@ -385,50 +311,10 @@
 
     .bento-jd {
       grid-row: span 2;
->>>>>>> 81e3f23924040780dcbdefb7e4f2179bfe76c3bc
     }
 
     .jd-ta {
       width: 100%;
-<<<<<<< HEAD
-      min-height: 320px;
-      background: var(--bg-primary);
-      border: 1px solid var(--border-line);
-      border-radius: var(--radius-sm);
-      color: var(--text-main);
-      padding: 1.5rem;
-      font-family: 'Inter', sans-serif;
-      line-height: 1.8;
-      font-size: 0.92rem;
-      resize: vertical;
-      outline: none;
-      transition: border-color var(--transition-base);
-    }
-
-    .jd-ta:focus {
-      border-color: var(--accent-primary);
-    }
-
-    .dz {
-      border: 2px dashed var(--border-line);
-      background: var(--bg-primary);
-      border-radius: var(--radius-card);
-      padding: 4rem 2rem;
-      text-align: center;
-      cursor: pointer;
-      transition: all var(--transition-base);
-    }
-
-    .dz:hover {
-      border-color: var(--accent-primary);
-      background: var(--accent-soft);
-    }
-
-    .dz-icon {
-      font-size: 1.8rem;
-      color: var(--accent-primary);
-      margin-bottom: 1.25rem;
-=======
       min-height: 480px;
       background: rgba(0, 0, 0, 0.25);
       border: 1px solid rgba(255, 255, 255, 0.06);
@@ -491,10 +377,6 @@
       font-size: 2.5rem;
       color: var(--accent-cyan);
       margin-bottom: 1.2rem;
-<<<<<<< HEAD
-      opacity: 0.8;
->>>>>>> 81e3f23924040780dcbdefb7e4f2179bfe76c3bc
-=======
       opacity: 0.7;
       transition: all 0.3s ease;
     }
@@ -502,30 +384,10 @@
     .dz:hover .dz-icon {
       opacity: 1;
       transform: translateY(-4px);
->>>>>>> 3317d3e (resume builder and ui/ux fix)
     }
 
     .go-btn {
       width: 100%;
-<<<<<<< HEAD
-      padding: 1.1rem;
-      border-radius: var(--radius-btn);
-      border: none;
-      background: var(--accent-primary);
-      color: #FFFFFF;
-      font-weight: 600;
-      font-size: 0.95rem;
-      cursor: pointer;
-      margin-top: 2rem;
-      transition: all var(--transition-base);
-      font-family: 'Inter', sans-serif;
-    }
-
-    .go-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: var(--shadow-hover);
-      background: var(--accent-secondary);
-=======
       padding: 1.2rem;
       border-radius: 15px;
       border: none;
@@ -585,10 +447,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-<<<<<<< HEAD
-      font-size: 1rem;
->>>>>>> 81e3f23924040780dcbdefb7e4f2179bfe76c3bc
-=======
       font-size: 1.1rem;
       transition: all 0.3s ease;
     }
@@ -596,20 +454,10 @@
     .bento-card:hover .card-icon {
       transform: scale(1.1);
       box-shadow: 0 0 20px rgba(0, 212, 255, 0.15);
->>>>>>> 3317d3e (resume builder and ui/ux fix)
     }
 
-    .go-btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-
-    /* Preview */
+    /* ─── SAMPLE OUTPUT PREVIEW (GRID) ───────── */
     .preview-section {
-<<<<<<< HEAD
-      padding: 6rem 0;
-      border-top: 1px solid var(--border-subtle);
-=======
       padding: 8rem 0;
       background: rgba(255, 255, 255, 0.01);
       border-top: 1px solid rgba(255, 255, 255, 0.03);
@@ -627,25 +475,22 @@
       height: 600px;
       background: radial-gradient(circle, rgba(0, 212, 255, 0.03), transparent 70%);
       pointer-events: none;
->>>>>>> 3317d3e (resume builder and ui/ux fix)
     }
 
     .preview-label {
       text-align: center;
-      margin-bottom: 4rem;
+      margin-bottom: 5.5rem;
     }
 
     .preview-label h2 {
-      font-size: 2.5rem;
-      font-weight: 700;
-      letter-spacing: -1.5px;
-      margin-bottom: 0.75rem;
-      color: var(--text-main);
-    }
-
-    .preview-label p {
-      color: var(--text-muted);
-      font-size: 1rem;
+      font-size: 3.8rem;
+      font-weight: 900;
+      letter-spacing: -3px;
+      margin-bottom: 1rem;
+      background: linear-gradient(to bottom, #fff, rgba(255, 255, 255, 0.4));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     .preview-label p {
@@ -685,29 +530,11 @@
 
     .preview-grid {
       display: grid;
-<<<<<<< HEAD
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-=======
       grid-template-columns: repeat(3, 1fr);
->>>>>>> 3317d3e (resume builder and ui/ux fix)
       gap: 2rem;
     }
 
     .preview-card {
-<<<<<<< HEAD
-      padding: 3rem 2.5rem;
-      background: var(--bg-surface);
-      border: 1px solid var(--border-line);
-      border-radius: var(--radius-card);
-      position: relative;
-      overflow: hidden;
-      transition: all var(--transition-smooth);
-    }
-
-    .preview-card:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-hover);
-=======
       padding: 2.5rem 2rem;
       background: rgba(255, 255, 255, 0.02);
       border: 1px solid rgba(255, 255, 255, 0.06);
@@ -723,7 +550,6 @@
       border-color: rgba(255, 255, 255, 0.12);
       background: rgba(255, 255, 255, 0.035);
       box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
->>>>>>> 3317d3e (resume builder and ui/ux fix)
     }
 
     .preview-card::before {
@@ -734,36 +560,6 @@
       right: 0;
       height: 3px;
       opacity: 0.7;
-<<<<<<< HEAD
-    }
-
-    .pcard-cyan::before { background: var(--accent-primary); }
-    .pcard-green::before { background: var(--accent-green); }
-    .pcard-red::before { background: var(--accent-red); }
-    .pcard-purple::before { background: var(--accent-purple); }
-
-    .pcard-header {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .pcard-icon {
-      width: 36px;
-      height: 36px;
-      border-radius: var(--radius-sm);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.9rem;
-    }
-
-    .pcard-title {
-      font-weight: 600;
-      font-size: 1.05rem;
-      color: var(--text-main);
-=======
       transition: opacity 0.3s ease;
     }
 
@@ -808,7 +604,6 @@
     }
     .pcard-purple::after {
       background: radial-gradient(ellipse at top, rgba(139, 92, 246, 0.04), transparent 60%);
->>>>>>> 3317d3e (resume builder and ui/ux fix)
     }
 
     /* ─── CARD HEADER REDESIGN ─────────────── */
@@ -843,28 +638,16 @@
     /* ─── ANIMATED SVG GAUGES ─────────────── */
     .gauge-row {
       display: flex;
-<<<<<<< HEAD
-      gap: 1.25rem;
-      margin: 2rem 0;
-=======
       gap: 1.2rem;
       margin: 1.5rem 0 2rem;
->>>>>>> 3317d3e (resume builder and ui/ux fix)
     }
 
     .gauge {
       flex: 1;
-<<<<<<< HEAD
-      padding: 1.5rem;
-      background: var(--bg-primary);
-      border-radius: var(--radius-card);
-      border: 1px solid var(--border-subtle);
-=======
       padding: 1.5rem 1rem;
       background: rgba(0, 0, 0, 0.3);
       border-radius: 20px;
       border: 1px solid rgba(255, 255, 255, 0.04);
->>>>>>> 3317d3e (resume builder and ui/ux fix)
       text-align: center;
       display: flex;
       flex-direction: column;
@@ -873,18 +656,6 @@
       transition: all 0.3s ease;
     }
 
-<<<<<<< HEAD
-    .gauge .gnum {
-      font-size: 2.5rem;
-      font-weight: 700;
-    }
-
-    .gauge .glbl {
-      font-size: 0.72rem;
-      color: var(--text-muted);
-      font-weight: 500;
-      margin-top: 0.25rem;
-=======
     .gauge:hover {
       border-color: rgba(255, 255, 255, 0.08);
       background: rgba(0, 0, 0, 0.4);
@@ -923,7 +694,6 @@
       font-size: 1.5rem;
       font-weight: 900;
       margin-top: -0.3rem;
->>>>>>> 3317d3e (resume builder and ui/ux fix)
     }
 
     .gauge .glbl {
@@ -938,10 +708,6 @@
     .mbar-row {
       display: flex;
       align-items: center;
-<<<<<<< HEAD
-      gap: 1rem;
-      margin-bottom: 1rem;
-=======
       gap: 1.2rem;
       margin-bottom: 1.2rem;
     }
@@ -951,32 +717,22 @@
       color: rgba(255, 255, 255, 0.4);
       width: 100px;
       font-weight: 600;
->>>>>>> 3317d3e (resume builder and ui/ux fix)
     }
 
     .mbar-track {
       flex: 1;
       height: 6px;
-<<<<<<< HEAD
-      background: var(--border-subtle);
-      border-radius: 6px;
-=======
       background: rgba(255, 255, 255, 0.05);
       border-radius: 10px;
->>>>>>> 3317d3e (resume builder and ui/ux fix)
       overflow: hidden;
       position: relative;
     }
 
     .mbar-fill {
       height: 100%;
-<<<<<<< HEAD
-      border-radius: 6px;
-=======
       border-radius: 10px;
       position: relative;
       transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
->>>>>>> 3317d3e (resume builder and ui/ux fix)
     }
 
     .mbar-fill::after {
@@ -1001,22 +757,6 @@
 
     /* ─── SKILL CHIPS ──────────────────────── */
     .kw-chip {
-<<<<<<< HEAD
-      display: inline-block;
-      padding: .4rem .85rem;
-      border-radius: var(--radius-sm);
-      font-size: .78rem;
-      font-weight: 600;
-      margin: .2rem;
-      background: var(--bg-primary);
-      border: 1px solid var(--border-line);
-    }
-
-    .kw-green {
-      color: var(--accent-green);
-      border-color: rgba(5, 150, 105, 0.2);
-      background: rgba(5, 150, 105, 0.04);
-=======
       display: inline-flex;
       align-items: center;
       gap: 0.4rem;
@@ -1045,21 +785,14 @@
       color: #10b981;
       border-color: rgba(16, 185, 129, 0.2);
       background: rgba(16, 185, 129, 0.05);
->>>>>>> 3317d3e (resume builder and ui/ux fix)
     }
     .kw-green::before { background: #10b981; box-shadow: 0 0 6px #10b981; }
     .kw-green:hover { background: rgba(16, 185, 129, 0.08); border-color: rgba(16, 185, 129, 0.35); }
 
     .kw-amber {
-<<<<<<< HEAD
-      color: var(--accent-primary);
-      border-color: rgba(217, 119, 6, 0.2);
-      background: var(--accent-soft);
-=======
       color: #f59e0b;
       border-color: rgba(245, 158, 11, 0.2);
       background: rgba(245, 158, 11, 0.05);
->>>>>>> 3317d3e (resume builder and ui/ux fix)
     }
     .kw-amber::before { background: #f59e0b; box-shadow: 0 0 6px #f59e0b; }
     .kw-amber:hover { background: rgba(245, 158, 11, 0.08); border-color: rgba(245, 158, 11, 0.35); }
@@ -1082,26 +815,6 @@
 
     /* ─── INTERVIEW Q CARDS ─────────────────── */
     .sample-q {
-<<<<<<< HEAD
-      background: var(--bg-primary);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-sm);
-      padding: 1.5rem;
-      margin-bottom: 1rem;
-    }
-
-    .sample-q-num {
-      font-size: .68rem;
-      font-weight: 600;
-      color: var(--accent-purple);
-      margin-bottom: .4rem;
-      display: block;
-    }
-
-    .sample-q-txt {
-      font-size: .92rem;
-      color: var(--text-secondary);
-=======
       background: rgba(255, 255, 255, 0.02);
       border: 1px solid rgba(255, 255, 255, 0.06);
       border-radius: 16px;
@@ -1158,18 +871,13 @@
     .sample-q-txt {
       font-size: .9rem;
       color: rgba(255, 255, 255, 0.7);
->>>>>>> 3317d3e (resume builder and ui/ux fix)
       line-height: 1.7;
       font-style: italic;
     }
 
-<<<<<<< HEAD
-    /* How it Works */
-=======
     /* ─── HOW IT WORKS (TIMELINE) ─────────────── */
->>>>>>> 3317d3e (resume builder and ui/ux fix)
     .hiw-section {
-      padding: 8rem 0;
+      padding: 10rem 0;
       text-align: center;
       position: relative;
       overflow: hidden;
@@ -1188,31 +896,27 @@
     }
 
     .hiw-v-grid {
-      max-width: 700px;
-      margin: 4rem auto 0;
+      max-width: 800px;
+      margin: 5rem auto 0;
       position: relative;
     }
 
     .hiw-v-grid::before {
       content: '';
       position: absolute;
-      left: 20px;
+      left: 22px;
       top: 0;
       bottom: 0;
       width: 2px;
-<<<<<<< HEAD
-      background: var(--border-line);
-=======
       background: linear-gradient(to bottom, var(--accent-cyan), #a78bfa, #10b981, transparent);
       opacity: 0.15;
->>>>>>> 3317d3e (resume builder and ui/ux fix)
     }
 
     .hiw-v-card {
       display: flex;
-      gap: 2rem;
+      gap: 2.5rem;
       align-items: flex-start;
-      margin-bottom: 4rem;
+      margin-bottom: 5rem;
       text-align: left;
       position: relative;
       transition: all 0.3s ease;
@@ -1223,21 +927,15 @@
     }
 
     .hiw-v-circle {
-      width: 42px;
-      height: 42px;
+      width: 46px;
+      height: 46px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-<<<<<<< HEAD
-      font-weight: 700;
-      font-size: 1.1rem;
-      background: var(--bg-surface);
-=======
       font-weight: 900;
       font-size: 1.2rem;
       background: rgba(4, 6, 10, 0.9);
->>>>>>> 3317d3e (resume builder and ui/ux fix)
       border: 2px solid currentColor;
       flex-shrink: 0;
       z-index: 2;
@@ -1271,18 +969,6 @@
     }
 
     .hiw-v-content h4 {
-<<<<<<< HEAD
-      font-size: 1.25rem;
-      font-weight: 600;
-      margin-bottom: .6rem;
-      color: var(--text-main);
-    }
-
-    .hiw-v-content p {
-      color: var(--text-muted);
-      line-height: 1.8;
-      font-size: 0.95rem;
-=======
       font-size: 1.6rem;
       font-weight: 800;
       margin-bottom: .8rem;
@@ -1336,19 +1022,18 @@
       text-transform: uppercase;
       letter-spacing: 1px;
       margin-top: 0.3rem;
->>>>>>> 3317d3e (resume builder and ui/ux fix)
     }
 
-    #error-msg {
-      display: none;
-      margin-top: 1rem;
-      padding: 0.75rem 1rem;
-      background: rgba(220, 38, 38, 0.04);
-      border: 1px solid rgba(220, 38, 38, 0.12);
-      border-radius: var(--radius-sm);
-      color: var(--accent-red);
-      font-size: 0.85rem;
-      font-weight: 500;
+    nav a {
+      color: rgba(255, 255, 255, .6);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: .92rem;
+      transition: color .2s;
+    }
+
+    nav a:hover {
+      color: #fff;
     }
 
     /* ─── RESPONSIVE ──────────────────────────── */
@@ -1367,57 +1052,22 @@
       .gauge-row { flex-direction: column; }
     }
   </style>
-    <script>
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.setAttribute('data-theme', 'dark');
-        }
-    </script>
 </head>
 
 <body>
 
-  <!-- Loading Overlay -->
+  <!-- LOADING OVERLAY -->
   <div id="loading-overlay">
     <div class="arc-wrapper"><svg viewBox="0 0 90 90">
         <circle class="bg" cx="45" cy="45" r="38" />
         <circle class="arc" cx="45" cy="45" r="38" />
       </svg></div>
     <div style="text-align:center">
-      <h2 style="font-size:1.4rem;font-weight:600;color:var(--text-main);">Analyzing resume</h2>
-      <div class="loader-label" id="loader-step" style="margin-top:.4rem">Extracting PDF content…</div>
+      <h2 style="font-size:1.8rem;font-weight:900;letter-spacing:-1px">PrepWise Analysis</h2>
+      <div class="loader-label" id="loader-step" style="margin-top:.5rem">Extracting PDF content…</div>
     </div>
   </div>
 
-<<<<<<< HEAD
-  <header>
-    <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-      <div class="logo"><a href="/" style="text-decoration:none; color:inherit;">Prep <span>Wise</span></a></div>
-      <nav class="nav-links" style="display:flex;gap:2rem">
-        <a href="/dashboard">Dashboard</a>
-        <a href="/interview_start">Simulator</a>
-        <a href="/resume" class="active">Resume Scan</a>
-        <a href="/aptitude">Skill Paths</a>
-        <a href="/mentor">Mentor</a>
-      </nav>
-                  <div style="display: flex; gap: 0.75rem; align-items: center;">
-                <div class="theme-toggle-wrap">
-                    <div class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle environment">
-                        <i class="fa-solid fa-moon" style="margin-left: 5px;"></i>
-                        <i class="fa-solid fa-sun" style="margin-right: 4px;"></i>
-                        <div class="orbit"></div>
-                    </div>
-                </div>
-        <a href="/dashboard" class="btn-ghost" style="padding: 0.5rem 1.2rem; font-size: 0.85rem;">Dashboard</a>
-        <a href="/interview_start" class="btn-cyan">Start Interview</a>
-      </div>
-    </div>
-  </header>
-
-  <section class="hero-strip">
-    <div class="container">
-      <div class="hero-eyebrow">Resume Intelligence</div>
-=======
   {% include 'base/header.html' %}
 
   <section class="hero-strip">
@@ -1427,7 +1077,6 @@
     <div class="hero-orb hero-orb-3"></div>
 
     <div class="container">
->>>>>>> 81e3f23924040780dcbdefb7e4f2179bfe76c3bc
       <h1 class="hero-title">Resume <span>Analyzer</span></h1>
       <p class="hero-sub">The intelligence layer between your experience and your career goals. Instant ATS scoring, gap
         analysis, and tailored interview preparation.</p>
@@ -1440,16 +1089,8 @@
     </div>
   </section>
 
-  <section class="form-section reveal reveal-d1">
+  <section class="form-section">
     <div class="container">
-<<<<<<< HEAD
-      <div class="form-wrap">
-        <div class="form-col form-col-left">
-          <div class="col-label">
-            <div class="col-icon" style="background: var(--accent-soft); color: var(--accent-primary);"><i
-                class="fa-regular fa-file-lines"></i></div>
-            <h3>Job Description</h3>
-=======
       <div class="bento-grid">
         <!-- ── Card: JD ── -->
         <div class="bento-card bento-jd animate-on-scroll">
@@ -1457,75 +1098,35 @@
             <div class="card-icon" style="background:rgba(0,212,255,.1);color:var(--accent-cyan)">
               <i class="fa-solid fa-file-lines"></i>
             </div>
-<<<<<<< HEAD
-            <h3 style="font-weight:800;letter-spacing:-0.5px">Job Description</h3>
->>>>>>> 81e3f23924040780dcbdefb7e4f2179bfe76c3bc
-=======
             <div>
               <h3 style="font-weight:800;letter-spacing:-0.5px">Job Description</h3>
               <p style="font-size:0.72rem;color:rgba(255,255,255,0.3);margin-top:0.2rem;font-weight:600">Paste the target role's JD for precision matching</p>
             </div>
->>>>>>> 3317d3e (resume builder and ui/ux fix)
           </div>
           <div style="position:relative; flex: 1; display: flex; flex-direction: column;">
             <textarea id="jd-text" class="jd-ta"
               placeholder="Paste the job description here to unlock higher precision ATS scoring and skill gap analysis..."></textarea>
             <div id="jd-char"
-<<<<<<< HEAD
-              style="position:absolute; bottom:0.75rem; right:1.25rem; font-size:.62rem; color:var(--text-caption)">0 chars
-=======
               style="position:absolute; bottom:1rem; right:1.5rem; font-size:.65rem; color:rgba(255,255,255,.2); font-family:monospace">
               0 chars
->>>>>>> 81e3f23924040780dcbdefb7e4f2179bfe76c3bc
             </div>
           </div>
         </div>
 
-<<<<<<< HEAD
-        <div class="form-col">
-          <div class="col-label">
-            <div class="col-icon" style="background: rgba(5, 150, 105, 0.08); color: var(--accent-green);"><i
-                class="fa-regular fa-circle-up"></i></div>
-            <h3>Upload Resume</h3>
-=======
         <!-- ── Card: Upload ── -->
         <div class="bento-card animate-on-scroll" style="animation-delay: 0.1s">
           <div class="card-label">
             <div class="card-icon" style="background:rgba(16,185,129,.1);color:#10b981">
               <i class="fa-solid fa-cloud-arrow-up"></i>
             </div>
-<<<<<<< HEAD
-            <h3 style="font-weight:800;letter-spacing:-0.5px">Neural Upload</h3>
->>>>>>> 81e3f23924040780dcbdefb7e4f2179bfe76c3bc
-=======
             <div>
               <h3 style="font-weight:800;letter-spacing:-0.5px">Resume Upload</h3>
               <p style="font-size:0.72rem;color:rgba(255,255,255,0.3);margin-top:0.2rem;font-weight:600">PDF format · Max 10MB</p>
             </div>
->>>>>>> 3317d3e (resume builder and ui/ux fix)
           </div>
           <div class="dz" id="drop-zone">
             <input type="file" id="resume-input" accept=".pdf" style="display:none">
             <div id="dz-default">
-<<<<<<< HEAD
-              <div class="dz-icon"><i class="fa-regular fa-file-pdf"></i></div>
-              <h4 style="font-weight:600;margin:0;color:var(--text-main);">Drop PDF here</h4>
-              <p style="color:var(--text-caption);font-size:.85rem;margin-top:.4rem">or click to browse
-              </p>
-            </div>
-            <div id="dz-chosen" style="display:none">
-<<<<<<< HEAD
-              <h4 id="fname" style="color:var(--accent-green);font-weight:600">resume.pdf</h4>
-              <p style="font-size:.85rem;margin-top:.4rem"><span style="color:var(--accent-primary);cursor:pointer"
-                  onclick="resetFile()">Change file</span></p>
-            </div>
-          </div>
-          <button class="go-btn" id="submit-btn" disabled onclick="triggerUpload()">
-            <i class="fa-solid fa-arrow-right"></i> Run analysis
-          </button>
-          <div id="error-msg"></div>
-=======
-=======
               <div class="dz-icon"><i class="fa-solid fa-file-pdf"></i></div>
               <h4 style="font-weight:800;margin:0">Drop PDF here</h4>
               <p style="color:rgba(255,255,255,0.35);font-size:.85rem;margin-top:.5rem">or click to browse local files
@@ -1535,7 +1136,6 @@
               <div style="width:48px;height:48px;border-radius:12px;background:rgba(16,185,129,0.1);display:inline-flex;align-items:center;justify-content:center;margin-bottom:1rem">
                 <i class="fa-solid fa-check" style="color:#10b981;font-size:1.2rem"></i>
               </div>
->>>>>>> 3317d3e (resume builder and ui/ux fix)
               <h4 id="fname" style="color:#10b981;font-weight:800">resume.pdf</h4>
               <p style="font-size:.85rem;margin-top:.5rem">
                 <span style="color:var(--accent-cyan);cursor:pointer;font-weight:700;transition:opacity 0.2s"
@@ -1559,7 +1159,6 @@
             <div id="error-msg" style="margin-top:1rem;font-size:0.8rem;color:#ef4444;font-weight:700;display:none">
             </div>
           </div>
->>>>>>> 81e3f23924040780dcbdefb7e4f2179bfe76c3bc
         </div>
       </div>
     </div>
@@ -1567,12 +1166,6 @@
 
   <section class="preview-section">
     <div class="container">
-<<<<<<< HEAD
-      <div class="preview-label">
-        <p style="font-size:.72rem;font-weight:500;color:var(--text-caption);margin-bottom:0.75rem;">Sample output</p>
-        <h2>Comprehensive reports</h2>
-        <p>See how recruiters and ATS engines view your profile.</p>
-=======
       <div class="preview-label animate-on-scroll">
         <div class="preview-eyebrow">
           <div class="preview-eyebrow-dot"></div>
@@ -1580,27 +1173,19 @@
         </div>
         <h2>Data-Rich Reports</h2>
         <p>A multi-dimensional view of how top-tier recruiters and ATS engines view your profile.</p>
->>>>>>> 3317d3e (resume builder and ui/ux fix)
       </div>
 
       <div class="preview-grid">
         <!-- Card 1: ATS & JD Matching -->
         <div class="preview-card pcard-cyan animate-on-scroll">
           <div class="pcard-header">
-            <div class="pcard-icon" style="background: var(--accent-soft); color: var(--accent-primary);"><i
-                class="fa-regular fa-chart-bar"></i></div>
+            <div class="pcard-icon" style="background:rgba(0,212,255,.1);color:var(--accent-cyan)"><i
+                class="fa-solid fa-chart-line"></i></div>
             <div class="pcard-title">ATS & JD Matching</div>
           </div>
 
           <div class="gauge-row">
             <div class="gauge">
-<<<<<<< HEAD
-              <div class="gnum" style="color: var(--accent-green);">84%</div>
-              <div class="glbl">ATS Score</div>
-            </div>
-            <div class="gauge">
-              <div class="gnum" style="color: var(--accent-primary);">72%</div>
-=======
               <svg class="gauge-svg" viewBox="0 0 80 80">
                 <circle class="gauge-bg" cx="40" cy="40" r="34" />
                 <circle class="gauge-fill gauge-fill-green" cx="40" cy="40" r="34"
@@ -1618,21 +1203,14 @@
                   data-target="59.8" />
               </svg>
               <div class="gauge-value" style="color:var(--accent-cyan)">72%</div>
->>>>>>> 3317d3e (resume builder and ui/ux fix)
               <div class="glbl">JD Match</div>
             </div>
           </div>
 
           <div class="mbar-row">
-<<<<<<< HEAD
-            <span style="font-size:.8rem;color:var(--text-caption);width:90px">Compliance</span>
-            <div class="mbar-track">
-              <div class="mbar-fill" style="width:84%;background:var(--accent-green)"></div>
-=======
             <span class="mbar-label">Compliance</span>
             <div class="mbar-track">
               <div class="mbar-fill" style="width:0%;background:linear-gradient(90deg, #10b981, #34d399)" data-width="84%"></div>
->>>>>>> 3317d3e (resume builder and ui/ux fix)
             </div>
             <span class="mbar-value">84%</span>
           </div>
@@ -1648,25 +1226,16 @@
         <!-- Card 2: Skills & Gaps -->
         <div class="preview-card pcard-green animate-on-scroll" style="transition-delay: 0.1s">
           <div class="pcard-header">
-            <div class="pcard-icon" style="background: rgba(5,150,105,.08); color: var(--accent-green);"><i
-                class="fa-regular fa-lightbulb"></i></div>
+            <div class="pcard-icon" style="background:rgba(16,185,129,.1);color:#10b981"><i
+                class="fa-solid fa-flask"></i></div>
             <div class="pcard-title">Skills & Gaps</div>
           </div>
-<<<<<<< HEAD
-          <div style="margin-bottom:1.5rem">
-            <p style="font-size:.7rem;font-weight:500;margin-bottom:.75rem;color:var(--text-caption);">Detected</p>
-=======
           <div style="margin-bottom:2rem">
             <p class="skill-section-label"><i class="fa-solid fa-circle-check"></i> Detected Skills</p>
->>>>>>> 3317d3e (resume builder and ui/ux fix)
             <span class="kw-chip kw-green">React</span><span class="kw-chip kw-green">Node.js</span><span
               class="kw-chip kw-green">AWS</span><span class="kw-chip kw-green">TypeScript</span>
           </div>
           <div>
-<<<<<<< HEAD
-            <p style="font-size:.7rem;font-weight:500;margin-bottom:.75rem;color:var(--text-caption);">Missing from JD</p>
-            <span class="kw-chip kw-amber">Kubernetes</span><span class="kw-chip kw-amber">Docker</span>
-=======
             <p class="skill-section-label"><i class="fa-solid fa-triangle-exclamation"></i> Missing From JD</p>
             <span class="kw-chip kw-amber">Kubernetes</span><span class="kw-chip kw-amber">Docker</span><span class="kw-chip kw-amber">CI/CD</span>
           </div>
@@ -1679,15 +1248,14 @@
               </div>
               <span class="mbar-value">72%</span>
             </div>
->>>>>>> 3317d3e (resume builder and ui/ux fix)
           </div>
         </div>
 
         <!-- Card 3: Interview Prep -->
         <div class="preview-card pcard-purple animate-on-scroll" style="transition-delay: 0.2s">
           <div class="pcard-header">
-            <div class="pcard-icon" style="background: rgba(124,58,237,.08); color: var(--accent-purple);"><i
-                class="fa-regular fa-comment-dots"></i></div>
+            <div class="pcard-icon" style="background:rgba(139,92,246,.1);color:#8b5cf6"><i
+                class="fa-solid fa-microphone"></i></div>
             <div class="pcard-title">Interview Prep</div>
           </div>
           <div class="sample-q">
@@ -1726,17 +1294,6 @@
 
   <section class="hiw-section">
     <div class="container">
-<<<<<<< HEAD
-      <div class="preview-label reveal">
-        <p style="font-size:.72rem;font-weight:500;color:var(--text-caption);margin-bottom:0.75rem;">How it works</p>
-        <h2>Three-step analysis</h2>
-        <p>Three specialized AI services working in sync to analyze your career profile.</p>
-      </div>
-
-      <div class="hiw-v-grid">
-        <div class="hiw-v-card reveal reveal-d1">
-          <div class="hiw-v-circle" style="color:var(--accent-primary)">1</div>
-=======
       <div class="preview-label animate-on-scroll">
         <div class="preview-eyebrow">
           <div class="preview-eyebrow-dot"></div>
@@ -1749,34 +1306,26 @@
       <div class="hiw-v-grid">
         <div class="hiw-v-card animate-on-scroll">
           <div class="hiw-v-circle" style="color:var(--accent-cyan)">1</div>
->>>>>>> 3317d3e (resume builder and ui/ux fix)
           <div class="hiw-v-content">
             <h4>Fact Extraction</h4>
-            <p>AI parses your PDF into structured data, identifying every skill and achievement with high accuracy.</p>
+            <p>An ultra-low temperature AI call (0.1) parses your PDF into structured data with 100% fidelity,
+              identifying every skill and achievement.</p>
           </div>
         </div>
-<<<<<<< HEAD
-        <div class="hiw-v-card reveal reveal-d2">
-          <div class="hiw-v-circle" style="color:var(--accent-purple)">2</div>
-=======
         <div class="hiw-v-card animate-on-scroll" style="transition-delay: 0.15s">
           <div class="hiw-v-circle" style="color:#a78bfa">2</div>
->>>>>>> 3317d3e (resume builder and ui/ux fix)
           <div class="hiw-v-content">
             <h4>Rubric Evaluation</h4>
-            <p>Your profile is evaluated against an industry scoring rubric to find strengths and missing requirements.</p>
+            <p>Your profile is evaluated against an industry-leading 15-point scoring rubric to find hidden strengths
+              and missing job requirements.</p>
           </div>
         </div>
-<<<<<<< HEAD
-        <div class="hiw-v-card reveal reveal-d3" style="margin-bottom:0">
-          <div class="hiw-v-circle" style="color:var(--accent-green)">3</div>
-=======
         <div class="hiw-v-card animate-on-scroll" style="margin-bottom:0; transition-delay: 0.3s">
           <div class="hiw-v-circle" style="color:#10b981">3</div>
->>>>>>> 3317d3e (resume builder and ui/ux fix)
           <div class="hiw-v-content">
-            <h4>Interview Questions</h4>
-            <p>AI generates tailored interview questions based on your unique resume content and target role.</p>
+            <h4>Simulator Induction</h4>
+            <p>Finally, the AI generates 5 uniquely tailored interview questions, inducing them into our real-time
+              behavioral and technical simulator.</p>
           </div>
         </div>
       </div>
@@ -1835,19 +1384,6 @@
     }
     function showError(msg) { errorMsg.textContent = '⚠ ' + msg; errorMsg.style.display = 'block'; }
 
-<<<<<<< HEAD
-    // Reveal observer
-    (function() {
-        var els = document.querySelectorAll('.reveal, .reveal-scale');
-        if (!els.length) return;
-        var obs = new IntersectionObserver(function(entries) {
-            entries.forEach(function(e) {
-                if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
-            });
-        }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
-        els.forEach(function(el) { obs.observe(el); });
-    })();
-=======
     /* ─── SCROLL ANIMATIONS ──────────────────── */
     const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
     const observer = new IntersectionObserver((entries) => {
@@ -1894,17 +1430,7 @@
       }, { threshold: 0.2 });
       parentObserver.observe(card);
     });
->>>>>>> 3317d3e (resume builder and ui/ux fix)
   </script>
-    <script>
-        function toggleTheme() {
-            const html = document.documentElement;
-            const target = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-            html.setAttribute('data-theme', target);
-            localStorage.setItem('theme', target);
-            window.dispatchEvent(new CustomEvent('themeChanged', { detail: target }));
-        }
-    </script>
 </body>
 
 </html>

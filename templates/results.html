@@ -4,30 +4,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Session Results | PrepWise</title>
+    <title>Post-Simulation Analysis | PrepWise</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         .score-circle {
-            width: 180px;
-            height: 180px;
+            width: 220px;
+            height: 220px;
             border-radius: 50%;
-            border: 2px solid var(--border-line);
-            margin: 0 auto 2.5rem;
+            border: 1px solid var(--accent-cyan);
+            margin: 0 auto 3rem;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background: var(--bg-surface);
-            box-shadow: var(--shadow-card);
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.05) 0%, transparent 70%);
+            box-shadow: 0 0 50px rgba(0, 212, 255, 0.1);
         }
     </style>
-    <script>
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.setAttribute('data-theme', 'dark');
-        }
-    </script>
 </head>
 
 <body>
@@ -39,106 +33,101 @@
                 <a href="/interview_start">Simulator</a>
                 <a href="/resume">Resume Scan</a>
                 <a href="/aptitude">Skill Paths</a>
-                <a href="/mentor">Mentor</a>
+                <a href="/mentor">Network</a>
             </nav>
-                        <div style="display: flex; gap: 0.75rem; align-items: center;">
-                <div class="theme-toggle-wrap">
-                    <div class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle environment">
-                        <i class="fa-solid fa-moon" style="margin-left: 5px;"></i>
-                        <i class="fa-solid fa-sun" style="margin-right: 4px;"></i>
-                        <div class="orbit"></div>
-                    </div>
-                </div>
-                <a href="/dashboard" class="btn-cyan">Dashboard</a>
+            <div style="display: flex; gap: 1rem; align-items: center;">
+                <a href="/dashboard" class="btn-cyan">Command Center</a>
             </div>
         </div>
     </header>
 
-    <main class="container" style="padding-top: 8rem; max-width: 760px;">
-        <div class="result-card reveal">
-            <div style="text-align: center; margin-bottom: 2.5rem;">
-                <span class="tag-cyan" style="margin-bottom: 0.75rem;">
-                    <div class="indicator-cyan"></div> Session complete
+    <main class="container" style="padding-top: 10rem; max-width: 800px;">
+        <div class="result-card animate-up">
+            <div style="text-align: center; margin-bottom: 3rem;">
+                <span class="tag-cyan" style="margin-bottom: 1rem;">
+                    <div class="indicator-cyan"></div> Simulation Complete
                 </span>
-                <h1 style="font-size: 2.5rem; font-weight: 700; letter-spacing: -1.5px; margin-bottom: 0.4rem; color: var(--text-main);">Session
-                    <br><span style="color: var(--accent-primary);">complete.</span>
+                <h1 style="font-size: 3.5rem; font-weight: 900; letter-spacing: -2px; margin-bottom: 0.5rem;">Mission
+                    <br><span>Success.</span>
                 </h1>
-                <p style="color: var(--text-muted); font-size: 1rem;">Results for <strong>{{ role
-                        }}</strong> session.</p>
+                <p style="color: var(--text-muted); font-size: 1.1rem;">Performance analysis for <strong>{{ role
+                        }}</strong> module.</p>
             </div>
 
             <div class="score-display">
                 <div class="score-circle">
-                    <div class="score-counter" data-target="{{ avg_score }}" style="font-size: 2.75rem; font-weight: 700; color: var(--accent-primary);">0<span style="font-size: 1.25rem;">%</span></div>
+                    <div style="font-size: 3.5rem; font-weight: 900; color: var(--accent-cyan);">{{ avg_score
+                        }}<span>%</span></div>
                     <div
-                        style="font-size: 0.7rem; color: var(--text-muted); font-weight: 500;">
-                        Score</div>
+                        style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); font-weight: 800;">
+                        Efficiency</div>
                 </div>
 
                 <!-- Security Summary -->
-                <div style="display: flex; flex-direction: column; align-items: center; gap: 0.4rem; margin-bottom: 2.5rem;">
-                    <h4 style="font-size: 0.68rem; font-weight: 600; color: {{ '#DC2626' if is_terminated else 'var(--accent-green)' }};">
-                        Session integrity
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem; margin-bottom: 3rem;">
+                    <h4 style="font-size: 0.65rem; font-weight: 900; letter-spacing: 1.5px; color: {{ '#ef4444' if is_terminated else 'var(--accent-cyan)' }}; text-transform: uppercase;">
+                        PROCTORING ASSESSMENT
                     </h4>
-                    <div style="display: flex; gap: 0.75rem; align-items: center;">
-                        <span style="font-size: 0.85rem; color: var(--text-secondary); font-weight: 500;">
-                            Violations: <span style="color: {{ '#DC2626' if violation_count > 0 else 'var(--accent-green)' }};">{{ violation_count }}</span>
+                    <div style="display: flex; gap: 1rem; align-items: center;">
+                        <span style="font-size: 0.85rem; color: #fff; font-weight: 600;">
+                            Violations Logged: <span style="color: {{ '#ef4444' if violation_count > 0 else '#10b981' }};">{{ violation_count }}</span>
                         </span>
-                        <div style="width: 1px; height: 12px; background: var(--border-line);"></div>
-                        <span style="font-size: 0.85rem; color: var(--text-secondary); font-weight: 500;">
-                            Status: <span style="color: {{ '#DC2626' if is_terminated else 'var(--accent-green)' }};">
-                                {{ 'Ended early (violation)' if is_terminated else 'Completed normally' }}
+                        <div style="width: 1px; height: 12px; background: var(--border-glass);"></div>
+                        <span style="font-size: 0.85rem; color: #fff; font-weight: 600;">
+                            Status: <span style="color: {{ '#ef4444' if is_terminated else '#10b981' }};">
+                                {{ 'TERMINATED (PROTOCOL BREACH)' if is_terminated else 'INTEGRITY VERIFIED' }}
                             </span>
                         </span>
                     </div>
                 </div>
             </div>
 
-            <div style="display: flex; gap: 1rem; justify-content: center; margin-bottom: 3.5rem;">
-                <a href="/dashboard" class="btn-cyan" style="padding: 0.85rem 2rem; font-size: 0.95rem;">Dashboard</a>
-                <a href="/interview_start" class="btn-ghost" style="padding: 0.85rem 2rem; font-size: 0.95rem;">New
-                    session</a>
+            <div style="display: flex; gap: 1.5rem; justify-content: center; margin-bottom: 4rem;">
+                <a href="/dashboard" class="btn-cyan" style="padding: 1.2rem 2.5rem; font-size: 1rem;">Return to Command
+                    Center</a>
+                <a href="/interview_start" class="btn-ghost" style="padding: 1.2rem 2.5rem; font-size: 1rem;">New
+                    Operation</a>
             </div>
 
             <div class="analysis-section">
-                <h3 style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem; font-weight: 600; font-size: 1.05rem;">
-                    <i class="fa-regular fa-file-lines" style="color: var(--accent-primary);"></i> Detailed feedback
+                <h3 style="margin-bottom: 2rem; display: flex; align-items: center; gap: 1rem;">
+                    <i class="fa-solid fa-microchip" style="color: var(--accent-cyan);"></i> Detailed Telemetry
                 </h3>
 
-                <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+                <div style="display: flex; flex-direction: column; gap: 1.5rem;">
                     {% if feedbacks %}
                     {% for fb in feedbacks %}
                     <div class="glass-panel"
-                        style="padding: 1.5rem; border-left: 3px solid {{ '#D97706' if fb.score >= 7 else '#DC2626' }};">
+                        style="padding: 1.8rem; border-left: 4px solid {{ '#00D4FF' if fb.score >= 7 else '#f43f5e' }};">
                         <div
-                            style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem;">
-                            <h4 style="font-size: 0.95rem; line-height: 1.5; max-width: 80%; font-weight: 500; color: var(--text-main);">{{ fb.question }}</h4>
+                            style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+                            <h4 style="font-size: 1rem; line-height: 1.4; max-width: 80%;">{{ fb.question }}</h4>
                             <span
-                                style="font-weight: 700; color: {{ '#D97706' if fb.score >= 7 else '#DC2626' }}; font-size: 1rem;">{{
+                                style="font-weight: 900; color: {{ '#00D4FF' if fb.score >= 7 else '#f43f5e' }}; font-size: 1.1rem;">{{
                                 fb.score }}/10</span>
                         </div>
                         {% if fb.strength %}
-                        <div style="margin-top: 0.6rem; font-size: 0.85rem; display: flex; gap: 0.6rem;">
-                            <i class="fa-regular fa-circle-check" style="color: var(--accent-green); margin-top: 3px;"></i>
-                            <span style="color: var(--text-muted);"><strong style="color: var(--text-secondary);">Strength:</strong> {{ fb.strength }}</span>
+                        <div style="margin-top: 0.8rem; font-size: 0.85rem; display: flex; gap: 0.8rem;">
+                            <i class="fa-solid fa-circle-check" style="color: #10b981; margin-top: 3px;"></i>
+                            <span><strong style="color: #fff;">Signal:</strong> {{ fb.strength }}</span>
                         </div>
                         {% endif %}
                         {% if fb.weakness %}
-                        <div style="margin-top: 0.5rem; font-size: 0.85rem; display: flex; gap: 0.6rem;">
-                            <i class="fa-regular fa-circle-xmark" style="color: var(--accent-red); margin-top: 3px;"></i>
-                            <span style="color: var(--text-muted);"><strong style="color: var(--text-secondary);">Gap:</strong> {{ fb.weakness }}</span>
+                        <div style="margin-top: 0.6rem; font-size: 0.85rem; display: flex; gap: 0.8rem;">
+                            <i class="fa-solid fa-circle-exclamation" style="color: #f43f5e; margin-top: 3px;"></i>
+                            <span><strong style="color: #fff;">Delta:</strong> {{ fb.weakness }}</span>
                         </div>
                         {% endif %}
                         {% if fb.suggestion %}
                         <div
-                            style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--text-caption); font-style: italic;">
-                            Suggestion: {{ fb.suggestion }}
+                            style="margin-top: 0.6rem; font-size: 0.85rem; color: var(--text-muted); font-style: italic;">
+                            Recommendations: {{ fb.suggestion }}
                         </div>
                         {% endif %}
                     </div>
                     {% endfor %}
                     {% else %}
-                    <p style="color: var(--text-caption); text-align: center;">No detailed feedback available for this
+                    <p style="color: var(--text-muted); text-align: center;">No granular telemetry available for this
                         session.</p>
                     {% endif %}
                 </div>
@@ -146,59 +135,14 @@
         </div>
     </main>
 
-    <footer style="padding: 4rem 0; border-top: 1px solid var(--border-line); margin-top: 6rem;">
+    <footer style="padding: 5rem 0; border-top: 1px solid var(--border-glass); margin-top: 8rem;">
         <div class="container" style="text-align: center;">
-            <div class="logo" style="justify-content: center; display:flex; margin-bottom: 1rem;">Prep <span
-                    style="color:var(--accent-primary); margin-left:0.2rem;">Wise</span></div>
-            <p style="color: var(--text-caption); font-size: 0.85rem;">&copy; 2026 PrepWise.</p>
+            <div class="logo" style="justify-content: center; display:flex; margin-bottom: 1.5rem;">Prep <span
+                    style="color:var(--accent-cyan); margin-left:0.3rem;">Wise</span></div>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">&copy; 2026 PrepWise Intelligence. Session
+                Finalized.</p>
         </div>
-        <script>
-        // P0: Score counter
-        function countUp(el) {
-            var target = parseInt(el.dataset.target, 10) || 0;
-            var duration = 1200;
-            var start = performance.now();
-            function step(now) {
-                var progress = Math.min((now - start) / duration, 1);
-                var eased = 1 - Math.pow(1 - progress, 3);
-                var current = Math.round(eased * target);
-                el.innerHTML = current + '<span style="font-size: 1.25rem;">%</span>';
-                if (progress < 1) requestAnimationFrame(step);
-            }
-            requestAnimationFrame(step);
-        }
-
-        (function() {
-            var els = document.querySelectorAll('.reveal, .reveal-scale');
-            if (!els.length) return;
-            var obs = new IntersectionObserver(function(entries) {
-                entries.forEach(function(e) {
-                    if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
-                });
-            }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
-            els.forEach(function(el) { obs.observe(el); });
-
-            var counters = document.querySelectorAll('.score-counter');
-            counters.forEach(function(c) {
-                var cObs = new IntersectionObserver(function(entries) {
-                    entries.forEach(function(e) {
-                        if (e.isIntersecting) { countUp(e.target); cObs.unobserve(e.target); }
-                    });
-                }, { threshold: 0.3 });
-                cObs.observe(c);
-            });
-        })();
-        </script>
     </footer>
-    <script>
-        function toggleTheme() {
-            const html = document.documentElement;
-            const target = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-            html.setAttribute('data-theme', target);
-            localStorage.setItem('theme', target);
-            window.dispatchEvent(new CustomEvent('themeChanged', { detail: target }));
-        }
-    </script>
 </body>
 
 </html>
