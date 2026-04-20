@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resume Builder | PrepWise</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Monaco Editor minimal CSS -->
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #04060a;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      overflow: hidden; /* Hide scroll for app-like feel */
+    }
+
+    .builder-container {
+      display: flex;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    /* Left Pane: Editor/Form */
+    .left-pane {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(4, 6, 10, 0.95);
+      position: relative;
+      min-width: 400px;
+    }
+
+    /* Right Pane: Preview */
+    .right-pane {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: #1e1e1e;
+      position: relative;
+    }
+
+    /* Header Nav in Panes */
+    .pane-header {
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.02);
+      backdrop-filter: blur(10px);
+      z-index: 10;
+    }
+
+    .pane-title {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .pane-title i {
+      color: var(--accent-cyan, #00e5ff);
+    }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      gap: 1rem;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 0.3rem;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      color: rgba(255, 255, 255, 0.5);
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.85rem;
+      transition: all 0.3s ease;
+    }
+
+    .tab-btn.active {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Pane Content Area */
+    .pane-content {
+      flex: 1;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    #monaco-editor-container {
+      width: 100%;
+      height: 100%;
+      display: none; /* hidden by default, No-Code is first */
+    }
+
+    #nocode-form-container {
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    /* Form Elements */
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .form-group label {
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.7);
+      font-weight: 600;
+    }
+
+    .form-control {
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 0.8rem;
+      color: #fff;
+      font-family: inherit;
+      font-size: 0.9rem;
+      transition: all 0.3s;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--accent-cyan, #00e5ff);
+      background: rgba(0, 0, 0, 0.4);
+    }
+
+    .form-control.textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    /* PDF Preview */
+    #pdf-preview-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: #525659;
+    }
+
+    .loading-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(30, 30, 30, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 20;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .loading-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(255,255,255,0.1);
+      border-top-color: var(--accent-cyan, #00e5ff);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+
+    /* Action Buttons */
+    .action-btn {
+      background: linear-gradient(135deg, var(--accent-cyan, #00e5ff), #0099cc);
+      color: #000;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .action-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 229, 255, 0.3);
+    }
+
+    .action-btn.secondary {
+      background: rgba(255, 255, 255, 0.05);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .action-btn.secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      box-shadow: none;
+    }
+
+    .section-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation Bar (minimal) -->
+  <div style="background: #04060a; padding: 1rem 2rem; border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; justify-content: space-between; align-items: center; z-index: 100; position: relative;">
+    <div style="display: flex; align-items: center; gap: 1rem;">
+      <a href="/" style="color: #fff; text-decoration: none; font-size: 1.2rem; font-weight: 900; letter-spacing:-0.5px;">PrepWise <span style="color: var(--accent-cyan, #00e5ff);">.</span></a>
+      <span style="color: rgba(255,255,255,0.3);">/</span>
+      <span style="font-weight: 600; color: rgba(255,255,255,0.8);">Resume Builder</span>
+    </div>
+    <div style="display: flex; gap: 1rem;">
+      <button class="action-btn secondary" id="btn-export-latex"><i class="fa-solid fa-code"></i> Export .tex</button>
+      <button class="action-btn secondary" id="btn-analyze"><i class="fa-solid fa-robot"></i> ATS Score</button>
+      <button class="action-btn" id="btn-export-pdf"><i class="fa-solid fa-download"></i> Download PDF</button>
+    </div>
+  </div>
+
+  <div class="builder-container">
+    
+    <!-- Left Pane: Editor -->
+    <div class="left-pane">
+      <div class="pane-header">
+        <div class="tabs">
+          <button class="tab-btn active" id="tab-nocode" onclick="switchTab('nocode')">No-Code Form</button>
+          <button class="tab-btn" id="tab-latex" onclick="switchTab('latex')">LaTeX Source</button>
+        </div>
+        <div style="font-size: 0.8rem; color: rgba(255,255,255,0.4);" id="sync-status">Auto-syncing...</div>
+      </div>
+
+      <div class="pane-content">
+        <!-- Tab 1: No Code Block -->
+        <div id="nocode-form-container">
+          <div class="section-card">
+            <h3 style="margin-top:0; margin-bottom: 1rem; font-size:1rem; display:flex; align-items:center; gap:0.5rem;"><i class="fa-solid fa-user"></i> Personal Info</h3>
+            <div class="form-group">
+              <label>Full Name</label>
+              <input type="text" class="form-control" id="form-name" value="Alex Innovator" oninput="updateLatexFromForm()">
+            </div>
+            <div style="display:flex; gap:1rem; margin-top:1rem;">
+              <div class="form-group" style="flex:1;">
+                <label>Email</label>
+                <input type="email" class="form-control" id="form-email" value="alex@example.com" oninput="updateLatexFromForm()">
+              </div>
+              <div class="form-group" style="flex:1;">
+                <label>Phone</label>
+                <input type="text" class="form-control" id="form-phone" value="+1 234 567 890" oninput="updateLatexFromForm()">
+              </div>
+            </div>
+            <div class="form-group" style="margin-top:1rem;">
+              <label>LinkedIn / Portfolio URL</label>
+              <input type="text" class="form-control" id="form-url" value="linkedin.com/in/alex" oninput="updateLatexFromForm()">
+            </div>
+          </div>
+
+          <div class="section-card">
+            <h3 style="margin-top:0; margin-bottom: 1rem; font-size:1rem; display:flex; align-items:center; gap:0.5rem;"><i class="fa-solid fa-briefcase"></i> Experience</h3>
+            <div class="form-group">
+              <label>Latest Role</label>
+              <input type="text" class="form-control" id="form-role" value="Software Engineer" oninput="updateLatexFromForm()">
+            </div>
+            <div class="form-group" style="margin-top:1rem;">
+              <label>Company</label>
+              <input type="text" class="form-control" id="form-company" value="Tech Corp Inc." oninput="updateLatexFromForm()">
+            </div>
+            <div class="form-group" style="margin-top:1rem;">
+              <label>Description (Bullet points, separate by newline)</label>
+              <textarea class="form-control textarea" id="form-desc" oninput="updateLatexFromForm()">Developed scalable microservices using Python and Flask.
+Improved database performance by 40% through indexing.
+Collaborated with frontend teams to implement React architectures.</textarea>
+            </div>
+          </div>
+
+          <div class="section-card">
+            <h3 style="margin-top:0; margin-bottom: 1rem; font-size:1rem; display:flex; align-items:center; gap:0.5rem;"><i class="fa-solid fa-graduation-cap"></i> Education</h3>
+            <div class="form-group">
+              <label>University</label>
+              <input type="text" class="form-control" id="form-uni" value="University of Computer Science" oninput="updateLatexFromForm()">
+            </div>
+            <div class="form-group" style="margin-top:1rem;">
+              <label>Degree & Year</label>
+              <input type="text" class="form-control" id="form-degree" value="B.S. in Computer Science | 2024" oninput="updateLatexFromForm()">
+            </div>
+          </div>
+
+          <div class="section-card">
+            <h3 style="margin-top:0; margin-bottom: 1rem; font-size:1rem; display:flex; align-items:center; gap:0.5rem;"><i class="fa-solid fa-laptop-code"></i> Skills</h3>
+            <div class="form-group">
+              <label>Technical Skills (Comma separated)</label>
+              <input type="text" class="form-control" id="form-skills" value="Python, Flask, JavaScript, React, SQL, AWS" oninput="updateLatexFromForm()">
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 2: Monaco Editor -->
+        <div id="monaco-editor-container"></div>
+      </div>
+    </div>
+
+    <!-- Right Pane: Preview -->
+    <div class="right-pane">
+      <div class="pane-header">
+        <div class="pane-title"><i class="fa-solid fa-file-pdf"></i> Live Preview</div>
+        <button class="action-btn secondary" style="padding: 0.4rem 0.8rem;" onclick="triggerCompile()"><i class="fa-solid fa-refresh"></i> Recompile</button>
+      </div>
+      <div class="pane-content" style="overflow: hidden;">
+        <!-- Loading UI -->
+        <div class="loading-overlay" id="pdf-loader">
+          <div class="spinner"></div>
+          <div style="font-size:0.85rem; color:#fff; font-weight:600; letter-spacing:1px;">Compiling LaTeX...</div>
+        </div>
+        
+        <iframe id="pdf-preview-iframe" src=""></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- Monaco Editor Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.38.0/min/vs/loader.min.js"></script>
+  <script>
+    let editor;
+    let compileTimeout;
+    let isUserTypingInEditor = false;
+
+    // Define the base ATS friendly LaTeX template
+    const baseTemplate = `\\documentclass[a4paper,10pt]{article}
+\\usepackage[utf8]{inputenc}
+\\usepackage{geometry}
+\\geometry{a4paper, margin=0.7in}
+\\usepackage{enumitem}
+\\usepackage{hyperref}
+
+\\begin{document}
+
+\\begin{center}
+    {\\Huge \\textbf{__NAME__}} \\\\
+    \\vspace{2mm}
+    __EMAIL__ | __PHONE__ \\\\
+    \\href{https://__URL__}{__URL__}
+\\end{center}
+
+\\vspace{3mm}
+\\hrule
+\\vspace{3mm}
+
+\\noindent {\\large \\textbf{EXPERIENCE}} \\\\
+\\vspace{1mm}
+\\textbf{__ROLE__} \\hfill \\textbf{__COMPANY__} \\\\
+\\begin{itemize}[leftmargin=*,noitemsep]
+__DESC__
+\\end{itemize}
+
+\\vspace{3mm}
+\\hrule
+\\vspace{3mm}
+
+\\noindent {\\large \\textbf{EDUCATION}} \\\\
+\\vspace{1mm}
+\\textbf{__UNI__} \\\\
+__DEGREE__
+
+\\vspace{3mm}
+\\hrule
+\\vspace{3mm}
+
+\\noindent {\\large \\textbf{SKILLS}} \\\\
+\\vspace{1mm}
+__SKILLS__
+
+\\end{document}`;
+
+    // Initialize Monaco
+    require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.38.0/min/vs' }});
+    require(['vs/editor/editor.main'], function() {
+      editor = monaco.editor.create(document.getElementById('monaco-editor-container'), {
+        value: generateLatexFromInputs(),
+        language: 'latex',
+        theme: 'vs-dark',
+        automaticLayout: true,
+        wordWrap: 'on',
+        minimap: { enabled: false }
+      });
+
+      // Listen for manual LaTeX edits
+      editor.onDidChangeModelContent(() => {
+        if(document.getElementById('tab-latex').classList.contains('active')) {
+          isUserTypingInEditor = true;
+          debounceCompile();
+        }
+      });
+
+      // Initial compile
+      triggerCompile();
+    });
+
+    // Tab Switching Logic
+    function switchTab(tabId) {
+      document.getElementById('tab-nocode').classList.remove('active');
+      document.getElementById('tab-latex').classList.remove('active');
+      document.getElementById('tab-' + tabId).classList.add('active');
+
+      if (tabId === 'nocode') {
+        document.getElementById('nocode-form-container').style.display = 'flex';
+        document.getElementById('monaco-editor-container').style.display = 'none';
+        // When switching back to form, it generates LaTeX from current form state (overwriting manual LaTeX edits)
+        // In a complex app we'd build a 2-way parser, but for now No-Code -> LaTeX is 1-way sync.
+        updateLatexFromForm();
+      } else {
+        document.getElementById('nocode-form-container').style.display = 'none';
+        document.getElementById('monaco-editor-container').style.display = 'block';
+      }
+    }
+
+    // Generator function
+    function generateLatexFromInputs() {
+      const name = document.getElementById('form-name').value;
+      const email = document.getElementById('form-email').value;
+      const phone = document.getElementById('form-phone').value;
+      const url = document.getElementById('form-url').value;
+      
+      const role = document.getElementById('form-role').value;
+      const company = document.getElementById('form-company').value;
+      
+      const descLines = document.getElementById('form-desc').value.split('\\n');
+      let descLatex = '';
+      descLines.forEach(line => {
+        if(line.trim()) descLatex += `    \\item ${line.trim()}\\n`;
+      });
+
+      const uni = document.getElementById('form-uni').value;
+      const degree = document.getElementById('form-degree').value;
+      const skills = document.getElementById('form-skills').value;
+
+      let latex = baseTemplate
+        .replace('__NAME__', name)
+        .replace('__EMAIL__', email)
+        .replace('__PHONE__', phone)
+        .replace(/__URL__/g, url)
+        .replace('__ROLE__', role)
+        .replace('__COMPANY__', company)
+        .replace('__DESC__', descLatex)
+        .replace('__UNI__', uni)
+        .replace('__DEGREE__', degree)
+        .replace('__SKILLS__', skills);
+      
+      return latex;
+    }
+
+    // Update LaTeX when form changes
+    function updateLatexFromForm() {
+      if(editor) {
+        const newLatex = generateLatexFromInputs();
+        if(editor.getValue() !== newLatex) {
+          editor.setValue(newLatex);
+          debounceCompile();
+        }
+      }
+    }
+
+    // Debounce compilation to avoid spamming the API
+    function debounceCompile() {
+      clearTimeout(compileTimeout);
+      document.getElementById('sync-status').textContent = "Saving & Compiling...";
+      document.getElementById('sync-status').style.color = "var(--accent-cyan)";
+      
+      compileTimeout = setTimeout(() => {
+        triggerCompile();
+      }, 1500); // 1.5s delay after typing stops
+    }
+
+    // Call the Flask API or Web API to compile LaTeX
+    function triggerCompile() {
+      if(!editor) return;
+      const latex = editor.getValue();
+      
+      const loader = document.getElementById('pdf-loader');
+      loader.classList.add('active');
+      document.getElementById('sync-status').textContent = "Compiling PDF...";
+
+      try {
+        const encodedLatex = encodeURIComponent(latex);
+        const url = `https://latexonline.cc/compile?text=${encodedLatex}&command=pdflatex`;
+        
+        const iframe = document.getElementById('pdf-preview-iframe');
+        iframe.onload = () => {
+          loader.classList.remove('active');
+          document.getElementById('sync-status').textContent = "Synced";
+          document.getElementById('sync-status').style.color = "rgba(255,255,255,0.4)";
+        };
+        iframe.src = url;
+
+        // Fallback loader removal just in case onload fails
+        setTimeout(() => {
+          loader.classList.remove('active');
+        }, 15000);
+
+      } catch (e) {
+        console.error(e);
+        document.getElementById('sync-status').textContent = "Network Error";
+        loader.classList.remove('active');
+      }
+    }
+
+    // Export Handlers
+    document.getElementById('btn-export-latex').addEventListener('click', () => {
+      const latex = editor.getValue();
+      const blob = new Blob([latex], { type: 'text/plain' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'resume.tex';
+      link.click();
+    });
+
+    document.getElementById('btn-export-pdf').addEventListener('click', () => {
+      const originalText = document.getElementById('btn-export-pdf').innerHTML;
+      document.getElementById('btn-export-pdf').innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Generating...';
+      try {
+        const encodedLatex = encodeURIComponent(editor.getValue());
+        const url = `https://latexonline.cc/compile?text=${encodedLatex}&command=pdflatex`;
+        
+        // Open the raw PDF compilation URL in a new tab to bypass CORS fetch restrictions
+        window.open(url, '_blank');
+        
+      } catch (e) {
+        alert('Error exporting PDF');
+      } finally {
+        setTimeout(() => {
+          document.getElementById('btn-export-pdf').innerHTML = originalText;
+        }, 1000);
+      }
+    });
+
+    document.getElementById('btn-analyze').addEventListener('click', async () => {
+      // Analyze using the ATS Analyzer backend
+      const latex = editor.getValue();
+      
+      const btn = document.getElementById('btn-analyze');
+      const originalText = btn.innerHTML;
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Analyzing...';
+      
+      try {
+        const response = await fetch('/api/resume/analyze_latex', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          // Send empty JD for now, can be expanded to allow user to paste JD
+          body: JSON.stringify({ latex, jd: '' })
+        });
+        
+        if(response.ok) {
+          window.location.href = '/resume_results';
+        } else {
+          const res = await response.json();
+          alert("Error analyzing resume: " + res.error);
+        }
+      } catch (e) {
+        alert("Network error during analysis.");
+      } finally {
+        btn.innerHTML = originalText;
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,7 +1,10 @@
 import io
 import os
 import json
-from flask import Blueprint, render_template, request, jsonify, session, redirect, url_for
+import uuid
+import urllib.request
+import urllib.parse
+from flask import Blueprint, render_template, request, jsonify, session, redirect, url_for, make_response
 from extensions import supabase
 from ai_handler import ai
 from utils import extract_text_from_pdf, DEFAULT_USER_ID
@@ -93,3 +96,94 @@ def resume_results():
         return redirect(url_for('resume.resume_analyzer'))
         
     return render_template('resume_results.html', analysis=analysis)
+
+@resume_bp.route('/builder')
+def resume_builder():
+    """
+    Advanced Resume Builder Interface (Split-screen editor).
+    """
+    return render_template('resume_builder.html')
+
+@resume_bp.route('/api/resume/compile', methods=['POST'])
+def compile_latex():
+    """
+    Compiles LaTeX to PDF using a free online LaTeX compiler API.
+    Returns the compiled PDF or an error.
+    """
+    data = request.json
+    if not data or 'latex' not in data:
+        return jsonify({"error": "No LaTeX code provided"}), 400
+        
+    latex_code = data['latex']
+    
+    try:
+        # Use texlive.net for compilation
+        boundary = uuid.uuid4().hex
+        payload = (
+            f"--{boundary}\r\n"
+            f'Content-Disposition: form-data; name="filecontents[]"; filename="resume.tex"\r\n\r\n'
+            f"{latex_code}\r\n"
+            f"--{boundary}\r\n"
+            f'Content-Disposition: form-data; name="filename[]"\r\n\r\n'
+            f"resume.tex\r\n"
+            f"--{boundary}\r\n"
+            f'Content-Disposition: form-data; name="engine"\r\n\r\n'
+            f"pdflatex\r\n"
+            f"--{boundary}\r\n"
+            f'Content-Disposition: form-data; name="return"\r\n\r\n'
+            f"pdf\r\n"
+            f"--{boundary}--\r\n"
+        ).encode('utf-8')
+        
+        req = urllib.request.Request('https://texlive.net/cgi-bin/latexcgi', data=payload, method='POST')
+        req.add_header('Content-Type', f'multipart/form-data; boundary={boundary}')
+        
+        with urllib.request.urlopen(req, timeout=25) as response:
+            pdf_data = response.read()
+            
+            # texlive.net returns PDF directly if return=pdf is set.
+            flask_resp = make_response(pdf_data)
+            flask_resp.headers['Content-Type'] = 'application/pdf'
+            flask_resp.headers['Content-Disposition'] = 'inline; filename=resume.pdf'
+            return flask_resp
+            
+    except urllib.error.HTTPError as e:
+        error_msg = e.read().decode('utf-8')
+        print(f"LaTeX Compilation Error: {error_msg}")
+        return jsonify({"error": "Failed to compile LaTeX. Template might contain errors.", "details": error_msg}), 400
+    except Exception as e:
+        print(f"Compilation Server Error: {e}")
+        return jsonify({"error": f"Internal server error or external service unavailable: {str(e)}"}), 500
+
+@resume_bp.route('/api/resume/analyze_latex', methods=['POST'])
+def analyze_latex():
+    """
+    Analyzes the raw LaTeX text using AI for ATS matching.
+    """
+    data = request.json
+    if not data or 'latex' not in data:
+        return jsonify({"error": "No LaTeX code provided"}), 400
+        
+    latex_code = data['latex']
+    jd = data.get('jd', '')
+    
+    try:
+        user_id = get_current_user_id() or DEFAULT_USER_ID
+        
+        # Analyze using existing AI handler (passing raw LaTeX can work, 
+        # but the AI handler might need to instruction to parse it. 
+        # We'll pass it directly as it's very readable for LLMs)
+        analysis = ai.analyze_resume(latex_code, jd if jd else None)
+
+        if "error" in analysis:
+            return jsonify({"error": analysis["error"]}), 500
+
+        # Persist analysis
+        save_analysis(user_id, analysis)
+        session['analysis_ready_id'] = user_id
+        session.modified = True
+
+        return jsonify({"success": True})
+    except Exception as e:
+        print(f"Server Error in analyze_latex: {e}")
+        return jsonify({"error": "Internal server error analyzing LaTeX."}), 500
