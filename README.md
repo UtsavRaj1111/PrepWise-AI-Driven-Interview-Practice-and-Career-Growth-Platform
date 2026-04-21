@@ -124,16 +124,7 @@ A structured learning and testing system for placement and interview preparation
 
 ---
 
-## 🛠️ System Workflow
 
-```mermaid
-graph LR
-A[User Selects Module] --> B[Category Selection]
-B --> C[Topic Selection]
-C --> D[Difficulty Selection]
-D --> E[AI / Question Engine]
-E --> F[Evaluation & Feedback]
-F --> G[Dashboard Analytics]
 
 ## 📂 Project Structure
 ├── backend/              # FastAPI backend
