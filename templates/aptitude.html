@@ -9,6 +9,8 @@
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/prepwise_logo.png') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    {% include 'base/head_pwa.html' %}
+
     <style>
         /* ── Page shell ─────────────────────────────────────────────── */
         .arena-main {
@@ -67,6 +69,7 @@
             margin-bottom: 1.2rem;
             background: linear-gradient(to bottom, #ffffff 30%, #a1a1aa 100%);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 

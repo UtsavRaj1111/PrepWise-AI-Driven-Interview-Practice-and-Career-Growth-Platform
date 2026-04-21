@@ -37,7 +37,7 @@
             right: -100px;
             width: 300px;
             height: 300px;
-            background: radial-gradient(circle, {{ accent_color }}15 0%, transparent 70%);
+            background: radial-gradient(circle, var(--feature-accent-15) 0%, transparent 70%);
             border-radius: 50%;
             pointer-events: none;
         }
@@ -57,23 +57,23 @@
         }
 
         .back-btn:hover {
-            color: {{ accent_color }};
+            color: var(--feature-accent);
             transform: translateX(-5px);
         }
 
         .detail-icon {
             width: 80px;
             height: 80px;
-            background: {{ accent_color }}10;
-            border: 1px solid {{ accent_color }}25;
+            background: var(--feature-accent-10);
+            border: 1px solid var(--feature-accent-25);
             border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 2.5rem;
-            color: {{ accent_color }};
+            color: var(--feature-accent);
             margin-bottom: 2rem;
-            box-shadow: 0 10px 30px {{ accent_color }}15;
+            box-shadow: 0 10px 30px var(--feature-accent-15);
         }
 
         .detail-title {
@@ -109,12 +109,12 @@
 
         .feature-item:hover {
             background: rgba(255, 255, 255, 0.04);
-            border-color: {{ accent_color }}30;
+            border-color: var(--feature-accent-30);
             transform: translateY(-5px);
         }
 
         .feature-item i {
-            color: {{ accent_color }};
+            color: var(--feature-accent);
             font-size: 1.2rem;
             margin-bottom: 1rem;
         }
@@ -134,8 +134,8 @@
 
         .cta-btn {
             display: inline-block;
-            background: {{ accent_color }};
-            color: {{ cta_text_color | default('#fff') }};
+            background: var(--feature-accent);
+            color: var(--cta-text-color);
             padding: 1.2rem 3rem;
             border-radius: 12px;
             text-decoration: none;
@@ -143,13 +143,13 @@
             font-size: 1.1rem;
             margin-top: 4rem;
             transition: all 0.3s ease;
-            box-shadow: 0 10px 25px {{ accent_color }}40;
+            box-shadow: 0 10px 25px var(--feature-accent-40);
             text-align: center;
         }
 
         .cta-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 15px 35px {{ accent_color }}60;
+            box-shadow: 0 15px 35px var(--feature-accent-60);
             filter: brightness(1.1);
         }
 
@@ -163,7 +163,16 @@
 <body>
     {% include 'base/header.html' %}
 
-    <main class="details-main">
+    <main class="details-main" style="
+        --feature-accent: {{ accent_color }};
+        --feature-accent-10: {{ accent_color ~ '10' }};
+        --feature-accent-15: {{ accent_color ~ '15' }};
+        --feature-accent-25: {{ accent_color ~ '25' }};
+        --feature-accent-30: {{ accent_color ~ '30' }};
+        --feature-accent-40: {{ accent_color ~ '40' }};
+        --feature-accent-60: {{ accent_color ~ '60' }};
+        --cta-text-color: {{ '#05070a' if (accent_color|lower) == '#00d4ff' else '#fff' }};
+    ">
         <div class="details-container animate-up">
             <a href="/#about" class="back-btn">
                 <i class="fa-solid fa-arrow-left"></i> Back to Home

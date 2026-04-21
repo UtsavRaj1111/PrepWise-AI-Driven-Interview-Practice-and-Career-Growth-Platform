@@ -8,7 +8,13 @@
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/prepwise_logo.png') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    {% include 'base/head_pwa.html' %}
+
     <style>
+        :root {
+            --ats-color: {{ '#10b981' if analysis.ats_score >= 70 else ('#fbbf24' if analysis.ats_score >= 50 else '#ef4444') }};
+        }
+
         .score-gauge {
             padding: 2.2rem;
             text-align: center;
@@ -102,44 +108,25 @@
 </head>
 
 <body>
-    <header>
-        <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-            <div class="logo"><a href="/" style="text-decoration:none; color:inherit;">Prep <span>Wise</span></a>
-            </div>
-            <nav class="nav-links">
-                <a href="/dashboard">Dashboard</a>
-                <a href="/interview_start">Simulator</a>
-                <a href="/resume" class="active">Resume Scan</a>
-                <a href="/aptitude">Skill Paths</a>
-                <a href="/mentor">Network</a>
-            </nav>
-            <div style="display: flex; gap: 1rem; align-items: center;">
-                <a href="/dashboard" class="btn-ghost" style="padding: 0.6rem 1.4rem; font-size: 0.85rem;">Dashboard</a>
-                <a href="/interview_start" class="btn-cyan">Initialize Simulation</a>
-            </div>
-        </div>
-    </header>
+    {% include 'base/header.html' %}
 
     <main class="container" style="padding-top: 11rem; padding-bottom: 8rem;">
-
         <!-- ── Header + Score Gauges ── -->
-        {% set ats_color = '#10b981' if analysis.ats_score >= 70 else ('#fbbf24' if analysis.ats_score >= 50 else
-        '#ef4444') %}
         <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; margin-bottom: 4rem; gap: 2rem;"
             class="animate-up">
             <div>
                 <span class="tag-cyan" style="margin-bottom: 1rem;">
                     <div class="indicator-cyan"></div> Scan Complete
                 </span>
-                <h1 style="font-size: 3rem; font-weight: 900; letter-spacing: -2px; margin-bottom: 0.5rem;">Resume
+                <h1 style="font-size: 3rem; font-weight: 900; letter-spacing: -2px; margin-bottom: 0.5rem; line-height: 1.1;">Resume
                     <br><span>Analysis Report.</span>
                 </h1>
                 <p style="color: var(--text-muted); font-size: 1rem;">Section-by-section AI breakdown of your resume.
                 </p>
             </div>
             <div style="display: flex; gap: 1.5rem; flex-wrap: wrap;">
-                <div class="score-gauge" style="border-top: 4px solid {{ ats_color }};">
-                    <div class="val" style="color: {{ ats_color }};">{{ analysis.ats_score }}<span
+                <div class="score-gauge" style="border-top: 4px solid var(--ats-color);">
+                    <div class="val" style="color: var(--ats-color);">{{ analysis.ats_score }}<span
                             style="font-size:1.2rem;">%</span></div>
                     <div class="lbl">ATS Score</div>
                 </div>
@@ -231,7 +218,7 @@
                         </div>
                         <strong style="color: var(--text-primary); font-size: 0.95rem;">{{ project.name }}</strong>
                     </div>
-                    {% if project.tech %}
+                    {% if project.tech and project.tech is string %}
                     <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.8rem;">
                         {% for t in project.tech.split(',') %}
                         <span
@@ -380,6 +367,16 @@
             </div>
         </section>
     </main>
+
+    <footer style="padding: 5rem 0; border-top: 1px solid var(--border-glass); margin-top: 5rem;">
+        <div class="container" style="text-align: center;">
+            <div class="logo" style="justify-content: center; display:flex; align-items:center; margin-bottom: 1.5rem;">
+                <img src="{{ url_for('static', filename='images/prepwise_logo.png') }}" alt="PrepWise Logo" style="height: 32px; margin-right: 0.8rem; border-radius: 6px;">
+                <span style="font-weight: 800; font-size: 1.8rem; letter-spacing: -0.5px; color: var(--text-main);">Prep<span style="color:var(--accent-cyan);">Wise</span></span>
+            </div>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">&copy; 2026 PrepWise Intelligence. Session Finalized.</p>
+        </div>
+    </footer>
 
     <script>
         // Animate score bars on load

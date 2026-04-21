@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PrepWise | Offline</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+            background: #05070a;
+            color: white;
+        }
+        .container {
+            padding: 2rem;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(10px);
+        }
+        h1 { color: var(--accent-cyan); font-weight: 900; margin-bottom: 1rem; }
+        p { color: var(--text-muted); margin-bottom: 2rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="/static/images/prepwise_logo.png" alt="PrepWise" style="height: 60px; margin-bottom: 2rem;">
+        <h1>You're Offline</h1>
+        <p>It looks like you've lost your connection. PrepWise requires an active uplink to access AI services.</p>
+        <button onclick="window.location.reload()" class="btn-cyan" style="padding: 1rem 2rem;">Retry Connection</button>
+    </div>
+</body>
+</html>

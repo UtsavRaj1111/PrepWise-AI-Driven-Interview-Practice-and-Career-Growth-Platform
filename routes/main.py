@@ -157,3 +157,29 @@ def contact():
     Dedicated Contact Us page.
     """
     return render_template('contact.html')
+
+
+@main_bp.route('/service-worker.js')
+def sw():
+    from flask import send_from_directory
+    import os
+    return send_from_directory(os.path.join(main_bp.root_path, '..', 'static'), 'service-worker.js', mimetype='application/javascript')
+
+
+@main_bp.route('/manifest.json')
+def manifest():
+    from flask import send_from_directory
+    import os
+    return send_from_directory(os.path.join(main_bp.root_path, '..', 'static'), 'manifest.json', mimetype='application/json')
+
+
+@main_bp.route('/.well-known/assetlinks.json')
+def assetlinks():
+    from flask import send_from_directory
+    import os
+    return send_from_directory(os.path.join(main_bp.root_path, '..', 'static', '.well-known'), 'assetlinks.json', mimetype='application/json')
+
+
+@main_bp.route('/offline')
+def offline():
+    return render_template('offline.html')
