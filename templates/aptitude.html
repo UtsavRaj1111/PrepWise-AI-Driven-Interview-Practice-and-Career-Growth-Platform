@@ -4,68 +4,186 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cognitive Matrices | PrepWise</title>
+    <title>Choose Your Focus Area | PrepWise</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/prepwise_logo.png') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         .topic-card {
-            background: var(--bg-surface);
-            border: 2px solid var(--border-glass);
-            border-radius: 18px;
-            padding: 1rem 1.2rem;
-            transition: all 0.3s ease;
+            background: linear-gradient(135deg, rgba(15, 20, 25, 0.6), rgba(10, 12, 18, 0.8));
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 1.5rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
             position: relative;
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            overflow: hidden;
         }
 
         .topic-card:hover {
-            border-color: rgba(0, 212, 255, 0.4);
-            transform: translateY(-3px);
+            transform: translateY(-4px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
         }
 
-        .topic-card.selected {
+        #card-quant:hover {
+            border-color: rgba(0, 212, 255, 0.4);
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), rgba(10, 12, 18, 0.9));
+        }
+
+        #card-logical:hover {
+            border-color: rgba(139, 92, 246, 0.4);
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.05), rgba(10, 12, 18, 0.9));
+        }
+
+        #card-verbal:hover {
+            border-color: rgba(244, 63, 94, 0.4);
+            background: linear-gradient(135deg, rgba(244, 63, 94, 0.05), rgba(10, 12, 18, 0.9));
+        }
+
+        .topic-card.selected#card-quant {
             border-color: var(--accent-cyan);
-            background: rgba(0, 212, 255, 0.05);
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), rgba(0, 0, 0, 0.8));
+            box-shadow: 0 0 0 1px var(--accent-cyan) inset, 0 10px 30px rgba(0, 212, 255, 0.15);
+        }
+
+        .topic-card.selected#card-logical {
+            border-color: #8b5cf6;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.05), rgba(0, 0, 0, 0.8));
+            box-shadow: 0 0 0 1px #8b5cf6 inset, 0 10px 30px rgba(139, 92, 246, 0.15);
+        }
+
+        .topic-card.selected#card-verbal {
+            border-color: #f43f5e;
+            background: linear-gradient(135deg, rgba(244, 63, 94, 0.05), rgba(0, 0, 0, 0.8));
+            box-shadow: 0 0 0 1px #f43f5e inset, 0 10px 30px rgba(244, 63, 94, 0.15);
         }
 
         .topic-card input[type="radio"] {
             display: none;
         }
 
+        .topic-icon-wrap {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .topic-card:hover .topic-icon-wrap {
+            transform: scale(1.05);
+        }
+
+        .topic-card.selected#card-quant .topic-icon-wrap {
+            background: rgba(0, 212, 255, 0.1);
+            border-color: rgba(0, 212, 255, 0.3);
+        }
+
+        .topic-card.selected#card-logical .topic-icon-wrap {
+            background: rgba(139, 92, 246, 0.1);
+            border-color: rgba(139, 92, 246, 0.3);
+        }
+
+        .topic-card.selected#card-verbal .topic-icon-wrap {
+            background: rgba(244, 63, 94, 0.1);
+            border-color: rgba(244, 63, 94, 0.3);
+        }
+
         .difficulty-pill {
             display: inline-flex;
             align-items: center;
-            gap: 0.4rem;
-            padding: 0.5rem 1.2rem;
-            background: rgba(255, 255, 255, 0.03);
-            border: 2px solid var(--border-glass);
+            gap: 0.5rem;
+            padding: 0.6rem 1.4rem;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+            border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 50px;
             cursor: pointer;
-            transition: all 0.2s ease;
-            font-size: 0.8rem;
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
             font-weight: 700;
+            backdrop-filter: blur(10px);
         }
 
         .difficulty-pill:hover {
-            border-color: rgba(0, 212, 255, 0.4);
+            transform: translateY(-2px);
         }
+
+        #pill-easy:hover { border-color: rgba(34, 197, 94, 0.5); color: #22c55e; background: rgba(34, 197, 94, 0.05); box-shadow: 0 5px 15px rgba(34, 197, 94, 0.15); }
+        #pill-medium:hover { border-color: rgba(0, 212, 255, 0.5); color: #00d4ff; background: rgba(0, 212, 255, 0.05); box-shadow: 0 5px 15px rgba(0, 212, 255, 0.15); }
+        #pill-hard:hover { border-color: rgba(244, 63, 94, 0.5); color: #f43f5e; background: rgba(244, 63, 94, 0.05); box-shadow: 0 5px 15px rgba(244, 63, 94, 0.15); }
 
         .difficulty-pill input[type="radio"] {
             display: none;
         }
 
-        .difficulty-pill.selected {
-            border-color: var(--accent-cyan);
-            color: var(--accent-cyan);
-            background: rgba(0, 212, 255, 0.08);
-        }
+        #pill-easy.selected { border-color: #22c55e; color: #22c55e; background: rgba(34, 197, 94, 0.1); box-shadow: 0 0 15px rgba(34, 197, 94, 0.2); }
+        #pill-medium.selected { border-color: #00d4ff; color: #00d4ff; background: rgba(0, 212, 255, 0.1); box-shadow: 0 0 15px rgba(0, 212, 255, 0.2); }
+        #pill-hard.selected { border-color: #f43f5e; color: #f43f5e; background: rgba(244, 63, 94, 0.1); box-shadow: 0 0 15px rgba(244, 63, 94, 0.2); }
 
         .check-icon {
-            display: none;
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            color: #000;
         }
 
         .topic-card.selected .check-icon {
-            display: block;
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        #card-quant .check-icon {
+            background: var(--accent-cyan);
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+        }
+
+        #card-logical .check-icon {
+            background: #8b5cf6;
+            box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+        }
+
+        #card-verbal .check-icon {
+            background: #f43f5e;
+            box-shadow: 0 0 10px rgba(244, 63, 94, 0.5);
+        }
+
+        .premium-btn {
+            background: var(--accent-cyan);
+            color: #000;
+            border: none;
+            border-radius: 10px;
+            padding: 0.85rem 3.5rem;
+            font-size: 1rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 12px rgba(0, 212, 255, 0.2);
+            transition: all 0.2s ease;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .premium-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 212, 255, 0.3);
+            background: #1ce0ff;
         }
     </style>
 </head>
@@ -75,12 +193,12 @@
 
     <main class="container"
         style="display: flex; flex-direction: column; justify-content: center; height: calc(100vh - 5rem); padding-top: 0.5rem; padding-bottom: 0.5rem;">
-        <div style="margin-bottom: 1.5rem; text-align: center;" class="animate-up">
-            <h1 style="font-size: 2.2rem; font-weight: 900; letter-spacing: -1.5px;">Cognitive <span>Skill
-                    Matrices.</span></h1>
+        <div style="margin-bottom: 2.5rem; margin-top: 3.5rem; text-align: center;" class="animate-up">
+            <h1 style="font-size: 2.4rem; font-weight: 900; letter-spacing: -1.5px;">Choose Your Focus Area
+            </h1>
             <p
-                style="color: var(--text-muted); font-size: 0.85rem; margin-top: 0.2rem; max-width: 500px; margin-inline: auto;">
-                Select your cognitive vector and calibration level to begin performance evaluation.</p>
+                style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.4rem; max-width: 500px; margin-inline: auto;">
+                Configure your test and difficulty to begin</p>
         </div>
 
         <form action="/start_aptitude" method="POST" id="aptitude-form">
@@ -88,47 +206,64 @@
             <div style="margin-bottom: 1.5rem;" class="animate-up">
                 <h3
                     style="font-size: 0.65rem; font-weight: 800; letter-spacing: 1.5px; color: var(--text-muted); margin-bottom: 1rem; text-transform: uppercase;">
-                    Step 1 — Select Cognitive Vector</h3>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem;">
+                    Step 1 — Choose Test Type</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
 
                     <label class="topic-card" id="card-quant" onclick="selectCategory(this, 'Quantitative')">
                         <input type="radio" name="category" value="Quantitative" required>
-                        <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-                            <div style="font-size: 1.5rem; color: var(--accent-cyan); margin-bottom: 0.8rem;"><i
-                                    class="fa-solid fa-calculator"></i></div>
-                            <i class="fa-solid fa-circle-check check-icon"
-                                style="color: var(--accent-cyan); font-size: 1rem;"></i>
+                        <div
+                            style="display:flex; justify-content:space-between; align-items:flex-start; position: relative; z-index: 1;">
+                            <div class="topic-icon-wrap" style="color: var(--accent-cyan);">
+                                <i class="fa-solid fa-calculator"></i>
+                            </div>
+                            <div class="check-icon">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
                         </div>
-                        <h3 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 0.4rem;">Quantitative Logic</h3>
-                        <p style="color: var(--text-muted); font-size: 0.8rem; line-height: 1.4;">Numerical reasoning,
-                            percentages,
-                            ratios, and data interpretation.</p>
+                        <div style="position: relative; z-index: 1;">
+                            <h3 style="font-size: 1.15rem; font-weight: 800; margin-bottom: 0.4rem; color: #fff;">
+                                Quantitative Aptitude</h3>
+                            <p style="color: rgba(255,255,255,0.6); font-size: 0.85rem; line-height: 1.5;">Numerical
+                                reasoning, percentages, ratios, and data interpretation.</p>
+                        </div>
                     </label>
 
                     <label class="topic-card" id="card-logical" onclick="selectCategory(this, 'Logical')">
                         <input type="radio" name="category" value="Logical">
-                        <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-                            <div style="font-size: 1.5rem; color: #8b5cf6; margin-bottom: 0.8rem;"><i
-                                    class="fa-solid fa-atom"></i></div>
-                            <i class="fa-solid fa-circle-check check-icon" style="color: #8b5cf6; font-size: 1rem;"></i>
+                        <div
+                            style="display:flex; justify-content:space-between; align-items:flex-start; position: relative; z-index: 1;">
+                            <div class="topic-icon-wrap" style="color: #8b5cf6;">
+                                <i class="fa-solid fa-atom"></i>
+                            </div>
+                            <div class="check-icon">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
                         </div>
-                        <h3 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 0.4rem;">Logical Deduction</h3>
-                        <p style="color: var(--text-muted); font-size: 0.8rem; line-height: 1.4;">Pattern recognition,
-                            syllogisms,
-                            deductive and inductive reasoning.</p>
+                        <div style="position: relative; z-index: 1;">
+                            <h3 style="font-size: 1.15rem; font-weight: 800; margin-bottom: 0.4rem; color: #fff;">
+                                Logical Reasoning</h3>
+                            <p style="color: rgba(255,255,255,0.6); font-size: 0.85rem; line-height: 1.5;">Pattern
+                                recognition, syllogisms, deductive and inductive reasoning.</p>
+                        </div>
                     </label>
 
                     <label class="topic-card" id="card-verbal" onclick="selectCategory(this, 'Verbal')">
                         <input type="radio" name="category" value="Verbal">
-                        <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-                            <div style="font-size: 1.5rem; color: #f43f5e; margin-bottom: 0.8rem;"><i
-                                    class="fa-solid fa-language"></i></div>
-                            <i class="fa-solid fa-circle-check check-icon" style="color: #f43f5e; font-size: 1rem;"></i>
+                        <div
+                            style="display:flex; justify-content:space-between; align-items:flex-start; position: relative; z-index: 1;">
+                            <div class="topic-icon-wrap" style="color: #f43f5e;">
+                                <i class="fa-solid fa-language"></i>
+                            </div>
+                            <div class="check-icon">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
                         </div>
-                        <h3 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 0.4rem;">Verbal Architecture</h3>
-                        <p style="color: var(--text-muted); font-size: 0.8rem; line-height: 1.4;">Reading comprehension,
-                            synonyms,
-                            antonyms, and sentence completion.</p>
+                        <div style="position: relative; z-index: 1;">
+                            <h3 style="font-size: 1.15rem; font-weight: 800; margin-bottom: 0.4rem; color: #fff;">Verbal
+                                Ability</h3>
+                            <p style="color: rgba(255,255,255,0.6); font-size: 0.85rem; line-height: 1.5;">Reading
+                                comprehension, synonyms, antonyms, and sentence completion.</p>
+                        </div>
                     </label>
                 </div>
             </div>
@@ -137,26 +272,24 @@
             <div style="margin-bottom: 2rem;" class="animate-up">
                 <h3
                     style="font-size: 0.65rem; font-weight: 800; letter-spacing: 1.5px; color: var(--text-muted); margin-bottom: 1rem; text-transform: uppercase;">
-                    Step 2 — Calibration Level</h3>
+                    Step 2 — Choose Difficulty</h3>
                 <div style="display: flex; gap: 0.6rem; flex-wrap: wrap;">
                     <label class="difficulty-pill" id="pill-easy" onclick="selectDifficulty(this)">
-                        <input type="radio" name="difficulty" value="Easy"> <i class="fa-solid fa-seedling"></i> Junior
-                        Level
+                        <input type="radio" name="difficulty" value="Easy"> <i class="fa-solid fa-seedling"></i> Easy
                     </label>
                     <label class="difficulty-pill selected" id="pill-medium" onclick="selectDifficulty(this)">
                         <input type="radio" name="difficulty" value="Medium" checked> <i class="fa-solid fa-bolt"></i>
-                        Intermediate Level
+                        Medium
                     </label>
                     <label class="difficulty-pill" id="pill-hard" onclick="selectDifficulty(this)">
-                        <input type="radio" name="difficulty" value="Hard"> <i class="fa-solid fa-fire"></i> Senior
-                        Level
+                        <input type="radio" name="difficulty" value="Hard"> <i class="fa-solid fa-fire"></i> Hard
                     </label>
                 </div>
             </div>
 
-            <div style="text-align: center;" class="animate-up">
-                <button type="submit" class="btn-cyan" style="padding: 0.8rem 3.5rem; font-size: 0.95rem;">
-                    Initialize Skill Check <i class="fa-solid fa-microchip" style="margin-left: 0.6rem;"></i>
+            <div style="text-align: center; margin-top: 2rem;" class="animate-up">
+                <button type="submit" class="premium-btn">
+                    Start Test <i class="fa-solid fa-bolt" style="margin-left: 0.6rem;"></i>
                 </button>
             </div>
         </form>

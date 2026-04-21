@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Mentor | PrepWise </title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/prepwise_logo.png') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -91,10 +92,10 @@
         }
 
         .bento-card {
-            background: rgba(255, 255, 255, 0.015);
-            backdrop-filter: blur(25px);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
+            background: linear-gradient(135deg, rgba(15, 20, 25, 0.6), rgba(10, 12, 18, 0.8));
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
             overflow: hidden;
             display: flex;
             flex-direction: column;
@@ -249,24 +250,23 @@
         }
 
         .mentor-bubble {
-            background: rgba(255, 255, 255, 0.03);
+            background: linear-gradient(135deg, rgba(30, 35, 45, 0.8), rgba(20, 22, 30, 0.9));
             padding: 1.5rem 2rem;
             border-radius: 4px 18px 18px 18px;
             max-width: 85%;
             color: #e2e8f0;
             line-height: 1.7;
-            font-size: 1rem;
+            font-size: 0.95rem;
             backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
             transition: all 0.3s ease;
         }
 
         .mentor-bubble:hover {
-            background: rgba(255, 255, 255, 0.06);
             border-color: rgba(255, 255, 255, 0.15);
             transform: translateY(-2px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(0, 212, 255, 0.05);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
         }
 
         .user-row {
@@ -276,23 +276,22 @@
         }
 
         .user-bubble {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
-            padding: 1.5rem 2rem;
+            background: var(--accent-cyan);
+            padding: 1.2rem 1.8rem;
             border-radius: 18px 18px 4px 18px;
             max-width: 85%;
-            color: #fff;
+            color: #05070a;
+            font-weight: 500;
             line-height: 1.7;
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            font-size: 0.95rem;
+            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.2);
             transition: all 0.3s ease;
         }
 
         .user-bubble:hover {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.04) 100%);
-            border-color: rgba(255, 255, 255, 0.25);
             transform: translateY(-2px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 12px 30px rgba(0, 212, 255, 0.3);
+            background: #1ce0ff;
         }
 
         .user-photo {
@@ -313,23 +312,23 @@
         }
 
         .input-box {
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 16px;
-            border: 1px solid var(--glass-border);
-            padding: 1rem 1.4rem;
+            background: rgba(15, 20, 25, 0.6);
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 0.8rem 1.5rem;
             display: flex;
             align-items: center;
             gap: 1.2rem;
             position: relative;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             backdrop-filter: blur(10px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.4);
         }
 
         .input-box:focus-within {
             border-color: rgba(0, 212, 255, 0.4);
-            background: rgba(255, 255, 255, 0.05);
-            box-shadow: 0 0 30px rgba(0, 212, 255, 0.1);
-            transform: translateY(-2px);
+            background: rgba(15, 20, 25, 0.9);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.15), 0 8px 30px rgba(0,0,0,0.4);
         }
 
         .btn-plus {
@@ -500,13 +499,18 @@
             border: 1px solid transparent;
         }
 
-        .history-item:hover,
-        .history-item.active {
+        .history-item:hover {
             background: rgba(255, 255, 255, 0.05);
             color: #fff;
-            border-color: rgba(0, 212, 255, 0.3);
-            transform: translateX(8px);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            transform: translateX(4px);
+        }
+        
+        .history-item.active {
+            background: linear-gradient(90deg, rgba(0, 212, 255, 0.1), transparent);
+            color: #00d4ff;
+            border-left: 3px solid #00d4ff;
+            border-radius: 0 12px 12px 0;
+            transform: translateX(4px);
         }
 
         .history-item i {
@@ -514,7 +518,7 @@
             transition: opacity 0.3s;
         }
 
-        .history-item:hover i {
+        .history-item:hover i, .history-item.active i {
             opacity: 1;
             color: #00d2ff;
         }
@@ -576,23 +580,26 @@
         }
 
         .new-chat-floating {
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.8) 0%, rgba(0, 168, 204, 0.8) 100%);
-            backdrop-filter: blur(10px);
+            background: var(--accent-cyan);
             color: #000;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: none;
             width: 100%;
-            padding: 1.1rem;
+            padding: 1rem;
             border-radius: 12px;
             font-weight: 800;
             margin-bottom: 3rem;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(0, 212, 255, 0.2);
             text-transform: uppercase;
             letter-spacing: 1px;
             font-size: 0.85rem;
             position: relative;
             overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
         }
 
         .new-chat-floating::after {
@@ -761,7 +768,7 @@
         <div class="bento-card history-card">
             <div style="padding: 1.5rem 2rem; border-bottom: 1px solid var(--glass-border);">
                 <div
-                    style="font-size: 0.7rem; color: #444; font-weight: 800; text-transform: uppercase; letter-spacing: 2px;">
+                    style="font-size: 0.75rem; color: rgba(255,255,255,0.4); font-weight: 800; text-transform: uppercase; letter-spacing: 2px;">
                     Transmission Logs
                 </div>
             </div>
@@ -794,7 +801,7 @@
 
         <!-- BENTO CARD: QUICK ACTIONS -->
         <div class="bento-card actions-card">
-            <button class="new-chat-floating" onclick="startNewChat()" style="margin-bottom: 0;">+ New Session</button>
+            <button class="new-chat-floating" onclick="startNewChat()" style="margin-bottom: 0;"><i class="fa-solid fa-plus"></i> New Session</button>
         </div>
 
         <!-- BENTO CARD: PRIMARY CHAT -->
@@ -825,7 +832,7 @@
                         {% endfor %}
                     </div>
                     <div class="typing" id="typing">
-                        Neural processing <span class="typing-dots"><span></span><span></span><span></span></span>
+                        Processing <span class="typing-dots"><span></span><span></span><span></span></span>
                     </div>
                 </div>
 
