@@ -70,10 +70,28 @@ def resolve_answer_letter(question):
 def aptitude_select():
     return render_template('aptitude.html')
 
+@aptitude_bp.route('/verbal_topic')
+def verbal_topic():
+    """Intermediate topic selection page for Verbal Ability."""
+    return render_template('verbal_topic.html')
+
+@aptitude_bp.route('/logical_topic')
+def logical_topic():
+    """Intermediate topic selection page for Logical Reasoning."""
+    return render_template('logical_topic.html')
+
+@aptitude_bp.route('/quant_topic')
+def quant_topic():
+    """Intermediate topic selection page for Quantitative Aptitude."""
+    return render_template('quant_topic.html')
+
 @aptitude_bp.route('/start_aptitude', methods=['POST'])
 def start_aptitude():
-    category = request.form.get('category')
-    difficulty = request.form.get('difficulty', 'Medium')
+    category      = request.form.get('category')
+    difficulty    = request.form.get('difficulty', 'Medium')
+    verbal_topic  = request.form.get('verbal_topic', '')   # Verbal sub-topic
+    logical_topic = request.form.get('logical_topic', '')  # Logical sub-topic
+    quant_topic   = request.form.get('quant_topic', '')    # Quantitative sub-topic
     
     if not category:
         return redirect(url_for('aptitude.aptitude_select'))
@@ -82,14 +100,58 @@ def start_aptitude():
     session['difficulty'] = difficulty
     session['last_question_answered'] = True
     
+    # Store verbal topic sub-filter in session
+    if category == 'Verbal' and verbal_topic:
+        session['verbal_topic'] = verbal_topic
+    else:
+        session.pop('verbal_topic', None)
+
+    # Store logical topic sub-filter in session
+    if category == 'Logical' and logical_topic:
+        session['logical_topic'] = logical_topic
+    else:
+        session.pop('logical_topic', None)
+
+    # Store quantitative topic sub-filter in session
+    if category == 'Quantitative' and quant_topic:
+        session['quant_topic'] = quant_topic
+    else:
+        session.pop('quant_topic', None)
+    
     user_id = get_current_user_id() or DEFAULT_USER_ID
     apti_session_id = f"{user_id}_{uuid.uuid4().hex[:8]}"
     session['apti_session_id'] = apti_session_id
 
+    # ── Reading Comprehension: generate passage + 5 Qs from AI ──────────
+    if verbal_topic == 'reading-comprehension':
+        session['q_limit'] = 5
+        seed = session.get('session_seed', random.randint(1000, 9999))
+        rc_data = ai.generate_rc_passage(difficulty, seed=seed)
+        # Store passage separately
+        passage_path = os.path.join(APTI_CACHE_DIR, f"{apti_session_id}_passage.json")
+        with open(passage_path, 'w') as f:
+            json.dump({'passage': rc_data.get('passage', '')}, f)
+        # Store questions in the standard pool so next_aptitude works unchanged
+        questions_pool = []
+        for q in rc_data.get('questions', []):
+            questions_pool.append({
+                'question': q.get('question'),
+                'options': q.get('options', []),
+                'answer': q.get('answer', 'A'),
+                'explanation': q.get('explanation', '')
+            })
+        save_apti_pool(apti_session_id, questions_pool)
+        session['use_db'] = True
+        session.modified = True
+        return redirect(url_for('aptitude.aptitude_test'))
+
+    # ── All other topics: fetch from Supabase ───────────────────────────
+    q_limit = 10
+    session['q_limit'] = q_limit
+
     type_map = {"Quantitative": "aptitude", "Logical": "lr", "Verbal": "va"}
     db_type = type_map.get(category, "aptitude")
-    
-    questions_pool = supabase.get_random_questions(db_type, difficulty, limit=10)
+    questions_pool = supabase.get_random_questions(db_type, difficulty, limit=q_limit)
     
     if questions_pool and len(questions_pool) > 0:
         save_apti_pool(apti_session_id, questions_pool)
@@ -100,13 +162,30 @@ def start_aptitude():
     session.modified = True
     return redirect(url_for('aptitude.aptitude_test'))
 
+
+@aptitude_bp.route('/api/get_rc_passage', methods=['GET'])
+def get_rc_passage():
+    """Returns the stored passage for the current RC session."""
+    session_id = session.get('apti_session_id')
+    if not session_id:
+        return jsonify({'error': 'No session'}), 400
+    passage_path = os.path.join(APTI_CACHE_DIR, f"{session_id}_passage.json")
+    if not os.path.exists(passage_path):
+        return jsonify({'error': 'No passage found'}), 404
+    with open(passage_path, 'r') as f:
+        data = json.load(f)
+    return jsonify(data)
+
 @aptitude_bp.route('/aptitude_test')
 def aptitude_test():
     if 'aptitude_category' not in session:
         return redirect(url_for('aptitude.aptitude_select'))
     return render_template('aptitude_test.html', 
                            category=session['aptitude_category'],
-                           difficulty=session.get('difficulty', 'Medium'))
+                           difficulty=session.get('difficulty', 'Medium'),
+                           verbal_topic=session.get('verbal_topic', ''),
+                           logical_topic=session.get('logical_topic', ''),
+                           quant_topic=session.get('quant_topic', ''))
 
 @aptitude_bp.route('/api/next_aptitude', methods=['GET'])
 def get_next_aptitude():
@@ -114,7 +193,8 @@ def get_next_aptitude():
         return jsonify({"error": "No session active"}), 400
     
     idx = session.get('question_count', 0)
-    if idx >= 10:
+    q_limit = session.get('q_limit', 10)
+    if idx >= q_limit:
         return jsonify({"complete": True})
 
     session_id = session.get('apti_session_id')
@@ -166,6 +246,7 @@ def get_next_aptitude():
         "question": question.get('question'),
         "options": options,
         "count": idx + 1,
+        "total": q_limit,
         "complete": False
     })
 
@@ -206,9 +287,10 @@ def check_aptitude():
     session['question_count'] = current_count + 1
     session.modified = True
     
+    q_limit = session.get('q_limit', 10)
     return jsonify({
         "is_correct": is_correct,
         "correct_answer": correct_answer,
         "explanation": explanation,
-        "next": session['question_count'] < 10
+        "next": session['question_count'] < q_limit
     })

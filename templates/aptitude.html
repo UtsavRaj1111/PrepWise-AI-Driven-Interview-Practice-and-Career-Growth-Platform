@@ -4,186 +4,289 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Choose Your Focus Area | PrepWise</title>
+    <title>Aptitude Arena | PrepWise</title>
+    <meta name="description" content="Choose your aptitude focus area — Quantitative, Logical Reasoning, or Verbal Ability on PrepWise.">
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/prepwise_logo.png') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        .topic-card {
-            background: linear-gradient(135deg, rgba(15, 20, 25, 0.6), rgba(10, 12, 18, 0.8));
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            padding: 1.5rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-            position: relative;
-            backdrop-filter: blur(10px);
+        /* ── Page shell ─────────────────────────────────────────────── */
+        .arena-main {
+            min-height: calc(100vh - 5rem);
             display: flex;
             flex-direction: column;
-            gap: 1.2rem;
-            overflow: hidden;
-        }
-
-        .topic-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
-        }
-
-        #card-quant:hover {
-            border-color: rgba(0, 212, 255, 0.4);
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), rgba(10, 12, 18, 0.9));
-        }
-
-        #card-logical:hover {
-            border-color: rgba(139, 92, 246, 0.4);
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.05), rgba(10, 12, 18, 0.9));
-        }
-
-        #card-verbal:hover {
-            border-color: rgba(244, 63, 94, 0.4);
-            background: linear-gradient(135deg, rgba(244, 63, 94, 0.05), rgba(10, 12, 18, 0.9));
-        }
-
-        .topic-card.selected#card-quant {
-            border-color: var(--accent-cyan);
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), rgba(0, 0, 0, 0.8));
-            box-shadow: 0 0 0 1px var(--accent-cyan) inset, 0 10px 30px rgba(0, 212, 255, 0.15);
-        }
-
-        .topic-card.selected#card-logical {
-            border-color: #8b5cf6;
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.05), rgba(0, 0, 0, 0.8));
-            box-shadow: 0 0 0 1px #8b5cf6 inset, 0 10px 30px rgba(139, 92, 246, 0.15);
-        }
-
-        .topic-card.selected#card-verbal {
-            border-color: #f43f5e;
-            background: linear-gradient(135deg, rgba(244, 63, 94, 0.05), rgba(0, 0, 0, 0.8));
-            box-shadow: 0 0 0 1px #f43f5e inset, 0 10px 30px rgba(244, 63, 94, 0.15);
-        }
-
-        .topic-card input[type="radio"] {
-            display: none;
-        }
-
-        .topic-icon-wrap {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.4rem;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.3s ease;
+            padding: 5.5rem 1.5rem 1rem;
+            box-sizing: border-box;
         }
 
-        .topic-card:hover .topic-icon-wrap {
-            transform: scale(1.05);
+        /* ── Header ─────────────────────────────────────────────────── */
+        .arena-header {
+            text-align: center;
+            margin-bottom: 2rem;
         }
 
-        .topic-card.selected#card-quant .topic-icon-wrap {
-            background: rgba(0, 212, 255, 0.1);
-            border-color: rgba(0, 212, 255, 0.3);
-        }
-
-        .topic-card.selected#card-logical .topic-icon-wrap {
-            background: rgba(139, 92, 246, 0.1);
-            border-color: rgba(139, 92, 246, 0.3);
-        }
-
-        .topic-card.selected#card-verbal .topic-icon-wrap {
-            background: rgba(244, 63, 94, 0.1);
-            border-color: rgba(244, 63, 94, 0.3);
-        }
-
-        .difficulty-pill {
+        .arena-tag {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            padding: 0.6rem 1.4rem;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(0,212,255,0.07);
+            border: 1px solid rgba(0,212,255,0.18);
+            color: var(--accent-cyan);
+            font-size: 0.62rem;
+            font-weight: 900;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            padding: 0.32rem 0.9rem;
             border-radius: 50px;
+            margin-bottom: 1.2rem;
+        }
+
+        .arena-title {
+            font-size: 2.2rem;
+            font-weight: 900;
+            letter-spacing: -1.5px;
+            color: #fff;
+            line-height: 1.1;
+            margin-bottom: 0.6rem;
+        }
+
+        .arena-subtitle {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            max-width: 420px;
+            margin-inline: auto;
+            line-height: 1.65;
+        }
+
+        /* ── Card grid ──────────────────────────────────────────────── */
+        .arena-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            align-items: stretch;
+            gap: 1.1rem;
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        /* ── Base card ──────────────────────────────────────────────── */
+        .arena-card {
+            background: linear-gradient(135deg, rgba(15,20,28,0.7), rgba(8,10,16,0.9));
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 22px;
+            padding: 1.8rem 1.8rem 1.5rem;
             cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 0.85rem;
-            font-weight: 700;
-            backdrop-filter: blur(10px);
+            position: relative;
+            backdrop-filter: blur(14px);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            overflow: hidden;
+            transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
+            text-decoration: none;
+            -webkit-tap-highlight-color: transparent;
+            height: 100%;
+            box-sizing: border-box;
         }
 
-        .difficulty-pill:hover {
-            transform: translateY(-2px);
-        }
-
-        #pill-easy:hover { border-color: rgba(34, 197, 94, 0.5); color: #22c55e; background: rgba(34, 197, 94, 0.05); box-shadow: 0 5px 15px rgba(34, 197, 94, 0.15); }
-        #pill-medium:hover { border-color: rgba(0, 212, 255, 0.5); color: #00d4ff; background: rgba(0, 212, 255, 0.05); box-shadow: 0 5px 15px rgba(0, 212, 255, 0.15); }
-        #pill-hard:hover { border-color: rgba(244, 63, 94, 0.5); color: #f43f5e; background: rgba(244, 63, 94, 0.05); box-shadow: 0 5px 15px rgba(244, 63, 94, 0.15); }
-
-        .difficulty-pill input[type="radio"] {
-            display: none;
-        }
-
-        #pill-easy.selected { border-color: #22c55e; color: #22c55e; background: rgba(34, 197, 94, 0.1); box-shadow: 0 0 15px rgba(34, 197, 94, 0.2); }
-        #pill-medium.selected { border-color: #00d4ff; color: #00d4ff; background: rgba(0, 212, 255, 0.1); box-shadow: 0 0 15px rgba(0, 212, 255, 0.2); }
-        #pill-hard.selected { border-color: #f43f5e; color: #f43f5e; background: rgba(244, 63, 94, 0.1); box-shadow: 0 0 15px rgba(244, 63, 94, 0.2); }
-
-        .check-icon {
+        /* Glimmer top line */
+        .arena-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 10%; right: 10%;
+            height: 1px;
+            border-radius: 1px;
             opacity: 0;
-            transform: scale(0.5);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
+            transition: opacity 0.35s ease;
+        }
+        .arena-card:hover::before { opacity: 1; }
+
+        /* Bottom arrow indicator */
+        .arena-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 2px;
+            border-radius: 0 0 24px 24px;
+            opacity: 0;
+            transition: opacity 0.35s ease;
+        }
+        .arena-card:hover::after { opacity: 1; }
+
+        .arena-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 45px rgba(0,0,0,0.5);
+        }
+
+        /* ── Quant (cyan) ───────────────────────────────────────────── */
+        #card-quant::before { background: linear-gradient(90deg, transparent, rgba(0,212,255,0.5), transparent); }
+        #card-quant::after  { background: linear-gradient(90deg, transparent, rgba(0,212,255,0.4), transparent); }
+        #card-quant:hover   {
+            border-color: rgba(0,212,255,0.3);
+            background: linear-gradient(135deg, rgba(0,212,255,0.06), rgba(8,10,16,0.95));
+            box-shadow: 0 20px 45px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,212,255,0.12) inset;
+        }
+
+        /* ── Logical (purple) ───────────────────────────────────────── */
+        #card-logical::before { background: linear-gradient(90deg, transparent, rgba(139,92,246,0.5), transparent); }
+        #card-logical::after  { background: linear-gradient(90deg, transparent, rgba(139,92,246,0.4), transparent); }
+        #card-logical:hover   {
+            border-color: rgba(139,92,246,0.3);
+            background: linear-gradient(135deg, rgba(139,92,246,0.06), rgba(8,10,16,0.95));
+            box-shadow: 0 20px 45px rgba(0,0,0,0.5), 0 0 0 1px rgba(139,92,246,0.12) inset;
+        }
+
+        /* ── Verbal (rose) ──────────────────────────────────────────── */
+        #card-verbal::before { background: linear-gradient(90deg, transparent, rgba(244,63,94,0.5), transparent); }
+        #card-verbal::after  { background: linear-gradient(90deg, transparent, rgba(244,63,94,0.4), transparent); }
+        #card-verbal:hover   {
+            border-color: rgba(244,63,94,0.3);
+            background: linear-gradient(135deg, rgba(244,63,94,0.06), rgba(8,10,16,0.95));
+            box-shadow: 0 20px 45px rgba(0,0,0,0.5), 0 0 0 1px rgba(244,63,94,0.12) inset;
+        }
+
+        /* ── Icon wrap ──────────────────────────────────────────────── */
+        .arena-icon {
+            width: 52px; height: 52px;
+            border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.35rem;
+            transition: all 0.3s ease;
+        }
+        .arena-icon.cyan   { background: rgba(0,212,255,0.08);   border: 1px solid rgba(0,212,255,0.18);   color: #00d4ff; }
+        .arena-icon.purple { background: rgba(139,92,246,0.08);  border: 1px solid rgba(139,92,246,0.18);  color: #8b5cf6; }
+        .arena-icon.rose   { background: rgba(244,63,94,0.08);   border: 1px solid rgba(244,63,94,0.18);   color: #f43f5e; }
+
+        .arena-card:hover .arena-icon { transform: scale(1.1) rotate(-4deg); }
+        #card-quant:hover  .arena-icon { background: rgba(0,212,255,0.14);   border-color: rgba(0,212,255,0.35); }
+        #card-logical:hover .arena-icon{ background: rgba(139,92,246,0.14);  border-color: rgba(139,92,246,0.35);}
+        #card-verbal:hover  .arena-icon{ background: rgba(244,63,94,0.14);   border-color: rgba(244,63,94,0.35); }
+
+        /* ── Topic count badge ──────────────────────────────────────── */
+        .arena-badge {
+            font-size: 0.62rem;
+            font-weight: 900;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 0.22rem 0.65rem;
+            border-radius: 50px;
+        }
+        .badge-cyan   { background: rgba(0,212,255,0.08);  border: 1px solid rgba(0,212,255,0.2);  color: #00d4ff; }
+        .badge-purple { background: rgba(139,92,246,0.08); border: 1px solid rgba(139,92,246,0.2); color: #8b5cf6; }
+        .badge-rose   { background: rgba(244,63,94,0.08);  border: 1px solid rgba(244,63,94,0.2);  color: #f43f5e; }
+
+        /* ── Card body ──────────────────────────────────────────────── */
+        .arena-card-top {
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .arena-card-title {
+            font-size: 1.15rem;
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: -0.4px;
+            margin-bottom: 0.4rem;
+        }
+
+        .arena-card-desc {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.48);
+            line-height: 1.55;
+        }
+
+        /* ── CTA row ────────────────────────────────────────────────── */
+        .arena-cta-row {
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: space-between;
+            margin-top: auto;
+            padding-top: 0.8rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .arena-cta-label {
+            font-size: 0.7rem;
+            font-weight: 900;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            opacity: 0.7;
+            transition: opacity 0.2s ease;
+        }
+        .arena-card:hover .arena-cta-label { opacity: 1; }
+
+        .arena-cta-arrow {
+            width: 30px; height: 30px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
             font-size: 0.75rem;
-            color: #000;
+            transition: all 0.3s ease;
+        }
+        .arrow-cyan   { background: rgba(0,212,255,0.1);  color: #00d4ff; border: 1px solid rgba(0,212,255,0.2);  }
+        .arrow-purple { background: rgba(139,92,246,0.1); color: #8b5cf6; border: 1px solid rgba(139,92,246,0.2); }
+        .arrow-rose   { background: rgba(244,63,94,0.1);  color: #f43f5e; border: 1px solid rgba(244,63,94,0.2);  }
+
+        #card-quant:hover  .arena-cta-arrow { background: #00d4ff; color: #000; transform: translateX(3px); }
+        #card-logical:hover .arena-cta-arrow{ background: #8b5cf6; color: #fff; transform: translateX(3px); }
+        #card-verbal:hover  .arena-cta-arrow{ background: #f43f5e; color: #fff; transform: translateX(3px); }
+
+        /* ── Difficulty strip ───────────────────────────────────────── */
+        .diff-strip {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
-        .topic-card.selected .check-icon {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        #card-quant .check-icon {
-            background: var(--accent-cyan);
-            box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
-        }
-
-        #card-logical .check-icon {
-            background: #8b5cf6;
-            box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
-        }
-
-        #card-verbal .check-icon {
-            background: #f43f5e;
-            box-shadow: 0 0 10px rgba(244, 63, 94, 0.5);
-        }
-
-        .premium-btn {
-            background: var(--accent-cyan);
-            color: #000;
-            border: none;
-            border-radius: 10px;
-            padding: 0.85rem 3.5rem;
-            font-size: 1rem;
+        .diff-label {
+            font-size: 0.65rem;
             font-weight: 800;
-            letter-spacing: 0.5px;
-            box-shadow: 0 4px 12px rgba(0, 212, 255, 0.2);
-            transition: all 0.2s ease;
-            cursor: pointer;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-right: 0.4rem;
+        }
+
+        .diff-chip {
             display: inline-flex;
             align-items: center;
-            justify-content: center;
+            gap: 0.45rem;
+            padding: 0.5rem 1.2rem;
+            border-radius: 50px;
+            border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.02);
+            cursor: pointer;
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            transition: all 0.25s ease;
         }
+        .diff-chip:hover { transform: translateY(-2px); }
+        .diff-chip[data-diff="Easy"]:hover   { border-color:rgba(34,197,94,0.5);  color:#22c55e; background:rgba(34,197,94,0.05);  box-shadow:0 4px 14px rgba(34,197,94,0.12);  }
+        .diff-chip[data-diff="Medium"]:hover { border-color:rgba(0,212,255,0.5);  color:#00d4ff; background:rgba(0,212,255,0.05);  box-shadow:0 4px 14px rgba(0,212,255,0.12);  }
+        .diff-chip[data-diff="Hard"]:hover   { border-color:rgba(244,63,94,0.5);  color:#f43f5e; background:rgba(244,63,94,0.05);  box-shadow:0 4px 14px rgba(244,63,94,0.12);  }
+        .diff-chip.active[data-diff="Easy"]   { border-color:#22c55e; color:#22c55e; background:rgba(34,197,94,0.1);  box-shadow:0 0 14px rgba(34,197,94,0.18);  }
+        .diff-chip.active[data-diff="Medium"] { border-color:#00d4ff; color:#00d4ff; background:rgba(0,212,255,0.1);  box-shadow:0 0 14px rgba(0,212,255,0.18);  }
+        .diff-chip.active[data-diff="Hard"]   { border-color:#f43f5e; color:#f43f5e; background:rgba(244,63,94,0.1);  box-shadow:0 0 14px rgba(244,63,94,0.18);  }
 
-        .premium-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(0, 212, 255, 0.3);
-            background: #1ce0ff;
+        /* Ripple */
+        @keyframes ripple-out { 0%{transform:scale(0);opacity:0.4} 100%{transform:scale(3.5);opacity:0} }
+        .arena-card .ripple {
+            position: absolute; border-radius: 50%;
+            width: 70px; height: 70px;
+            pointer-events: none; z-index: 0;
+            animation: ripple-out 0.6s ease-out forwards;
+        }
+        #card-quant  .ripple { background: rgba(0,212,255,0.18); }
+        #card-logical .ripple { background: rgba(139,92,246,0.18); }
+        #card-verbal  .ripple { background: rgba(244,63,94,0.18); }
+
+        @media (max-width: 760px) {
+            .arena-grid { grid-template-columns: 1fr; max-width: 440px; }
+            .arena-title { font-size: 2.2rem; }
         }
     </style>
 </head>
@@ -191,122 +294,121 @@
 <body>
     {% include 'base/header.html' %}
 
-    <main class="container"
-        style="display: flex; flex-direction: column; justify-content: center; height: calc(100vh - 5rem); padding-top: 0.5rem; padding-bottom: 0.5rem;">
-        <div style="margin-bottom: 2.5rem; margin-top: 3.5rem; text-align: center;" class="animate-up">
-            <h1 style="font-size: 2.4rem; font-weight: 900; letter-spacing: -1.5px;">Choose Your Focus Area
-            </h1>
-            <p
-                style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.4rem; max-width: 500px; margin-inline: auto;">
-                Configure your test and difficulty to begin</p>
+    <main class="arena-main">
+        <!-- Header -->
+        <div class="arena-header animate-up">
+            <div class="arena-tag"><i class="fa-solid fa-bolt"></i> Aptitude Arena</div>
+            <h1 class="arena-title">Choose Your<br>Focus Area</h1>
+            <p class="arena-subtitle">Select a category — you'll pick a specific topic on the next screen</p>
         </div>
 
-        <form action="/start_aptitude" method="POST" id="aptitude-form">
-            <!-- Step 1: Category -->
-            <div style="margin-bottom: 1.5rem;" class="animate-up">
-                <h3
-                    style="font-size: 0.65rem; font-weight: 800; letter-spacing: 1.5px; color: var(--text-muted); margin-bottom: 1rem; text-transform: uppercase;">
-                    Step 1 — Choose Test Type</h3>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+        <!-- Cards -->
+        <div class="arena-grid animate-up">
 
-                    <label class="topic-card" id="card-quant" onclick="selectCategory(this, 'Quantitative')">
-                        <input type="radio" name="category" value="Quantitative" required>
-                        <div
-                            style="display:flex; justify-content:space-between; align-items:flex-start; position: relative; z-index: 1;">
-                            <div class="topic-icon-wrap" style="color: var(--accent-cyan);">
-                                <i class="fa-solid fa-calculator"></i>
-                            </div>
-                            <div class="check-icon">
-                                <i class="fa-solid fa-check"></i>
-                            </div>
-                        </div>
-                        <div style="position: relative; z-index: 1;">
-                            <h3 style="font-size: 1.15rem; font-weight: 800; margin-bottom: 0.4rem; color: #fff;">
-                                Quantitative Aptitude</h3>
-                            <p style="color: rgba(255,255,255,0.6); font-size: 0.85rem; line-height: 1.5;">Numerical
-                                reasoning, percentages, ratios, and data interpretation.</p>
-                        </div>
-                    </label>
-
-                    <label class="topic-card" id="card-logical" onclick="selectCategory(this, 'Logical')">
-                        <input type="radio" name="category" value="Logical">
-                        <div
-                            style="display:flex; justify-content:space-between; align-items:flex-start; position: relative; z-index: 1;">
-                            <div class="topic-icon-wrap" style="color: #8b5cf6;">
-                                <i class="fa-solid fa-atom"></i>
-                            </div>
-                            <div class="check-icon">
-                                <i class="fa-solid fa-check"></i>
-                            </div>
-                        </div>
-                        <div style="position: relative; z-index: 1;">
-                            <h3 style="font-size: 1.15rem; font-weight: 800; margin-bottom: 0.4rem; color: #fff;">
-                                Logical Reasoning</h3>
-                            <p style="color: rgba(255,255,255,0.6); font-size: 0.85rem; line-height: 1.5;">Pattern
-                                recognition, syllogisms, deductive and inductive reasoning.</p>
-                        </div>
-                    </label>
-
-                    <label class="topic-card" id="card-verbal" onclick="selectCategory(this, 'Verbal')">
-                        <input type="radio" name="category" value="Verbal">
-                        <div
-                            style="display:flex; justify-content:space-between; align-items:flex-start; position: relative; z-index: 1;">
-                            <div class="topic-icon-wrap" style="color: #f43f5e;">
-                                <i class="fa-solid fa-language"></i>
-                            </div>
-                            <div class="check-icon">
-                                <i class="fa-solid fa-check"></i>
-                            </div>
-                        </div>
-                        <div style="position: relative; z-index: 1;">
-                            <h3 style="font-size: 1.15rem; font-weight: 800; margin-bottom: 0.4rem; color: #fff;">Verbal
-                                Ability</h3>
-                            <p style="color: rgba(255,255,255,0.6); font-size: 0.85rem; line-height: 1.5;">Reading
-                                comprehension, synonyms, antonyms, and sentence completion.</p>
-                        </div>
-                    </label>
+            <!-- Quantitative Aptitude -->
+            <div class="arena-card" id="card-quant" onclick="selectQuant(event)">
+                <div class="arena-card-top">
+                    <div class="arena-icon cyan"><i class="fa-solid fa-calculator"></i></div>
+                </div>
+                <div>
+                    <div class="arena-card-title">Quantitative Aptitude</div>
+                    <div class="arena-card-desc">Percentages, ratios, profit & loss, time & work, and more.</div>
+                </div>
+                <div class="arena-cta-row">
+                    <span class="arena-cta-label" style="color:#00d4ff;">Select Topic</span>
+                    <span class="arena-cta-arrow arrow-cyan"><i class="fa-solid fa-arrow-right"></i></span>
                 </div>
             </div>
 
-            <!-- Step 2: Difficulty -->
-            <div style="margin-bottom: 2rem;" class="animate-up">
-                <h3
-                    style="font-size: 0.65rem; font-weight: 800; letter-spacing: 1.5px; color: var(--text-muted); margin-bottom: 1rem; text-transform: uppercase;">
-                    Step 2 — Choose Difficulty</h3>
-                <div style="display: flex; gap: 0.6rem; flex-wrap: wrap;">
-                    <label class="difficulty-pill" id="pill-easy" onclick="selectDifficulty(this)">
-                        <input type="radio" name="difficulty" value="Easy"> <i class="fa-solid fa-seedling"></i> Easy
-                    </label>
-                    <label class="difficulty-pill selected" id="pill-medium" onclick="selectDifficulty(this)">
-                        <input type="radio" name="difficulty" value="Medium" checked> <i class="fa-solid fa-bolt"></i>
-                        Medium
-                    </label>
-                    <label class="difficulty-pill" id="pill-hard" onclick="selectDifficulty(this)">
-                        <input type="radio" name="difficulty" value="Hard"> <i class="fa-solid fa-fire"></i> Hard
-                    </label>
+            <!-- Logical Reasoning -->
+            <div class="arena-card" id="card-logical" onclick="selectLogical(event)">
+                <div class="arena-card-top">
+                    <div class="arena-icon purple"><i class="fa-solid fa-atom"></i></div>
+                </div>
+                <div>
+                    <div class="arena-card-title">Logical Reasoning</div>
+                    <div class="arena-card-desc">Puzzles, syllogisms, seating arrangements, coding & more.</div>
+                </div>
+                <div class="arena-cta-row">
+                    <span class="arena-cta-label" style="color:#8b5cf6;">Select Topic</span>
+                    <span class="arena-cta-arrow arrow-purple"><i class="fa-solid fa-arrow-right"></i></span>
                 </div>
             </div>
 
-            <div style="text-align: center; margin-top: 2rem;" class="animate-up">
-                <button type="submit" class="premium-btn">
-                    Start Test <i class="fa-solid fa-bolt" style="margin-left: 0.6rem;"></i>
-                </button>
+            <!-- Verbal Ability -->
+            <div class="arena-card" id="card-verbal" onclick="selectVerbal(event)">
+                <div class="arena-card-top">
+                    <div class="arena-icon rose"><i class="fa-solid fa-language"></i></div>
+                </div>
+                <div>
+                    <div class="arena-card-title">Verbal Ability</div>
+                    <div class="arena-card-desc">Reading comprehension, tenses, error spotting & more.</div>
+                </div>
+                <div class="arena-cta-row">
+                    <span class="arena-cta-label" style="color:#f43f5e;">Select Topic</span>
+                    <span class="arena-cta-arrow arrow-rose"><i class="fa-solid fa-arrow-right"></i></span>
+                </div>
             </div>
-        </form>
+
+        </div>
+
+
     </main>
 
+    <!-- Hidden form used by topic pages (kept for backend compat) -->
+    <form id="aptitude-form" action="/start_aptitude" method="POST" style="display:none;">
+        <input type="hidden" name="category" value="">
+        <input type="hidden" name="difficulty" id="form-difficulty" value="Medium">
+    </form>
+
     <script>
-        function selectCategory(card, value) {
-            document.querySelectorAll('.topic-card').forEach(c => c.classList.remove('selected'));
-            card.classList.add('selected');
-            card.querySelector('input[type="radio"]').checked = true;
+        let selectedDiff = sessionStorage.getItem('aptitude_diff') || 'Medium';
+
+        // Restore chip state on load
+        document.querySelectorAll('.diff-chip').forEach(c => {
+            if (c.dataset.diff === selectedDiff) c.classList.add('active');
+            else c.classList.remove('active');
+        });
+
+        function setDiff(chip) {
+            document.querySelectorAll('.diff-chip').forEach(c => c.classList.remove('active'));
+            chip.classList.add('active');
+            selectedDiff = chip.dataset.diff;
+            sessionStorage.setItem('aptitude_diff', selectedDiff);
         }
 
-        function selectDifficulty(pill) {
-            document.querySelectorAll('.difficulty-pill').forEach(p => p.classList.remove('selected'));
-            pill.classList.add('selected');
-            pill.querySelector('input[type="radio"]').checked = true;
+        function ripple(card, event) {
+            const el = document.createElement('div');
+            el.className = 'ripple';
+            const r = card.getBoundingClientRect();
+            el.style.left = (event.clientX - r.left - 35) + 'px';
+            el.style.top  = (event.clientY - r.top  - 35) + 'px';
+            card.appendChild(el);
+            setTimeout(() => el.remove(), 650);
         }
+
+        function selectQuant(event) {
+            ripple(document.getElementById('card-quant'), event);
+            sessionStorage.setItem('aptitude_diff', selectedDiff);
+            setTimeout(() => window.location.href = '/quant_topic', 220);
+        }
+
+        function selectLogical(event) {
+            ripple(document.getElementById('card-logical'), event);
+            sessionStorage.setItem('aptitude_diff', selectedDiff);
+            setTimeout(() => window.location.href = '/logical_topic', 220);
+        }
+
+        function selectVerbal(event) {
+            ripple(document.getElementById('card-verbal'), event);
+            sessionStorage.setItem('aptitude_diff', selectedDiff);
+            setTimeout(() => window.location.href = '/verbal_topic', 220);
+        }
+
+        // Form guard (safety net)
+        document.getElementById('aptitude-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+        });
     </script>
 </body>
 

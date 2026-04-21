@@ -153,6 +153,116 @@
         header.secure-mode .container {
             justify-content: center !important;
         }
+        /* ── RC Passage Overlay ─────────────────────────────────────── */
+        #rc-passage-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(5, 7, 10, 0.98);
+            z-index: 999;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .rc-passage-box {
+            background: linear-gradient(135deg, rgba(15,20,25,0.9), rgba(10,12,18,0.95));
+            border: 1px solid rgba(244, 63, 94, 0.2);
+            border-radius: 24px;
+            padding: 2.5rem 3rem;
+            max-width: 760px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(244,63,94,0.08) inset;
+            backdrop-filter: blur(20px);
+        }
+
+        .rc-passage-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(244,63,94,0.08);
+            border: 1px solid rgba(244,63,94,0.2);
+            color: #f43f5e;
+            font-size: 0.62rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            margin-bottom: 1.2rem;
+        }
+
+        .rc-passage-title {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: -0.5px;
+            margin-bottom: 1rem;
+        }
+
+        .rc-passage-text {
+            font-size: 0.97rem;
+            line-height: 1.85;
+            color: rgba(255,255,255,0.82);
+            border-left: 3px solid rgba(244,63,94,0.4);
+            padding-left: 1.2rem;
+            margin-bottom: 2rem;
+            max-height: 320px;
+            overflow-y: auto;
+        }
+
+        .rc-passage-text::-webkit-scrollbar { width: 4px; }
+        .rc-passage-text::-webkit-scrollbar-track { background: transparent; }
+        .rc-passage-text::-webkit-scrollbar-thumb { background: rgba(244,63,94,0.3); border-radius: 2px; }
+
+        .rc-hint {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .rc-start-btn {
+            background: #f43f5e;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 0.85rem 3rem;
+            font-size: 0.95rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            box-shadow: 0 4px 16px rgba(244,63,94,0.3);
+        }
+
+        .rc-start-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(244,63,94,0.45);
+            background: #ff5572;
+        }
+
+        .rc-loading {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        @keyframes rc-spin { to { transform: rotate(360deg); } }
+        .rc-spinner {
+            width: 18px; height: 18px;
+            border: 2px solid rgba(244,63,94,0.2);
+            border-top-color: #f43f5e;
+            border-radius: 50%;
+            animation: rc-spin 0.8s linear infinite;
+        }
     </style>
 </head>
 
@@ -204,6 +314,27 @@
                 onclick="initializeSecureSession()">
                 Enter Secure Simulation <i class="fa-solid fa-lock" style="margin-left: 0.8rem;"></i>
             </button>
+        </div>
+
+        <!-- RC PASSAGE OVERLAY (shown only for Reading Comprehension) -->
+        <div id="rc-passage-overlay">
+            <div class="rc-passage-box animate-up">
+                <div class="rc-passage-tag">
+                    <i class="fa-solid fa-book-open-reader"></i> Reading Comprehension
+                </div>
+                <div class="rc-passage-title">Read the Passage</div>
+                <div id="rc-passage-loading" class="rc-loading">
+                    <div class="rc-spinner"></div> Generating passage...
+                </div>
+                <div id="rc-passage-text" class="rc-passage-text" style="display:none;"></div>
+                <div class="rc-hint" id="rc-hint" style="display:none;">
+                    <i class="fa-solid fa-circle-info"></i>
+                    Read carefully — 5 questions will follow based on this passage.
+                </div>
+                <button class="rc-start-btn" id="rc-start-btn" style="display:none;" onclick="startRcQuestions()">
+                    Start Questions <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
         </div>
 
         <div id="warning-toast" class="warning-toast">
@@ -386,6 +517,8 @@
 
         const security = new SecurityManager();
 
+        const IS_RC = "{{ verbal_topic }}" === "reading-comprehension";
+
         async function initializeSecureSession() {
             try {
                 const elem = document.documentElement;
@@ -400,10 +533,40 @@
                 document.getElementById('secure-start-overlay').style.display = 'none';
                 document.querySelector('header').classList.add('secure-mode');
                 document.body.classList.add('no-select');
-                fetchAptitude();
+
+                if (IS_RC) {
+                    // Show passage overlay and fetch the passage
+                    document.getElementById('rc-passage-overlay').style.display = 'flex';
+                    await loadRcPassage();
+                } else {
+                    fetchAptitude();
+                }
             } catch (err) {
                 alert("Fullscreen is required for the Secure Test Environment. " + err.message);
             }
+        }
+
+        async function loadRcPassage() {
+            try {
+                const res = await fetch('/api/get_rc_passage');
+                const data = await res.json();
+                if (data.passage) {
+                    document.getElementById('rc-passage-loading').style.display = 'none';
+                    document.getElementById('rc-passage-text').textContent = data.passage;
+                    document.getElementById('rc-passage-text').style.display = 'block';
+                    document.getElementById('rc-hint').style.display = 'flex';
+                    document.getElementById('rc-start-btn').style.display = 'inline-flex';
+                } else {
+                    document.getElementById('rc-passage-loading').innerHTML = '⚠ Could not load passage. Please refresh.';
+                }
+            } catch (err) {
+                document.getElementById('rc-passage-loading').innerHTML = `⚠ Error: ${err.message}`;
+            }
+        }
+
+        function startRcQuestions() {
+            document.getElementById('rc-passage-overlay').style.display = 'none';
+            fetchAptitude();
         }
 
         const questionText = document.getElementById('question-text');
@@ -475,8 +638,9 @@
             questionText.innerHTML = `<div style="font-size: 1.3rem; font-weight: 600;">${data.question}</div>`;
             
             const currentStep = data.count;
-            progressText.innerText = `Q${currentStep} / 10`;
-            progressBar.style.width = `${(currentStep / 10) * 100}%`;
+            const total = data.total || 10;
+            progressText.innerText = `Q${currentStep} / ${total}`;
+            progressBar.style.width = `${(currentStep / total) * 100}%`;
 
             optionsGrid.innerHTML = '';
             const letters = ['A', 'B', 'C', 'D'];

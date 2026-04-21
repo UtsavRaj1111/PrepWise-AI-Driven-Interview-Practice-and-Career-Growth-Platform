@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose a Topic | PrepWise</title>
+    <meta name="description" content="Select a Verbal Ability topic to practice or choose mixed questions on PrepWise.">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/prepwise_logo.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* ── Page Layout ─────────────────────────────────────────────── */
+        .vt-main {
+            min-height: calc(100vh - 5rem);
+            padding: 6rem 1.5rem 3rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* ── Header Block ─────────────────────────────────────────────── */
+        .vt-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .vt-back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            padding: 0.5rem 1.1rem;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            margin-bottom: 2rem;
+            text-decoration: none;
+        }
+
+        .vt-back-btn:hover {
+            border-color: rgba(244, 63, 94, 0.4);
+            color: #f43f5e;
+            background: rgba(244, 63, 94, 0.05);
+            transform: translateX(-2px);
+        }
+
+        .vt-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(244, 63, 94, 0.08);
+            border: 1px solid rgba(244, 63, 94, 0.2);
+            color: #f43f5e;
+            font-size: 0.65rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 0.35rem 0.9rem;
+            border-radius: 50px;
+            margin-bottom: 1.2rem;
+        }
+
+        .vt-title {
+            font-size: 2.6rem;
+            font-weight: 900;
+            letter-spacing: -1.5px;
+            color: #fff;
+            line-height: 1.1;
+            margin-bottom: 0.8rem;
+        }
+
+        .vt-subtitle {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            max-width: 480px;
+            margin-inline: auto;
+            line-height: 1.6;
+        }
+
+        /* ── Topic Grid ───────────────────────────────────────────────── */
+        .vt-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+            gap: 1.2rem;
+            width: 100%;
+            max-width: 1100px;
+        }
+
+        /* ── Topic Card ───────────────────────────────────────────────── */
+        .vt-card {
+            background: linear-gradient(135deg, rgba(15, 20, 25, 0.6), rgba(10, 12, 18, 0.85));
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 1.6rem 1.5rem;
+            cursor: pointer;
+            position: relative;
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Subtle glimmer line at top */
+        .vt-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(244, 63, 94, 0.3), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .vt-card:hover::before,
+        .vt-card.selected::before {
+            opacity: 1;
+        }
+
+        .vt-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(244, 63, 94, 0.35);
+            background: linear-gradient(135deg, rgba(244, 63, 94, 0.05), rgba(10, 12, 18, 0.92));
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(244, 63, 94, 0.15) inset;
+        }
+
+        /* Special glow for Mixed Questions (cyan accent) */
+        .vt-card.mixed:hover {
+            border-color: rgba(0, 212, 255, 0.35);
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), rgba(10, 12, 18, 0.92));
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(0, 212, 255, 0.15) inset;
+        }
+
+        .vt-card.mixed::before {
+            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.3), transparent);
+        }
+
+        /* Selected state */
+        .vt-card.selected {
+            border-color: rgba(244, 63, 94, 0.5);
+            background: linear-gradient(135deg, rgba(244, 63, 94, 0.07), rgba(10, 12, 18, 0.92));
+            box-shadow: 0 0 0 1px rgba(244, 63, 94, 0.3) inset, 0 12px 30px rgba(244, 63, 94, 0.15);
+            transform: translateY(-3px) scale(1.01);
+        }
+
+        .vt-card.mixed.selected {
+            border-color: rgba(0, 212, 255, 0.5);
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.07), rgba(10, 12, 18, 0.92));
+            box-shadow: 0 0 0 1px rgba(0, 212, 255, 0.3) inset, 0 12px 30px rgba(0, 212, 255, 0.15);
+        }
+
+        /* ── Card Icon ────────────────────────────────────────────────── */
+        .vt-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .vt-icon-wrap {
+            width: 46px;
+            height: 46px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            background: rgba(244, 63, 94, 0.07);
+            border: 1px solid rgba(244, 63, 94, 0.15);
+            color: #f43f5e;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .vt-card.mixed .vt-icon-wrap {
+            background: rgba(0, 212, 255, 0.07);
+            border-color: rgba(0, 212, 255, 0.15);
+            color: var(--accent-cyan);
+        }
+
+        .vt-card:hover .vt-icon-wrap {
+            transform: scale(1.08) rotate(-3deg);
+            background: rgba(244, 63, 94, 0.12);
+            border-color: rgba(244, 63, 94, 0.35);
+        }
+
+        .vt-card.mixed:hover .vt-icon-wrap {
+            background: rgba(0, 212, 255, 0.12);
+            border-color: rgba(0, 212, 255, 0.35);
+        }
+
+        .vt-check {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #f43f5e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.65rem;
+            color: #fff;
+            opacity: 0;
+            transform: scale(0.4) rotate(-30deg);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 0 12px rgba(244, 63, 94, 0.6);
+            flex-shrink: 0;
+        }
+
+        .vt-card.mixed .vt-check {
+            background: var(--accent-cyan);
+            color: #000;
+            box-shadow: 0 0 12px rgba(0, 212, 255, 0.6);
+        }
+
+        .vt-card.selected .vt-check {
+            opacity: 1;
+            transform: scale(1) rotate(0deg);
+        }
+
+        /* ── Card Content ─────────────────────────────────────────────── */
+        .vt-card-title {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -0.3px;
+        }
+
+        .vt-card-desc {
+            font-size: 0.82rem;
+            color: rgba(255, 255, 255, 0.5);
+            line-height: 1.5;
+        }
+
+        /* ── Difficulty Strip ─────────────────────────────────────────── */
+        .vt-difficulty-row {
+            display: flex;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+            width: 100%;
+            max-width: 1100px;
+        }
+
+        .diff-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.55rem 1.3rem;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.83rem;
+            font-weight: 700;
+            color: var(--text-muted);
+        }
+
+        .diff-pill:hover { transform: translateY(-2px); }
+        .diff-pill[data-diff="Easy"]:hover    { border-color: rgba(34, 197, 94, 0.5); color: #22c55e; background: rgba(34, 197, 94, 0.05); box-shadow: 0 5px 15px rgba(34, 197, 94, 0.15); }
+        .diff-pill[data-diff="Medium"]:hover  { border-color: rgba(0, 212, 255, 0.5); color: #00d4ff; background: rgba(0, 212, 255, 0.05); box-shadow: 0 5px 15px rgba(0, 212, 255, 0.15); }
+        .diff-pill[data-diff="Hard"]:hover    { border-color: rgba(244, 63, 94, 0.5); color: #f43f5e; background: rgba(244, 63, 94, 0.05); box-shadow: 0 5px 15px rgba(244, 63, 94, 0.15); }
+
+        .diff-pill.selected[data-diff="Easy"]   { border-color: #22c55e; color: #22c55e; background: rgba(34, 197, 94, 0.1); box-shadow: 0 0 15px rgba(34, 197, 94, 0.2); }
+        .diff-pill.selected[data-diff="Medium"] { border-color: #00d4ff; color: #00d4ff; background: rgba(0, 212, 255, 0.1); box-shadow: 0 0 15px rgba(0, 212, 255, 0.2); }
+        .diff-pill.selected[data-diff="Hard"]   { border-color: #f43f5e; color: #f43f5e; background: rgba(244, 63, 94, 0.1); box-shadow: 0 0 15px rgba(244, 63, 94, 0.2); }
+
+        /* ── CTA Button ───────────────────────────────────────────────── */
+        .vt-cta-wrap {
+            text-align: center;
+            margin-top: 2.5rem;
+        }
+
+        .vt-start-btn {
+            background: #f43f5e;
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            padding: 0.95rem 3.8rem;
+            font-size: 1rem;
+            font-weight: 800;
+            letter-spacing: 0.4px;
+            box-shadow: 0 4px 20px rgba(244, 63, 94, 0.3);
+            transition: all 0.25s ease;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.7rem;
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        .vt-start-btn.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .vt-start-btn.active:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 28px rgba(244, 63, 94, 0.45);
+            background: #ff5572;
+        }
+
+        /* Ripple animation on card click */
+        @keyframes vt-ripple {
+            0%   { transform: scale(0); opacity: 0.6; }
+            100% { transform: scale(3); opacity: 0; }
+        }
+
+        .vt-card .ripple {
+            position: absolute;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            background: rgba(244, 63, 94, 0.25);
+            animation: vt-ripple 0.55s ease-out forwards;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .vt-card.mixed .ripple {
+            background: rgba(0, 212, 255, 0.25);
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .vt-title { font-size: 2rem; }
+            .vt-grid  { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 420px) {
+            .vt-grid  { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+
+<body>
+    {% include 'base/header.html' %}
+
+    <main class="vt-main">
+        <!-- Back Button -->
+        <div style="width: 100%; max-width: 1100px;">
+            <a href="/aptitude" class="vt-back-btn animate-up" id="back-btn">
+                <i class="fa-solid fa-arrow-left"></i> Back to Focus Area
+            </a>
+        </div>
+
+        <!-- Header -->
+        <div class="vt-header animate-up">
+            <div class="vt-tag">
+                <i class="fa-solid fa-language"></i> Verbal Ability
+            </div>
+            <h1 class="vt-title">Choose a Topic</h1>
+            <p class="vt-subtitle">Select a topic to practice or choose mixed questions</p>
+        </div>
+
+        <!-- Topic Cards Grid -->
+        <div class="vt-grid animate-up" id="topic-grid">
+
+            <div class="vt-card" id="card-rc" data-topic="reading-comprehension" onclick="selectTopic(this, event)">
+                <div class="vt-card-header">
+                    <div class="vt-icon-wrap"><i class="fa-solid fa-book-open-reader"></i></div>
+                    <div class="vt-check"><i class="fa-solid fa-check"></i></div>
+                </div>
+                <div>
+                    <div class="vt-card-title">Reading Comprehension</div>
+                    <div class="vt-card-desc">Passage-based questions to test understanding</div>
+                </div>
+            </div>
+
+            <div class="vt-card" id="card-tenses" data-topic="tenses" onclick="selectTopic(this, event)">
+                <div class="vt-card-header">
+                    <div class="vt-icon-wrap"><i class="fa-solid fa-clock-rotate-left"></i></div>
+                    <div class="vt-check"><i class="fa-solid fa-check"></i></div>
+                </div>
+                <div>
+                    <div class="vt-card-title">Tenses</div>
+                    <div class="vt-card-desc">Practice verb tense usage</div>
+                </div>
+            </div>
+
+            <div class="vt-card" id="card-prepositions" data-topic="prepositions" onclick="selectTopic(this, event)">
+                <div class="vt-card-header">
+                    <div class="vt-icon-wrap"><i class="fa-solid fa-link"></i></div>
+                    <div class="vt-check"><i class="fa-solid fa-check"></i></div>
+                </div>
+                <div>
+                    <div class="vt-card-title">Prepositions</div>
+                    <div class="vt-card-desc">Improve correct word usage in sentences</div>
+                </div>
+            </div>
+
+            <div class="vt-card" id="card-error-correction" data-topic="error-correction" onclick="selectTopic(this, event)">
+                <div class="vt-card-header">
+                    <div class="vt-icon-wrap"><i class="fa-solid fa-pen-to-square"></i></div>
+                    <div class="vt-check"><i class="fa-solid fa-check"></i></div>
+                </div>
+                <div>
+                    <div class="vt-card-title">Error Correction</div>
+                    <div class="vt-card-desc">Identify and fix sentence errors</div>
+                </div>
+            </div>
+
+            <div class="vt-card" id="card-para-jumbles" data-topic="para-jumbles" onclick="selectTopic(this, event)">
+                <div class="vt-card-header">
+                    <div class="vt-icon-wrap"><i class="fa-solid fa-shuffle"></i></div>
+                    <div class="vt-check"><i class="fa-solid fa-check"></i></div>
+                </div>
+                <div>
+                    <div class="vt-card-title">Para Jumbles</div>
+                    <div class="vt-card-desc">Arrange sentences in correct order</div>
+                </div>
+            </div>
+
+            <div class="vt-card" id="card-sentence-completion" data-topic="sentence-completion" onclick="selectTopic(this, event)">
+                <div class="vt-card-header">
+                    <div class="vt-icon-wrap"><i class="fa-solid fa-spell-check"></i></div>
+                    <div class="vt-check"><i class="fa-solid fa-check"></i></div>
+                </div>
+                <div>
+                    <div class="vt-card-title">Sentence Completion</div>
+                    <div class="vt-card-desc">Fill in the blanks logically</div>
+                </div>
+            </div>
+
+            <div class="vt-card" id="card-error-spotting" data-topic="error-spotting" onclick="selectTopic(this, event)">
+                <div class="vt-card-header">
+                    <div class="vt-icon-wrap"><i class="fa-solid fa-magnifying-glass"></i></div>
+                    <div class="vt-check"><i class="fa-solid fa-check"></i></div>
+                </div>
+                <div>
+                    <div class="vt-card-title">Error Spotting</div>
+                    <div class="vt-card-desc">Find mistakes in given sentences</div>
+                </div>
+            </div>
+
+            <div class="vt-card mixed" id="card-mixed" data-topic="mixed" onclick="selectTopic(this, event)">
+                <div class="vt-card-header">
+                    <div class="vt-icon-wrap"><i class="fa-solid fa-layer-group"></i></div>
+                    <div class="vt-check"><i class="fa-solid fa-check"></i></div>
+                </div>
+                <div>
+                    <div class="vt-card-title">Mixed Questions</div>
+                    <div class="vt-card-desc">Combination of all topics</div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Difficulty Selector -->
+        <div style="width: 100%; max-width: 1100px; margin-top: 2rem;" class="animate-up">
+            <div style="font-size: 0.65rem; font-weight: 800; letter-spacing: 1.5px; color: var(--text-muted); margin-bottom: 0.9rem; text-transform: uppercase;">
+                Choose Difficulty
+            </div>
+            <div class="vt-difficulty-row">
+                <button class="diff-pill" data-diff="Easy" onclick="selectDiff(this)">
+                    <i class="fa-solid fa-seedling"></i> Easy
+                </button>
+                <button class="diff-pill selected" data-diff="Medium" onclick="selectDiff(this)">
+                    <i class="fa-solid fa-bolt"></i> Medium
+                </button>
+                <button class="diff-pill" data-diff="Hard" onclick="selectDiff(this)">
+                    <i class="fa-solid fa-fire"></i> Hard
+                </button>
+            </div>
+        </div>
+
+        <!-- Start Test CTA -->
+        <div class="vt-cta-wrap animate-up">
+            <button class="vt-start-btn" id="start-btn" onclick="launchTest()">
+                Start Test <i class="fa-solid fa-bolt"></i>
+            </button>
+        </div>
+    </main>
+
+    <!-- Hidden form to POST to /start_aptitude -->
+    <form id="launch-form" action="/start_aptitude" method="POST" style="display:none;">
+        <input type="hidden" name="category" value="Verbal">
+        <input type="hidden" name="difficulty" id="form-difficulty" value="Medium">
+        <input type="hidden" name="verbal_topic" id="form-topic" value="">
+    </form>
+
+    <script>
+        let selectedTopic = null;
+        let selectedDiff = 'Medium';
+
+        function selectTopic(card, event) {
+            // Ripple effect
+            const ripple = document.createElement('div');
+            ripple.className = 'ripple';
+            const rect = card.getBoundingClientRect();
+            const x = event.clientX - rect.left - 30;
+            const y = event.clientY - rect.top - 30;
+            ripple.style.left = x + 'px';
+            ripple.style.top = y + 'px';
+            card.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 600);
+
+            // Deselect all
+            document.querySelectorAll('.vt-card').forEach(c => c.classList.remove('selected'));
+            // Select clicked
+            card.classList.add('selected');
+            selectedTopic = card.dataset.topic;
+
+            // Activate CTA
+            const btn = document.getElementById('start-btn');
+            btn.classList.add('active');
+        }
+
+        function selectDiff(pill) {
+            document.querySelectorAll('.diff-pill').forEach(p => p.classList.remove('selected'));
+            pill.classList.add('selected');
+            selectedDiff = pill.dataset.diff;
+        }
+
+        function launchTest() {
+            if (!selectedTopic) return;
+            document.getElementById('form-topic').value = selectedTopic;
+            document.getElementById('form-difficulty').value = selectedDiff;
+            document.getElementById('launch-form').submit();
+        }
+
+        // Keyboard shortcut: Enter to launch
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Enter' && selectedTopic) launchTest();
+        });
+    </script>
+</body>
+
+</html>

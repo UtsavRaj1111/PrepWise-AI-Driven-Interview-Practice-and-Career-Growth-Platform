@@ -191,6 +191,112 @@ class AIHandler:
         except Exception as e:
             return {"error": str(e)}
 
+    def generate_rc_passage(self, difficulty, seed=0):
+        """
+        Generates a Reading Comprehension passage with exactly 5 MCQ questions.
+        Returns a dict: { passage, questions: [{question, options:[A,B,C,D], answer, explanation}] }
+        """
+        if not self.client:
+            return self._mock_rc_passage()
+
+        prompt = f"""[Seed:{seed}] You are a Reading Comprehension test designer.
+
+Generate a {difficulty}-level RC set with:
+1. A SHORT passage (120-180 words) on an interesting real-world topic (science, history, technology, society etc.)
+2. Exactly 5 multiple-choice questions based ONLY on the passage.
+
+Return ONLY valid JSON in this exact structure:
+{{
+  "passage": "...",
+  "questions": [
+    {{
+      "question": "...",
+      "options": ["option text A", "option text B", "option text C", "option text D"],
+      "answer": "A",
+      "explanation": "..."
+    }}
+  ]
+}}
+
+Rules:
+- The passage must be self-contained and factual.
+- Each question must be answerable ONLY from the passage (no outside knowledge needed).
+- answer must be exactly A, B, C or D (the correct option index).
+- Options must be plain text strings (no "A." prefix).
+- Return ONLY the JSON object, no extra text."""
+
+        try:
+            content = self._call_ai(
+                [{"role": "user", "content": prompt}],
+                temperature=0.8,
+                json_mode=True
+            )
+            if not content or content == "DEMO_MODE_TRIGGER":
+                return self._mock_rc_passage()
+
+            import json as _j
+            data = _j.loads(content)
+            # Validate structure
+            if "passage" in data and "questions" in data and len(data["questions"]) >= 1:
+                return data
+            return self._mock_rc_passage()
+        except Exception as e:
+            print(f"RC Passage generation error: {e}")
+            return self._mock_rc_passage()
+
+    def _mock_rc_passage(self):
+        """Fallback RC passage when AI is unavailable."""
+        return {
+            "passage": (
+                "The Amazon rainforest, often called the 'lungs of the Earth', produces about 20% of the world's oxygen. "
+                "Spanning over 5.5 million square kilometres across nine countries, it is home to an estimated 10% of all species on Earth. "
+                "Scientists have identified more than 40,000 plant species, 3,000 types of fish, and 1,300 bird species within its borders. "
+                "Despite its importance, the Amazon faces severe threats from deforestation. Between 2000 and 2018, the forest lost an area "
+                "roughly the size of France. Cattle ranching, soy farming, and illegal logging are the primary drivers. "
+                "Researchers warn that if deforestation continues at the current rate, the Amazon could reach a 'tipping point' — "
+                "a moment when the forest can no longer sustain itself and begins converting to savanna. "
+                "Conservation efforts by indigenous communities and international organisations remain the most effective defence against this crisis."
+            ),
+            "questions": [
+                {
+                    "question": "What percentage of the world's oxygen does the Amazon rainforest produce?",
+                    "options": ["10%", "20%", "30%", "40%"],
+                    "answer": "B",
+                    "explanation": "The passage states the Amazon produces about 20% of the world's oxygen."
+                },
+                {
+                    "question": "How many countries does the Amazon rainforest span?",
+                    "options": ["Five", "Seven", "Nine", "Twelve"],
+                    "answer": "C",
+                    "explanation": "The passage mentions the Amazon spans across nine countries."
+                },
+                {
+                    "question": "What term does the passage use to describe the Amazon rainforest?",
+                    "options": ["Heart of the Earth", "Lungs of the Earth", "Backbone of Nature", "Crown of the World"],
+                    "answer": "B",
+                    "explanation": "The passage calls it the 'lungs of the Earth'."
+                },
+                {
+                    "question": "Which of the following is NOT listed as a primary driver of Amazon deforestation?",
+                    "options": ["Cattle ranching", "Soy farming", "Tourism", "Illegal logging"],
+                    "answer": "C",
+                    "explanation": "Tourism is not mentioned. The passage names cattle ranching, soy farming, and illegal logging."
+                },
+                {
+                    "question": "What does the 'tipping point' refer to in the passage?",
+                    "options": [
+                        "A moment when deforestation stops",
+                        "When the forest can no longer sustain itself and converts to savanna",
+                        "The point at which conservation succeeds",
+                        "A scientific measurement of oxygen levels"
+                    ],
+                    "answer": "B",
+                    "explanation": "The passage defines the tipping point as when the forest can no longer sustain itself and begins converting to savanna."
+                }
+            ]
+        }
+
+
     def _parse_evaluation(self, content, expected_keys):
         """
         Enhanced parser to extract evaluation fields reliably.
