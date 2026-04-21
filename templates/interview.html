@@ -11,49 +11,54 @@
     <style>
         .simulator-hud {
             display: grid;
-            grid-template-columns: 2fr 1fr;
+            grid-template-columns: 1fr;
             gap: 2rem;
             margin-top: 3rem;
         }
 
         .question-box {
-            padding: 3.5rem;
-            min-height: 220px;
+            padding: 4rem;
+            min-height: 250px;
             display: flex;
             align-items: center;
-            background: rgba(0, 212, 255, 0.03);
-            border: 1px solid rgba(0, 212, 255, 0.15);
-            border-radius: 20px;
-            font-size: 1.3rem;
-            font-weight: 600;
-            line-height: 1.6;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 30px;
+            font-size: 1.4rem;
+            font-weight: 500;
+            line-height: 1.7;
             position: relative;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
         }
 
         .question-box::before {
-            content: 'DATA INPUT';
+            content: 'SYSTEM DATA INPUT';
             position: absolute;
-            top: 1rem;
-            left: 1.5rem;
-            font-size: 0.55rem;
+            top: 1.5rem;
+            left: 2rem;
+            font-size: 0.7rem;
             font-weight: 900;
             color: var(--accent-cyan);
-            letter-spacing: 2px;
+            letter-spacing: 4px;
+            opacity: 0.6;
         }
 
         .progress-rail {
-            height: 4px;
-            background: var(--border-glass);
-            border-radius: 2px;
-            margin-top: 0.8rem;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            margin-top: 1rem;
             overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .progress-fill {
             height: 100%;
-            background: var(--accent-cyan);
-            box-shadow: 0 0 10px var(--accent-cyan);
-            transition: width 0.5s ease;
+            background: linear-gradient(to right, var(--accent-cyan), #00d4ff);
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.4);
+            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 10px;
         }
 
         #loading-indicator {
@@ -199,17 +204,24 @@
         /* Secure Mode Navbar Hide */
         header.secure-mode .nav-links,
         header.secure-mode .btn-ghost,
-        header.secure-mode .btn-cyan {
+        header.secure-mode .btn-cyan,
+        header.secure-mode .header-actions {
             display: none !important;
         }
 
-        header.secure-mode .logo a {
-            pointer-events: none;
-            cursor: default;
-        }
-
-        header.secure-mode .container {
-            justify-content: center !important;
+        .violation-screen {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            background: rgba(5, 7, 10, 0.99);
+            backdrop-filter: blur(40px);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 4rem;
+            text-align: center;
+            animation: fadeIn 0.4s ease;
         }
     </style>
 </head>
@@ -225,16 +237,38 @@
     </div>
 
     <!-- Secure Start Overlay -->
-    <div id="secure-start-overlay" class="violation-screen" style="display: flex; background: rgba(5, 7, 10, 0.98);">
-        <span class="tag-cyan" style="margin-bottom: 1.5rem;">PHASE: SECURITY INITIALIZATION</span>
-        <h1 style="font-size: 3.5rem; font-weight: 900; margin-bottom: 1.5rem; letter-spacing: -2px;">Secure <br><span>Environment.</span></h1>
-        <p style="color: var(--text-muted); font-size: 1rem; max-width: 500px; line-height: 1.7; margin-bottom: 3rem;">
-            To ensure interview integrity, this session will run in <strong>Fullscreen Mode</strong>. 
-            Tab switching, window unfocusing, and interaction shortcuts are strictly prohibited.
-        </p>
-        <button class="btn-cyan secure-session-btn" style="padding: 1.2rem 4rem; font-size: 1.1rem;" onclick="initializeSecureSession()">
-            Enter Secure Simulation <i class="fa-solid fa-lock" style="margin-left: 0.8rem;"></i>
-        </button>
+    <div id="secure-start-overlay" class="violation-screen" style="display: none; background: rgba(5, 7, 10, 0.99); backdrop-filter: blur(40px);">
+        <div style="max-width: 600px; text-align: center; padding: 2rem;">
+            <div style="width: 100px; height: 100px; background: rgba(0, 212, 255, 0.1); border: 1px solid rgba(0, 212, 255, 0.2); border-radius: 30px; display: flex; align-items: center; justify-content: center; margin: 0 auto 3rem; box-shadow: 0 0 40px rgba(0, 212, 255, 0.1);">
+                <i class="fa-solid fa-lock" style="font-size: 2.5rem; color: var(--accent-cyan);"></i>
+            </div>
+            
+            <span style="color: var(--accent-cyan); font-size: 0.8rem; font-weight: 900; letter-spacing: 4px; text-transform: uppercase; display: block; margin-bottom: 1.5rem; opacity: 0.8;">Phase: Security Initialization</span>
+            
+            <h1 style="font-size: 3.5rem; font-weight: 900; color: #fff; margin-bottom: 2rem; line-height: 1; letter-spacing: -2px;">
+                Secure<br>
+                <span style="background: linear-gradient(to bottom, #fff 20%, rgba(255,255,255,0.4) 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Environment.</span>
+            </h1>
+
+            <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); padding: 2rem; border-radius: 20px; text-align: left; margin-bottom: 3rem;">
+                <div style="display: flex; gap: 1rem; margin-bottom: 1.2rem; align-items: center;">
+                    <i class="fa-solid fa-expand" style="color: var(--accent-cyan); width: 20px;"></i>
+                    <p style="color: rgba(255,255,255,0.7); font-size: 0.95rem; margin: 0;">Session will run in <b>Fullscreen Mode</b></p>
+                </div>
+                <div style="display: flex; gap: 1rem; margin-bottom: 1.2rem; align-items: center;">
+                    <i class="fa-solid fa-ban" style="color: #ff4757; width: 20px;"></i>
+                    <p style="color: rgba(255,255,255,0.7); font-size: 0.95rem; margin: 0;">Tab switching and window unfocusing restricted</p>
+                </div>
+                <div style="display: flex; gap: 1rem; align-items: center;">
+                    <i class="fa-solid fa-keyboard" style="color: #ff4757; width: 20px;"></i>
+                    <p style="color: rgba(255,255,255,0.7); font-size: 0.95rem; margin: 0;">Interaction shortcuts are strictly prohibited</p>
+                </div>
+            </div>
+
+            <button class="btn-cyan secure-session-btn" style="padding: 1.2rem 4rem; font-size: 1.1rem; width: 100%;" onclick="initializeSecureSession()">
+                Initialize Secure Simulation <i class="fa-solid fa-lock" style="margin-left: 1rem;"></i>
+            </button>
+        </div>
     </div>
 
     <div id="warning-toast" class="warning-toast">
@@ -247,58 +281,43 @@
         SECURE BROADCAST ACTIVE
     </div>
 
-    <header>
-        <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-            <div class="logo"><a href="/" style="text-decoration:none; color:inherit;">Prep <span>Wise</span></a>
-            </div>
-            <nav class="nav-links">
-                <a href="/dashboard">Dashboard</a>
-                <a href="/interview_start" class="active">Simulator</a>
-                <a href="/resume">Resume Scan</a>
-                <a href="/aptitude">Skill Paths</a>
-                <a href="/mentor">Network</a>
-            </nav>
-            <div style="display: flex; gap: 1rem; align-items: center;">
-                <a href="/dashboard" class="btn-ghost" style="padding: 0.6rem 1.4rem; font-size: 0.85rem;">Dashboard</a>
-                <a href="/interview_start" class="btn-cyan">Initialize Simulation</a>
-            </div>
-        </div>
-    </header>
+    {% include 'base/header.html' %}
 
-    <main class="container" style="padding-top: 10rem; padding-bottom: 6rem;">
+    <main id="simulation-main" class="container" style="padding-top: 10rem; padding-bottom: 6rem; display: none;">
         <!-- Top Bar -->
         <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2rem;"
             class="animate-up">
             <div>
-                <div style="display: flex; gap: 0.8rem; align-items: center; margin-bottom: 0.8rem; flex-wrap: wrap;">
-                    <span id="real-badge" class="real-badge" style="display:none;">⚡ REAL SIM</span>
+                <div style="display: flex; gap: 0.8rem; align-items: center; margin-bottom: 1.2rem; flex-wrap: wrap;">
+                    <span id="real-badge" class="real-badge" style="display:none; background: #ef4444; color: #fff; border: none; padding: 0.4rem 1rem; border-radius: 50px;">⚡ REAL SIMULATION</span>
                     <span id="round-badge" class="round-badge" style="display:none;"></span>
                     <span class="tag-cyan" id="difficulty-tag"
-                        style="background: rgba(0,212,255,0.1); padding: 0.3rem 0.8rem; border-radius: 4px; font-size: 0.65rem;">SIMULATION ACTIVE</span>
+                        style="background: rgba(0,212,255,0.1); color: var(--accent-cyan); padding: 0.5rem 1.2rem; border-radius: 50px; font-size: 0.7rem; font-weight: 800; letter-spacing: 1px; border: 1px solid rgba(0,212,255,0.2);">SIMULATION ACTIVE</span>
                 </div>
-                <h2 style="font-size: 2rem; font-weight: 900; letter-spacing: -1.5px;">{{ role }} <br><span>Technical
-                        Simulation.</span></h2>
+                <h2 style="font-size: 3rem; font-weight: 900; letter-spacing: -2px; line-height: 1.1; margin-bottom: 0.5rem;">
+                    {{ role }} <br>
+                    <span style="background: linear-gradient(to right, #fff, rgba(255,255,255,0.4)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Technical Simulation.</span>
+                </h2>
             </div>
-            <div style="display: flex; gap: 2rem; align-items: center;">
+            <div style="display: flex; gap: 3rem; align-items: center;">
                 <!-- Timer (only visible in real mode) -->
-                <div id="timer-wrap" style="display: none; flex-direction: column; align-items: center; gap: 0.3rem;">
+                <div id="timer-wrap" style="display: none; flex-direction: column; align-items: center; gap: 0.5rem;">
                     <div class="timer-ring">
                         <svg width="80" height="80" viewBox="0 0 80 80">
                             <circle class="timer-track" cx="40" cy="40" r="34" />
                             <circle class="timer-arc" id="timer-arc" cx="40" cy="40" r="34" stroke-dasharray="213.6"
                                 stroke-dashoffset="0" />
                         </svg>
-                        <div class="timer-num" id="timer-num">2:00</div>
+                        <div class="timer-num" id="timer-num" style="font-size: 1.5rem; color: #fff;">2:00</div>
                     </div>
-                    <span style="font-size:0.6rem; color:var(--text-muted); font-weight:800; letter-spacing:1px;">TIME
-                        LEFT</span>
+                    <span style="font-size:0.65rem; color:rgba(255,255,255,0.4); font-weight:900; letter-spacing:2px;">TIME REMAINING</span>
                 </div>
                 <!-- Progress -->
-                <div style="text-align: right; width: 220px;">
+                <div style="text-align: right; width: 300px;">
                     <div
-                        style="display: flex; justify-content: space-between; font-size: 0.7rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem;">
+                        style="display: flex; justify-content: space-between; font-size: 0.75rem; font-weight: 900; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0.8rem;">
                         <span>Session Progress</span>
-                        <span id="progress-text">Q1 / 10</span>
+                        <span id="progress-text" style="color: #fff;">Q1 / 10</span>
                     </div>
                     <div class="progress-rail">
                         <div id="progress-bar" class="progress-fill" style="width: 10%"></div>
@@ -309,28 +328,27 @@
 
         <div class="simulator-hud animate-up" style="position: relative;">
             <div class="main-stage" id="challenge-stage">
-                <div class="question-box" id="question-area">Initiating Neural Link...</div>
+                <div class="question-box" id="question-area" style="margin-bottom: 4rem;">Initiating Neural Link...</div>
 
-                <div style="margin-top: 2rem;">
+                <div style="margin-top: 4rem;">
                     <div
-                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
                         <h4
-                            style="font-weight: 800; color: var(--text-muted); font-size: 0.75rem; letter-spacing: 1px;">
+                            style="font-weight: 900; color: rgba(255,255,255,0.4); font-size: 0.75rem; letter-spacing: 4px; text-transform: uppercase;">
                             STRUCTURAL RESPONSE</h4>
                         <span id="one-shot-warn"
-                            style="display:none; font-size:0.7rem; color: #ef4444; font-weight: 800;">⚠ ONE CHANCE —
-                            SUBMIT CAREFULLY</span>
+                            style="display:none; font-size:0.75rem; color: #ef4444; font-weight: 900; letter-spacing: 1px;">⚠ ONE CHANCE — SUBMIT CAREFULLY</span>
                     </div>
                     <textarea id="user-answer" class="architect-input"
-                        style="height: 230px; resize: none; border-radius: 16px;"
+                        style="height: 300px; resize: none; border-radius: 24px; padding: 2.5rem; font-size: 1.1rem; background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s ease;"
                         placeholder="Articulate your technical solution here..."></textarea>
 
                     <div
-                        style="text-align: right; margin-top: 1.5rem; display: flex; align-items: center; justify-content: flex-end; gap: 1.5rem;">
-                        <span id="loading-indicator">ANALYZING SIGNAL...</span>
+                        style="text-align: right; margin-top: 2rem; display: flex; align-items: center; justify-content: flex-end; gap: 2rem;">
+                        <span id="loading-indicator" style="letter-spacing: 2px; font-weight: 900;">ANALYZING SIGNAL...</span>
                         <button type="button" id="submit-btn" class="btn-cyan"
-                            style="padding: 1rem 3.5rem; font-size: 1rem;" onclick="submitVector()">
-                            Submit Vector <i class="fa-solid fa-chevron-right" style="margin-left: 0.6rem;"></i>
+                            style="padding: 1.2rem 5rem; font-size: 1.1rem; border-radius: 16px; box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);" onclick="submitVector()">
+                            Submit Vector <i class="fa-solid fa-chevron-right" style="margin-left: 1rem;"></i>
                         </button>
                     </div>
                 </div>
@@ -360,51 +378,12 @@
                 </div>
             </div>
 
-            <aside>
-                <!-- Score Panel -->
-                <div class="glass-panel"
-                    style="padding: 2rem; border-color: rgba(0,212,255,0.1); height: fit-content; margin-bottom: 1.5rem;">
-                    <h4
-                        style="margin-bottom: 1.5rem; font-weight: 800; letter-spacing: 1.5px; font-size: 0.65rem; color: var(--accent-cyan);">
-                        PERFORMANCE MATRIX</h4>
-                    <div id="score-panel">
-                        <div style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.7;">Submit your response
-                            to unlock the full Performance Matrix.</div>
-                    </div>
-                </div>
-
-
-                <!-- HUD Feedback -->
-                <div class="glass-panel" style="padding: 2rem; border-color: rgba(255,165,0,0.1);">
-                    <h4
-                        style="margin-bottom: 1.5rem; font-weight: 800; letter-spacing: 1.5px; font-size: 0.65rem; color: #fbbf24;">
-                        HUD ASSESSMENT</h4>
-                    <div id="hud-feedback">
-                        <div class="feedback-item" style="color: var(--text-muted);">
-                            <i class="fa-solid fa-info-circle"
-                                style="color: #fbbf24; flex-shrink:0; margin-top:2px;"></i>
-                            <span>Submit your response to receive real-time feedback.</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Real Mode Info Box -->
-                <div id="real-info-box"
-                    style="display:none; margin-top: 1.5rem; background: rgba(239,68,68,0.05); border: 1px solid rgba(239,68,68,0.2); border-radius: 16px; padding: 1.5rem;">
-                    <h4
-                        style="font-size:0.65rem; font-weight:900; letter-spacing:1.5px; color:#ef4444; margin-bottom: 1rem;">
-                        SIMULATION RULES</h4>
-                    <div
-                        style="display:flex; flex-direction:column; gap:0.8rem; font-size:0.8rem; color:var(--text-muted);">
-                        <div><i class="fa-solid fa-stopwatch" style="color:#ef4444; margin-right:0.6rem;"></i>2 min per
-                            question</div>
-                        <div><i class="fa-solid fa-lock" style="color:#ef4444; margin-right:0.6rem;"></i>Answers lock on
-                            submit</div>
-                        <div><i class="fa-solid fa-ban" style="color:#ef4444; margin-right:0.6rem;"></i>No editing after
-                            submit</div>
-                        <div><i class="fa-solid fa-layer-group" style="color:#ef4444; margin-right:0.6rem;"></i><span
-                                id="round-info-text">1 round total</span></div>
-                    </div>
+            <aside style="display: none;">
+                <!-- Hidden elements to preserve logic without changing JS -->
+                <div id="score-panel"></div>
+                <div id="hud-feedback"></div>
+                <div id="real-info-box">
+                    <span id="round-info-text"></span>
                 </div>
             </aside>
         </div>
@@ -519,7 +498,8 @@
             }
         }
 
-        const security = new SecurityManager();
+        let security = null;
+        let cachedQuestionData = null; 
 
         async function initializeSecureSession() {
             try {
@@ -528,16 +508,23 @@
                     await elem.requestFullscreen();
                 } else if (elem.webkitRequestFullscreen) {
                     await elem.webkitRequestFullscreen();
-                } else if (elem.msRequestFullscreen) {
-                    await elem.msRequestFullscreen();
                 }
                 
                 document.getElementById('secure-start-overlay').style.display = 'none';
+                document.getElementById('simulation-main').style.display = 'block';
                 document.querySelector('header').classList.add('secure-mode');
                 document.body.classList.add('no-select');
-                fetchQuestion(); // Start actual question loading
+                
+                if (cachedQuestionData) {
+                    handleQuestionData(cachedQuestionData);
+                } else {
+                    fetchQuestion(); 
+                }
             } catch (err) {
-                alert("Fullscreen is required to start the simulation. " + err.message);
+                console.error("Initialization Error:", err);
+                document.getElementById('secure-start-overlay').style.display = 'none';
+                if (cachedQuestionData) handleQuestionData(cachedQuestionData);
+                else fetchQuestion();
             }
         }
 
@@ -603,53 +590,7 @@
             try {
                 const res = await fetch('/api/next_question');
                 const data = await res.json();
-
-                if (data.complete) { window.location.href = '/results'; return; }
-                if (data.error) { questionArea.innerText = `Error: ${data.error}`; return; }
-
-                // First fetch — detect mode
-                if (data.sim_mode === 'real') {
-                    isRealMode = true;
-                    totalRounds = data.total_rounds;
-                    currentRound = data.round;
-                    timerWrap.style.display = 'flex';
-                    document.getElementById('real-badge').style.display = 'inline-block';
-                    document.getElementById('real-info-box').style.display = 'block';
-                    document.getElementById('one-shot-warn').style.display = 'block';
-                    document.getElementById('round-info-text').innerText = `${totalRounds} round${totalRounds > 1 ? 's' : ''} total`;
-                    submitBtn.classList.add('btn-red-urgent');
-                }
-
-                if (data.is_terminated) {
-                    security.terminateSession();
-                    return;
-                }
-
-                questionArea.innerText = data.question;
-                progressText.innerText = `Q${data.count} / 10`;
-                progressBar.style.width = `${(data.count / 10) * 100}%`;
-
-                difficultyTag.innerText = `${data.difficulty.toUpperCase()} LEVEL`;
-                difficultyTag.style.color = data.difficulty === 'Senior' ? '#8b5cf6' : (data.difficulty === 'Junior' ? '#f43f5e' : 'var(--accent-cyan)');
-
-                // Multi-round badge
-                if (totalRounds > 1) {
-                    const rb = document.getElementById('round-badge');
-                    rb.style.display = 'inline-block';
-                    rb.innerText = `ROUND ${data.round} / ${data.total_rounds}`;
-                }
-
-                // --- RESET STATE FOR NEW QUESTION ---
-                document.getElementById('review-overlay').style.display = 'none';
-                answerInput.classList.remove('locked');
-                answerInput.readOnly = false;
-                answerInput.value = '';
-                submitBtn.disabled = false;
-                submitBtn.style.opacity = '1';
-                hudFeedback.innerHTML = `<div class="feedback-item" style="color: var(--text-muted);"><i class="fa-solid fa-info-circle" style="color: #fbbf24; flex-shrink:0; margin-top:2px;"></i><span>Submit your response to receive real-time feedback.</span></div>`;
-
-                if (isRealMode) startTimer();
-
+                handleQuestionData(data);
             } catch (err) {
                 questionArea.innerText = `Connection Error: ${err.message}`;
             }
@@ -773,9 +714,71 @@
             }
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            // fetchQuestion is now called after Secure Session button is clicked
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Auto-detect mode to skip overlay in Practice Mode
+            try {
+                const res = await fetch('/api/next_question');
+                const data = await res.json();
+                
+                if (data.sim_mode === 'practice') {
+                    // Practice Mode: Stay hidden and start
+                    document.getElementById('secure-start-overlay').style.display = 'none';
+                    document.getElementById('proctor-status').style.display = 'none';
+                    document.body.classList.remove('no-select');
+                    handleQuestionData(data);
+                } else {
+                    // Exam Mode: Cache data and show overlay
+                    cachedQuestionData = data;
+                    document.getElementById('secure-start-overlay').style.display = 'flex';
+                }
+            } catch (err) {
+                console.error("Initialization Error:", err);
+            }
         });
+
+        // Helper to process question data from either source
+        function handleQuestionData(data) {
+            if (data.complete) { window.location.href = '/results'; return; }
+            
+            if (data.sim_mode === 'real') {
+                isRealMode = true;
+                if (!security) security = new SecurityManager(); // Initialize security only in real mode
+                
+                totalRounds = data.total_rounds;
+                currentRound = data.round;
+                timerWrap.style.display = 'flex';
+                document.getElementById('real-badge').style.display = 'inline-block';
+                document.getElementById('one-shot-warn').style.display = 'block';
+                document.getElementById('round-info-text').innerText = `${totalRounds} round${totalRounds > 1 ? 's' : ''} total`;
+                submitBtn.classList.add('btn-red-urgent');
+                document.getElementById('proctor-status').style.display = 'flex';
+            } else {
+                document.getElementById('proctor-status').style.display = 'none';
+                document.getElementById('simulation-main').style.display = 'block';
+            }
+
+            questionArea.innerText = data.question;
+            progressText.innerText = `Q${data.count} / 10`;
+            progressBar.style.width = `${(data.count / 10) * 100}%`;
+
+            difficultyTag.innerText = `${data.difficulty.toUpperCase()} LEVEL`;
+            difficultyTag.style.color = data.difficulty === 'Senior' ? '#8b5cf6' : (data.difficulty === 'Junior' ? '#f43f5e' : 'var(--accent-cyan)');
+
+            if (totalRounds > 1) {
+                const rb = document.getElementById('round-badge');
+                rb.style.display = 'inline-block';
+                rb.innerText = `ROUND ${data.round} / ${data.total_rounds}`;
+            }
+
+            document.getElementById('review-overlay').style.display = 'none';
+            answerInput.classList.remove('locked');
+            answerInput.readOnly = false;
+            answerInput.value = '';
+            submitBtn.disabled = false;
+            submitBtn.style.opacity = '1';
+            
+            if (isRealMode) startTimer();
+        }
     </script>
 </body>
 
