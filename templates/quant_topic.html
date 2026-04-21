@@ -24,7 +24,25 @@
             align-items: center;
         }
 
-        .vt-header { text-align: center; margin-bottom: 3rem; }
+        .vt-header {
+            text-align: center;
+            margin-bottom: 4.5rem;
+            position: relative;
+        }
+
+        .vt-header::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 250px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(var(--qt-rgb), 0.05) 0%, transparent 70%);
+            filter: blur(40px);
+            z-index: -1;
+            pointer-events: none;
+        }
 
         .vt-back-btn {
             display: inline-flex;
@@ -53,33 +71,38 @@
         .vt-tag {
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-            background: rgba(var(--qt-rgb), 0.08);
-            border: 1px solid rgba(var(--qt-rgb), 0.2);
+            gap: 0.6rem;
+            background: rgba(var(--qt-rgb), 0.04);
+            border: 1px solid rgba(var(--qt-rgb), 0.25);
             color: var(--qt);
-            font-size: 0.65rem;
+            font-size: 0.7rem;
             font-weight: 900;
-            letter-spacing: 2px;
+            letter-spacing: 2.5px;
             text-transform: uppercase;
-            padding: 0.35rem 0.9rem;
+            padding: 0.45rem 1.3rem;
             border-radius: 50px;
-            margin-bottom: 1.2rem;
+            margin-bottom: 1.8rem;
         }
 
         .vt-title {
-            font-size: 2.6rem;
-            font-weight: 900;
-            letter-spacing: -1.5px;
+            font-size: 4rem;
+            font-weight: 950;
+            letter-spacing: -3.5px;
             color: #fff;
-            line-height: 1.1;
-            margin-bottom: 0.8rem;
+            line-height: 0.9;
+            margin-bottom: 1.2rem;
+            background: linear-gradient(to bottom, #ffffff 30%, #a1a1aa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         .vt-subtitle {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            max-width: 480px;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 1.05rem;
+            max-width: 520px;
             margin-inline: auto;
             line-height: 1.6;
+            font-weight: 500;
+            letter-spacing: -0.2px;
         }
 
         /* ── Grid ─────────────────────────────────────────────────────── */
@@ -126,10 +149,7 @@
             box-shadow: 0 15px 35px rgba(0,0,0,0.45), 0 0 0 1px rgba(var(--qt-rgb),0.15) inset;
         }
 
-        /* Mixed keeps same cyan (already the accent) but with extra glow */
-        .vt-card.mixed:hover {
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5), 0 0 0 1px rgba(var(--qt-rgb),0.3) inset;
-        }
+
 
         .vt-card.selected {
             border-color: rgba(var(--qt-rgb), 0.5);

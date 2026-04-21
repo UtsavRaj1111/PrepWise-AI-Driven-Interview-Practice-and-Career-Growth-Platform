@@ -26,7 +26,25 @@
         }
 
         /* ── Header Block ─────────────────────────────────────────────── */
-        .vt-header { text-align: center; margin-bottom: 3rem; }
+        .vt-header {
+            text-align: center;
+            margin-bottom: 4.5rem;
+            position: relative;
+        }
+
+        .vt-header::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 250px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(var(--lr-rgb), 0.05) 0%, transparent 70%);
+            filter: blur(40px);
+            z-index: -1;
+            pointer-events: none;
+        }
 
         .vt-back-btn {
             display: inline-flex;
@@ -55,33 +73,38 @@
         .vt-tag {
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-            background: rgba(var(--lr-rgb), 0.08);
-            border: 1px solid rgba(var(--lr-rgb), 0.2);
+            gap: 0.6rem;
+            background: rgba(var(--lr-rgb), 0.04);
+            border: 1px solid rgba(var(--lr-rgb), 0.25);
             color: var(--lr);
-            font-size: 0.65rem;
+            font-size: 0.7rem;
             font-weight: 900;
-            letter-spacing: 2px;
+            letter-spacing: 2.5px;
             text-transform: uppercase;
-            padding: 0.35rem 0.9rem;
+            padding: 0.45rem 1.3rem;
             border-radius: 50px;
-            margin-bottom: 1.2rem;
+            margin-bottom: 1.8rem;
         }
 
         .vt-title {
-            font-size: 2.6rem;
-            font-weight: 900;
-            letter-spacing: -1.5px;
+            font-size: 4rem;
+            font-weight: 950;
+            letter-spacing: -3.5px;
             color: #fff;
-            line-height: 1.1;
-            margin-bottom: 0.8rem;
+            line-height: 0.9;
+            margin-bottom: 1.2rem;
+            background: linear-gradient(to bottom, #ffffff 30%, #a1a1aa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         .vt-subtitle {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            max-width: 480px;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 1.05rem;
+            max-width: 520px;
             margin-inline: auto;
             line-height: 1.6;
+            font-weight: 500;
+            letter-spacing: -0.2px;
         }
 
         /* ── Topic Grid ───────────────────────────────────────────────── */
@@ -128,15 +151,7 @@
             box-shadow: 0 15px 35px rgba(0,0,0,0.45), 0 0 0 1px rgba(var(--lr-rgb),0.15) inset;
         }
 
-        /* Mixed Questions uses cyan accent */
-        .vt-card.mixed::before {
-            background: linear-gradient(90deg, transparent, rgba(0,212,255,0.3), transparent);
-        }
-        .vt-card.mixed:hover {
-            border-color: rgba(0,212,255,0.35);
-            background: linear-gradient(135deg, rgba(0,212,255,0.05), rgba(10,12,18,0.92));
-            box-shadow: 0 15px 35px rgba(0,0,0,0.45), 0 0 0 1px rgba(0,212,255,0.15) inset;
-        }
+
 
         .vt-card.selected {
             border-color: rgba(var(--lr-rgb),0.5);
@@ -144,11 +159,7 @@
             box-shadow: 0 0 0 1px rgba(var(--lr-rgb),0.3) inset, 0 12px 30px rgba(var(--lr-rgb),0.15);
             transform: translateY(-3px) scale(1.01);
         }
-        .vt-card.mixed.selected {
-            border-color: rgba(0,212,255,0.5);
-            background: linear-gradient(135deg, rgba(0,212,255,0.07), rgba(10,12,18,0.92));
-            box-shadow: 0 0 0 1px rgba(0,212,255,0.3) inset, 0 12px 30px rgba(0,212,255,0.15);
-        }
+
 
         /* ── Card Icon ────────────────────────────────────────────────── */
         .vt-card-header {
@@ -168,20 +179,13 @@
             transition: all 0.3s ease;
             flex-shrink: 0;
         }
-        .vt-card.mixed .vt-icon-wrap {
-            background: rgba(0,212,255,0.07);
-            border-color: rgba(0,212,255,0.15);
-            color: var(--accent-cyan);
-        }
+
         .vt-card:hover .vt-icon-wrap {
             transform: scale(1.08) rotate(-3deg);
             background: rgba(var(--lr-rgb),0.12);
             border-color: rgba(var(--lr-rgb),0.35);
         }
-        .vt-card.mixed:hover .vt-icon-wrap {
-            background: rgba(0,212,255,0.12);
-            border-color: rgba(0,212,255,0.35);
-        }
+
 
         .vt-check {
             width: 22px; height: 22px;
@@ -196,11 +200,7 @@
             box-shadow: 0 0 12px rgba(var(--lr-rgb),0.6);
             flex-shrink: 0;
         }
-        .vt-card.mixed .vt-check {
-            background: var(--accent-cyan);
-            color: #000;
-            box-shadow: 0 0 12px rgba(0,212,255,0.6);
-        }
+
         .vt-card.selected .vt-check { opacity: 1; transform: scale(1) rotate(0deg); }
 
         /* ── Recommended Badge ────────────────────────────────────────── */
@@ -273,7 +273,7 @@
             animation: vt-ripple 0.55s ease-out forwards;
             pointer-events: none; z-index: 0;
         }
-        .vt-card.mixed .ripple { background: rgba(0,212,255,0.22); }
+
 
         @media (max-width: 640px) { .vt-title { font-size: 2rem; } .vt-grid { grid-template-columns: 1fr 1fr; } }
         @media (max-width: 420px) { .vt-grid { grid-template-columns: 1fr; } }
@@ -403,7 +403,7 @@
             </div>
 
             <!-- Mixed Questions -->
-            <div class="vt-card mixed" id="card-mixed" data-topic="mixed" onclick="selectTopic(this,event)">
+            <div class="vt-card" id="card-mixed" data-topic="mixed" onclick="selectTopic(this,event)">
                 <div class="vt-card-header">
                     <div class="vt-icon-wrap"><i class="fa-solid fa-layer-group"></i></div>
                     <div class="vt-check"><i class="fa-solid fa-check"></i></div>
