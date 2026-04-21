@@ -42,6 +42,13 @@ def results():
     # ---------------- SESSION DATA ---------------- #
     is_aptitude = 'aptitude_category' in session
 
+    if is_aptitude:
+        from routes.aptitude import get_apti_feedback
+        session_id = session.get('apti_session_id')
+        feedbacks = get_apti_feedback(session_id) if session_id else []
+    else:
+        feedbacks = session.get('feedbacks', [])
+
     session_data = {
         "user_id": user_id,  # 🔥 IMPORTANT
         "type": "aptitude" if is_aptitude else "interview",
@@ -49,8 +56,6 @@ def results():
         "difficulty": session.get('difficulty', 'normal'),
         "score": display_score
     }
-
-    feedbacks = session.get('feedbacks', [])
 
     # ---------------- SAVE TO DATABASE ---------------- #
     try:

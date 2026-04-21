@@ -26,6 +26,18 @@ def get_apti_pool(session_id):
             return json.load(f)
     return None
 
+def save_apti_feedback(session_id, feedbacks):
+    path = os.path.join(APTI_CACHE_DIR, f"{session_id}_feedback.json")
+    with open(path, 'w') as f:
+        json.dump(feedbacks, f)
+
+def get_apti_feedback(session_id):
+    path = os.path.join(APTI_CACHE_DIR, f"{session_id}_feedback.json")
+    if os.path.exists(path):
+        with open(path, 'r') as f:
+            return json.load(f)
+    return []
+
 def resolve_answer_letter(question):
     """
     Translates 'answer' field into a single letter (A, B, C, D).
@@ -128,6 +140,10 @@ def get_next_aptitude():
         if 0 <= letter_idx < len(options):
             correct_text = options[letter_idx]
 
+        import re
+        options = [re.sub(r'^[A-D][\.\)]\s+', '', str(opt).strip()) for opt in options]
+        correct_text = re.sub(r'^[A-D][\.\)]\s+', '', str(correct_text).strip())
+
         # SHUFFLE LOGIC
         # We store the text of the correct answer, shuffle the options, 
         # then find the NEW index of that text to update the correct letter.
@@ -141,14 +157,15 @@ def get_next_aptitude():
     else:
         question['resolved_correct'] = correct_letter
 
-    session['current_aptitude'] = question
-    session['question_count'] = idx + 1
+    session['resolved_correct'] = question.get('resolved_correct', correct_letter)
+    session.pop('current_aptitude', None)
     session['last_question_answered'] = False
+    session.modified = True
     
     return jsonify({
         "question": question.get('question'),
         "options": options,
-        "count": session['question_count'],
+        "count": idx + 1,
         "complete": False
     })
 
@@ -156,26 +173,42 @@ def get_next_aptitude():
 def check_aptitude():
     data = request.json
     user_answer = data.get('answer', '')
-    correct_data = session.get('current_aptitude', {})
     
-    correct_answer = correct_data.get('resolved_correct', 'A')
+    correct_answer = session.get('resolved_correct', 'A')
     is_correct = (user_answer == correct_answer)
     
-    session_feedbacks = session.get('feedbacks', [])
+    session_id = session.get('apti_session_id')
+    session_feedbacks = get_apti_feedback(session_id) if session_id else []
+
+    idx = session.get('question_count', 0)
+    pool = get_apti_pool(session_id) if session_id else None
+    
+    question_text = ""
+    explanation = ""
+    if pool and idx < len(pool):
+        question_text = pool[idx].get('question', '')
+        explanation = pool[idx].get('explanation', '')
+    
     session_feedbacks.append({
-        "question": correct_data.get('question'),
+        "question": question_text,
         "score": 10 if is_correct else 0,
         "weakness": "Concept Gap" if not is_correct else "",
-        "suggestion": correct_data.get('explanation', '') if not is_correct else "Exemplary logic applied."
+        "suggestion": explanation if not is_correct else "Exemplary logic applied."
     })
-    session['feedbacks'] = session_feedbacks
+    
+    if session_id:
+        save_apti_feedback(session_id, session_feedbacks)
 
     if is_correct:
         session['total_score'] += 1
+        
+    current_count = session.get('question_count', 0)
+    session['question_count'] = current_count + 1
+    session.modified = True
     
     return jsonify({
         "is_correct": is_correct,
         "correct_answer": correct_answer,
-        "explanation": correct_data.get('explanation'),
-        "next": session.get('question_count', 0) < 10
+        "explanation": explanation,
+        "next": session['question_count'] < 10
     })

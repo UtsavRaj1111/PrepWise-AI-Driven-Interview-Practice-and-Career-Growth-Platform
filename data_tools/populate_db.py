@@ -29,8 +29,9 @@ def load_csv(file_path, q_type):
             })
     return questions
 
+from extensions import supabase as handler
+
 def migrate():
-    handler = SupabaseHandler()
     if not handler.client:
         print("Error: Supabase client not initialized. Check your .env file.")
         return

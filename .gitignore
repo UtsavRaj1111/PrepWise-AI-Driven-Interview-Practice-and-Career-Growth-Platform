@@ -1,3 +1,6 @@
 .env
 __pycache__/
 *.pyc
+tmp/
+out.txt
+add_favicon.py

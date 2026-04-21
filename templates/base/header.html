@@ -1,15 +1,17 @@
 <header>
     <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
         <div class="logo">
-            <a href="/" style="text-decoration:none; color:inherit;">Prep<span>Wise</span></a>
+            <a href="/" style="text-decoration:none; display:flex; align-items:center;">
+                <img src="{{ url_for('static', filename='images/prepwise_logo.png') }}" alt="PrepWise Logo" style="height: 28px; margin-right: 0.8rem; border-radius: 6px;">
+                <span style="font-weight: 800; font-size: 1.5rem; letter-spacing: -0.5px; color: var(--text-main);">Prep<span style="color: var(--accent-cyan);">Wise</span></span>
+            </a>
         </div>
 
         <nav class="nav-links" style="display: flex; gap: 2.5rem; align-items: center;">
             <a href="/dashboard">Dashboard</a>
-            <a href="/interview_start">Simulator</a>
-            <a href="/resume">Resume Scan</a>
-            <a href="/aptitude">Skill Paths</a>
-            <a href="/mentor">Wise</a>
+            <a href="/#about">About</a>
+            <a href="/#features">Features</a>
+            <a href="/#contact">Contact Us</a>
         </nav>
 
         <div class="header-actions" style="display: flex; gap: 1.2rem; align-items: center;">

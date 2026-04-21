@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cognitive Simulation | PrepWise</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/prepwise_logo.png') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -414,7 +415,6 @@
         const timerDisplay = document.getElementById('timer');
 
         let selectedAnswer = null;
-        let nextQuestionBuffer = null;
         let isFetching = false;
         let timeLeft = 60;
         let timerInterval = null;
@@ -451,12 +451,6 @@
         async function fetchAptitude() {
             if (isFetching) return;
             try {
-                if (nextQuestionBuffer) {
-                    displayQuestion(nextQuestionBuffer);
-                    nextQuestionBuffer = null;
-                    return;
-                }
-
                 isFetching = true;
                 const res = await fetch('/api/next_aptitude');
                 const data = await res.json();
@@ -504,20 +498,6 @@
             selectedAnswer = null;
 
             startTimer();
-            preFetchNextFull();
-        }
-
-        async function preFetchNextFull() {
-            if (nextQuestionBuffer || isFetching) return;
-            try {
-                const res = await fetch('/api/next_aptitude');
-                const data = await res.json();
-                if (!data.complete && !data.error) {
-                    nextQuestionBuffer = data;
-                }
-            } catch (e) {
-                console.warn("Pre-fetch deferred", e);
-            }
         }
 
         function selectOption(card, val) {
