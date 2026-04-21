@@ -1,4 +1,5 @@
 import os
+from typing import Optional
 from supabase import create_client, Client
 from supabase.client import ClientOptions
 from gotrue import SyncSupportedStorage
@@ -11,7 +12,7 @@ class FlaskSessionStorage(SyncSupportedStorage):
     """
     Custom storage for Supabase auth to persist JWT in Flask session cookies.
     """
-    def get_item(self, key: str) -> str or None:
+    def get_item(self, key: str) -> Optional[str]:
         return session.get(key)
 
     def set_item(self, key: str, value: str) -> None:
@@ -154,9 +155,9 @@ class SupabaseHandler:
             print(f"Supabase Dashboard Data Error: {e}")
             return {"sessions": [], "feedbacks": []}
 
-    def get_random_questions(self, q_type, difficulty=None, limit=10):
+    def get_random_questions(self, q_type, difficulty=None, category=None, limit=10):
         """
-        Fetches random questions from the 'questions' table based on type and difficulty.
+        Fetches random questions from the 'questions' table based on type, difficulty, and optional category.
         Uses a random offset to sample from the entire matching pool for maximum variety.
         """
         if not self.client: return []
@@ -171,11 +172,16 @@ class SupabaseHandler:
             if target_diff and target_diff != 'all':
                 count_query = count_query.eq("difficulty", target_diff)
             
+            if category and category != 'mixed':
+                # Handle hyphen vs underscore mapping
+                db_category = category.replace('-', '_').lower()
+                count_query = count_query.eq("category", db_category)
+            
             count_res = self._safe_execute(count_query.limit(1))
             total_count = count_res.count if count_res else 0
             
             if total_count == 0:
-                print(f"Warning: No match found for Type={q_type}, Difficulty={difficulty}")
+                print(f"Warning: No match found for Type={q_type}, Difficulty={difficulty}, Category={category}")
                 return []
 
             # 2. Calculate a random offset
@@ -187,6 +193,10 @@ class SupabaseHandler:
             fetch_query = self.client.table("questions").select("*").eq("type", target_type)
             if target_diff and target_diff != 'all':
                 fetch_query = fetch_query.eq("difficulty", target_diff)
+            
+            if category and category != 'mixed':
+                db_category = category.replace('-', '_').lower()
+                fetch_query = fetch_query.eq("category", db_category)
             
             res = self._safe_execute(fetch_query.range(random_offset, random_offset + limit - 1))
             

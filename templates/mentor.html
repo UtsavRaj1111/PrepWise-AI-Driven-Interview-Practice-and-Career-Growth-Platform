@@ -43,7 +43,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: 
+            background:
                 radial-gradient(circle at 10% 10%, rgba(0, 212, 255, 0.1) 0%, transparent 40%),
                 radial-gradient(circle at 90% 90%, rgba(139, 92, 246, 0.08) 0%, transparent 40%),
                 radial-gradient(circle at 50% 50%, rgba(2, 4, 8, 1) 0%, rgba(1, 2, 4, 1) 100%);
@@ -64,8 +64,15 @@
         }
 
         @keyframes nebulaPulse {
-            0% { transform: translate(-50%, -50%) scale(1) rotate(0deg); opacity: 0.3; }
-            100% { transform: translate(-50%, -50%) scale(1.2) rotate(5deg); opacity: 0.6; }
+            0% {
+                transform: translate(-50%, -50%) scale(1) rotate(0deg);
+                opacity: 0.3;
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(1.2) rotate(5deg);
+                opacity: 0.6;
+            }
         }
 
         header {
@@ -187,6 +194,7 @@
             letter-spacing: -0.8px;
             font-weight: 800;
             background: linear-gradient(to right, #fff, var(--text-muted));
+            background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -370,13 +378,13 @@
             position: relative;
             transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
             backdrop-filter: blur(10px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
         .input-box:focus-within {
             border-color: rgba(0, 212, 255, 0.4);
             background: rgba(15, 20, 25, 0.9);
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.15), 0 8px 30px rgba(0,0,0,0.4);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.15), 0 8px 30px rgba(0, 0, 0, 0.4);
         }
 
         .btn-plus {
@@ -552,7 +560,7 @@
             color: #fff;
             transform: translateX(8px);
         }
-        
+
         .history-item.active {
             background: linear-gradient(90deg, rgba(0, 212, 255, 0.15), transparent);
             color: #00d4ff;
@@ -567,7 +575,8 @@
             transition: opacity 0.3s;
         }
 
-        .history-item:hover i, .history-item.active i {
+        .history-item:hover i,
+        .history-item.active i {
             opacity: 1;
             color: #00d2ff;
         }
@@ -834,7 +843,8 @@
 
         <!-- BENTO CARD: QUICK ACTIONS -->
         <div class="bento-card actions-card">
-            <button class="new-chat-floating" onclick="startNewChat()" style="margin-bottom: 0;"><i class="fa-solid fa-plus"></i> New Session</button>
+            <button class="new-chat-floating" onclick="startNewChat()" style="margin-bottom: 0;"><i
+                    class="fa-solid fa-plus"></i> New Session</button>
         </div>
 
         <!-- BENTO CARD: PRIMARY CHAT -->

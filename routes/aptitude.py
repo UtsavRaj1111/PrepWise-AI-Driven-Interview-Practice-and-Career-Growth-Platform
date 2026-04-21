@@ -151,7 +151,14 @@ def start_aptitude():
 
     type_map = {"Quantitative": "aptitude", "Logical": "lr", "Verbal": "va"}
     db_type = type_map.get(category, "aptitude")
-    questions_pool = supabase.get_random_questions(db_type, difficulty, limit=q_limit)
+    
+    # Determine the sub-topic for filtering
+    sub_topic = None
+    if category == 'Verbal': sub_topic = verbal_topic
+    elif category == 'Logical': sub_topic = logical_topic
+    elif category == 'Quantitative': sub_topic = quant_topic
+    
+    questions_pool = supabase.get_random_questions(db_type, difficulty, category=sub_topic, limit=q_limit)
     
     if questions_pool and len(questions_pool) > 0:
         save_apti_pool(apti_session_id, questions_pool)

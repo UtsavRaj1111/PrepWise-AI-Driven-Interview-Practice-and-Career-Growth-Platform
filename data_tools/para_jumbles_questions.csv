@@ -1,0 +1,808 @@
+type,category,question,options,answer,difficulty,explanation
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The sun was shining brightly in the sky.
+2. It had just started to rain.
+3. We had planned a picnic that day.","[""A. 2-1-3"", ""B. 3-2-1"", ""C. 1-2-3"", ""D. 3-1-2""]",A,easy,"Sentence 1 describes the initial weather condition (shining sun), followed by a sudden change in sentence 2 (raining), and concluding with the planned event in sentence 3."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. They finally reached the top of the mountain.
+2. The hikers started their journey early in the morning.
+3. After a few hours of walking, they stopped for a break.","[""A. 2-3-1"", ""B. 1-2-3"", ""C. 3-2-1"", ""D. 2-1-3""]",C,easy,"Sentence 2 sets the starting point (morning), followed by an intermediate action in sentence 3 (break), and concluding with the final outcome in sentence 1 (reaching the top)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. She had been looking forward to this trip for months.
+2. The travel agency offered a package deal to visit several cities.
+3. They took a bus to the airport, where they boarded a plane.","[""A. 2-1-3"", ""B. 3-2-1"", ""C. 1-2-3"", ""D. 2-3-1""]",B,easy,"Sentence 2 introduces the main event (package deal), followed by the initial anticipation in sentence 1 (looking forward), and concluding with the travel arrangements in sentence 3."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The teacher assigned the project to the students.
+2. They worked together to complete the project.
+3. After submitting the project, the students received their grades.","[""A. 2-1-3"", ""B. 3-2-1"", ""C. 1-2-3"", ""D. 2-3-1""]",C,easy,"Sentence 1 sets the starting point (assignment), followed by the action in sentence 2 (working together), and concluding with the outcome in sentence 3 (receiving grades)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The concert started at 8 PM.
+2. The crowd began to disperse after the concert.
+3. The band performed their hit songs during the show.","[""A. 2-1-3"", ""B. 3-2-1"", ""C. 1-2-3"", ""D. 2-3-1""]",C,easy,"Sentence 1 sets the starting point (start time), followed by the main event in sentence 3 (concert performance), and concluding with the outcome in sentence 2 (crowd dispersing)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The students had a short break between classes.
+2. They attended their first class of the day.
+3. The students then headed to their second class.","[""A. 2-1-3"", ""B. 3-2-1"", ""C. 1-2-3"", ""D. 2-3-1""]",C,easy,"Sentence 2 sets the starting point (first class), followed by the break in sentence 1 (short break), and concluding with the next action in sentence 3 (second class)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. They decided to go to the beach.
+2. After a while, they packed up and left the beach.
+3. The family spent the entire day soaking up the sun and playing in the waves.","[""A. 2-1-3"", ""B. 3-2-1"", ""C. 1-2-3"", ""D. 2-3-1""]",C,easy,"Sentence 1 sets the starting point (deciding to go), followed by the action in sentence 3 (spending the day), and concluding with the outcome in sentence 2 (leaving)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The company launched a new marketing campaign.
+2. They analyzed the results of the campaign and made adjustments as needed.
+3. The goal of the campaign was to increase sales.","[""A. 2-1-3"", ""B. 3-2-1"", ""C. 1-2-3"", ""D. 2-3-1""]",C,easy,"Sentence 1 sets the starting point (launching the campaign), followed by the action in sentence 2 (analyzing results), and concluding with the goal in sentence 3 (increasing sales)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The students had a lot of fun at the party.
+2. They invited all of their friends to the party.
+3. The party was held at the school gym.","[""A. 2-1-3"", ""B. 3-2-1"", ""C. 1-2-3"", ""D. 2-3-1""]",C,easy,"Sentence 2 sets the starting point (inviting friends), followed by the action in sentence 1 (having fun), and concluding with the location in sentence 3 (school gym)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The tourists visited several famous landmarks during their trip.
+2. They took a bus to the city center.
+3. The tourists had been planning their trip for months.","[""A. 2-1-3"", ""B. 3-2-1"", ""C. 1-2-3"", ""D. 2-3-1""]",C,easy,"Sentence 3 sets the starting point (planning the trip), followed by the action in sentence 2 (taking the bus), and concluding with the outcome in sentence 1 (visiting landmarks)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The family went to the park to have a picnic.
+2. They packed a basket with sandwiches, fruits, and desserts.
+3. The sun was shining brightly in the sky.","[""A. 2-1-3"", ""B. 3-2-1"", ""C. 1-2-3"", ""D. 2-3-1""]",C,easy,"Sentence 2 sets the starting point (packing the basket), followed by the action in sentence 1 (going to the park), and concluding with the weather condition in sentence 3 (shining sun)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. She went to the store.
+2. First, she made a list of things she needed.
+3. Next, she bought all the items on her list.","[""A. 2-1-3"", ""B. 1-2-3"", ""C. 3-1-2"", ""D. 2-3-1""]",A,easy,"Sentence 2 sets the initial action of making a list, then sentence 1 follows with the action of going to the store, and finally sentence 3 concludes with the action of buying the items."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. Finally, they watched a movie.
+2. They ate dinner together.
+3. Next, they went to a restaurant.","[""A. 3-2-1"", ""B. 2-3-1"", ""C. 1-3-2"", ""D. 3-1-2""]",B,easy,"Sentence 3 sets the initial action of going to a restaurant, then sentence 2 follows with the action of eating dinner, and finally sentence 1 concludes with the action of watching a movie."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. Before she left for college, she packed all her clothes.
+2. She said goodbye to her family.
+3. Then, she boarded the train.","[""A. 3-2-1"", ""B. 1-3-2"", ""C. 2-1-3"", ""D. 3-1-2""]",C,easy,"Sentence 1 sets the action of packing clothes, then sentence 2 follows with the action of saying goodbye, and finally sentence 3 concludes with the action of boarding the train."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. She studied for the exam.
+2. First, she went to the library.
+3. Finally, she took the exam.","[""A. 2-1-3"", ""B. 1-2-3"", ""C. 3-1-2"", ""D. 2-3-1""]",A,easy,"Sentence 2 sets the initial action of going to the library, then sentence 1 follows with the action of studying, and finally sentence 3 concludes with the action of taking the exam."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. They went to the park.
+2. Next, they played some games.
+3. First, they had a picnic.","[""B. 1-2-3"", ""C. 3-2-1"", ""D. 2-1-3"", ""A. 2-3-1""]",B,easy,"Sentence 3 sets the initial action of having a picnic, then sentence 2 follows with the action of playing games, and finally sentence 1 concludes with the action of going to the park."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. He went to bed early.
+2. After his dinner, he watched TV.
+3. Next, he had dinner.","[""A. 3-2-1"", ""B. 2-1-3"", ""C. 1-3-2"", ""D. 2-3-1""]",B,easy,"Sentence 3 sets the initial action of having dinner, then sentence 2 follows with the action of watching TV, and finally sentence 1 concludes with the action of going to bed."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. They went to the beach.
+2. Before they went to the beach, they had lunch.
+3. Finally, they played in the waves.","[""C. 2-1-3"", ""A. 1-3-2"", ""B. 3-1-2"", ""D. 2-3-1""]",C,easy,"Sentence 2 sets the action of having lunch before going to the beach, then sentence 1 follows with the action of going to the beach, and finally sentence 3 concludes with the action of playing in the waves."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. She packed her bags.
+2. Next, she said goodbye to her family.
+3. First, she checked her flight itinerary.","[""B. 1-2-3"", ""C. 3-1-2"", ""A. 2-1-3"", ""D. 3-2-1""]",C,easy,"Sentence 3 sets the initial action of checking her flight itinerary, then sentence 1 follows with the action of packing her bags, and finally sentence 2 concludes with the action of saying goodbye."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. They went to the amusement park.
+2. Next, they rode some roller coasters.
+3. First, they ate some cotton candy.","[""A. 2-1-3"", ""B. 1-3-2"", ""C. 3-2-1"", ""D. 2-3-1""]",B,easy,"Sentence 3 sets the initial action of eating cotton candy, then sentence 2 follows with the action of riding roller coasters, and finally sentence 1 concludes with the action of going to the amusement park."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. They went to the museum.
+2. Next, they saw a movie.
+3. First, they had lunch.","[""B. 1-3-2"", ""C. 3-1-2"", ""A. 2-1-3"", ""D. 3-2-1""]",C,easy,"Sentence 3 sets the initial action of having lunch, then sentence 1 follows with the action of going to the museum, and finally sentence 2 concludes with the action of seeing a movie."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. She read a book.
+2. Before she read, she made some tea.
+3. Finally, she went to bed.","[""A. 2-1-3"", ""B. 1-3-2"", ""C. 3-1-2"", ""D. 2-3-1""]",A,easy,"Sentence 2 sets the action of making tea before reading a book, then sentence 1 follows with the action of reading, and finally sentence 3 concludes with the action of going to bed."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. Next, she started her project.
+2. After receiving the email, she was excited.
+3. She had been waiting for this opportunity for years.","[""A. 3-2-1"", ""B. 2-3-1"", ""C. 1-2-3"", ""D. 3-1-2""]",A,easy,"Sentence 2 sets the scene (receiving the email), sentence 3 provides background information (waiting for the opportunity), and sentence 1 follows with the action (starting the project)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. Then, they went to the park for a picnic.
+2. They were feeling hungry after the movie.
+3. After the movie, they decided to eat.","[""A. 2-1-3"", ""B. 3-2-1"", ""C. 1-3-2"", ""D. 2-3-1""]",D,easy,"Sentence 2 sets the scene (feeling hungry), sentence 3 follows with the decision (eating), and sentence 1 concludes with the action (picnic)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The teacher explained the concept to the students.
+2. First, the teacher wrote the equation on the board.
+3. The students were confused about the problem.","[""A. 2-3-1"", ""B. 1-2-3"", ""C. 3-2-1"", ""D. 2-1-3""]",B,easy,"Sentence 2 sets the scene (writing the equation), sentence 3 provides background information (students being confused), and sentence 1 follows with the teacher's explanation."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. After the meeting, they decided to go for lunch.
+2. They had a productive meeting, and they were feeling hungry.
+3. John and Emma had a meeting with their team.","[""A. 2-1-3"", ""B. 3-2-1"", ""C. 1-3-2"", ""D. 2-3-1""]",D,easy,"Sentence 3 sets the scene (the meeting), sentence 2 provides background information (productive meeting), and sentence 1 follows with the action (going for lunch)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The tourists visited the famous museum in Paris.
+2. Next, they went to the Eiffel Tower.
+3. They had been planning this trip for months.","[""A. 3-2-1"", ""B. 2-3-1"", ""C. 1-2-3"", ""D. 3-1-2""]",A,easy,"Sentence 3 sets the scene (planning the trip), sentence 2 follows with the first action (Eiffel Tower), and sentence 1 concludes with the final action (visiting the museum)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The kids played soccer in the backyard.
+2. After lunch, they went outside to play.
+3. They had eaten a big lunch, and they were feeling energetic.","[""A. 2-1-3"", ""B. 3-2-1"", ""C. 1-3-2"", ""D. 2-3-1""]",D,easy,"Sentence 3 sets the scene (being energetic), sentence 2 follows with the decision (going outside), and sentence 1 concludes with the action (playing soccer)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. They had a delicious dinner at the restaurant.
+2. Then, they went to the movies.
+3. First, they went to the restaurant for dinner.","[""A. 3-2-1"", ""B. 2-3-1"", ""C. 1-3-2"", ""D. 3-1-2""]",B,easy,"Sentence 3 sets the scene (going to the restaurant), sentence 2 follows with the next action (going to the movies), and sentence 1 concludes with the final action (having dinner)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The tourists visited the famous market in Rome.
+2. Next, they went to the Colosseum.
+3. They had been planning this trip for years.","[""A. 3-2-1"", ""B. 2-3-1"", ""C. 1-2-3"", ""D. 3-1-2""]",A,easy,"Sentence 3 sets the scene (planning the trip), sentence 2 follows with the first action (Colosseum), and sentence 1 concludes with the final action (visiting the market)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The kids played video games all day.
+2. After dinner, they went to their rooms.
+3. They had eaten a big dinner, and they were feeling tired.","[""A. 2-1-3"", ""B. 3-2-1"", ""C. 1-3-2"", ""D. 2-3-1""]",D,easy,"Sentence 3 sets the scene (being tired), sentence 2 follows with the decision (going to their rooms), and sentence 1 concludes with the action (playing video games)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The teacher explained the concept to the students.
+2. The students were confused about the problem.
+3. First, the teacher wrote the equation on the board.","[""A. 3-2-1"", ""B. 2-3-1"", ""C. 1-3-2"", ""D. 3-1-2""]",B,easy,"Sentence 3 sets the scene (writing the equation), sentence 2 provides background information (students being confused), and sentence 1 follows with the teacher's explanation."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The tourists visited the famous museum in Paris.
+2. They had been planning this trip for months.
+3. Next, they went to the Eiffel Tower.","[""A. 3-2-1"", ""B. 2-3-1"", ""C. 1-2-3"", ""D. 3-1-2""]",B,easy,"Sentence 2 sets the scene (planning the trip), sentence 3 follows with the first action (Eiffel Tower), and sentence 1 concludes with the final action (visiting the museum)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The teacher gave the students their assignment.
+2. The students started working on the project.
+3. The students had a lecture before their assignment.","[""A. 1-3-2"", ""B. 2-1-3"", ""C. 3-2-1"", ""D. 1-2-3""]",D,easy,"Sentence 3 sets the scene (lecture), sentence 1 follows with the action (assignment), and sentence 2 concludes with the result (project)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The fire alarm went off.
+2. People started evacuating the building.
+3. The fire broke out in the kitchen.","[""A. 3-1-2"", ""B. 2-1-3"", ""C. 1-3-2"", ""D. 1-2-3""]",C,easy,"Sentence 3 sets the cause (fire), sentence 1 follows with the effect (alarm), and sentence 2 concludes with the response (evacuation)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. She packed her bags and checked out of the hotel.
+2. She had a great time at the beach.
+3. She went to the beach with her friends.","[""A. 2-3-1"", ""B. 3-2-1"", ""C. 2-1-3"", ""D. 1-3-2""]",B,easy,"Sentence 3 sets the scene (trip), sentence 2 follows with the experience (fun), and sentence 1 concludes with the end of the trip (checkout)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. They decided to have a picnic.
+2. The weather was perfect for a picnic.
+3. They packed a basket with sandwiches and fruit.","[""A. 2-1-3"", ""B. 1-3-2"", ""C. 3-1-2"", ""D. 2-3-1""]",D,easy,"Sentence 2 sets the condition (weather), sentence 1 follows with the decision (picnic), and sentence 3 concludes with the preparation (packing)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The new employee was assigned to work with a team.
+2. The team worked together to complete the project.
+3. The company was looking for a new employee to join the team.","[""A. 3-2-1"", ""B. 2-1-3"", ""C. 1-3-2"", ""D. 1-2-3""]",D,easy,"Sentence 3 sets the context (company needs), sentence 1 follows with the action (new employee), and sentence 2 concludes with the result (teamwork)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The kids played outside until it was dark.
+2. They had a lot of fun playing tag.
+3. The kids went outside to play.","[""A. 2-3-1"", ""B. 3-2-1"", ""C. 2-1-3"", ""D. 1-3-2""]",B,easy,"Sentence 3 sets the scene (playtime), sentence 2 follows with the experience (fun), and sentence 1 concludes with the end of playtime (dark)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. She studied for the exam.
+2. She felt confident about the exam.
+3. The exam was scheduled for next week.","[""A. 3-1-2"", ""B. 1-3-2"", ""C. 2-3-1"", ""D. 1-2-3""]",D,easy,"Sentence 3 sets the context (exam date), sentence 1 follows with the action (studying), and sentence 2 concludes with the result (confidence)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The company offered a promotion to the employee.
+2. The employee worked hard and met the company's expectations.
+3. The employee was satisfied with their job.","[""A. 2-1-3"", ""B. 3-2-1"", ""C. 1-3-2"", ""D. 2-3-1""]",A,easy,"Sentence 2 sets the condition (hard work), sentence 1 follows with the result (promotion), and sentence 3 concludes with the consequence (satisfaction)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The tourists got lost in the forest.
+2. They asked for directions from a local.
+3. They were on a hike in the mountains.","[""A. 3-2-1"", ""B. 2-3-1"", ""C. 1-3-2"", ""D. 1-2-3""]",D,easy,"Sentence 3 sets the scene (hike), sentence 2 follows with the action (asking for directions), and sentence 1 concludes with the consequence (getting lost)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The team won the championship.
+2. They played their best game of the season.
+3. The team was on a roll and won several games in a row.","[""A. 3-2-1"", ""B. 2-3-1"", ""C. 1-3-2"", ""D. 1-2-3""]",B,easy,"Sentence 3 sets the condition (winning streak), sentence 2 follows with the consequence (best game), and sentence 1 concludes with the result (championship)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The artist created a beautiful painting.
+2. She spent hours perfecting every detail.
+3. She decided to paint a masterpiece.","[""A. 2-1-3"", ""B. 3-2-1"", ""C. 1-3-2"", ""D. 2-3-1""]",D,easy,"Sentence 3 sets the decision (painting a masterpiece), sentence 2 follows with the action (perfecting details), and sentence 1 concludes with the result (beautiful painting)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. She then met her friends at the park.
+2. After finishing her homework, she went out.
+3. First, she finished her homework.
+4. They played some games together.","[""A. 2-3-1-4"", ""B. 1-2-4-3"", ""C. 3-2-1-4"", ""D. 4-2-3-1""]",A,easy,"The sequence starts with finishing homework (3), then going out (2), meeting friends (1), and playing games (4)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. After the storm passed, the sun came out.
+2. The storm was getting stronger by the minute.
+3. The people waited patiently for the storm to pass.","[""A. 3-2-1"", ""B. 2-3-1"", ""C. 1-3-2"", ""D. 2-1-3""]",A,easy,"The sequence starts with waiting for the storm to pass (3), then the storm getting stronger (2), and finally the sun coming out (1)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The tourists then visited the famous museum.
+2. First, they took a bus to the city center.
+3. After visiting the museum, they went shopping.","[""A. 2-1-3"", ""B. 1-2-3"", ""C. 3-2-1"", ""D. 2-3-1""]",B,easy,"The sequence starts with taking a bus (2), then visiting the museum (1), and finally going shopping (3)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. She then went to the store to buy some groceries.
+2. First, she made a list of the things she needed.
+3. After buying the groceries, she went home.","[""A. 2-1-3"", ""B. 1-2-3"", ""C. 3-2-1"", ""D. 2-3-1""]",B,easy,"The sequence starts with making a list (2), then going to the store (1), and finally going home (3)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. They played some music and danced.
+2. The party started at 8 PM and went on till midnight.
+3. First, they decorated the hall.","[""A. 3-1-2"", ""B. 2-3-1"", ""C. 1-2-3"", ""D. 3-2-1""]",C,easy,"The sequence starts with decorating the hall (3), then playing music and dancing (1), and finally the party timing (2)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. She then went to bed feeling tired.
+2. After eating dinner, she went for a walk.
+3. First, she ate dinner.","[""A. 2-1-3"", ""B. 1-2-3"", ""C. 3-2-1"", ""D. 2-3-1""]",B,easy,"The sequence starts with eating dinner (3), then going for a walk (2), and finally going to bed (1)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. He then went to the library to study.
+2. After finishing his breakfast, he got ready for the day.
+3. First, he had breakfast.","[""A. 2-1-3"", ""B. 1-2-3"", ""C. 3-2-1"", ""D. 2-3-1""]",B,easy,"The sequence starts with having breakfast (3), then going to the library (1), and finally getting ready (2)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. She went to the beach with her family.
+2. First, they packed some snacks and drinks.
+3. They spent the whole day playing in the water.","[""A. 2-1-3"", ""B. 1-2-3"", ""C. 3-2-1"", ""D. 2-3-1""]",B,easy,"The sequence starts with packing snacks and drinks (2), then going to the beach (1), and finally playing in the water (3)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. After finishing her homework, she watched TV.
+2. First, she did her homework.
+3. Then, she went to bed feeling tired.","[""A. 2-1-3"", ""B. 1-2-3"", ""C. 3-2-1"", ""D. 2-3-1""]",B,easy,"The sequence starts with doing homework (2), then watching TV (1), and finally going to bed (3)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. She then went to the store to buy some clothes.
+2. After trying on some clothes, she went home.
+3. First, she went to the mall.","[""A. 2-1-3"", ""B. 1-2-3"", ""C. 3-2-1"", ""D. 2-3-1""]",B,easy,"The sequence starts with going to the mall (3), then trying on clothes (2), and finally going to the store (1)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. After the meeting, they went to lunch.
+2. First, they discussed the project.
+3. They then reviewed the project proposal.","[""A. 2-1-3"", ""B. 1-2-3"", ""C. 3-2-1"", ""D. 2-3-1""]",B,easy,"The sequence starts with discussing the project (2), then going to lunch (1), and finally reviewing the project proposal (3)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. First, she made some coffee.
+2. Then, she sat down to read a book.
+3. After finishing her book, she went to bed.","[""A. 2-1-3"", ""B. 1-2-3"", ""C. 3-2-1"", ""D. 2-3-1""]",B,easy,"The sequence starts with making coffee (1), then reading a book (2), and finally going to bed (3)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. By the time she arrived at the party, it was already late.
+2. She had been looking forward to it all week.
+3. The guest list was impressive, but the music was too loud.","[""A. 2-3-1"", ""B. 1-3-2"", ""C. 3-2-1"", ""D. 2-1-3""]",D,medium,"The logical order is: She had been looking forward to it all week (shows enthusiasm), The guest list was impressive, but the music was too loud (sets scene), By the time she arrived at the party, it was already late (concludes with a twist)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The company announced a huge profit this quarter.
+2. Their innovative strategy had finally started paying off.
+3. This was a result of the new management team's efforts.","[""A. 2-1-3"", ""B. 3-1-2"", ""C. 2-3-1"", ""D. 1-2-3""]",D,medium,"The logical order is: This was a result of the new management team's efforts (explains the reason), Their innovative strategy had finally started paying off (describes the strategy), The company announced a huge profit this quarter (concludes with the outcome)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. She was not happy with the service she received at the restaurant.
+2. The manager offered her a complimentary dessert as an apology.
+3. She had ordered a cake for her birthday, but it was delayed.","[""A. 2-3-1"", ""B. 1-2-3"", ""C. 3-2-1"", ""D. 2-1-3""]",B,medium,"The logical order is: She had ordered a cake for her birthday, but it was delayed (sets scene), The manager offered her a complimentary dessert as an apology (describes the manager's action), She was not happy with the service she received at the restaurant (concludes with her disappointment)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. They were a hardworking team and always delivered their projects on time.
+2. The team was led by a young and ambitious project manager.
+3. Their dedication and teamwork were the keys to their success.","[""A. 2-3-1"", ""B. 3-1-2"", ""C. 2-1-3"", ""D. 1-2-3""]",D,medium,"The logical order is: They were a hardworking team and always delivered their projects on time (sets scene), The team was led by a young and ambitious project manager (describes the team), Their dedication and teamwork were the keys to their success (concludes with the outcome)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The tourists were exhausted after a long day of sightseeing.
+2. They had been walking for hours, and the crowd was becoming unbearable.
+3. As they entered the city, they were mesmerized by its beauty.","[""A. 2-3-1"", ""B. 3-1-2"", ""C. 2-1-3"", ""D. 1-2-3""]",D,medium,"The logical order is: As they entered the city, they were mesmerized by its beauty (sets scene), They had been walking for hours, and the crowd was becoming unbearable (describes the challenge), The tourists were exhausted after a long day of sightseeing (concludes with their state)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The new policy was met with resistance from the employees.
+2. The company's profits had been declining for several months.
+3. In an effort to boost productivity, the company implemented a new policy.","[""A. 2-3-1"", ""B. 3-1-2"", ""C. 2-1-3"", ""D. 1-2-3""]",C,medium,"The logical order is: The company's profits had been declining for several months (sets scene), In an effort to boost productivity, the company implemented a new policy (describes the action), The new policy was met with resistance from the employees (concludes with the outcome)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The students were asked to submit their assignments by the end of the week.
+2. They had been working on the project for several weeks.
+3. The teacher provided them with detailed instructions and guidelines.","[""A. 3-2-1"", ""B. 2-1-3"", ""C. 3-1-2"", ""D. 1-3-2""]",C,medium,"The logical order is: The teacher provided them with detailed instructions and guidelines (sets scene), They had been working on the project for several weeks (describes their progress), The students were asked to submit their assignments by the end of the week (concludes with the deadline)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The company's mission statement emphasized the importance of innovation and creativity.
+2. Their products were known for their unique designs and features.
+3. The company was founded by a group of entrepreneurs who shared a passion for innovation.","[""A. 2-3-1"", ""B. 3-1-2"", ""C. 2-1-3"", ""D. 1-2-3""]",B,medium,"The logical order is: The company was founded by a group of entrepreneurs who shared a passion for innovation (sets scene), Their products were known for their unique designs and features (describes their products), The company's mission statement emphasized the importance of innovation and creativity (concludes with their mission)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The concert was a huge success, with thousands of people in attendance.
+2. The band performed an energetic and engaging set.
+3. The crowd was electric, singing along to every song.","[""A. 2-3-1"", ""B. 3-1-2"", ""C. 2-1-3"", ""D. 1-2-3""]",D,medium,"The logical order is: The crowd was electric, singing along to every song (sets scene), The band performed an energetic and engaging set (describes the performance), The concert was a huge success, with thousands of people in attendance (concludes with the outcome)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The new employee was nervous about meeting her colleagues for the first time.
+2. She had been preparing for this moment for weeks.
+3. At the staff meeting, she was introduced to the team.
+4. Her supervisor had given her some valuable tips to make a good impression.","[""A. 2-1-3-4"", ""B. 4-1-2-3"", ""C. 1-2-3-4"", ""D. 2-4-1-3""]",A,medium,"The correct order follows a logical flow: preparation (2), meeting for the first time (1), introduction at the staff meeting (3), and making a good impression with the supervisor's tips (4)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. They had been planning the trip for months.
+2. The destination was a beautiful island in the Pacific.
+3. The group had to book their flights and accommodations in advance.
+4. The travelers were excited to explore the island's pristine beaches.","[""A. 2-3-1-4"", ""B. 1-2-4-3"", ""C. 3-1-2-4"", ""D. 4-3-1-2""]",C,medium,"The correct order follows a logical flow: planning the trip (1), destination (2), preparations (3), and final excitement (4)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The company was facing financial difficulties.
+2. The employees were asked to make some sacrifices.
+3. The board of directors decided to cut costs.
+4. The employees felt a sense of uncertainty about their jobs.","[""A. 2-3-1-4"", ""B. 4-1-2-3"", ""C. 3-1-2-4"", ""D. 1-2-3-4""]",C,medium,"The correct order follows a logical flow: cutting costs (3), financial difficulties (1), making sacrifices (2), and uncertainty about jobs (4)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The chef carefully selected the freshest ingredients for the meal.
+2. The aroma of the dish filled the entire kitchen.
+3. The guests were impressed by the presentation of the food.
+4. The chef began cooking the meal.
+5. The guests eagerly waited for their turn to taste the dish.","[""A. 4-1-2-3-5"", ""B. 2-4-1-3-5"", ""C. 1-4-2-3-5"", ""D. 5-4-1-2-3""]",C,medium,"The correct order follows a logical flow: cooking the meal (4), selecting ingredients (1), preparing the dish (2), presentation (3), and finally serving it to the guests (5)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The company's mission is to provide excellent customer service.
+2. The employees were trained to handle customer complaints.
+3. The company's success depends on customer satisfaction.
+4. The employees were expected to work together as a team.
+5. The employees were encouraged to come up with innovative solutions to customer problems.","[""A. 3-2-1-4-5"", ""B. 5-4-1-2-3"", ""C. 2-3-1-4-5"", ""D. 4-5-1-2-3""]",C,medium,"The correct order follows a logical flow: customer satisfaction (3), employee training (2), company mission (1), teamwork (4), and innovative solutions (5)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The artist began working on a new painting.
+2. The artist's inspiration came from a beautiful sunset.
+3. The artist used vibrant colors to capture the mood of the scene.
+4. The painting was titled 'End of the Day'.","[""A. 2-1-3-4"", ""B. 4-1-2-3"", ""C. 3-1-2-4"", ""D. 1-2-3-4""]",D,medium,"The correct order follows a logical flow: inspiration (2), starting to work (1), capturing the mood (3), and finally titling the painting (4)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The researchers collected data from a variety of sources.
+2. The study aimed to identify the causes of climate change.
+3. The researchers analyzed the data to draw conclusions.
+4. The researchers used statistical models to predict future trends.","[""A. 2-1-3-4"", ""B. 4-1-2-3"", ""C. 3-1-2-4"", ""D. 1-2-3-4""]",D,medium,"The correct order follows a logical flow: study aim (2), data collection (1), data analysis (3), and finally prediction (4)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The tourists visited the famous landmark at sunset.
+2. The landmark was surrounded by beautiful gardens and a serene lake.
+3. The tourists took a guided tour to learn more about the landmark's history.
+4. The tourists were amazed by the stunning view of the city.","[""A. 3-1-2-4"", ""B. 4-1-2-3"", ""C. 2-1-3-4"", ""D. 1-2-3-4""]",D,medium,"The correct order follows a logical flow: guided tour (3), visiting the landmark (1), beautiful surroundings (2), and finally the stunning view (4)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The writer began drafting the first chapter of the novel.
+2. The writer's idea was inspired by a personal experience.
+3. The writer spent hours perfecting the plot and characters.
+4. The writer's goal was to write a bestselling novel.","[""A. 2-1-3-4"", ""B. 4-1-2-3"", ""C. 3-1-2-4"", ""D. 1-2-3-4""]",D,medium,"The correct order follows a logical flow: inspiration (2), drafting the novel (1), perfecting the plot (3), and finally the goal of writing a bestselling novel (4)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. They were very excited about the surprise party.
+2. The cake was ordered a week in advance.
+3. The cake was cut and everyone sang happy birthday.
+4. Her friends had been planning this surprise for months.
+5. Sarah walked into the room and saw all her friends shouting ""Surprise!""","[""A. 4-2-5-1-3"", ""B. 2-4-1-3-5"", ""C. 1-5-3-2-4"", ""D. 5-1-3-4-2""]",D,medium,"The sequence starts with the planning (4), then preparation (2), followed by the surprise (5), then the celebration (1), and finally the culmination (3)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The movie was critically acclaimed and earned several awards.
+2. He spent years researching the script and finally decided to direct it.
+3. The director had a unique perspective on the story.
+4. After the movie's success, the director became a household name.
+5. The film was based on a novel and required a significant budget.","[""A. 2-5-3-1-4"", ""B. 5-3-2-1-4"", ""C. 3-2-5-1-4"", ""D. 2-3-5-1-4""]",A,medium,"The sequence starts with the preparation (2), then the production (5), followed by the vision (3), then the outcome (1), and finally the impact (4)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The company's profits increased significantly after the launch of their new product.
+2. The product was designed to cater to the growing demand for eco-friendly products.
+3. After conducting market research, the company decided to launch a new product.
+4. The company invested heavily in developing the new product.
+5. The company's focus on sustainability led to a change in consumer behavior.","[""A. 3-4-2-1-5"", ""B. 2-5-3-1-4"", ""C. 5-3-4-2-1"", ""D. 4-2-3-1-5""]",C,medium,"The sequence starts with the cause (5), then the research (3), followed by the development (4), then the launch (2), and finally the effect (1)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The fire department arrived promptly and put out the fire.
+2. The fire was a result of a short circuit in the electrical system.
+3. The building's electrical system was outdated and prone to malfunctions.
+4. The fire alarm sounded and the building's occupants were evacuated.
+5. The building's management had been warned about the electrical system's condition.","[""A. 5-3-2-1-4"", ""B. 2-5-3-1-4"", ""C. 3-2-5-1-4"", ""D. 5-2-3-1-4""]",A,medium,"The sequence starts with the cause (5), then the condition (3), followed by the effect (2), then the response (1), and finally the outcome (4)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The tourists were amazed by the stunning view from the top of the mountain.
+2. They had been hiking for hours and were exhausted.
+3. The hikers followed the trail and eventually reached the summit.
+4. The trail was well-marked and easy to follow.
+5. The tourists had been planning this trip for months.","[""A. 5-2-4-1-3"", ""B. 2-4-1-3-5"", ""C. 1-3-2-4-5"", ""D. 5-4-2-1-3""]",D,medium,"The sequence starts with the planning (5), then the preparation (4), followed by the journey (2), then the destination (1), and finally the culmination (3)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The company's financial reports showed a significant increase in revenue.
+2. The new marketing strategy was implemented six months ago.
+3. The company's sales team had been working tirelessly to meet their targets.
+4. The company's financial reports were analyzed and presented to the board of directors.
+5. The company's financial situation had been struggling before the new marketing strategy.","[""A. 5-3-2-4-1"", ""B. 2-5-3-1-4"", ""C. 3-2-5-1-4"", ""D. 2-3-5-1-4""]",C,medium,"The sequence starts with the cause (5), then the preparation (3), followed by the effect (2), then the analysis (4), and finally the outcome (1)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The new policy was met with resistance from the employees.
+2. The company's CEO announced a new policy to increase productivity.
+3. The employees had been struggling to meet their targets.
+4. The company's profits had been declining over the past year.
+5. The company's management had been reviewing the company's performance.","[""A. 5-3-2-1-4"", ""B. 2-5-3-1-4"", ""C. 3-2-5-1-4"", ""D. 5-2-3-1-4""]",D,medium,"The sequence starts with the cause (5), then the condition (3), followed by the action (2), then the reaction (1), and finally the outcome (4)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The team's victory was celebrated with a party.
+2. The team worked tirelessly to prepare for the big game.
+3. The team's coach had been training them for months.
+4. The team's performance improved significantly after the coach's training.
+5. The team's players had been struggling to work together.","[""A. 5-2-3-4-1"", ""B. 2-5-3-1-4"", ""C. 3-2-5-1-4"", ""D. 2-3-5-1-4""]",B,medium,"The sequence starts with the condition (5), then the preparation (2), followed by the intervention (3), then the effect (4), and finally the celebration (1)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The company's financial struggles began after the CEO left.
+2. The company's stock prices plummeted, affecting employees' bonuses.
+3. As a result, the company was forced to cut its workforce.
+4. Many employees were left jobless due to the economic downturn.","[""A. 1-2-3-4"", ""B. 4-1-2-3"", ""C. 2-1-3-4"", ""D. 3-2-1-4""]",C,medium,"Sentence 1 sets the cause, sentence 2 explains the effect, sentence 3 describes a consequence, and sentence 4 details the outcome."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The new policy was met with resistance from employees.
+2. The company's goal is to increase productivity while reducing costs.
+3. A team of managers was formed to discuss the policy.
+4. After several meetings, the team proposed a compromise.
+5. The compromise involved flexible work hours and a performance-based bonus system.","[""A. 2-1-3-4-5"", ""B. 1-2-3-4-5"", ""C. 3-2-1-4-5"", ""D. 2-3-1-4-5""]",D,medium,"Sentence 2 sets the context, sentence 1 introduces the problem, sentence 3 explains the response, sentence 4 describes the outcome, and sentence 5 provides the solution."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The museum's collection includes ancient artifacts from around the world.
+2. The museum is a popular tourist destination in the city.
+3. Visitors can explore the exhibits at their own pace.
+4. The museum's building is a historic landmark.
+5. The artifacts are displayed in a way that showcases their historical significance.","[""A. 2-1-3-4-5"", ""B. 3-2-1-4-5"", ""C. 1-2-3-4-5"", ""D. 5-3-2-1-4""]",C,medium,"Sentence 2 sets the context, sentence 1 introduces the collection, sentence 3 describes the experience, sentence 4 provides additional information, and sentence 5 explains the display."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The city's infrastructure is still recovering from the natural disaster.
+2. Residents are still waiting for aid to arrive.
+3. Emergency services were deployed to the affected areas.
+4. The government declared a state of emergency.
+5. The disaster left thousands of people homeless.","[""A. 4-2-3-1-5"", ""B. 2-4-3-1-5"", ""C. 3-4-2-1-5"", ""D. 1-4-2-3-5""]",A,medium,"Sentence 4 sets the context, sentence 3 describes the response, sentence 2 introduces the problem, sentence 1 explains the consequences, and sentence 5 provides the outcome."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The company's profits increased significantly after they implemented the new strategy.
+2. The new marketing campaign was a major success.
+3. However, the company faced significant challenges in the first quarter.
+4. The strategy involved investing in new technologies and expanding their product line.
+5. As a result, the company was able to recover from the initial losses.","[""A. 4-2-1-3-5"", ""B. 3-4-2-1-5"", ""C. 2-4-1-3-5"", ""D. 1-4-2-3-5""]",D,medium,"Sentence 4 sets the context, sentence 2 describes the success, sentence 1 explains the outcome, sentence 3 introduces the challenge, and sentence 5 provides the resolution."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The company's goal is to reduce its carbon footprint.
+2. The company plans to invest in renewable energy sources.
+3. However, the company's initial attempts at sustainable practices were unsuccessful.
+4. The company aims to become carbon neutral within the next decade.
+5. As a result, the company implemented new policies and procedures to reduce waste and increase energy efficiency.","[""A. 2-5-1-3-4"", ""B. 5-2-1-3-4"", ""C. 4-2-5-1-3"", ""D. 3-2-1-4-5""]",C,medium,"Sentence 1 sets the context, sentence 2 describes the solution, sentence 5 provides the outcome, sentence 3 introduces the problem, and sentence 4 sets the goal."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The new policy was met with resistance from employees.
+2. The company's goal is to increase productivity while reducing costs.
+3. A team of managers was formed to discuss the policy.
+4. After several meetings, the team proposed a compromise.
+5. The compromise involved flexible work hours and a performance-based bonus system.","[""A. 2-1-3-4-5"", ""B. 3-2-1-4-5"", ""C. 1-2-3-4-5"", ""D. 4-3-2-1-5""]",C,medium,"Sentence 2 sets the context, sentence 1 introduces the problem, sentence 3 explains the response, sentence 4 describes the outcome, and sentence 5 provides the solution."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The city's infrastructure is still recovering from the natural disaster.
+2. Emergency services were deployed to the affected areas.
+3. Residents are still waiting for aid to arrive.
+4. The government declared a state of emergency.
+5. The disaster left thousands of people homeless.","[""A. 4-2-3-1-5"", ""B. 2-4-3-1-5"", ""C. 3-4-2-1-5"", ""D. 1-4-2-3-5""]",A,medium,"Sentence 4 sets the context, sentence 3 describes the response, sentence 2 explains the action, sentence 1 introduces the problem, and sentence 5 provides the outcome."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The museum's collection includes ancient artifacts from around the world.
+2. Visitors can explore the exhibits at their own pace.
+3. The museum is a popular tourist destination in the city.
+4. The museum's building is a historic landmark.
+5. The artifacts are displayed in a way that showcases their historical significance.","[""A. 2-3-1-4-5"", ""B. 3-2-1-4-5"", ""C. 1-3-2-4-5"", ""D. 5-3-2-1-4""]",B,medium,"Sentence 3 sets the context, sentence 2 describes the experience, sentence 1 introduces the collection, sentence 4 provides additional information, and sentence 5 explains the display."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The new employee was excited to meet his colleagues.
+2. He was nervous about his first day at the office.
+3. They welcomed him with a warm smile.
+4. He had been waiting for this day for weeks.","[""A. 4-2-1-3"", ""B. 1-3-2-4"", ""C. 3-2-1-4"", ""D. 2-1-3-4""]",D,medium,"Sentence 4 establishes the context (waiting for the first day), sentence 2 shows his emotions (nervous), sentence 1 introduces the scene (meeting colleagues), and sentence 3 concludes with the outcome (warm welcome)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The company's profits had been declining.
+2. They decided to cut costs and lay off some employees.
+3. This led to a reduction in the workforce.
+4. The economic downturn was the main cause.
+5. The CEO and the board of directors were worried about the future.","[""A. 5-1-4-2-3"", ""B. 1-5-4-2-3"", ""C. 4-1-5-2-3"", ""D. 2-4-1-5-3""]",C,medium,"Sentence 5 sets the tone (CEO and board worried), sentence 4 explains the underlying reason (economic downturn), sentence 1 describes the effect (profits declining), sentence 2 outlines the solution (cut costs), and sentence 3 concludes with the outcome (reduction in workforce)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The tourists got lost in the dense forest.
+2. They had been warned about the dangers of the forest.
+3. The group decided to take a shortcut.
+4. This led to a series of unfortunate events.
+5. The group had set out to explore the forest.","[""A. 5-3-2-1-4"", ""B. 1-3-5-2-4"", ""C. 2-5-3-1-4"", ""D. 3-1-5-2-4""]",C,medium,"Sentence 5 sets the context (exploring the forest), sentence 2 provides background information (warnings), sentence 3 describes the decision (shortcut), sentence 1 shows the outcome (getting lost), and sentence 4 concludes with the consequences (unfortunate events)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The students were excited to start their new project.
+2. They had been given a tight deadline.
+3. The teacher explained the requirements and expectations.
+4. This was their first big project in college.
+5. They had been working on it for weeks.","[""A. 4-1-2-3-5"", ""B. 1-5-2-3-4"", ""C. 2-4-1-3-5"", ""D. 3-1-2-4-5""]",C,medium,"Sentence 4 sets the context (first big project), sentence 3 provides information (teacher explained requirements), sentence 1 shows the students' emotions (excitement), sentence 2 outlines the challenge (tight deadline), and sentence 5 concludes with the outcome (working on it for weeks)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The city was plagued by a severe drought.
+2. The crops withered and died.
+3. This led to a shortage of food.
+4. The people were struggling to find enough water.
+5. The weather forecast predicted a prolonged dry spell.","[""A. 5-1-2-3-4"", ""B. 1-5-2-3-4"", ""C. 2-1-5-3-4"", ""D. 3-1-5-2-4""]",B,medium,"Sentence 5 sets the context (prolonged dry spell), sentence 1 describes the effect (drought), sentence 2 shows the outcome (crops withered), sentence 3 concludes with the consequence (shortage of food), and sentence 4 provides additional information (people struggling to find water)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The team spent hours brainstorming ideas.
+2. They had been given a challenge to create a new product.
+3. This was a great opportunity for them to showcase their creativity.
+4. The team leader encouraged them to think outside the box.
+5. The product launch was a huge success.","[""A. 5-1-2-3-4"", ""B. 2-4-1-3-5"", ""C. 1-2-4-3-5"", ""D. 3-1-2-4-5""]",C,medium,"Sentence 2 sets the context (challenge), sentence 4 provides guidance (think outside the box), sentence 1 shows the process (brainstorming ideas), sentence 3 provides motivation (showcase creativity), and sentence 5 concludes with the outcome (huge success)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The company was facing financial difficulties.
+2. They had to lay off several employees.
+3. The economic downturn was the main cause.
+4. This led to a reduction in the workforce.
+5. The CEO and the board of directors were worried about the future.","[""A. 5-1-3-2-4"", ""B. 1-5-3-2-4"", ""C. 3-1-5-2-4"", ""D. 2-4-1-3-5""]",B,medium,"Sentence 5 sets the tone (CEO and board worried), sentence 3 explains the underlying reason (economic downturn), sentence 1 describes the effect (financial difficulties), sentence 2 outlines the solution (laying off employees), and sentence 4 concludes with the outcome (reduction in workforce)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The tourists got lost in the dense forest.
+2. They had been warned about the dangers of the forest.
+3. The group decided to take a shortcut.
+4. This led to a series of unfortunate events.
+5. The group had set out to explore the forest.","[""A. 5-3-2-1-4"", ""B. 1-3-5-2-4"", ""C. 2-5-3-1-4"", ""D. 3-1-5-2-4""]",C,medium,"Sentence 5 sets the context (exploring the forest), sentence 2 provides background information (warnings), sentence 3 describes the decision (shortcut), sentence 1 shows the outcome (getting lost), and sentence 4 concludes with the consequences (unfortunate events)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The new policy has been implemented.
+2. The employees were initially hesitant.
+3. The company's goal is to increase productivity.
+4. After a series of meetings, the board of directors made the final decision.","[""A. 4-3-2-1"", ""B. 1-4-2-3"", ""C. 1-3-2-4"", ""D. 3-2-4-1""]",C,medium,"Sentence 4 sets the context (final decision), followed by sentence 3 (goal), then sentence 2 (employees' reaction), and finally sentence 1 (implementation)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The team worked tirelessly to meet the deadline.
+2. The project was assigned to a new team.
+3. The project manager was impressed with their dedication.
+4. However, they faced numerous challenges along the way.","[""A. 2-4-1-3"", ""B. 4-2-3-1"", ""C. 1-3-2-4"", ""D. 2-1-4-3""]",D,medium,"Sentence 2 sets the scene (new team), followed by sentence 4 (challenges), then sentence 1 (team's effort), and finally sentence 3 (project manager's reaction)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The tourists got lost in the narrow streets.
+2. They stumbled upon a small café.
+3. After visiting the famous landmark, they decided to explore the surrounding area.
+4. The locals were friendly and offered them directions.","[""A. 4-1-2-3"", ""B. 2-3-4-1"", ""C. 3-1-2-4"", ""D. 1-4-2-3""]",C,medium,"Sentence 3 sets the context (exploring the area), followed by sentence 1 (getting lost), then sentence 2 (finding a café), and finally sentence 4 (help from the locals)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The company's profits have increased significantly.
+2. The marketing team launched a successful campaign.
+3. As a result, the company expanded its operations.
+4. However, they faced stiff competition from other companies.","[""A. 2-3-1-4"", ""B. 4-2-3-1"", ""C. 1-4-2-3"", ""D. 3-2-4-1""]",A,medium,"Sentence 2 sets the scene (successful campaign), followed by sentence 3 (resulting expansion), then sentence 1 (increased profits), and finally sentence 4 (competition)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The researchers made a groundbreaking discovery.
+2. They spent years studying the phenomenon.
+3. However, their findings were met with skepticism by the scientific community.
+4. This led to a new understanding of the subject.","[""A. 2-4-1-3"", ""B. 4-2-3-1"", ""C. 1-3-2-4"", ""D. 3-2-1-4""]",D,medium,"Sentence 2 sets the context (years of study), followed by sentence 1 (groundbreaking discovery), then sentence 3 (skepticism), and finally sentence 4 (new understanding)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The team's hard work paid off.
+2. They faced numerous setbacks and challenges.
+3. However, they persevered and continued to strive for excellence.
+4. In the end, they achieved their goal.","[""A. 4-2-1-3"", ""B. 2-4-1-3"", ""C. 1-3-2-4"", ""D. 3-2-4-1""]",C,medium,"Sentence 3 sets the scene (persevering), followed by sentence 2 (setbacks), then sentence 1 (hard work paying off), and finally sentence 4 (achieving the goal)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The new policy has been well-received by the community.
+2. The city council voted to implement the policy.
+3. However, some residents expressed concerns about the potential impact.
+4. This decision was made after a series of public consultations.","[""A. 3-4-2-1"", ""B. 4-2-3-1"", ""C. 1-3-2-4"", ""D. 2-4-3-1""]",B,medium,"Sentence 4 sets the context (public consultations), followed by sentence 2 (city council's decision), then sentence 3 (concerns), and finally sentence 1 (policy's reception)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The team's morale is at an all-time high.
+2. They have been working together for several months.
+3. However, they still face numerous challenges on a daily basis.
+4. This camaraderie has led to increased productivity.","[""A. 4-2-1-3"", ""B. 2-4-1-3"", ""C. 1-3-2-4"", ""D. 3-2-4-1""]",B,medium,"Sentence 2 sets the context (working together), followed by sentence 4 (increased productivity), then sentence 1 (high morale), and finally sentence 3 (challenges)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The company's revenue has increased substantially.
+2. They invested heavily in new technologies.
+3. However, this move was met with skepticism by some analysts.
+4. This strategic decision paid off in the long run.","[""A. 3-2-1-4"", ""B. 2-4-1-3"", ""C. 1-3-2-4"", ""D. 4-2-3-1""]",C,medium,"Sentence 2 sets the context (investing in new technologies), followed by sentence 1 (increased revenue), then sentence 3 (skepticism), and finally sentence 4 (strategic decision paying off)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The tourists were amazed by the stunning views.
+2. They took a long hike to reach the summit.
+3. However, the weather was unpredictable and posed a challenge.
+4. This experience was truly unforgettable.","[""A. 4-2-1-3"", ""B. 2-4-1-3"", ""C. 1-3-2-4"", ""D. 3-2-4-1""]",B,medium,"Sentence 2 sets the context (hike), followed by sentence 1 (amazing views), then sentence 3 (weather challenge), and finally sentence 4 (unforgettable experience)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The researchers discovered that the new material had superior thermal conductivity.
+2. The team used this information to develop a revolutionary new heat sink.
+3. The team had to wait for weeks to test the new material after its creation.
+4. The scientists carefully crafted the new material in a laboratory.","[""A. 4-3-2-1"", ""B. 2-1-3-4"", ""C. 1-4-3-2"", ""D. 3-1-2-4""]",A,hard,The logical flow is creation -> waiting for testing -> discovery of superior thermal conductivity -> development of the revolutionary new heat sink.
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. As a result, the company struggled to meet its production targets.
+2. Despite the initial optimism, the new technology failed to live up to its promises.
+3. The company invested heavily in the new technology, hoping to increase productivity.
+4. The new technology, designed to streamline production, was implemented across the factory.","[""A. 3-4-2-1"", ""B. 2-1-3-4"", ""C. 4-3-1-2"", ""D. 2-3-4-1""]",C,hard,The logical flow is investment -> implementation -> failure to meet expectations -> struggling to meet targets.
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The researchers used advanced machine learning algorithms to analyze the data.
+2. The team discovered that the algorithm was able to identify patterns that human analysts had missed.
+3. The researchers began by collecting a large dataset of images from various sources.
+4. The results were impressive, with the algorithm achieving a high level of accuracy.","[""A. 3-2-1-4"", ""B. 4-2-1-3"", ""C. 1-3-2-4"", ""D. 2-3-1-4""]",C,hard,The logical flow is collection of data -> analysis with machine learning -> discovery of patterns -> impressive results.
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The company launched a new marketing campaign to reach a wider audience.
+2. The campaign was designed to target a specific demographic, which had been identified as a key growth area.
+3. Market research indicated that the company's sales were stagnant, with no clear signs of growth.
+4. The new campaign was a huge success, resulting in a significant increase in sales.","[""A. 3-2-1-4"", ""B. 4-2-1-3"", ""C. 1-3-2-4"", ""D. 2-3-1-4""]",B,hard,The logical flow is stagnation of sales -> identification of key growth area -> design of marketing campaign -> success of the campaign.
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The researchers concluded that the new material had the potential to revolutionize the field.
+2. The team spent several months testing the material under various conditions.
+3. The material was created using a novel combination of chemicals.
+4. The researchers began by analyzing the material's properties and behavior.","[""A. 3-2-1-4"", ""B. 4-2-3-1"", ""C. 1-3-2-4"", ""D. 2-3-1-4""]",B,hard,The logical flow is creation of material -> analysis of properties -> testing under conditions -> conclusion of potential for revolution.
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The company's financial struggles led to a dramatic decline in investor confidence.
+2. Despite the challenges, the company's CEO remained optimistic about the future.
+3. The company had invested heavily in a new product line, which failed to gain traction in the market.
+4. The new product line was designed to be the company's flagship offering.","[""A. 3-2-1-4"", ""B. 4-2-3-1"", ""C. 1-3-2-4"", ""D. 2-3-1-4""]",C,hard,The logical flow is investment in new product line -> failure to gain traction -> decline in investor confidence -> CEO's optimism.
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The algorithm was able to accurately identify the objects in the image.
+2. The researchers used a combination of computer vision and machine learning techniques to develop the algorithm.
+3. The team began by collecting a large dataset of images for training.
+4. The results were impressive, with the algorithm achieving a high level of accuracy in object detection.","[""A. 3-2-1-4"", ""B. 4-2-1-3"", ""C. 1-3-2-4"", ""D. 2-3-1-4""]",C,hard,The logical flow is collection of data -> development of algorithm -> accurate identification of objects -> impressive results.
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The team used a variety of techniques to analyze the data, including statistical modeling and machine learning.
+2. The researchers had collected a large dataset of customer interactions, which they wanted to use to improve their marketing strategy.
+3. The results of the analysis were used to inform the development of new marketing campaigns.
+4. The team spent several weeks analyzing the data and developing new marketing initiatives.","[""A. 2-1-3-4"", ""B. 4-1-3-2"", ""C. 1-2-3-4"", ""D. 3-2-1-4""]",C,hard,The logical flow is collection of data -> analysis of data -> development of new marketing initiatives -> use of results to inform marketing campaigns.
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The company's financial struggles were exacerbated by a series of bad investments.
+2. Despite the challenges, the company's CEO remained committed to its vision.
+3. The company had invested heavily in a new product line, which failed to gain traction in the market.
+4. The company's stock price plummeted, leading to a loss of investor confidence.","[""A. 3-2-1-4"", ""B. 4-2-3-1"", ""C. 1-3-2-4"", ""D. 2-3-1-4""]",C,hard,The logical flow is investment in new product line -> failure to gain traction -> decline in stock price -> loss of investor confidence.
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The findings of the study suggested that a significant correlation existed between the two variables.
+2. Furthermore, the researchers used a rigorous methodology to collect and analyze the data.
+3. The study aimed to explore the relationship between the variables and identify any potential patterns.
+4. However, the results were not always consistent and required further investigation.
+5. The researchers then conducted a series of experiments to validate their hypotheses.","[""A. 5-3-2-1-4"", ""B. 2-1-4-3-5"", ""C. 3-2-5-1-4"", ""D. 1-5-2-3-4""]",A,hard,"The study begins with its objective (sentence 3), followed by the methodology used (sentence 2), then the findings (sentence 1), and concludes with the results and limitations (sentence 4-5)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The company's decision to invest in renewable energy sources was a crucial step towards reducing its carbon footprint.
+2. The environmental impact of the company's operations had been a major concern for years.
+3. However, the rising costs of traditional energy sources made it necessary for the company to explore alternative options.
+4. As a result, the company implemented a series of sustainable practices across its facilities.
+5. This shift in strategy was driven by the company's commitment to corporate social responsibility.","[""A. 4-2-3-1-5"", ""B. 5-1-3-2-4"", ""C. 2-3-4-1-5"", ""D. 1-5-3-2-4""]",D,hard,"The problem starts with the environmental concern (sentence 2), followed by the need for alternative options (sentence 3), then the company's decision (sentence 1), and concludes with the outcome (sentence 4-5)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The discovery of the new species was a significant breakthrough in the field of biology.
+2. The team of researchers spent years studying the behavior and habitat of the species.
+3. The species was first observed in its natural habitat by a team of scientists.
+4. However, the species was later found to be extinct due to habitat destruction.
+5. Further analysis revealed that the species had a unique adaptation that allowed it to thrive in its environment.","[""A. 5-3-2-1-4"", ""B. 4-2-1-3-5"", ""C. 2-5-3-1-4"", ""D. 1-2-3-5-4""]",C,hard,"The discovery of the species begins with its observation (sentence 3), followed by the research (sentence 2), then the significance of the discovery (sentence 1), and concludes with the fate of the species (sentence 4-5)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The artist's use of vibrant colors and bold brushstrokes created a dynamic and energetic atmosphere.
+2. The painting, titled 'Euphoria,' was a reflection of the artist's emotional state at the time.
+3. The artist spent months perfecting the composition and technique.
+4. However, the artist's use of color was not always consistent and sometimes clashed with the overall mood of the painting.
+5. The artist's goal was to capture the feeling of joy and elation that they experienced during this period.","[""A. 5-3-2-1-4"", ""B. 4-2-1-3-5"", ""C. 3-5-2-1-4"", ""D. 1-2-3-5-4""]",B,hard,"The creation of the painting begins with the artist's goal (sentence 5), followed by the process of perfecting the composition (sentence 3), then the mood and emotions expressed (sentence 2), and concludes with the technical aspects (sentence 1-4)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The researchers used a combination of machine learning algorithms and human expertise to develop the predictive model.
+2. The model was able to accurately predict the outcomes of complex systems with a high degree of confidence.
+3. However, the researchers encountered several challenges during the development process.
+4. The researchers then applied the model to a variety of real-world scenarios.
+5. The model's performance was evaluated using a range of metrics and benchmarks.","[""A. 4-3-1-2-5"", ""B. 5-2-1-3-4"", ""C. 3-1-2-4-5"", ""D. 1-4-3-2-5""]",A,hard,"The development of the model begins with the challenges faced (sentence 3), followed by the approach used (sentence 1), then the performance of the model (sentence 2), and concludes with the application of the model (sentence 4-5)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The company's decision to go public was a strategic move to raise capital and increase its visibility.
+2. The company's financial performance had been strong, but it needed additional funding to expand its operations.
+3. However, the company's board of directors was initially hesitant to pursue an initial public offering (IPO).
+4. As a result, the company implemented a series of cost-cutting measures and efficiency improvements.
+5. The company's stock price soared after the IPO, and the company was able to raise the necessary capital.","[""A. 5-2-1-3-4"", ""B. 4-3-1-2-5"", ""C. 3-1-2-4-5"", ""D. 2-5-1-3-4""]",D,hard,"The decision to go public begins with the need for funding (sentence 2), followed by the initial hesitation (sentence 3), then the decision to pursue the IPO (sentence 1), and concludes with the outcome (sentence 4-5)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The city's infrastructure was severely damaged, and the government was faced with the daunting task of rebuilding.
+2. The earthquake that struck the city was one of the most destructive in recent history.
+3. The city's residents were forced to evacuate their homes and seek shelter elsewhere.
+4. However, the city's emergency response team was able to provide critical aid and support to those in need.
+5. The city's economy was severely impacted, and many businesses were forced to close temporarily.","[""A. 5-3-2-1-4"", ""B. 4-2-1-3-5"", ""C. 3-5-2-1-4"", ""D. 2-1-3-5-4""]",D,hard,"The aftermath of the earthquake begins with the impact on the economy (sentence 5), followed by the evacuation of residents (sentence 3), then the severity of the earthquake (sentence 2), and concludes with the response efforts (sentence 4-1)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. A recent study found that the brain's ability to form new neurons is directly linked to an individual's level of physical activity.
+2. However, the brain's ability to form new neurons is still a relatively new concept.
+3. This has led to a significant increase in research on the topic.
+4. As a result, scientists have discovered that the brain's ability to recover from injury is also increased.","[""A. 2-4-1-3"", ""B. 1-3-2-4"", ""C. 3-1-2-4"", ""D. 4-2-1-3""]",C,hard,The correct sequence is: the discovery of the brain's ability to form new neurons (2) -> the increase in research due to this discovery (3) -> the initial discovery itself (1) -> the consequence of this discovery (4)
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. This, in turn, has led to the development of new technologies that can monitor and control the brain's electrical activity.
+2. The discovery of brain-computer interfaces has also led to the development of new treatments for neurological disorders.
+3. The ability to read and write neural signals has been a long-standing goal in the field of neuroscience.","[""A. 3-1-2"", ""B. 2-3-1"", ""C. 1-3-2"", ""D. 3-2-1""]",C,hard,The correct sequence is: the long-standing goal in the field of neuroscience (3) -> the development of new technologies that can monitor and control the brain's electrical activity (1) -> the application of this technology in treating neurological disorders (2)
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. Furthermore, the study found that individuals who engaged in regular physical activity had improved cognitive function.
+2. The study, which was conducted over a period of several years, aimed to investigate the relationship between physical activity and brain health.
+3. The researchers also found that physical activity had a positive effect on the brain's ability to recover from injury.","[""A. 2-1-3"", ""B. 3-1-2"", ""C. 1-3-2"", ""D. 2-3-1""]",C,hard,"The correct sequence is: the initial aim of the study (2) -> the findings of the study, including the improvement in cognitive function (1) -> the additional findings regarding the brain's recovery from injury (3)"
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. In addition, the development of new technologies has also enabled researchers to study the brain's electrical activity in greater detail.
+2. The study of the brain's electrical activity has led to a greater understanding of the neural mechanisms underlying various neurological disorders.
+3. This, in turn, has led to the development of new treatments and therapies for these disorders.","[""A. 3-2-1"", ""B. 2-1-3"", ""C. 1-3-2"", ""D. 3-1-2""]",C,hard,"The correct sequence is: the development of new technologies (1) -> the application of this technology in studying the brain's electrical activity (2) -> the consequence of this understanding, which is the development of new treatments (3)"
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. As a result, the researchers were able to identify the specific neural mechanisms that underlie the brain's ability to recover from injury.
+2. The researchers also found that the brain's ability to recover from injury is closely linked to an individual's level of physical activity.
+3. The study aimed to investigate the neural mechanisms underlying the brain's ability to recover from injury.","[""A. 2-1-3"", ""B. 3-1-2"", ""C. 1-3-2"", ""D. 2-3-1""]",C,hard,"The correct sequence is: the initial aim of the study (3) -> the findings regarding the brain's recovery from injury (1) -> the broader implications of this finding, which is the link to physical activity (2)"
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. This has led to a greater understanding of the neural mechanisms underlying various neurological disorders.
+2. Furthermore, the study found that individuals who engaged in regular physical activity had improved cognitive function.
+3. However, the brain's ability to recover from injury is still a relatively new concept.
+4. The development of new technologies has enabled researchers to study the brain's electrical activity in greater detail.","[""A. 4-2-1-3"", ""B. 2-1-3-4"", ""C. 3-1-2-4"", ""D. 4-3-1-2""]",C,hard,"The correct sequence is: the initial statement regarding the brain's ability to recover from injury (3) -> the development of new technologies (1) -> the application of this technology in studying the brain's electrical activity (4) -> the consequence of this understanding, which is the improvement in cognitive function (2)"
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The study found that the brain's ability to recover from injury is closely linked to an individual's level of physical activity.
+2. This has led to a greater understanding of the neural mechanisms underlying various neurological disorders.
+3. The researchers used advanced imaging techniques to study the brain's electrical activity.
+4. As a result, the researchers were able to identify the specific neural mechanisms that underlie the brain's ability to recover from injury.","[""A. 3-1-2-4"", ""B. 2-1-3-4"", ""C. 4-2-1-3"", ""D. 3-4-2-1""]",C,hard,"The correct sequence is: the initial statement regarding the brain's ability to recover from injury (1) -> the broader implications of this finding, which is the link to physical activity (4) -> the consequence of this understanding, which is a greater understanding of the neural mechanisms (2) -> the method used by the researchers to arrive at this understanding (3)"
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The researchers also found that the brain's ability to recover from injury is closely linked to an individual's level of physical activity.
+2. The study aimed to investigate the neural mechanisms underlying the brain's ability to recover from injury.
+3. This has led to a greater understanding of the neural mechanisms underlying various neurological disorders.
+4. The study found that individuals who engaged in regular physical activity had improved cognitive function.","[""A. 2-1-3-4"", ""B. 4-1-2-3"", ""C. 3-1-2-4"", ""D. 2-3-1-4""]",C,hard,"The correct sequence is: the initial aim of the study (2) -> the findings regarding the brain's recovery from injury (1) -> the consequence of this understanding, which is a greater understanding of the neural mechanisms (3) -> the broader implications of this finding, which is the improvement in cognitive function (4)"
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. This new policy is expected to have significant economic benefits.
+2. Moreover, it will also reduce the overall production costs.
+3. The company has implemented a new strategy to improve its profitability.
+4. As a result, the company's revenue is expected to increase substantially.","[""A. 3-2-1-4"", ""B. 2-4-3-1"", ""C. 1-3-2-4"", ""D. 4-2-3-1""]",A,hard,"The sentences describe a cause-and-effect relationship, starting with the company implementing a new strategy (3), then reducing costs (2), leading to economic benefits (1), and finally increased revenue (4)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The project's timeline was extended due to unforeseen delays.
+2. Initially, the team had planned to complete the project within six months.
+3. Despite the setbacks, the team managed to deliver the project within the extended timeline.
+4. The project required significant resources and manpower to complete.","[""A. 2-1-3-4"", ""B. 4-3-1-2"", ""C. 1-2-4-3"", ""D. 3-4-1-2""]",C,hard,"The sentences describe a chronological sequence, starting with the initial plan (2), then the delays (1), followed by the team's efforts to complete the project (3), and finally, the project's completion within the extended timeline (4)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The company's innovative approach to sustainability has earned it a reputation as a leader in the industry.
+2. This approach has also helped the company reduce its carbon footprint significantly.
+3. The company has implemented various initiatives to minimize its environmental impact.
+4. The company's commitment to sustainability began with a comprehensive review of its operations.","[""A. 4-3-2-1"", ""B. 3-4-2-1"", ""C. 2-3-1-4"", ""D. 1-4-3-2""]",B,hard,"The sentences describe a cause-and-effect relationship, starting with the company's commitment to sustainability (4), then implementing various initiatives (3), leading to a reduction in carbon footprint (2), and finally, earning a reputation as a leader (1)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The new policy aims to promote social equality and reduce income inequality.
+2. This policy will also help to reduce poverty and promote economic growth.
+3. Furthermore, the policy will provide access to education and job training for disadvantaged groups.
+4. The policy's success will depend on the government's ability to effectively implement and enforce it.","[""A. 4-3-2-1"", ""B. 3-4-2-1"", ""C. 2-3-1-4"", ""D. 1-2-3-4""]",D,hard,"The sentences describe a cause-and-effect relationship, starting with the policy's goals (1), then describing the policy's measures to achieve these goals (2, 3), and finally, the conditions for the policy's success (4)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The researchers used advanced statistical models to analyze the data.
+2. The study aimed to identify the underlying causes of the economic downturn.
+3. The researchers collected data from various sources, including economic indicators and survey responses.
+4. The study's findings were presented to policymakers to inform their decision-making.","[""A. 3-1-2-4"", ""B. 2-4-1-3"", ""C. 1-3-2-4"", ""D. 4-3-1-2""]",C,hard,"The sentences describe a chronological sequence, starting with the data collection (3), then the analysis (1), followed by the study's aim (2), and finally, the presentation of the findings (4)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The company's decision to invest in renewable energy was influenced by changing government regulations.
+2. The company's revenue from fossil fuels began to decline due to increased competition.
+3. The company's executives recognized the need to adapt to the changing market landscape.
+4. As a result, the company shifted its focus to renewable energy sources.","[""A. 3-2-1-4"", ""B. 4-3-2-1"", ""C. 2-1-3-4"", ""D. 1-3-2-4""]",B,hard,"The sentences describe a cause-and-effect relationship, starting with the company's recognition of the need to adapt (3), then the decline in revenue from fossil fuels (2), followed by the influence of government regulations (1), and finally, the company's shift to renewable energy (4)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The researchers used machine learning algorithms to analyze the data.
+2. The study aimed to improve the accuracy of natural language processing models.
+3. The researchers collected data from various sources, including text documents and social media posts.
+4. The study's findings were used to develop more effective language models.","[""A. 3-1-2-4"", ""B. 2-4-1-3"", ""C. 1-3-2-4"", ""D. 4-3-1-2""]",C,hard,"The sentences describe a chronological sequence, starting with the data collection (3), then the analysis (1), followed by the study's aim (2), and finally, the application of the study's findings (4)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The company's innovative approach to product design has earned it a reputation as a leader in the industry.
+2. This approach has also helped the company reduce its production costs significantly.
+3. The company has implemented various initiatives to improve its product design process.
+4. The company's commitment to innovation began with a comprehensive review of its product development process.","[""A. 4-3-2-1"", ""B. 3-4-2-1"", ""C. 2-3-1-4"", ""D. 1-4-3-2""]",B,hard,"The sentences describe a cause-and-effect relationship, starting with the company's commitment to innovation (4), then implementing various initiatives (3), leading to a reduction in production costs (2), and finally, earning a reputation as a leader (1)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. Consequently, the new policies led to a significant decrease in crime rates.
+2. A comprehensive review of the existing laws had been conducted.
+3. The police department was facing a major crisis.
+4. They implemented stricter punishments for repeat offenders.
+5. This resulted in a renewed sense of trust in the community.","[""A. 2-5-3-1-4"", ""B. 3-2-1-5-4"", ""C. 2-4-3-1-5"", ""D. 5-1-2-4-3""]",A,hard,"The logical flow is: A comprehensive review led to new policies, which resulted in a decrease in crime rates, and the implementation of stricter punishments. This sequence of events resulted in a renewed sense of trust in the community."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. However, the company's financial situation was not as stable as it seemed.
+2. The investors were impressed by the company's growth prospects.
+3. The company's stock price skyrocketed after the announcement.
+4. The financial analysts had predicted a significant increase in revenue.
+5. It was later revealed that the company had been hiding significant debt.","[""A. 2-4-3-1-5"", ""B. 1-2-4-3-5"", ""C. 5-2-4-3-1"", ""D. 4-2-3-1-5""]",B,hard,"The logical flow is: The company's growth prospects impressed the investors, financial analysts predicted an increase in revenue, the company's stock price rose, but it was later revealed that the company had been hiding significant debt, which contradicts the initial impression of financial stability."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. This phenomenon has been observed in various parts of the world.
+2. It is essential to understand the underlying causes of this phenomenon.
+3. The sudden appearance of these rare flowers is still not fully comprehended.
+4. Scientists have been studying the rare flowers that bloom only once a decade.
+5. The flowers seem to bloom in synchronization with a specific astronomical event.","[""A. 4-2-3-1-5"", ""B. 5-2-4-3-1"", ""C. 3-1-2-4-5"", ""D. 2-4-3-1-5""]",D,hard,"The logical flow is: Scientists are studying rare flowers that bloom once a decade, it is essential to understand the underlying causes of their sudden appearance, the flowers bloom in synchronization with an astronomical event, and this phenomenon has been observed in various parts of the world."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. Consequently, the team's morale improved significantly.
+2. The team was facing a major crisis due to the lack of resources and support.
+3. The company management realized the importance of investing in employee development.
+4. They implemented various training programs and provided necessary equipment.
+5. This led to a significant increase in productivity and job satisfaction.","[""A. 3-2-4-1-5"", ""B. 2-4-3-1-5"", ""C. 5-1-3-2-4"", ""D. 4-2-3-1-5""]",B,hard,"The logical flow is: The team was facing a major crisis, the company management realized the importance of investing in employee development, they implemented various training programs, this led to an improvement in morale, and consequently, productivity and job satisfaction increased."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. This has resulted in a significant shift in the global economy.
+2. The emergence of new technologies has led to the decline of traditional industries.
+3. The rapid advancement of digital technology has created new opportunities and challenges.
+4. As a result, many countries are struggling to adapt to the changing economic landscape.
+5. The world is witnessing a major transformation in the way goods and services are produced and consumed.","[""A. 3-2-4-1-5"", ""B. 2-4-1-5-3"", ""C. 5-1-2-4-3"", ""D. 4-2-1-5-3""]",C,hard,"The logical flow is: The world is witnessing a transformation in the way goods and services are produced and consumed, this has resulted in a significant shift in the global economy, traditional industries are declining due to the emergence of new technologies, many countries are struggling to adapt, and the rapid advancement of digital technology is the underlying cause of these changes."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. As a result, the company's stock price plummeted.
+2. The company's financial reports revealed a significant decrease in revenue.
+3. The CEO's decision to invest in a new project was deemed a failure.
+4. The company had been struggling to meet its financial obligations.
+5. This led to a major crisis in the company's leadership.","[""A. 2-4-3-1-5"", ""B. 4-3-1-2-5"", ""C. 5-1-3-2-4"", ""D. 3-2-4-1-5""]",D,hard,"The logical flow is: The company had been struggling to meet its financial obligations, the CEO's decision to invest in a new project was deemed a failure, the company's financial reports revealed a decrease in revenue, this led to a major crisis in the company's leadership, and as a result, the company's stock price plummeted."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The team's performance was evaluated based on their ability to work collaboratively.
+2. The team had been working on a project for several months.
+3. They were given a difficult task to complete.
+4. The team leader emphasized the importance of effective communication.
+5. This led to a significant improvement in the team's overall performance.","[""A. 4-3-2-1-5"", ""B. 2-3-4-1-5"", ""C. 5-1-4-3-2"", ""D. 3-4-2-1-5""]",B,hard,"The logical flow is: The team had been working on a project, they were given a difficult task, the team leader emphasized the importance of effective communication, the team's performance was evaluated, and this led to a significant improvement in the team's overall performance."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. As a result, the city's infrastructure was severely damaged.
+2. The hurricane had a devastating impact on the city's population.
+3. The city's emergency services were stretched to the limit.
+4. The city was hit by a category 5 hurricane.
+5. This led to a major disaster relief effort.","[""A. 4-3-2-1-5"", ""B. 2-4-3-1-5"", ""C. 5-1-3-2-4"", ""D. 3-4-2-1-5""]",B,hard,"The logical flow is: The city was hit by a category 5 hurricane, the city's emergency services were stretched to the limit, the hurricane had a devastating impact on the city's population, the city's infrastructure was severely damaged, and this led to a major disaster relief effort."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The researcher was concerned about the ethics of the study.
+2. He had to obtain approval from the Institutional Review Board.
+3. The study involved human participants.
+4. After receiving approval, the study could proceed.","[""A. 2-1-4-3"", ""B. 3-2-1-4"", ""C. 4-3-1-2"", ""D. 1-3-4-2""]",A,hard,"The logical flow is: first, the study's involvement of human participants (3), then obtaining approval (2), followed by addressing concerns about ethics (1), and finally, the study can proceed (4)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The new policy aimed to reduce carbon emissions.
+2. Governments worldwide were under pressure to address climate change.
+3. The policy included investing in renewable energy sources.
+4. This policy shift marked a significant change in environmental governance.","[""A. 2-4-1-3"", ""B. 3-1-2-4"", ""C. 4-3-1-2"", ""D. 1-2-4-3""]",D,hard,"The logical order is: first, the context of governments addressing climate change (2), followed by the significance of this change (4), then the policy's aim (1), and finally, the policy's specifics (3)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The team's performance was hindered by poor communication.
+2. They had to work together to achieve their project goal.
+3. The team consisted of members from different departments.
+4. After resolving their communication issues, they produced excellent results.","[""A. 4-2-3-1"", ""B. 3-1-4-2"", ""C. 2-1-3-4"", ""D. 1-3-2-4""]",C,hard,"The logical flow is: first, the team's composition (3), then the communication issues hindering their performance (1), followed by the resolution of these issues (4), and finally, their successful collaboration (2)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The researchers used a combination of AI and human expertise to develop the model.
+2. They aimed to improve the accuracy of medical diagnoses.
+3. The model was trained on a large dataset of medical images.
+4. This breakthrough had significant implications for the future of healthcare.","[""A. 3-2-1-4"", ""B. 4-3-1-2"", ""C. 2-4-3-1"", ""D. 1-3-2-4""]",C,hard,"The logical order is: first, the context of improving medical diagnosis accuracy (2), followed by the significance of this breakthrough (4), then the model's development process (3), and finally, the combination of AI and human expertise used (1)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The artist's use of vibrant colors added to the emotional impact of the painting.
+2. The painting was inspired by the artist's personal experiences.
+3. The artwork was created to evoke a sense of hope and resilience.
+4. After completing the painting, the artist felt a sense of catharsis.","[""A. 4-2-1-3"", ""B. 3-1-2-4"", ""C. 2-4-1-3"", ""D. 1-3-2-4""]",C,hard,"The logical flow is: first, the context of the artist's inspiration (2), followed by the emotional impact of the painting (1), then the artist's feelings after completing the painting (4), and finally, the artwork's purpose (3)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The new technology was designed to reduce energy consumption.
+2. The company invested heavily in research and development.
+3. This innovation had a significant impact on the environment.
+4. The technology was first tested in a pilot project.","[""A. 4-2-1-3"", ""B. 3-1-4-2"", ""C. 2-4-1-3"", ""D. 1-3-4-2""]",C,hard,"The logical order is: first, the company's investment in R&D (2), followed by the pilot project (4), then the technology's purpose (1), and finally, its environmental impact (3)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The policy was implemented to promote sustainability.
+2. The government faced pressure from environmental groups.
+3. The policy shift marked a significant change in environmental governance.
+4. This policy change had far-reaching consequences for the economy.","[""A. 4-2-3-1"", ""B. 3-1-4-2"", ""C. 2-4-3-1"", ""D. 1-3-4-2""]",D,hard,"The logical flow is: first, the context of the government's pressure (2), followed by the policy change's economic impact (4), then the significance of this change (3), and finally, the policy's purpose (1)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The team's performance improved significantly after they implemented a new strategy.
+2. They had been struggling to meet their project deadlines.
+3. The team consisted of members with diverse skill sets.
+4. This new approach allowed them to work more efficiently.","[""A. 4-3-2-1"", ""B. 3-1-4-2"", ""C. 2-4-3-1"", ""D. 1-3-4-2""]",C,hard,"The logical order is: first, the team's initial struggles (2), followed by the implementation of the new strategy (4), then the team's composition (3), and finally, the improvement in their performance (1)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The new framework aimed to address the issue of income inequality.
+2. The government had to balance competing economic interests.
+3. This policy shift marked a significant change in economic governance.
+4. The framework was designed to promote social welfare.","[""A. 4-2-3-1"", ""B. 3-1-4-2"", ""C. 2-4-3-1"", ""D. 1-3-4-2""]",D,hard,"The logical flow is: first, the context of the government's economic balancing act (2), followed by the policy change's impact (3), then the purpose of the framework (4), and finally, the framework's aim (1)."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. By analyzing the data, we were able to identify key trends.
+2. We collected data from various sources, including social media and news outlets.
+3. This information was crucial in informing our marketing strategy.
+4. The results showed a significant increase in engagement.","[""A. 2-1-3-4"", ""B. 4-1-2-3"", ""C. 2-3-1-4"", ""D. 1-2-3-4""]",D,hard,"Sentence 2 provides the foundation for the analysis, sentence 1 describes the analysis, sentence 3 explains the significance of the analysis, and sentence 4 presents the results."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The new policy was met with significant resistance from the community.
+2. The city council had been debating the proposal for months.
+3. The policy aimed to reduce traffic congestion in the city center.
+4. A compromise was eventually reached, and the policy was implemented.","[""A. 2-1-3-4"", ""B. 4-1-2-3"", ""C. 1-3-2-4"", ""D. 2-3-1-4""]",D,hard,"Sentence 2 sets the context for the debate, sentence 3 explains the purpose of the policy, sentence 1 describes the reaction to the policy, and sentence 4 presents the outcome of the debate."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The company's mission is to provide high-quality products at affordable prices.
+2. The company has a strong commitment to innovation and customer satisfaction.
+3. The company was founded by a group of entrepreneurs who shared a vision for a better future.
+4. This approach has enabled the company to build a loyal customer base.","[""A. 2-3-1-4"", ""B. 4-1-2-3"", ""C. 1-2-3-4"", ""D. 3-2-1-4""]",C,hard,"Sentence 3 provides the origin story of the company, sentence 2 explains the company's values, sentence 1 describes the company's mission, and sentence 4 presents the outcome of the company's approach."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The team spent hours brainstorming ideas for the project.
+2. The team was tasked with creating a marketing campaign for a new product launch.
+3. After reviewing the data, the team decided to focus on social media advertising.
+4. The team's goal was to increase brand awareness and drive sales.","[""A. 2-1-3-4"", ""B. 4-1-2-3"", ""C. 1-2-3-4"", ""D. 3-2-1-4""]",B,hard,"Sentence 2 sets the context for the project, sentence 1 describes the initial brainstorming process, sentence 3 explains the team's decision based on the data, and sentence 4 presents the team's goal."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The new technology has the potential to revolutionize the industry.
+2. The company invested heavily in research and development to create this technology.
+3. The technology uses advanced algorithms to analyze complex data.
+4. This technology has already shown promising results in early testing.","[""A. 2-1-3-4"", ""B. 4-1-2-3"", ""C. 1-2-3-4"", ""D. 3-2-1-4""]",C,hard,"Sentence 2 provides the origin story of the technology, sentence 3 explains the technology's features, sentence 1 describes the potential impact of the technology, and sentence 4 presents the results of the technology."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The city's infrastructure is struggling to keep up with the growing population.
+2. The city has been experiencing rapid growth in recent years.
+3. This has led to increased traffic congestion and air pollution.
+4. The city council is working to develop a comprehensive plan to address these issues.","[""A. 2-1-3-4"", ""B. 4-1-2-3"", ""C. 1-2-3-4"", ""D. 3-2-1-4""]",C,hard,"Sentence 2 sets the context for the city's growth, sentence 1 describes the impact of the growth, sentence 3 explains the consequences of the growth, and sentence 4 presents the solution to the problems."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The artist's use of color and composition creates a sense of tension and unease.
+2. The painting is a representation of the artist's inner turmoil and anxiety.
+3. The artist's inspiration for the painting came from a personal experience of trauma.
+4. The painting's bold and vibrant colors are a deliberate choice to convey the artist's emotions.","[""A. 3-1-2-4"", ""B. 4-1-2-3"", ""C. 2-3-1-4"", ""D. 1-3-2-4""]",C,hard,"Sentence 3 provides the origin story of the painting, sentence 2 explains the painting's meaning, sentence 1 describes the painting's features, and sentence 4 presents the artist's deliberate choice of colors."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The company's diversity and inclusion initiatives have been recognized as best practices in the industry.
+2. The company has made significant progress in increasing representation and diversity in the workplace.
+3. The company's commitment to diversity and inclusion is a key factor in its success.
+4. This commitment has led to improved employee satisfaction and productivity.","[""A. 2-1-3-4"", ""B. 4-1-2-3"", ""C. 1-2-3-4"", ""D. 3-2-1-4""]",C,hard,"Sentence 2 describes the progress made by the company, sentence 1 provides external recognition of the company's initiatives, sentence 3 explains the importance of the company's commitment, and sentence 4 presents the outcome of the company's commitment."
+va,para_jumbles,"Arrange the following sentences in a logical order:
+1. The team's research focused on the impact of climate change on global food systems.
+2. The team's findings were presented at an international conference on sustainable agriculture.
+3. The team used advanced modeling techniques to analyze data from around the world.
+4. This research has significant implications for food security and policy-making.","[""A. 2-1-3-4"", ""B. 4-1-2-3"", ""C. 1-2-3-4"", ""D. 3-2-1-4""]",C,hard,"Sentence 2 presents the outcome of the team's research, sentence 1 describes the focus of the team's research, sentence 3 explains the methodology used by the team, and sentence 4 presents the significance of the team's findings."

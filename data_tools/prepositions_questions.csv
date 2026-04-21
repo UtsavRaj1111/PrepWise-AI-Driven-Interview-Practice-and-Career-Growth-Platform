@@ -1,0 +1,193 @@
+type,category,question,options,answer,difficulty,explanation
+va,prepositions,The new restaurant is located __________ the corner of Main and Oak Streets.,"[""A. at"", ""B. on"", ""C. in"", ""D. between""]",C,easy,"The noun 'corner' is the object of the sentence, and 'in' is used to indicate location."
+va,prepositions,The company will pay $100 __________ each employee who attends the seminar.,"[""A. with"", ""B. to"", ""C. for"", ""D. by""]",C,easy,The verb 'pay' is traditionally followed by the preposition 'for'.
+va,prepositions,The teacher asked the student to sit __________ her desk and face the class.,"[""A. on"", ""B. at"", ""C. in"", ""D. by""]",C,easy,"The noun 'desk' is the object of the sentence, and 'in' is used to indicate location."
+va,prepositions,"The hotel is __________ the city center, making it easy to get around.","[""A. in"", ""B. on"", ""C. at"", ""D. by""]",A,easy,The preposition 'in' is used to indicate location within the city center.
+va,prepositions,The package will be delivered __________ the address you provided.,"[""A. to"", ""B. at"", ""C. on"", ""D. in""]",A,easy,The preposition 'to' is used to indicate direction of delivery.
+va,prepositions,The team will meet __________ the park at 5 PM.,"[""A. at"", ""B. on"", ""C. in"", ""D. by""]",A,easy,The preposition 'at' is used to indicate time.
+va,prepositions,The new policy will take effect __________ January 1st.,"[""A. at"", ""B. on"", ""C. in"", ""D. by""]",B,easy,The preposition 'on' is used to indicate a specific date.
+va,prepositions,The book is __________ the top shelf in the bookcase.,"[""A. on"", ""B. at"", ""C. in"", ""D. by""]",A,easy,The preposition 'on' is used to indicate location on a surface.
+va,prepositions,The company will pay $100 __________ hour for overtime work.,"[""A. with"", ""B. to"", ""C. for"", ""D. by""]",C,easy,The verb 'pay' is traditionally followed by the preposition 'for'.
+va,prepositions,The store is __________ the corner of Main and Oak Streets.,"[""A. at"", ""B. on"", ""C. in"", ""D. by""]",C,easy,The preposition 'in' is used to indicate location within the city.
+va,prepositions,The movie will start __________ 8 PM sharp.,"[""A. at"", ""B. on"", ""C. in"", ""D. by""]",A,easy,The preposition 'at' is used to indicate time.
+va,prepositions,The package was delivered __________ the wrong address.,"[""A. to"", ""B. at"", ""C. on"", ""D. in""]",A,easy,The preposition 'to' is used to indicate direction of delivery.
+va,prepositions,The team will meet __________ the football field at 5 PM.,"[""A. at"", ""B. on"", ""C. in"", ""D. by""]",A,easy,The preposition 'at' is used to indicate time.
+va,prepositions,The new policy will take effect __________ January 1st.,"[""A. at"", ""B. on"", ""C. in"", ""D. by""]",B,easy,The preposition 'on' is used to indicate a specific date.
+va,prepositions,The book is __________ the top shelf in the bookcase.,"[""A. on"", ""B. at"", ""C. in"", ""D. by""]",A,easy,The preposition 'on' is used to indicate location on a surface.
+va,prepositions,The company will pay $100 __________ hour for overtime work.,"[""A. with"", ""B. to"", ""C. for"", ""D. by""]",C,easy,The verb 'pay' is traditionally followed by the preposition 'for'.
+va,prepositions,The store is __________ the corner of Main and Oak Streets.,"[""A. at"", ""B. on"", ""C. in"", ""D. by""]",C,easy,The preposition 'in' is used to indicate location within the city.
+va,prepositions,The movie will start __________ 8 PM sharp.,"[""A. at"", ""B. on"", ""C. in"", ""D. by""]",A,easy,The preposition 'at' is used to indicate time.
+va,prepositions,The package was delivered __________ the wrong address.,"[""A. to"", ""B. at"", ""C. on"", ""D. in""]",A,easy,The preposition 'to' is used to indicate direction of delivery.
+va,prepositions,The team will meet __________ the football field at 5 PM.,"[""A. at"", ""B. on"", ""C. in"", ""D. by""]",A,easy,The preposition 'at' is used to indicate time.
+va,prepositions,The new policy will take effect __________ January 1st.,"[""A. at"", ""B. on"", ""C. in"", ""D. by""]",B,easy,The preposition 'on' is used to indicate a specific date.
+va,prepositions,The teacher asked the student to put the books __________ the table.,"[""A. in"", ""B. on"", ""C. at"", ""D. by""]",B,easy,The sentence structure requires the student to put the books on the table.
+va,prepositions,The concert will be held __________ the city center.,"[""A. in"", ""B. on"", ""C. at"", ""D. by""]",A,easy,The sentence implies the concert will take place inside the city center.
+va,prepositions,The hotel room was located __________ the fifth floor.,"[""A. in"", ""B. on"", ""C. at"", ""D. by""]",B,easy,The sentence structure requires the hotel room to be located on the fifth floor.
+va,prepositions,The meeting will take place __________ 3 o'clock.,"[""A. at"", ""B. in"", ""C. on"", ""D. by""]",A,easy,The sentence implies the meeting will start at 3 o'clock.
+va,prepositions,The bus stop is __________ the corner of Main Street and Elm Street.,"[""A. at"", ""B. in"", ""C. on"", ""D. by""]",C,easy,The sentence structure requires the bus stop to be located on the corner of Main Street and Elm Street.
+va,prepositions,The new policy will be implemented __________ the new year.,"[""A. by"", ""B. in"", ""C. on"", ""D. at""]",B,easy,The sentence implies the policy will be implemented sometime during the new year.
+va,prepositions,The book is __________ the top shelf.,"[""A. in"", ""B. on"", ""C. at"", ""D. by""]",B,easy,The sentence structure requires the book to be located on the top shelf.
+va,prepositions,The company is based __________ the city of New York.,"[""A. in"", ""B. on"", ""C. at"", ""D. by""]",A,easy,The sentence implies the company is located inside the city of New York.
+va,prepositions,The hotel is located __________ the beach.,"[""A. in"", ""B. on"", ""C. at"", ""D. by""]",B,easy,The sentence structure requires the hotel to be located directly on the beach.
+va,prepositions,The concert will start __________ 8 o'clock.,"[""A. at"", ""B. in"", ""C. on"", ""D. by""]",A,easy,The sentence implies the concert will start at 8 o'clock.
+va,prepositions,The meeting will take place __________ the conference room.,"[""A. in"", ""B. on"", ""C. at"", ""D. by""]",A,easy,The sentence implies the meeting will take place inside the conference room.
+va,prepositions,The book is __________ the shelf.,"[""A. in"", ""B. on"", ""C. at"", ""D. by""]",B,easy,The sentence structure requires the book to be located on the shelf.
+va,prepositions,The company is hiring __________ the position of manager.,"[""A. in"", ""B. on"", ""C. at"", ""D. by""]",A,easy,"The sentence implies the company is hiring for the position of manager, which is located inside the company."
+va,prepositions,The new policy will be implemented __________ the next quarter.,"[""A. by"", ""B. in"", ""C. on"", ""D. at""]",B,easy,The sentence implies the policy will be implemented sometime during the next quarter.
+va,prepositions,The bus stop is __________ the corner of Main Street and Elm Street.,"[""A. at"", ""B. in"", ""C. on"", ""D. by""]",C,easy,The sentence structure requires the bus stop to be located on the corner of Main Street and Elm Street.
+va,prepositions,The company will be moving __________ the new location.,"[""A. to"", ""B. in"", ""C. on"", ""D. by""]",A,easy,The sentence implies the company will be moving to the new location.
+va,prepositions,The meeting will start __________ 9 o'clock.,"[""A. at"", ""B. in"", ""C. on"", ""D. by""]",A,easy,The sentence implies the meeting will start at 9 o'clock.
+va,prepositions,The book is __________ the library.,"[""A. in"", ""B. on"", ""C. at"", ""D. by""]",A,easy,The sentence structure requires the book to be located inside the library.
+va,prepositions,The company is based __________ the state of New York.,"[""A. in"", ""B. on"", ""C. at"", ""D. by""]",A,easy,The sentence implies the company is located inside the state of New York.
+va,prepositions,The hotel is located __________ the beach.,"[""A. in"", ""B. on"", ""C. at"", ""D. by""]",B,easy,The sentence structure requires the hotel to be located directly on the beach.
+va,prepositions,The new policy will be implemented __________ the next year.,"[""A. by"", ""B. in"", ""C. on"", ""D. at""]",B,easy,The sentence implies the policy will be implemented sometime during the next year.
+va,prepositions,The new employee will report __________________________ office at 9:00 AM.,"[""A. to"", ""B. in"", ""C. on"", ""D. at""]",D,easy,
+va,prepositions,"The book is __________________________ table, please do not move it.","[""A. in"", ""B. on"", ""C. at"", ""D. by""]",B,easy,
+va,prepositions,"Please wait __________________________ me, I'll be right there.","[""A. for"", ""B. to"", ""C. at"", ""D. by""]",A,easy,
+va,prepositions,The party will be held __________________________ Saturday at 8:00 PM.,"[""A. on"", ""B. at"", ""C. to"", ""D. in""]",A,easy,
+va,prepositions,"The hotel is __________________________ the city center, so it's convenient to walk.","[""A. in"", ""B. on"", ""C. at"", ""D. by""]",A,easy,
+va,prepositions,The meeting will start __________________________ 10 minutes.,"[""A. at"", ""B. to"", ""C. in"", ""D. on""]",A,easy,
+va,prepositions,The new policy will be implemented __________________________ next year.,"[""A. to"", ""B. in"", ""C. on"", ""D. by""]",B,easy,
+va,prepositions,"The book is __________________________ the top shelf, please get it down.","[""A. in"", ""B. on"", ""C. at"", ""D. by""]",B,easy,
+va,prepositions,The company will expand __________________________ Asia in the next few years.,"[""A. to"", ""B. in"", ""C. on"", ""D. by""]",A,easy,
+va,prepositions,The concert will be held __________________________ the city park.,"[""A. in"", ""B. on"", ""C. at"", ""D. by""]",A,easy,
+va,prepositions,"The train will arrive __________________________ time, so please be there early.","[""A. to"", ""B. in"", ""C. on"", ""D. at""]",A,easy,
+va,prepositions,The store will open __________________________ Monday at 9:00 AM.,"[""A. to"", ""B. in"", ""C. on"", ""D. at""]",C,easy,
+va,prepositions,The company will hold a meeting __________________________ the conference room.,"[""A. in"", ""B. on"", ""C. at"", ""D. by""]",A,easy,
+va,prepositions,The new employee will start working __________________________ Monday.,"[""A. on"", ""B. at"", ""C. to"", ""D. in""]",A,easy,
+va,prepositions,"The book is __________________________ the library, so you can borrow it.","[""A. in"", ""B. on"", ""C. at"", ""D. by""]",A,easy,
+va,prepositions,The meeting will start __________________________ 10:00 AM.,"[""A. at"", ""B. to"", ""C. in"", ""D. on""]",A,easy,
+va,prepositions,The new policy will be implemented __________________________ next year.,"[""A. to"", ""B. in"", ""C. on"", ""D. by""]",B,easy,
+va,prepositions,The concert will be held __________________________ the city park.,"[""A. in"", ""B. on"", ""C. at"", ""D. by""]",A,easy,
+va,prepositions,"The train will arrive __________________________ time, so please be there early.","[""A. to"", ""B. in"", ""C. on"", ""D. at""]",A,easy,
+va,prepositions,The store will open __________________________ Monday at 9:00 AM.,"[""A. to"", ""B. in"", ""C. on"", ""D. at""]",C,easy,
+va,prepositions,The new employee will start working __________________________ Monday.,"[""A. on"", ""B. at"", ""C. to"", ""D. in""]",A,easy,
+va,prepositions,The company will hold a meeting __________________________ the conference room.,"[""A. in"", ""B. on"", ""C. at"", ""D. by""]",A,easy,
+va,prepositions,"The book is __________________________ the top shelf, please get it down.","[""A. in"", ""B. on"", ""C. at"", ""D. by""]",B,easy,
+va,prepositions,The new policy will go into effect ___ January 1st.,"[""A. at"", ""B. on"", ""C. by"", ""D. from""]",B,medium,The new policy is taking place on January 1st.
+va,prepositions,She relied ___ her family for financial support during her studies.,"[""A. on"", ""B. in"", ""C. of"", ""D. with""]",A,medium,The verb 'rely' is traditionally followed by the preposition 'on'.
+va,prepositions,The company has a lot of experience in the field ___ technology.,"[""A. of"", ""B. with"", ""C. in"", ""D. on""]",C,medium,The preposition 'in' is used to indicate a field of expertise.
+va,prepositions,The teacher asked the student ___ his homework.,"[""A. to do"", ""B. to be done"", ""C. done"", ""D. to do""]",A,medium,The verb 'ask' is traditionally followed by the infinitive 'to do'.
+va,prepositions,The tourists got lost ___ the forest.,"[""A. in"", ""B. on"", ""C. by"", ""D. from""]",A,medium,The preposition 'in' is used to indicate location within a region.
+va,prepositions,The store is located ___ the corner of Main St and Oak Ave.,"[""A. at"", ""B. on"", ""C. by"", ""D. from""]",B,medium,The store is situated on the corner of Main St and Oak Ave.
+va,prepositions,The students were accused ___ cheating on the exam.,"[""A. of"", ""B. in"", ""C. by"", ""D. from""]",A,medium,The verb 'accused' is traditionally followed by the preposition 'of'.
+va,prepositions,The tourists got tired ___ walking.,"[""A. of"", ""B. in"", ""C. by"", ""D. from""]",A,medium,The preposition 'of' is used to indicate the end of an activity.
+va,prepositions,The baby was born ___ hospital.,"[""A. in"", ""B. on"", ""C. by"", ""D. from""]",A,medium,The baby was born within the hospital.
+va,prepositions,The company has a strong partnership ___ the government.,"[""A. with"", ""B. in"", ""C. of"", ""D. on""]",A,medium,The preposition 'with' is used to indicate a partnership.
+va,prepositions,The teacher asked the student ___ his math problems.,"[""A. to do"", ""B. to be done"", ""C. done"", ""D. to do""]",A,medium,The verb 'ask' is traditionally followed by the infinitive 'to do'.
+va,prepositions,The tourists got lost ___ the woods.,"[""A. in"", ""B. on"", ""C. by"", ""D. from""]",A,medium,The preposition 'in' is used to indicate location within a region.
+va,prepositions,The new employee is struggling ___ understanding the company policies.,"[""A. with"", ""B. in"", ""C. of"", ""D. on""]",A,medium,The preposition 'with' is used to indicate difficulty in understanding something.
+va,prepositions,The teacher asked the student ___ his science project.,"[""A. to do"", ""B. to be done"", ""C. done"", ""D. to do""]",A,medium,The verb 'ask' is traditionally followed by the infinitive 'to do'.
+va,prepositions,The tourists got tired ___ walking up the stairs.,"[""A. of"", ""B. in"", ""C. by"", ""D. from""]",A,medium,The preposition 'of' is used to indicate the end of an activity.
+va,prepositions,The students were fascinated ___ the museum's collection.,"[""A. by"", ""B. in"", ""C. of"", ""D. on""]",A,medium,The preposition 'by' is used to indicate a source of fascination.
+va,prepositions,The teacher asked the student ___ his history homework.,"[""A. to do"", ""B. to be done"", ""C. done"", ""D. to do""]",A,medium,The verb 'ask' is traditionally followed by the infinitive 'to do'.
+va,prepositions,The tourists got lost ___ the city.,"[""A. in"", ""B. on"", ""C. by"", ""D. from""]",A,medium,The preposition 'in' is used to indicate location within a region.
+va,prepositions,The students were accused ___ cheating on the exam.,"[""A. of"", ""B. in"", ""C. by"", ""D. from""]",A,medium,The verb 'accused' is traditionally followed by the preposition 'of'.
+va,prepositions,The tourists got tired ___ walking through the park.,"[""A. of"", ""B. in"", ""C. by"", ""D. from""]",A,medium,The preposition 'of' is used to indicate the end of an activity.
+va,prepositions,The package was delivered to the wrong address. It was supposed to be delivered __ the correct address.,"[""A. to"", ""B. for"", ""C. with"", ""D. from""]",A,medium,
+va,prepositions,The new policy is different ____ the old one.,"[""A. from"", ""B. to"", ""C. at"", ""D. in""]",A,medium,
+va,prepositions,The company relies ____ its employees to make important decisions.,"[""A. on"", ""B. in"", ""C. with"", ""D. by""]",A,medium,
+va,prepositions,The artist is interested ____ painting landscapes.,"[""A. in"", ""B. at"", ""C. on"", ""D. by""]",A,medium,
+va,prepositions,The doctor examined the patient ____ a series of medical tests.,"[""A. through"", ""B. with"", ""C. by"", ""D. in""]",A,medium,
+va,prepositions,The tourists got lost ____ the way to the hotel.,"[""A. in"", ""B. on"", ""C. at"", ""D. by""]",A,medium,
+va,prepositions,The company is accused ____ corruption by the government.,"[""A. of"", ""B. to"", ""C. at"", ""D. in""]",A,medium,
+va,prepositions,The book is located ____ the top shelf in the library.,"[""A. on"", ""B. in"", ""C. at"", ""D. by""]",A,medium,
+va,prepositions,The kids are playing ____ the park.,"[""A. in"", ""B. on"", ""C. at"", ""D. by""]",A,medium,
+va,prepositions,The company is facing financial difficulties ____ the past year.,"[""A. in"", ""B. on"", ""C. at"", ""D. since""]",A,medium,
+va,prepositions,The teacher asked the students ____ their homework before the end of the day.,"[""A. to"", ""B. for"", ""C. with"", ""D. from""]",A,medium,
+va,prepositions,The hotel room was booked ____ a month in advance.,"[""A. in"", ""B. on"", ""C. at"", ""D. by""]",A,medium,
+va,prepositions,The tourists got stuck ____ the mud during the hike.,"[""A. in"", ""B. on"", ""C. at"", ""D. by""]",A,medium,
+va,prepositions,The company is expanding ____ its operations in Asia.,"[""A. in"", ""B. on"", ""C. at"", ""D. by""]",A,medium,
+va,prepositions,The student is struggling ____ the concept of quantum physics.,"[""A. with"", ""B. in"", ""C. at"", ""D. by""]",A,medium,
+va,prepositions,The company is facing stiff competition ____ the market.,"[""A. in"", ""B. on"", ""C. at"", ""D. by""]",A,medium,
+va,prepositions,The tourists got caught ____ the rain during the trek.,"[""A. in"", ""B. on"", ""C. at"", ""D. by""]",A,medium,
+va,prepositions,The company is planning ____ launching a new product next quarter.,"[""A. to"", ""B. for"", ""C. with"", ""D. from""]",A,medium,
+va,prepositions,The tourists got lost ____ the way to the hotel.,"[""A. in"", ""B. on"", ""C. at"", ""D. by""]",A,medium,
+va,prepositions,The company is facing financial difficulties ____ the past year.,"[""A. in"", ""B. on"", ""C. at"", ""D. since""]",A,medium,
+va,prepositions,The teacher asked the students ____ their homework before the end of the day.,"[""A. to"", ""B. for"", ""C. with"", ""D. from""]",A,medium,
+va,prepositions,The hotel room was booked ____ a month in advance.,"[""A. in"", ""B. on"", ""C. at"", ""D. by""]",A,medium,
+va,prepositions,The tourists got stuck ____ the mud during the hike.,"[""A. in"", ""B. on"", ""C. at"", ""D. by""]",A,medium,
+va,prepositions,The company is expanding ____ its operations in Asia.,"[""A. in"", ""B. on"", ""C. at"", ""D. by""]",A,medium,
+va,prepositions,The student is struggling ____ the concept of quantum physics.,"[""A. with"", ""B. in"", ""C. at"", ""D. by""]",A,medium,
+va,prepositions,The company is facing stiff competition ____ the market.,"[""A. in"", ""B. on"", ""C. at"", ""D. by""]",A,medium,
+va,prepositions,The tourists got caught ____ the rain during the trek.,"[""A. in"", ""B. on"", ""C. at"", ""D. by""]",A,medium,
+va,prepositions,The company is based ___ a small town in the countryside.,"[""A. in"", ""B. on"", ""C. at"", ""D. with""]",A,medium,The verb 'based' is traditionally followed by the preposition 'on' or 'in'.
+va,prepositions,She is interested ___ learning new languages.,"[""A. of"", ""B. in"", ""C. on"", ""D. with""]",B,medium,The verb 'interest' is followed by the preposition 'in'.
+va,prepositions,The new policy aims ___ reducing carbon emissions.,"[""A. to"", ""B. at"", ""C. with"", ""D. of""]",A,medium,The verb 'aim' is followed by the preposition 'at' or 'to'.
+va,prepositions,The manager relies ___ her team to get the project done.,"[""A. on"", ""B. with"", ""C. at"", ""D. in""]",A,medium,The verb 'rely' is followed by the preposition 'on'.
+va,prepositions,The hotel is located ___ the city center.,"[""A. at"", ""B. in"", ""C. on"", ""D. with""]",B,medium,The verb 'located' is traditionally followed by the preposition 'in'.
+va,prepositions,The company has expanded ___ new markets in Asia.,"[""A. in"", ""B. to"", ""C. at"", ""D. with""]",B,medium,The verb 'expand' is traditionally followed by the preposition 'to'.
+va,prepositions,The teacher was absent ___ the entire day.,"[""A. on"", ""B. at"", ""C. in"", ""D. with""]",B,medium,The verb 'absent' is traditionally followed by the preposition 'from' or 'at'.
+va,prepositions,The tourists got lost ___ the city streets.,"[""A. in"", ""B. on"", ""C. at"", ""D. with""]",A,medium,The verb 'got lost' is traditionally followed by the preposition 'in'.
+va,prepositions,The company has invested heavil ___ the new project.,"[""A. in"", ""B. at"", ""C. on"", ""D. with""]",A,medium,The verb 'invested' is traditionally followed by the preposition 'in'.
+va,prepositions,The students have been studying ___ English for three years.,"[""A. in"", ""B. at"", ""C. on"", ""D. with""]",A,medium,The verb 'studying' is traditionally followed by the preposition 'in'.
+va,prepositions,The new employee has been working ___ the company for six months.,"[""A. in"", ""B. at"", ""C. on"", ""D. with""]",A,medium,The verb 'working' is traditionally followed by the preposition 'in'.
+va,prepositions,The tourists were stranded ___ the desert for three days.,"[""A. in"", ""B. on"", ""C. at"", ""D. with""]",A,medium,The verb 'stranded' is traditionally followed by the preposition 'in'.
+va,prepositions,The new employee has been working ___ the company for six months.,"[""A. in"", ""B. at"", ""C. on"", ""D. with""]",A,medium,The verb 'working' is traditionally followed by the preposition 'in'.
+va,prepositions,The tourists were impressed ___ the beauty of the city.,"[""A. by"", ""B. at"", ""C. in"", ""D. with""]",A,medium,The verb 'impressed' is traditionally followed by the preposition 'by'.
+va,prepositions,The teacher gave the students ___ homework to complete.,"[""A. in"", ""B. at"", ""C. on"", ""D. with""]",A,medium,The verb 'give' is traditionally followed by the preposition 'to' and then 'in'.
+va,prepositions,The tourists were disappointed ___ the service they received.,"[""A. by"", ""B. at"", ""C. in"", ""D. with""]",A,medium,The verb 'disappointed' is traditionally followed by the preposition 'by'.
+va,prepositions,The new policy is designed ___ reducing carbon emissions.,"[""A. to"", ""B. at"", ""C. in"", ""D. with""]",A,medium,The verb 'designed' is traditionally followed by the preposition 'to'.
+va,prepositions,The tourists got lost ___ the city streets.,"[""A. in"", ""B. on"", ""C. at"", ""D. with""]",A,medium,The verb 'got lost' is traditionally followed by the preposition 'in'.
+va,prepositions,The company has diversified ___ various industries.,"[""A. in"", ""B. at"", ""C. on"", ""D. with""]",A,medium,The verb 'diversified' is traditionally followed by the preposition 'in'.
+va,prepositions,The tourists got lost ___ the winding roads and had to ask for directions.,"[""A. through"", ""B. from"", ""C. on"", ""D. in""]",A,hard,The preposition 'through' fits well with the context of navigating a route.
+va,prepositions,The company's profits have decreased ___ the past year due to rising costs.,"[""A. with"", ""B. during"", ""C. to"", ""D. by""]",B,hard,The phrase 'past year' is a temporal expression that calls for the preposition 'during'.
+va,prepositions,"The new policy is applicable ___ all employees, including interns.","[""A. to"", ""B. for"", ""C. of"", ""D. with""]",A,hard,"The policy is directed 'to' all employees, implying inclusivity."
+va,prepositions,The artist's style is difficult ___ define due to the abstract nature of her work.,"[""A. to"", ""B. by"", ""C. with"", ""D. from""]",A,hard,The verb 'define' is traditionally followed by the preposition 'to'.
+va,prepositions,The committee is responsible ___ ensuring the project's timeline is met.,"[""A. to"", ""B. for"", ""C. by"", ""D. with""]",A,hard,The verb 'responsible' is often followed by the preposition 'to' in formal contexts.
+va,prepositions,The tourists got tired ___ walking and decided to take a break.,"[""A. of"", ""B. from"", ""C. by"", ""D. with""]",A,hard,The preposition 'of' fits well with the context of exhaustion.
+va,prepositions,"The new policy is applicable ___ certain conditions, such as age and experience.","[""A. to"", ""B. for"", ""C. of"", ""D. with""]",A,hard,"The policy is directed 'to' specific conditions, implying inclusivity."
+va,prepositions,The company's profits have increased ___ recent years due to efficient management.,"[""A. with"", ""B. during"", ""C. to"", ""D. by""]",B,hard,The phrase 'recent years' is a temporal expression that calls for the preposition 'during'.
+va,prepositions,"The city's architecture is a mix ___ different styles, including Gothic and Art Deco.","[""A. of"", ""B. between"", ""C. with"", ""D. from""]",A,hard,The preposition 'of' fits well with the context of mixing different styles.
+va,prepositions,The tourists got lost ___ the woods and had to ask for directions.,"[""A. through"", ""B. from"", ""C. on"", ""D. in""]",A,hard,The preposition 'through' fits well with the context of navigating a route.
+va,prepositions,The company's profits have decreased ___ the market due to economic instability.,"[""A. to"", ""B. during"", ""C. with"", ""D. by""]",B,hard,The phrase 'market' is a temporal expression that calls for the preposition 'during'.
+va,prepositions,The artist's style is difficult ___ describe due to the abstract nature of her work.,"[""A. to"", ""B. by"", ""C. with"", ""D. from""]",A,hard,The verb 'describe' is traditionally followed by the preposition 'to'.
+va,prepositions,The committee is responsible ___ ensuring the project's timeline is met.,"[""A. to"", ""B. for"", ""C. by"", ""D. with""]",A,hard,The verb 'responsible' is often followed by the preposition 'to' in formal contexts.
+va,prepositions,The tourists got tired ___ walking and decided to take a break.,"[""A. of"", ""B. from"", ""C. by"", ""D. with""]",A,hard,The preposition 'of' fits well with the context of exhaustion.
+va,prepositions,"The new policy is applicable ___ certain conditions, such as age and experience.","[""A. to"", ""B. for"", ""C. of"", ""D. with""]",A,hard,"The policy is directed 'to' specific conditions, implying inclusivity."
+va,prepositions,The company's profits have increased ___ recent years due to efficient management.,"[""A. with"", ""B. during"", ""C. to"", ""D. by""]",B,hard,The phrase 'recent years' is a temporal expression that calls for the preposition 'during'.
+va,prepositions,"The city's architecture is a mix ___ different styles, including Gothic and Art Deco.","[""A. of"", ""B. between"", ""C. with"", ""D. from""]",A,hard,The preposition 'of' fits well with the context of mixing different styles.
+va,prepositions,"The manager had to deal ___ the crisis, which affected the entire company.","[""A. with"", ""B. from"", ""C. by"", ""D. to""]",A,hard,The preposition 'with' fits well with the context of dealing with a crisis.
+va,prepositions,The tourists got lost ___ the winding roads and had to ask for directions.,"[""A. through"", ""B. from"", ""C. on"", ""D. in""]",A,hard,The preposition 'through' fits well with the context of navigating a route.
+va,prepositions,The company's profits have decreased ___ the market due to economic instability.,"[""A. to"", ""B. during"", ""C. with"", ""D. by""]",B,hard,The phrase 'market' is a temporal expression that calls for the preposition 'during'.
+va,prepositions,The suspect was eventually acquitted ___ all charges due to a lack of evidence.,"[""A. from"", ""B. of"", ""C. off"", ""D. with""]",B,hard,The verb 'acquitted' is traditionally followed by the preposition 'of'.
+va,prepositions,"The new policy will apply ___ all employees, regardless of their position.","[""A. to"", ""B. for"", ""C. with"", ""D. on""]",A,hard,The policy is being applied to all employees.
+va,prepositions,The company is facing financial difficulties ___ its competitors.,"[""A. with"", ""B. to"", ""C. from"", ""D. of""]",A,hard,The company is facing difficulties with its competitors.
+va,prepositions,The tourists got lost ___ the winding streets of the old town.,"[""A. in"", ""B. on"", ""C. at"", ""D. through""]",A,hard,The tourists got lost in the winding streets.
+va,prepositions,The artist's unique style sets her ___ apart from her contemporaries.,"[""A. apart"", ""B. aside"", ""C. aside from"", ""D. apart from""]",D,hard,The correct preposition to use here is 'apart from'.
+va,prepositions,The new employee is still getting accustomed ___ the company's policies.,"[""A. to"", ""B. with"", ""C. in"", ""D. on""]",A,hard,The employee is getting accustomed to the company's policies.
+va,prepositions,The committee is responsible ___ overseeing the budget.,"[""A. for"", ""B. to"", ""C. with"", ""D. by""]",A,hard,The committee is responsible for overseeing the budget.
+va,prepositions,The teacher asked the students ___ their homework before the class.,"[""A. to do"", ""B. to have done"", ""C. to have been doing"", ""D. to do it""]",A,hard,The teacher asked the students to do their homework.
+va,prepositions,The company's profits are significantly higher ___ last year.,"[""A. than"", ""B. then"", ""C. than ever"", ""D. than ever before""]",A,hard,The correct preposition to use here is 'than'.
+va,prepositions,The tourists got lost ___ the way to the summit.,"[""A. on"", ""B. at"", ""C. through"", ""D. by""]",A,hard,The tourists got lost on the way to the summit.
+va,prepositions,The company's success is largely due ___ its innovative products.,"[""A. to"", ""B. with"", ""C. in"", ""D. by""]",A,hard,The company's success is largely due to its innovative products.
+va,prepositions,The new policy will take effect ___ the next quarter.,"[""A. at"", ""B. to"", ""C. from"", ""D. by""]",A,hard,The policy will take effect at the next quarter.
+va,prepositions,The tourists got stuck ___ the mud.,"[""A. in"", ""B. on"", ""C. at"", ""D. through""]",A,hard,The tourists got stuck in the mud.
+va,prepositions,The company's financial reports are available ___ the website.,"[""A. on"", ""B. at"", ""C. to"", ""D. from""]",A,hard,The company's financial reports are available on the website.
+va,prepositions,The tourists got tired ___ the long hike.,"[""A. from"", ""B. of"", ""C. on"", ""D. with""]",A,hard,The tourists got tired from the long hike.
+va,prepositions,The company's profits are significantly lower ___ last year.,"[""A. than"", ""B. then"", ""C. than ever"", ""D. than ever before""]",A,hard,The correct preposition to use here is 'than'.
+va,prepositions,The tourists got lost ___ the city.,"[""A. in"", ""B. on"", ""C. at"", ""D. through""]",A,hard,The tourists got lost in the city.
+va,prepositions,The company's success is largely due ___ its strategic partnerships.,"[""A. to"", ""B. with"", ""C. in"", ""D. by""]",A,hard,The company's success is largely due to its strategic partnerships.
+va,prepositions,The new policy will take effect ___ the next quarter.,"[""A. at"", ""B. to"", ""C. from"", ""D. by""]",A,hard,The policy will take effect at the next quarter.
+va,prepositions,The tourists got stuck ___ the mud.,"[""A. in"", ""B. on"", ""C. at"", ""D. through""]",A,hard,The tourists got stuck in the mud.
+va,prepositions,The company's financial reports are available ___ the website.,"[""A. on"", ""B. at"", ""C. to"", ""D. from""]",A,hard,The company's financial reports are available on the website.
+va,prepositions,The tourists got tired ___ the long hike.,"[""A. from"", ""B. of"", ""C. on"", ""D. with""]",A,hard,The tourists got tired from the long hike.
+va,prepositions,The tourists got lost in the woods for hours without a map to navigate ___.,"[""A. through"", ""B. from"", ""C. in"", ""D. with""]",C,hard,The preposition 'in' is used to indicate location or a lack of something.
+va,prepositions,The company's financial records revealed a significant discrepancy __ its projected profits.,"[""A. between"", ""B. among"", ""C. from"", ""D. with""]",A,hard,"The preposition 'between' is used to compare two things, while 'among' is used to compare three or more things."
+va,prepositions,The new policy aims to reduce carbon emissions by investing in renewable energy sources and reducing reliance ___ fossil fuels.,"[""A. on"", ""B. off"", ""C. from"", ""D. with""]",A,hard,The preposition 'on' is used to indicate dependence or reliance.
+va,prepositions,The artist's unique style blends elements ___ various cultures and historical periods.,"[""A. of"", ""B. from"", ""C. in"", ""D. with""]",B,hard,The preposition 'from' is used to indicate origin or source.
+va,prepositions,The team's performance improved significantly after they changed their strategy to adapt ___ the opponents' tactics.,"[""A. to"", ""B. with"", ""C. from"", ""D. in""]",A,hard,The preposition 'to' is used to indicate direction or adaptation.
+va,prepositions,"The company's innovative product design has revolutionized the industry, setting it apart ___ its competitors.","[""A. from"", ""B. with"", ""C. in"", ""D. by""]",A,hard,The preposition 'from' is used to indicate origin or source.
+va,prepositions,The tourists got lost __ the winding roads and narrow streets of the old city.,"[""A. in"", ""B. on"", ""C. through"", ""D. with""]",A,hard,The preposition 'in' is used to indicate location or a lack of something.
+va,prepositions,"The company's financial struggles were caused by a series of bad investments, which left it ___ a significant financial burden.","[""A. with"", ""B. in"", ""C. from"", ""D. by""]",A,hard,The preposition 'with' is used to indicate accompaniment or association.
+va,prepositions,"The team's performance was influenced by a combination of factors, including their skills, strategy, and teamwork, which all worked ___ together.","[""A. with"", ""B. in"", ""C. from"", ""D. by""]",A,hard,The preposition 'with' is used to indicate accompaniment or association.
+va,prepositions,The artist's unique perspective on life was shaped by her experiences ___ different cultures and environments.,"[""A. in"", ""B. with"", ""C. from"", ""D. by""]",C,hard,The preposition 'from' is used to indicate origin or source.
+va,prepositions,"The company's innovative product design has set a new standard ___ the industry, inspiring other companies to follow suit.","[""A. for"", ""B. with"", ""C. in"", ""D. by""]",A,hard,The preposition 'for' is used to indicate purpose or function.
+va,prepositions,"The tourists got lost __ the dense forest, where the trees grew close ___ each other.","[""A. in"", ""B. on"", ""C. through"", ""D. with""]",A,hard,The preposition 'in' is used to indicate location or a lack of something.
+va,prepositions,"The company's financial struggles were caused by a series of bad investments, which left it ___ a significant financial burden, making it difficult ___ recover.","[""A. with"", ""B. in"", ""C. from"", ""D. by""]",A,hard,The preposition 'with' is used to indicate accompaniment or association.
+va,prepositions,"The artist's unique style blends elements ___ various cultures and historical periods, creating a distinctive ___ of art.","[""A. of"", ""B. from"", ""C. in"", ""D. with""]",B,hard,The preposition 'from' is used to indicate origin or source.
+va,prepositions,"The team's performance improved significantly after they changed their strategy to adapt ___ the opponents' tactics, which allowed them to gain a ___ advantage.","[""A. to"", ""B. with"", ""C. from"", ""D. in""]",A,hard,The preposition 'to' is used to indicate direction or adaptation.
+va,prepositions,"The company's innovative product design has set a new standard ___ the industry, inspiring other companies to follow ___ its lead.","[""A. for"", ""B. with"", ""C. in"", ""D. by""]",A,hard,The preposition 'for' is used to indicate purpose or function.
+va,prepositions,"The tourists got lost __ the winding roads and narrow streets of the old city, where they encountered a series of ___ challenges.","[""A. in"", ""B. on"", ""C. through"", ""D. with""]",A,hard,The preposition 'in' is used to indicate location or a lack of something.
+va,prepositions,"The artist's unique perspective on life was shaped by her experiences ___ different cultures and environments, which all contributed ___ her distinctive worldview.","[""A. in"", ""B. with"", ""C. from"", ""D. by""]",C,hard,The preposition 'from' is used to indicate origin or source.
+va,prepositions,"The company's financial struggles were caused by a series of bad investments, which left it ___ a significant financial burden, making it difficult ___ recover and ___ its financial stability.","[""A. with"", ""B. in"", ""C. from"", ""D. by""]",A,hard,The preposition 'with' is used to indicate accompaniment or association.
